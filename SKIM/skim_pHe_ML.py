@@ -157,28 +157,48 @@ def compute_bgo_energies(pev, bgo_api, is_mc, has_quenching, mc_particle_Z):
     etot = raw_total_mev / 1000.
 
     etot_satcorr_ions = etot
+    etot_satcorr_ions_v3 = etot
     if raw_total_mev > 1e6:
         bgo_api.Predict(mc_particle_Z, method="ions")
         if bgo_api.IsSaturated():
             etot_satcorr_ions = bgo_api.GetReconstructedBGOE() / 1000.
 
+        bgo_api.Predict(mc_particle_Z, method="ions_v3")
+        if bgo_api.IsSaturated():
+            etot_satcorr_ions_v3 = bgo_api.GetReconstructedBGOE() / 1000.
+
     # Quenching branch: only for MC and only if available
     etot_quench = etot
-    etot_quench_satcorr_ions = etot        
+    etot_quench_satcorr_ions = etot
+    etot_quench_satcorr_ions_v3 = etot
     if is_mc and has_quenching:
         try:
             quench_rec = pev.pEvtBgoQuenchRec()
             etot_quench = quench_rec.GetTotalEnergy() / 1000.
             etot_quench_satcorr_ions = etot_quench
+            etot_quench_satcorr_ions_v3 = etot_quench
             if quench_rec.GetTotalEnergy() > 1e6:
-                bgo_api.Predict(mc_particle_Z, method="ions") # without quenching!
+                bgo_api.Predict(mc_particle_Z, method="ions") # Z is a dummy value here. N.B. without quenching!
                 if bgo_api.IsSaturated():
                     etot_quench_satcorr_ions = bgo_api.GetReconstructedBGOE() / 1000.
+
+                bgo_api.Predict(mc_particle_Z, method="ions_v3") # Z is a dummy value here. New ML SATcorr (0.4.0-beta.1) N.B. without quenching!
+                if bgo_api.IsSaturated():
+                    etot_quench_satcorr_ions_v3 = bgo_api.GetReconstructedBGOE() / 1000.
+        
         except Exception:
             etot_quench = etot
             etot_quench_satcorr_ions = etot_satcorr_ions
+            etot_quench_satcorr_ions_v3 = etot_satcorr_ions_v3
 
-    return etot, etot_satcorr_ions, etot_quench, etot_quench_satcorr_ions
+    return (
+        etot,
+        etot_satcorr_ions,
+        etot_satcorr_ions_v3,
+        etot_quench,
+        etot_quench_satcorr_ions,
+        etot_quench_satcorr_ions_v3,
+    )
 
 
 def main(args=None):
@@ -323,7 +343,7 @@ def main(args=None):
     fSTK_chargeY = make_branch(newtree, 'STK_chargeY', 'd', 6, -999.)
     fSTK_chargeX_etaCorr = make_branch(newtree, 'STK_chargeX_etaCorr', 'd', 6, -999.)
     fSTK_chargeY_etaCorr = make_branch(newtree, 'STK_chargeY_etaCorr', 'd', 6, -999.)
-    fSTK_ntrack = make_branch(newtree, 'STK_ntracks', 'i', None, -999)
+    fSTK_ntrack = make_branch(newtree, 'STK_ntrack', 'i', None, -999)
     fSTK_nclusters = make_branch(newtree, 'STK_nclusters', 'i', None, -999)
     fSTK_theta_correction = make_branch(newtree, 'STK_theta_correction', 'd', None, -999.)
     fSTK_trackIP = make_branch(newtree, 'STK_trackIP', 'd', 3, -999.)
@@ -332,12 +352,15 @@ def main(args=None):
 
     fBGO_EnergyG = make_branch(newtree, 'BGO_EnergyG', 'd', None, -999.)
     fBGO_EnergyG_SatCorr_ML_ions = make_branch(newtree, 'BGO_EnergyG_SatCorr_ML_ions', 'd', None, -999.)
+    fBGO_EnergyG_SatCorr_ML_ions_v3 = make_branch(newtree, 'BGO_EnergyG_SatCorr_ML_ions_v3', 'd', None, -999.)
     
     fBGO_EnergyG_Quench = None
     fBGO_EnergyG_QuenchSatCorr_ML_ions = None
+    fBGO_EnergyG_QuenchSatCorr_ML_ions_v3 = None
     if is_mc:
         fBGO_EnergyG_Quench = make_branch(newtree, 'BGO_EnergyG_Quench', 'd', None, -999.)
         fBGO_EnergyG_QuenchSatCorr_ML_ions = make_branch(newtree, 'BGO_EnergyG_QuenchSatCorr_ML_ions', 'd', None, -999.)
+        fBGO_EnergyG_QuenchSatCorr_ML_ions_v3 = make_branch(newtree, 'BGO_EnergyG_QuenchSatCorr_ML_ions_v3', 'd', None, -999.)
 
     fBGO_HET = make_branch(newtree, 'BGO_HET', 'i', None, 0)
     fBGO_LET = make_branch(newtree, 'BGO_LET', 'i', None, 0)
@@ -591,9 +614,11 @@ def main(args=None):
 
         # reset event-dependent scalar branches that may be absent in data/MC modes
         fBGO_EnergyG_SatCorr_ML_ions[0] = -999.
+        fBGO_EnergyG_SatCorr_ML_ions_v3[0] = -999.
         if is_mc:
             fBGO_EnergyG_Quench[0] = -999.
             fBGO_EnergyG_QuenchSatCorr_ML_ions[0] = -999.
+            fBGO_EnergyG_QuenchSatCorr_ML_ions_v3[0] = -999.
 
         good_event = False
 
@@ -669,7 +694,12 @@ def main(args=None):
                 if abs(stopX_parent) > 400. or abs(stopY_parent) > 400.:
                     print iev, stopX_parent, stopY_parent
 
-        etot, etot_satcorr_ions, etot_quench, etot_quench_satcorr_ions = compute_bgo_energies(
+        (etot,
+         etot_satcorr_ions,
+         etot_satcorr_ions_v3,
+         etot_quench,
+         etot_quench_satcorr_ions,
+         etot_quench_satcorr_ions_v3) = compute_bgo_energies(
             pev, bgo_api, is_mc, has_quenching, mc_particle_Z
         )
 
@@ -1391,10 +1421,12 @@ def main(args=None):
 
         fBGO_EnergyG[0] = etot
         fBGO_EnergyG_SatCorr_ML_ions[0] = etot_satcorr_ions
+        fBGO_EnergyG_SatCorr_ML_ions_v3[0] = etot_satcorr_ions_v3
 
         if is_mc:
             fBGO_EnergyG_Quench[0] = etot_quench
             fBGO_EnergyG_QuenchSatCorr_ML_ions[0] = etot_quench_satcorr_ions
+            fBGO_EnergyG_QuenchSatCorr_ML_ions_v3[0] = etot_quench_satcorr_ions_v3
 
         fBGO_HET[0] = pev.pEvtHeader().GeneratedTrigger(3)
         fBGO_LET[0] = pev.pEvtHeader().GeneratedTrigger(4)
