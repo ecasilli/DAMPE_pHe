@@ -6,10 +6,7 @@ Refactor goals:
 - one code path that works for both MC and flight data
 - SAA cut only on flight data
 - quenching handled only for MC and only if the branch exists
-- only keep the requested MC satcorr energy branches:
-    * BGO_EnergyG_SatCorr_ML_ions
-    * BGO_EnergyG_QuenchSatCorr_ML_ions
-- preserve the current event selection and ntuple content as much as possible
+- cut number from documented "DAMPE p+He spectrum update"
 """
 
 from sys import argv
@@ -29,7 +26,7 @@ from ROOT import *
 
 start = datetime.now()
 
-e_min = 100.  # GeV
+e_min = 20.  # GeV
 
 
 def mc_particle_info(mc_particle_name):
@@ -134,51 +131,49 @@ def fill_energy_cut(idx, etot, etot_truth, good_event, is_mc,
         h_energy_bad[idx].Fill(etot)
 
 
-def initialize_or_rebind_apis(iev, is_mc, bgorec, bgoquenchrec, stkclusters,
+def initialize_or_rebind_apis(iev, is_mc, bgorec, stkclusters,
                               stkladders, runmetadata, pevspace_api,
-                              bgo_api, bgo_api_quench, has_quenching):
+                              bgo_api):
     if is_mc and iev == 0:
         pevspace_api.Initialize(False, bgorec, stkclusters, stkladders, config="ions")
         bgo_api.Initialize(bgorec)
-        if has_quenching and bgoquenchrec:
-            bgo_api_quench.Initialize(bgoquenchrec)
+        #if has_quenching and bgoquenchrec:
+            #bgo_api_quench.Initialize(bgoquenchrec)
     elif (not is_mc) and iev == 0:
         pevspace_api.Initialize(True, bgorec, stkclusters, None, runmetadata, config="ions")
         bgo_api.Initialize(bgorec)
     elif is_mc and iev > 0:
         pevspace_api.Rebind(bgorec, stkclusters, stkladders)
         bgo_api.BindBgoRec(bgorec)
-        if has_quenching and bgoquenchrec:
-            bgo_api_quench.BindBgoRec(bgoquenchrec)
+        #if has_quenching and bgoquenchrec:
+            #bgo_api_quench.BindBgoRec(bgoquenchrec)
     else:
         pevspace_api.Rebind(bgorec, stkclusters, 0, runmetadata)
         bgo_api.BindBgoRec(bgorec)
 
 
-def compute_bgo_energies(pev, bgo_api, bgo_api_quench, is_mc, has_quenching, mc_particle_Z):
+def compute_bgo_energies(pev, bgo_api, is_mc, has_quenching, mc_particle_Z):
     raw_total_mev = pev.pEvtBgoRec().GetTotalEnergy()
     etot = raw_total_mev / 1000.
 
     etot_satcorr_ions = etot
-    etot_quench = etot
-    etot_quench_satcorr_ions = etot
-
-    # Saturation correction without quenching: only for MC output branch
-    if is_mc and raw_total_mev > 1e6:
+    if raw_total_mev > 1e6:
         bgo_api.Predict(mc_particle_Z, method="ions")
         if bgo_api.IsSaturated():
             etot_satcorr_ions = bgo_api.GetReconstructedBGOE() / 1000.
 
     # Quenching branch: only for MC and only if available
+    etot_quench = etot
+    etot_quench_satcorr_ions = etot        
     if is_mc and has_quenching:
         try:
             quench_rec = pev.pEvtBgoQuenchRec()
             etot_quench = quench_rec.GetTotalEnergy() / 1000.
             etot_quench_satcorr_ions = etot_quench
             if quench_rec.GetTotalEnergy() > 1e6:
-                bgo_api_quench.Predict(mc_particle_Z, method="ions")
-                if bgo_api_quench.IsSaturated():
-                    etot_quench_satcorr_ions = bgo_api_quench.GetReconstructedBGOE() / 1000.
+                bgo_api.Predict(mc_particle_Z, method="ions") # without quenching!
+                if bgo_api.IsSaturated():
+                    etot_quench_satcorr_ions = bgo_api.GetReconstructedBGOE() / 1000.
         except Exception:
             etot_quench = etot
             etot_quench_satcorr_ions = etot_satcorr_ions
@@ -248,6 +243,7 @@ def main(args=None):
     BGOz_Y = BGOz[0::2]
 
     spectral_indices = {
+        "E2e3": 2.3,
         "E2e4": 2.4,
         "E2e5": 2.5,
         "E2e6": 2.6,
@@ -268,7 +264,7 @@ def main(args=None):
 
     pevspace_api = DampeApi()
     bgo_api = DampeBgoApi()
-    bgo_api_quench = DampeBgoApi()
+    #bgo_api_quench = DampeBgoApi()
 
     gSystem.Load("libDmpEvent.so")
     gSystem.Load("libDmpEventFilter.so")
@@ -327,7 +323,7 @@ def main(args=None):
     fSTK_chargeY = make_branch(newtree, 'STK_chargeY', 'd', 6, -999.)
     fSTK_chargeX_etaCorr = make_branch(newtree, 'STK_chargeX_etaCorr', 'd', 6, -999.)
     fSTK_chargeY_etaCorr = make_branch(newtree, 'STK_chargeY_etaCorr', 'd', 6, -999.)
-    fSTK_ntracks = make_branch(newtree, 'STK_ntracks', 'i', None, -999)
+    fSTK_ntrack = make_branch(newtree, 'STK_ntracks', 'i', None, -999)
     fSTK_nclusters = make_branch(newtree, 'STK_nclusters', 'i', None, -999)
     fSTK_theta_correction = make_branch(newtree, 'STK_theta_correction', 'd', None, -999.)
     fSTK_trackIP = make_branch(newtree, 'STK_trackIP', 'd', 3, -999.)
@@ -335,10 +331,12 @@ def main(args=None):
     fSTK_vertexPrediction = make_branch(newtree, 'STK_vertexPrediction', 'd', None, -999.)
 
     fBGO_EnergyG = make_branch(newtree, 'BGO_EnergyG', 'd', None, -999.)
-    fBGO_EnergyG_SatCorr_ML_ions = None
-    fBGO_EnergyG_QuenchSatCorr_ML_ions = None
     fBGO_EnergyG_SatCorr_ML_ions = make_branch(newtree, 'BGO_EnergyG_SatCorr_ML_ions', 'd', None, -999.)
+    
+    fBGO_EnergyG_Quench = None
+    fBGO_EnergyG_QuenchSatCorr_ML_ions = None
     if is_mc:
+        fBGO_EnergyG_Quench = make_branch(newtree, 'BGO_EnergyG_Quench', 'd', None, -999.)
         fBGO_EnergyG_QuenchSatCorr_ML_ions = make_branch(newtree, 'BGO_EnergyG_QuenchSatCorr_ML_ions', 'd', None, -999.)
 
     fBGO_HET = make_branch(newtree, 'BGO_HET', 'i', None, 0)
@@ -592,8 +590,9 @@ def main(args=None):
         metach.GetEntry(iev)
 
         # reset event-dependent scalar branches that may be absent in data/MC modes
+        fBGO_EnergyG_SatCorr_ML_ions[0] = -999.
         if is_mc:
-            fBGO_EnergyG_SatCorr_ML_ions[0] = -999.
+            fBGO_EnergyG_Quench[0] = -999.
             fBGO_EnergyG_QuenchSatCorr_ML_ions[0] = -999.
 
         good_event = False
@@ -605,14 +604,16 @@ def main(args=None):
         startY_parent = -1000
         startZ_parent = -1000
 
+        # ------- ENERGY COMPUTATION AND SKIM CUTS 
+
         bgorec = pev.pEvtBgoRec()
-        bgoquenchrec = pev.pEvtBgoQuenchRec() if has_quenching else None
+        #bgoquenchrec = pev.pEvtBgoQuenchRec() if has_quenching else None
         stkclusters = pev.GetStkSiClusterCollection()
         stkladders = pev.GetStkLadderAdcCollection()
 
         initialize_or_rebind_apis(
-            iev, is_mc, bgorec, bgoquenchrec, stkclusters, stkladders,
-            runmetadata, pevspace_api, bgo_api, bgo_api_quench, has_quenching
+            iev, is_mc, bgorec, stkclusters, stkladders,
+            runmetadata, pevspace_api, bgo_api
         )
 
         pevspace_api.Predict(bgodirection=True, stkvertex=True, stktrack=True)
@@ -669,7 +670,7 @@ def main(args=None):
                     print iev, stopX_parent, stopY_parent
 
         etot, etot_satcorr_ions, etot_quench, etot_quench_satcorr_ions = compute_bgo_energies(
-            pev, bgo_api, bgo_api_quench, is_mc, has_quenching, mc_particle_Z
+            pev, bgo_api, is_mc, has_quenching, mc_particle_Z
         )
 
         etot_truth = -9.
@@ -692,6 +693,7 @@ def main(args=None):
                         energy_binnings, spectral_indices,
                         h_energy_good, h_energy_bad)
 
+        # cut 1
         if etot < e_min:
             continue
 
@@ -711,6 +713,7 @@ def main(args=None):
 
         bgo_acceptance = abs(x_projection_fromBGO_to_BGO) < bgo_acceptance_range and abs(y_projection_fromBGO_to_BGO) < bgo_acceptance_range and abs(x_projection_fromBGO_to_BGOTop) < bgo_acceptance_range and abs(y_projection_fromBGO_to_BGOTop) < bgo_acceptance_range
 
+        # cut 2
         if ((pevspace_api.GetDirectionBGOSlopeX() == 0 and pevspace_api.GetDirectionBGOInteceptX() == 0) or
                 (pevspace_api.GetDirectionBGOSlopeY() == 0 and pevspace_api.GetDirectionBGOInteceptY() == 0)):
             continue
@@ -720,6 +723,7 @@ def main(args=None):
         fBGO_slopeX_ML[0] = pevspace_api.GetDirectionBGOSlopeX()
         fBGO_slopeY_ML[0] = pevspace_api.GetDirectionBGOSlopeY()
 
+        # cut 3
         if not bgo_acceptance:
             continue
 
@@ -741,6 +745,7 @@ def main(args=None):
         else:
             h_bgo_EratioLay_bad_before.Fill(frac_max_lay)
 
+        # cut 4
         if frac_max_lay > 0.35:
             continue
         h_bgo_EratioLay_tot_after.Fill(frac_max_lay)
@@ -776,6 +781,7 @@ def main(args=None):
             if barNumberMaxEBarLayer[jj] <= 0 or barNumberMaxEBarLayer[jj] == 21:
                 pos_max_lateral = True
 
+        # cut 5
         if pos_max_lateral:
             continue
 
@@ -791,6 +797,9 @@ def main(args=None):
         if opts.skim:
             dmpch.SaveCurrentEvent(stream_name)
 
+        # ------- SAA EXCLUSION (FLIGHT DATA)
+
+        # cut 6
         if is_data:
             inSAA = pFilter.IsInSAA(pev.pEvtHeader().GetSecond())
             if inSAA:
@@ -808,6 +817,12 @@ def main(args=None):
             h_energy_trigger_check.Fill(etot)
 
         h_energy[6].Fill(etot)
+
+        # ------- TRACKING 
+
+        # cut 7 --> ntrack: save a flag to eventually add this cut! (even with ML tracking)
+        fSTK_ntrack[0] = pev.NStkKalmanTrack()
+        fSTK_nclusters[0] = pev.NStkSiCluster()
 
         fSTK_vertexPrediction[0] = pevspace_api.GetVertexPrediction()
 
@@ -858,6 +873,7 @@ def main(args=None):
                     cluster_chargeY[j / 2] = hitclustersignal
                     cluster_chargeY_etacorr[j / 2] = etaCorr.getStkEtaCorrEnergy(cluster, track_correction) * track_correction
 
+        # cut 9 
         if hitClusterSum[0] == 0 or hitClusterSum[1] == 0:
             continue
 
@@ -1108,6 +1124,7 @@ def main(args=None):
             if psdchargeX_corr[ipsd] > 0.:
                 h_psd_chargeX_before.Fill(np.sqrt(psdchargeX_corr[ipsd] / 2.))
 
+        # cut 13 
         if sum_len_psd_vec_chargeY == 0:
             continue
         if sum_len_psd_vec_chargeX == 0:
@@ -1185,14 +1202,24 @@ def main(args=None):
         fPSD_Global_Charge[0] = globalcharge
         fPSD_Global_Charge_PathAverage[0] = globalaverage
 
-        average_charge = (((((TMath.Sign(1., psdchargeY01_corr[0]) + 1.) / 2.) * psdchargeY01_corr[0] * psdY_pathlength[0]) +
-                           (((TMath.Sign(1., psdchargeY01_corr[1]) + 1.) / 2.) * psdchargeY01_corr[1] * psdY_pathlength[1]) +
-                           (((TMath.Sign(1., psdchargeX01_corr[0]) + 1.) / 2.) * psdchargeX01_corr[0] * psdX_pathlength[0]) +
-                           (((TMath.Sign(1., psdchargeX01_corr[1]) + 1.) / 2.) * psdchargeX01_corr[1] * psdX_pathlength[1])) /
-                          ((((TMath.Sign(1., psdchargeY01_corr[0]) + 1.) / 2.) * psdY_pathlength[0]) +
-                           (((TMath.Sign(1., psdchargeY01_corr[1]) + 1.) / 2.) * psdY_pathlength[1]) +
-                           (((TMath.Sign(1., psdchargeX01_corr[0]) + 1.) / 2.) * psdX_pathlength[0]) +
-                           (((TMath.Sign(1., psdchargeX01_corr[1]) + 1.) / 2.) * psdX_pathlength[1])) )
+        den_average_charge = (
+            (((TMath.Sign(1., psdchargeY01_corr[0]) + 1.) / 2.) * psdY_pathlength[0]) +
+            (((TMath.Sign(1., psdchargeY01_corr[1]) + 1.) / 2.) * psdY_pathlength[1]) +
+            (((TMath.Sign(1., psdchargeX01_corr[0]) + 1.) / 2.) * psdX_pathlength[0]) +
+            (((TMath.Sign(1., psdchargeX01_corr[1]) + 1.) / 2.) * psdX_pathlength[1])
+        )
+
+        if den_average_charge > 0:
+            average_charge = (
+                ((((TMath.Sign(1., psdchargeY01_corr[0]) + 1.) / 2.) * psdchargeY01_corr[0] * psdY_pathlength[0]) +
+                 (((TMath.Sign(1., psdchargeY01_corr[1]) + 1.) / 2.) * psdchargeY01_corr[1] * psdY_pathlength[1]) +
+                 (((TMath.Sign(1., psdchargeX01_corr[0]) + 1.) / 2.) * psdchargeX01_corr[0] * psdX_pathlength[0]) +
+                 (((TMath.Sign(1., psdchargeX01_corr[1]) + 1.) / 2.) * psdchargeX01_corr[1] * psdX_pathlength[1]))
+                / den_average_charge
+            )
+        else:
+            average_charge = -999.
+
         fPSD_PathWeighted_Charge[0] = average_charge
 
         for ipsd in xrange(0, nlayer_psd):
@@ -1237,10 +1264,33 @@ def main(args=None):
                     fPSD_EmaxX[1] = pev.pEvtPsdHits().fEnergy[ipsd]
                     fPSD_cpsdmax[3] = pev.pEvtPsdHits().GetHitX(ipsd) + 0.6
 
-        fPSD_Etrack01[0] = ((((TMath.Sign(1, fPSD_EnergyY_corr[0]) + 1) / 2) * fPSD_EnergyY_corr[0] + ((TMath.Sign(1, fPSD_EnergyY_corr[1]) + 1) / 2) * fPSD_EnergyY_corr[1]) * 10. /
-                            ((((TMath.Sign(1, fPSD_psdY_pathlength[0]) + 1) / 2) * fPSD_psdY_pathlength[0]) + (((TMath.Sign(1, fPSD_psdY_pathlength[1]) + 1) / 2) * fPSD_psdY_pathlength[1]))
-        fPSD_Etrack23[0] = ((((TMath.Sign(1, fPSD_EnergyX_corr[0]) + 1) / 2) * fPSD_EnergyX_corr[0] + ((TMath.Sign(1, fPSD_EnergyX_corr[1]) + 1) / 2) * fPSD_EnergyX_corr[1]) * 10. /
-                            ((((TMath.Sign(1, fPSD_psdX_pathlength[0]) + 1) / 2) * fPSD_psdX_pathlength[0]) + (((TMath.Sign(1, fPSD_psdX_pathlength[1]) + 1) / 2) * fPSD_psdX_pathlength[1]))
+        den_psd_y = (
+            (((TMath.Sign(1, fPSD_psdY_pathlength[0]) + 1) / 2) * fPSD_psdY_pathlength[0]) +
+            (((TMath.Sign(1, fPSD_psdY_pathlength[1]) + 1) / 2) * fPSD_psdY_pathlength[1])
+        )
+
+        if den_psd_y > 0:
+            fPSD_Etrack01[0] = (
+                ((((TMath.Sign(1, fPSD_EnergyY_corr[0]) + 1) / 2) * fPSD_EnergyY_corr[0]) +
+                 (((TMath.Sign(1, fPSD_EnergyY_corr[1]) + 1) / 2) * fPSD_EnergyY_corr[1]))
+                * 10. / den_psd_y
+            )
+        else:
+            fPSD_Etrack01[0] = -999.
+
+        den_psd_x = (
+            (((TMath.Sign(1, fPSD_psdX_pathlength[0]) + 1) / 2) * fPSD_psdX_pathlength[0]) +
+            (((TMath.Sign(1, fPSD_psdX_pathlength[1]) + 1) / 2) * fPSD_psdX_pathlength[1])
+        )
+
+        if den_psd_x > 0:
+            fPSD_Etrack23[0] = (
+                ((((TMath.Sign(1, fPSD_EnergyX_corr[0]) + 1) / 2) * fPSD_EnergyX_corr[0]) +
+                 (((TMath.Sign(1, fPSD_EnergyX_corr[1]) + 1) / 2) * fPSD_EnergyX_corr[1]))
+                * 10. / den_psd_x
+            )
+        else:
+            fPSD_Etrack23[0] = -999.
 
         for iplane in xrange(0, 6):
             fSTK_chargeX[iplane] = cluster_chargeX[iplane]
@@ -1248,8 +1298,6 @@ def main(args=None):
             fSTK_chargeX_etaCorr[iplane] = cluster_chargeX_etacorr[iplane]
             fSTK_chargeY_etaCorr[iplane] = cluster_chargeY_etacorr[iplane]
 
-        fSTK_ntracks[0] = pev.NStkKalmanTrack()
-        fSTK_nclusters[0] = pev.NStkSiCluster()
         fSTK_theta_correction[0] = track_correction
         fSTK_trackIP[0] = track_impact_point.x()
         fSTK_trackIP[1] = track_impact_point.y()
@@ -1342,8 +1390,10 @@ def main(args=None):
         fSTK_phi[0] = phi_stk_deg
 
         fBGO_EnergyG[0] = etot
+        fBGO_EnergyG_SatCorr_ML_ions[0] = etot_satcorr_ions
+
         if is_mc:
-            fBGO_EnergyG_SatCorr_ML_ions[0] = etot_satcorr_ions
+            fBGO_EnergyG_Quench[0] = etot_quench
             fBGO_EnergyG_QuenchSatCorr_ML_ions[0] = etot_quench_satcorr_ions
 
         fBGO_HET[0] = pev.pEvtHeader().GeneratedTrigger(3)
