@@ -32,23 +32,22 @@ e_min = 20.  # GeV
 def mc_particle_info(mc_particle_name):
     particles = {
         "p": [2212, 1],
-        "He": [100002, 2],
-        "C": [100006, 6],
-        "N": [100007, 7],
-        "O": [100008, 8],
-        "F": [100009, 9],
-        "Ne": [100010, 10],
-        "Na": [100011, 11],
-        "Mg": [100012, 12],
-        "Al": [100013, 13],
-        "Si": [100014, 14],
-        "P": [100015, 15],
-        "S": [100016, 16],
-        "Cl": [100017, 17],
-        "Ar": [100018, 18],
-        "K": [100019, 19],
-        "Ca": [100020, 20],
-        "Fe": [100026, 26],
+        "He": [1000020040, 2],
+        "C":  [1000060120, 6],
+        "N14": [1000070140, 7],
+        "N15": [1000070150, 7],
+        "O":  [1000080160, 8],
+        "F":  [1000090190, 9],
+        "Ne": [1000100200, 10],
+        "Na": [1000110230, 11],
+        "Mg": [1000120240, 12],
+        "Al": [1000130270, 13],
+        "Si": [1000140280, 14],
+        "P":  [1000150310, 15],
+        "S":  [1000160320, 16],
+        "Ar": [1000180400, 18],
+        "Ca": [1000200400, 20],
+        "Fe": [1000260560, 26],
     }
     if mc_particle_name not in particles:
         raise ValueError(
@@ -645,9 +644,9 @@ def main(args=None):
         pevspace_api.ObtainTrackHits()
 
         if is_mc:
-            parent_particleID = int(pev.pEvtSimuPrimaries().pvpart_pdg / 10000.)
-            if int(parent_particleID) != mc_pdg_particle_id:
-                print "*************WRONG PARTICLE ID, particle ID ", pev.pEvtSimuPrimaries().pvpart_pdg
+            parent_particleID = int(pev.pEvtSimuPrimaries().pvpart_pdg)
+            if parent_particleID != mc_pdg_particle_id:
+                print "*************WRONG PARTICLE ID, particle ID ", parent_particleID
                 wrong_id += 1
                 continue
 
