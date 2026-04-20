@@ -113,7 +113,7 @@ def fill_energy_cut(idx, etot, etot_truth, good_event, is_mc,
                     h_energy_good, h_energy_bad):
     h_energy[idx].Fill(etot)
 
-    if not is_mc:
+    if not is_mc: 
         return
 
     h_energy_matrix[idx].Fill(etot_truth, etot)
@@ -447,8 +447,8 @@ def main(args=None):
     # Histograms
     # -----------------------------
     h_terrestrial_lat_vs_long = TH2F("h_terrestrial_lat_vs_long", "h_terrestrial_lat_vs_long", 360, 0, 360, 180, -90, 90)
-    ncuts = 12
-    cut_string = ['All', 'etot > 20 GeV ', 'BGO Acceptance', 'EratioLay', 'BGOLateral', 'SAA', 'HET', 'NTracks', 'BGO-STK', 'PSD Fiducial', 'STK-PSD', 'NLayers']
+    cut_string = ['All', 'etot > 20 GeV ', 'BGO Acceptance', 'EratioLay', 'BGOLateral', 'SAA', 'STK-hits', 'PSD-hits']
+    ncuts = len(cut_string)
     h_bgo_projection_before = TH2F("h_bgo_projection_before", "h_bgo_projection_before", 1000, -500, 500, 1000, -500, 500)
     h_bgo_projection_after = TH2F("h_bgo_projection_after", "h_bgo_projection_after", 1000, -500, 500, 1000, -500, 500)
     h_bgo_projectionTop_before = TH2F("h_bgo_projectionTop_before", "h_bgo_projectionTop_before", 1000, -500, 500, 1000, -500, 500)
@@ -833,19 +833,17 @@ def main(args=None):
             inSAA = pFilter.IsInSAA(pev.pEvtHeader().GetSecond())
             if inSAA:
                 continue
-            h_energy[5].Fill(etot)
             h_terrestrial_lat_vs_long.Fill(longitude, latitude)
-        else:
-            fill_energy_cut(5, etot, etot_truth, good_event, is_mc,
-                            h_energy, h_energy_matrix,
-                            h_energy_truth, h_energy_weight, h_energy_truth_weight,
-                            energy_binnings, spectral_indices,
-                            h_energy_good, h_energy_bad)
+        
+        fill_energy_cut(5, etot, etot_truth, good_event, is_mc,
+                        h_energy, h_energy_matrix,
+                        h_energy_truth, h_energy_weight, h_energy_truth_weight,
+                        energy_binnings, spectral_indices,
+                        h_energy_good, h_energy_bad)
 
         if pev.pEvtHeader().GeneratedTrigger(3) == True or pev.pEvtHeader().GeneratedTrigger(0) == True:
             h_energy_trigger_check.Fill(etot)
 
-        h_energy[6].Fill(etot)
 
         # ------- TRACKING 
 
@@ -861,8 +859,8 @@ def main(args=None):
         theta_bgo_deg = theta_bgo * 180 / np.pi
         theta_stk_deg = theta_stk * 180 / np.pi
 
-        phi_bgo = math.atan(pevspace_api.GetDirectionBGOSlopeY() / pevspace_api.GetDirectionBGOSlopeX())
-        phi_stk = math.atan(pevspace_api.GetDirectionSTKSlopeY() / pevspace_api.GetDirectionSTKSlopeX())
+        phi_bgo = math.atan2(pevspace_api.GetDirectionBGOSlopeY(), pevspace_api.GetDirectionBGOSlopeX())
+        phi_stk = math.atan2(pevspace_api.GetDirectionSTKSlopeY(), pevspace_api.GetDirectionSTKSlopeX())
         phi_bgo_deg = phi_bgo * 180 / np.pi
         phi_stk_deg = phi_stk * 180 / np.pi
 
@@ -871,8 +869,7 @@ def main(args=None):
         fBGO_slopeXZ_analy[0] = pev.pEvtBgoRec().GetSlopeXZ()
         fBGO_slopeYZ_analy[0] = pev.pEvtBgoRec().GetSlopeYZ()
         fBGO_theta_analy[0] = np.arctan(np.sqrt(pev.pEvtBgoRec().GetSlopeXZ() ** 2 + pev.pEvtBgoRec().GetSlopeYZ() ** 2)) * 180 / np.pi
-        if pev.pEvtBgoRec().GetSlopeXZ() > 0:
-            fBGO_phi_analy[0] = math.atan(pev.pEvtBgoRec().GetSlopeYZ() / pev.pEvtBgoRec().GetSlopeXZ()) * 180 / np.pi
+        fBGO_phi_analy[0] = math.atan2(pev.pEvtBgoRec().GetSlopeYZ(), pev.pEvtBgoRec().GetSlopeXZ()) * 180 / np.pi
         fBGO_interceptXZ_analy[0] = pev.pEvtBgoRec().GetInterceptXZ()
         fBGO_interceptYZ_analy[0] = pev.pEvtBgoRec().GetInterceptYZ()
 
@@ -906,13 +903,12 @@ def main(args=None):
         if hitClusterSum[0] == 0 or hitClusterSum[1] == 0:
             continue
 
-        fill_energy_cut(7, etot, etot_truth, good_event, is_mc,
+        fill_energy_cut(6, etot, etot_truth, good_event, is_mc,
                         h_energy, h_energy_matrix,
                         h_energy_truth, h_energy_weight, h_energy_truth_weight,
                         energy_binnings, spectral_indices,
                         h_energy_good, h_energy_bad)
 
-        h_energy[8].Fill(etot)
         deltaTheta_rec_sel = theta_bgo_deg - theta_stk_deg
         h_bgo_stk_deltaTheta_tracksel.Fill(deltaTheta_rec_sel)
 
@@ -920,9 +916,9 @@ def main(args=None):
         phi_truth = -9.
         if is_mc:
             theta_truth = math.atan(np.sqrt((pev.pEvtSimuPrimaries().pvpart_px / pev.pEvtSimuPrimaries().pvpart_pz * pev.pEvtSimuPrimaries().pvpart_px / pev.pEvtSimuPrimaries().pvpart_pz) + (pev.pEvtSimuPrimaries().pvpart_py / pev.pEvtSimuPrimaries().pvpart_pz * pev.pEvtSimuPrimaries().pvpart_py / pev.pEvtSimuPrimaries().pvpart_pz))) * 180. / math.pi
-            phi_truth = math.atan(pev.pEvtSimuPrimaries().pvpart_py / pev.pEvtSimuPrimaries().pvpart_px) * 180. / math.pi
-            h_bgo_deltaTheta_bgo.Fill(theta_truth - theta_bgo)
-            h_bgo_deltaTheta_stk.Fill(theta_truth - theta_stk)
+            phi_truth = math.atan2(pev.pEvtSimuPrimaries().pvpart_py, pev.pEvtSimuPrimaries().pvpart_px) * 180. / math.pi
+            h_bgo_deltaTheta_bgo.Fill(theta_truth - theta_bgo_deg)
+            h_bgo_deltaTheta_stk.Fill(theta_truth - theta_stk_deg)
 
         h_stk_clusterX.Fill(cluster_chargeX[0])
         h_stk_clusterY.Fill(cluster_chargeY[0])
@@ -937,8 +933,6 @@ def main(args=None):
 
         fSTKtrack_to_PSD_topY[0] = stk_to_psd_topY
         fSTKtrack_to_PSD_topX[0] = stk_to_psd_topX
-
-        h_energy[9].Fill(etot)
 
         psd_vec_chargeX = [[] for _ in range(2)]
         psd_vec_chargeX0 = [[] for _ in range(2)]
@@ -1142,7 +1136,7 @@ def main(args=None):
                 psdvec.append(psdchargeX01_corr[ii])
                 psdvec_pathlength.append(psdX_pathlength[ii])
 
-        h_bgo_theta.Fill(theta_bgo)
+        h_bgo_theta.Fill(theta_bgo_deg)
 
         sum_len_psd_vec_chargeX = len(psd_vec_chargeX[0]) + len(psd_vec_chargeX[1])
         sum_len_psd_vec_chargeY = len(psd_vec_chargeY[0]) + len(psd_vec_chargeY[1])
@@ -1165,7 +1159,7 @@ def main(args=None):
             if psdchargeX_corr[ipsd] > 0.:
                 h_psd_chargeX_after.Fill(np.sqrt(psdchargeX_corr[ipsd] / 2.))
 
-        fill_energy_cut(10, etot, etot_truth, good_event, is_mc,
+        fill_energy_cut(7, etot, etot_truth, good_event, is_mc,
                         h_energy, h_energy_matrix,
                         h_energy_truth, h_energy_weight, h_energy_truth_weight,
                         energy_binnings, spectral_indices,
@@ -1173,7 +1167,6 @@ def main(args=None):
 
         fired_layer = np.count_nonzero(v_bgolayer)
         h_bgo_firedLayer_before.Fill(fired_layer)
-        h_energy[11].Fill(etot)
 
         Ene4Layers = sum(v_bgolayer[:4]) / 1000 / etot
         Ene4LayersLast = sum(v_bgolayer[-4:]) / 1000 / etot
