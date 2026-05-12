@@ -139,7 +139,7 @@ TCut SpCut = "BGO_xtr > 12."; // nuovo taglio per gli elettroni
 
 
 // Simple average
-TString PSDcharge = "( (((TMath.Sign(1.,PSD_ChargeY0)+1.)/2.)*PSD_ChargeY0)+(((TMath.Sign(1.,PSD_ChargeY1)+1.)/2.)*PSD_ChargeY1)+(((TMath.Sign(1.,PSD_ChargeX0)+1.)/2.)*PSD_ChargeX0)+(((TMath.Sign(1.,PSD_ChargeX1)+1.)/2.)*PSD_ChargeX1) ) / ( ((TMath.Sign(1.,PSD_ChargeY0)+1.)/2.)+((TMath.Sign(1.,PSD_ChargeY1)+1.)/2.)+((TMath.Sign(1.,PSD_ChargeX0)+1.)/2.)+((TMath.Sign(1.,PSD_ChargeX1)+1.)/2.) )";
+TString PSDcharge = "( (((TMath::Sign(1.,PSD_ChargeY0)+1.)/2.)*PSD_ChargeY0)+(((TMath::Sign(1.,PSD_ChargeY1)+1.)/2.)*PSD_ChargeY1)+(((TMath::Sign(1.,PSD_ChargeX0)+1.)/2.)*PSD_ChargeX0)+(((TMath::Sign(1.,PSD_ChargeX1)+1.)/2.)*PSD_ChargeX1) ) / ( ((TMath::Sign(1.,PSD_ChargeY0)+1.)/2.)+((TMath::Sign(1.,PSD_ChargeY1)+1.)/2.)+((TMath::Sign(1.,PSD_ChargeX0)+1.)/2.)+((TMath::Sign(1.,PSD_ChargeX1)+1.)/2.) )";
 
 TCut bgo01 = "(BGO_EnergyG_SatCorr_ML_ions_v3 > 25.1189) && (BGO_EnergyG_SatCorr_ML_ions_v3 < 39.8107)";
 TCut bgo02 = "(BGO_EnergyG_SatCorr_ML_ions_v3 > 39.8107) && (BGO_EnergyG_SatCorr_ML_ions_v3 < 63.0957)";
@@ -262,7 +262,23 @@ TFile *fout1 = new TFile("PHe_charge_Orb120Month_240bins.root","RECREATE");
 // for spectrum
 
 fout1->cd();
-h1SelBGO_orb->Write();
+h01->Write(); // save the histogram
+h02->Write(); // save the histogram
+h03->Write(); // save the histogram
+h04->Write(); // save the histogram
+h05->Write(); // save the histogram
+h06->Write(); // save the histogram
+h07->Write(); // save the histogram
+h08->Write(); // save the histogram
+h09->Write(); // save the histogram
+h10->Write(); // save the histogram
+h11->Write(); // save the histogram
+h12->Write(); // save the histogram
+h13->Write(); // save the histogram
+h14->Write(); // save the histogram
+h15->Write(); // save the histogram
+
+c0->Write();
 fout1->Close();
 
 cout<<"End script."<<endl;
