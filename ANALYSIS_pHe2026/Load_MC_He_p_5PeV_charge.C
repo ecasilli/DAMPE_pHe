@@ -15,7 +15,7 @@ const int nsetP = 6;
 std::vector<TString> filesP;
 filesP.push_back("../../DATA/Proton_10GeV_100GeV_FTFP_merged.root");
 filesP.push_back("../../DATA/Proton_100GeV_1TeV_FTFP_merged.root");
-filesP.push_back("../../DATA/Proton_1TeV_10TeV_FTFP_maybe_merged.root");
+filesP.push_back("../../DATA/Proton_1TeV_10TeV_FTFP_merged.root");
 filesP.push_back("../../DATA/Proton_10TeV_100TeV_FTFP_merged.root");
 filesP.push_back("../../DATA/Proton_100TeV_1PeV_EPOSLHC_FTFP_merged.root");
 filesP.push_back("../../DATA/Proton_1PeV_5PeV_EPOSLHC_FTFP_merged.root");
@@ -133,7 +133,7 @@ for(int i=0; i<nsetHe; i++){
 TCut wP[nsetP] = {
 	"(1./1740700000.)*log(100.)",      //1-100 GeV//      
     "(1./519070000.)*log(10.)",       //100GeV-1TeV//
-    "(1./00.)*log(10.)" ,       //1TeV-10TeV//
+    "(1./201032000.)*log(10.)" ,       //1TeV-10TeV//
 	"(1./138744900.)*log(10.)",       //10TeV-100TeV
 	"(1./19441600.)*log(10.)",      //100TeV-1PeV
 	"(1./5094200.)*log(5.)"      //1PeV-5PeV
