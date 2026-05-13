@@ -1,0 +1,37 @@
+
+Processing ChargeFit10000_31622.C...
+ FCN=37.6478 FROM MIGRAD    STATUS=CONVERGED     166 CALLS         167 TOTAL
+                     EDM=9.72212e-09    STRATEGY= 1  ERROR MATRIX UNCERTAINTY   0.5 per cent
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Width        2.57824e-01   1.14104e-02   3.73889e-05  -9.96865e-03
+   2  MP           1.57208e+00   1.85856e-02   3.69937e-05   9.33638e-03
+   3  Area         7.69402e+01   3.23799e+00   1.81528e-06   1.46027e-02
+   4  GSigma       8.13056e-08   8.84271e-08  -5.68048e-04  -2.08196e-10
+ FCN=37.6478 FROM MIGRAD    STATUS=CONVERGED      51 CALLS          52 TOTAL
+                     EDM=7.13663e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Width        2.57824e-01   1.14645e-02   4.01628e-05   1.62593e-03
+   2  MP           1.57208e+00   1.88450e-02   3.63531e-05   6.31845e-04
+   3  Area         7.69401e+01   3.28928e+00   2.16732e-05   4.35242e-03
+   4  GSigma       7.92422e-08   8.23707e-08   5.00000e-01   2.28958e-08
+1.57208	0.018845	0.257824	0.0114645	7.92422e-08	8.23707e-08
+MPV_p - 2sigma: 1.05643
+ FCN=78.0966 FROM MIGRAD    STATUS=CONVERGED     527 CALLS         528 TOTAL
+                     EDM=3.03386e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Width        2.06781e-01   1.55539e-02   8.52075e-05  -4.96610e-03
+   2  MP           2.36275e+00   8.82517e-03   2.35043e-05   3.01886e-03
+   3  Area         1.40331e+02   2.91763e+00   1.35063e-06   1.82975e-01
+   4  GSigma       2.15995e-01   3.09182e-02   1.53752e-04   5.47660e-03
+ FCN=78.0966 FROM MIGRAD    STATUS=CONVERGED      51 CALLS          52 TOTAL
+                     EDM=1.73358e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Width        2.06781e-01   1.55334e-02   8.52082e-05   2.75567e-03
+   2  MP           2.36275e+00   8.82341e-03   2.35045e-05  -1.70097e-04
+   3  Area         1.40331e+02   2.91633e+00   1.35056e-06  -1.43601e-01
+   4  GSigma       2.15996e-01   3.08766e-02   1.53757e-04  -1.14182e-03
+2.36275	0.00882341	0.206781	0.0155334	0.215996	0.0308766

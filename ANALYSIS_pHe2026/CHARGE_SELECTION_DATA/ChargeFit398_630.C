@@ -334,7 +334,7 @@ void langaus() {
 void ChargeFit398_630()
 {
  
-	TFile *InputFile = new TFile("../PHe_MC_p_He_5PeV_charge_240bins.root");
+	TFile *InputFile = new TFile("../ROOT_FILES/PHe_charge_Orb120Month_240bins.root");
 //	TFile *OutputFile = new TFile("HistoLanGausFit.root","RECREATE");
 //		TFile *OutputFile = new TFile("HistoLanGausFit.root","UPDATE");
 
@@ -344,40 +344,12 @@ void ChargeFit398_630()
    char *PSDE_ = new char[25];
    TCanvas *c[25];    
    char *PSDE_C = new char[25];
-/*     for (int i=2; i<20; i++)
-     {
-       sprintf(PSDE_,"PSDE_%d",i);
+   for (int i=1; i<16; i++)
+   {
+       sprintf(PSDE_,"h%02d",i);
        h[i] = (TH1F*)InputFile->Get(PSDE_);
        h[i]->GetXaxis()->SetTitle("PSD Charge");
-     }	
-*/
-   TH1F *hP[25];
-   char *PSDE_P_ = new char[25];
-   TCanvas *cP[25];    
-   char *PSDE_P_C = new char[25];
-     for (int i=1; i<16; i++)
-     {
-       sprintf(PSDE_P_,"h%02d_p",i);
-       hP[i] = (TH1F*)InputFile->Get(PSDE_P_);
-       hP[i]->SetTitle(" ");
-       hP[i]->GetYaxis()->SetTitle("Normalized Counts");
-       hP[i]->GetXaxis()->SetTitle("PSD Charge");
-     }	
-
-   TH1F *hHe[25];
-   char *PSDE_He_ = new char[25];
-   TCanvas *cHe[25];    
-   char *PSDE_He_C = new char[25];
-     for (int i=1; i<16; i++)
-     {
-       sprintf(PSDE_He_,"h%02d_he",i);
-       hHe[i] = (TH1F*)InputFile->Get(PSDE_He_);
-       hHe[i]->SetTitle(" ");
-       hHe[i]->GetYaxis()->SetTitle("Normalized Counts");
-       hHe[i]->GetXaxis()->SetTitle("PSD Charge");
-     }	
-
-
+   }	
 
 //******************************* PROTON PEAK ***********************************//	
 	// Setting fit range and start values
@@ -385,13 +357,13 @@ void ChargeFit398_630()
    Double_t sv[4], pllo[4], plhi[4], fp[4], fpe[4];
   // fr[0]=0.3*h1->GetMean();
   // fr[1]=3.0*h1->GetMean();
-	 fr[0]=0.5; 
-	 fr[1]=2.0; 
+	 fr[0]=0.8; 
+	 fr[1]=1.7; 
 
 
-   pllo[0]=0.1; pllo[1]=1.0; pllo[2]=1.0E-04; pllo[3]=1.0E-03;
-   plhi[0]=0.3; plhi[1]=3.0; plhi[2]=1.0E-01; plhi[3]=1.0;
-   sv[0]=0.24; sv[1]=2.2; sv[2]=1.0E-02; sv[3]=0.08;
+   pllo[0]=0.01; pllo[1]=0.5; pllo[2]=1.0E02; pllo[3]=1.0E-09;
+   plhi[0]=0.1; plhi[1]=2.0; plhi[2]=1.0E07; plhi[3]=1.0E-04;
+   sv[0]=0.05; sv[1]=1.0; sv[2]=1.0E04; sv[3]=1.0E-06;
 
    //   par[0]=Width (scale) parameter of Landau density
    //   par[1]=Most Probable (MP, location) parameter of Landau density
@@ -417,46 +389,63 @@ void ChargeFit398_630()
 
                            }
 */
+
+   TGaxis::SetMaxDigits(3);
+   TLegend* leg = new TLegend(0.42,0.6,0.87,0.85); 
+   leg->SetFillColor(0);
+   leg->SetBorderSize(0);
+   //leg->SetHeader("p+He");
+
+   double sigma_p = 0.;
+
    int a = 7;
    gStyle->SetOptStat(0);
    gStyle->SetOptFit(0);
-      std::cout<<"PROTON: "<<std::endl;
-  for (int i=a; i<a+1; i++){
+   
+   for (int i=a; i<a+1; i++){
                               sprintf(PSDE_C,"c_%02d",i);
                               c[i] = new TCanvas(PSDE_C,PSDE_C,1000,800);
                               c[i]->SetTickx();
-                              c[i]->SetTicky();
-                              
-                              hP[i]->SetLineColor(9);
-                              hP[i]->SetMarkerColor(9);
-                              sprintf(h_proton,"hP[%i]",i);
-                              TH1F *hc1 = (TH1F*)hP[i]->Clone("h_proton");
-                             // hc1->Rebin(2);
-                              TF1 *fitsnr = langaufit(hc1,fr,sv,pllo,plhi,fp,fpe,&chisqr,&ndf);
-                              //hc1->Sumw2();
-                              hc1->Draw();
-                             // hc1->DrawClone("sames");
-                              fitsnr->SetLineColor(8);
-	                           fitsnr->DrawClone("lsame");
+                              c[i]->SetTicky();                              
+                              sprintf(h_proton,"h[%i]",i);
+                              TH1F *hc1 = (TH1F*)h[i]->Clone("h_proton");
+                              hc1->Sumw2();
+                              hc1->SetMarkerColor(9);
+                              hc1->Draw("");
+			      TF1 *fitsnr = langaufit(hc1,fr,sv,pllo,plhi,fp,fpe,&chisqr,&ndf);
+                              fitsnr->SetLineColor(9);
+	                      fitsnr->DrawClone("lsame");
                               std::cout<< fitsnr->GetParameter(1) <<"\t"<< fitsnr->GetParError(1)<<"\t"<<fitsnr->GetParameter(0) <<"\t"<< 
                               fitsnr->GetParError(0) << "\t"<<fitsnr->GetParameter(3) <<"\t"<< fitsnr->GetParError(3) << std::endl;
-                           //   c[i]->Write();
-                           }
+                           //   c[i]->Write;
+                           // leg->AddEntry(hc1,"Flight data","ep");
+                           // leg->AddEntry(fitsnr,"Langaus fit protons","l");
+
+                           sigma_p = sqrt((fitsnr->GetParameter(0)*fitsnr->GetParameter(0))+(fitsnr->GetParameter(3)*fitsnr->GetParameter(3)));
+                              std::cout << "MPV_p - 2sigma: " << fitsnr->GetParameter(1) - 2*sigma_p << std::endl;   
+	                       }
+
+/*
+TLine *lp = new TLine(fitsnr->GetParameter(1) - 2*sigma_p,0.1,fitsnr->GetParameter(1) - 2*sigma_p,44e03);
+lp->SetLineColor(kRed+1);
+lp->SetLineStyle(2);
+lp->SetLineWidth(2);
+lp->Draw();
+*/
+
 //*********************************************************************************************************************************************//
 //******************************* HELIUM PEAK ***********************************//	
  
 	// Setting fit range and start values
    Double_t frHe[2];
    Double_t svHe[4], plloHe[4], plhiHe[4], fpHe[4], fpeHe[4];
-  // fr[0]=0.3*h1->GetMean();
-  // fr[1]=3.0*h1->GetMean();
-	 frHe[0]=1.8;  
-	 frHe[1]=3.5;  
+  
+   frHe[0]=1.8;  
+   frHe[1]=2.8;  
 
-
-   plloHe[0]=0.1; plloHe[1]=7.0; plloHe[2]=1.0E-04; plloHe[3]=1.0E-02;
-   plhiHe[0]=1.0; plhiHe[1]=10.0; plhiHe[2]=1.0E-02; plhiHe[3]=1.0;
-   svHe[0]=0.5; svHe[1]=8.8; svHe[2]=1.0E-03; svHe[3]=0.4;
+   plloHe[0]=0.05; plloHe[1]=1.0; plloHe[2]=1.0E03; plloHe[3]=1.0E-03;
+   plhiHe[0]=0.8; plhiHe[1]=4.0; plhiHe[2]=1.0E07; plhiHe[3]=1.0;
+   svHe[0]=0.2; svHe[1]=2.0; svHe[2]=1.0E04; svHe[3]=0.2;
 
    //   par[0]=Width (scale) parameter of Landau density
    //   par[1]=Most Probable (MP, location) parameter of Landau density
@@ -466,7 +455,9 @@ void ChargeFit398_630()
    Double_t chisqrHe;
    Int_t    ndfHe;
 
-   gStyle->SetOptFit(022);
+   gStyle->SetOptFit(0);
+   gStyle->SetOptStat(0);
+
    char *h_helium = new char[25];
 
 /*
@@ -484,35 +475,34 @@ void ChargeFit398_630()
                            }
 */
 // int a = 2;
-    gStyle->SetOptStat(0);
-   gStyle->SetOptFit(0);
-   std::cout<<"HELIUM: "<<std::endl;
+  double sigma_He = 0.;
+
   for (int j=a; j<a+1; j++){
-                              /*
-                              sprintf(PSDE_C,"PSDE_C%d",j);
-                              c[j] = new TCanvas(PSDE_C,PSDE_C,1000,800);
-                              c[j]->SetTickx();
-                              c[j]->SetTicky();
-                              */
-                              //h[j]->SetLineColor(kMagenta);
-                              //h[j]->SetMarkerColor(kMagenta);
-                              sprintf(h_helium,"hHe[%i]",j);
-                              TH1F *hc = (TH1F*)hHe[j]->Clone("h_helium");
-                              // hc->Rebin(2);
+                              
+	  		      sprintf(h_helium,"h[%i]",j);
+                              TH1F *hc = (TH1F*)h[j]->Clone("h_helium");
+                              hc->Sumw2();
                               TF1 *fitsnrHe = langaufit(hc,frHe,svHe,plloHe,plhiHe,fpHe,fpeHe,&chisqrHe,&ndfHe);
-                              //hc->Draw();
-                              hc->DrawClone("sames");
-                              fitsnrHe->SetLineColor(kMagenta);
-	                           fitsnrHe->DrawClone("lsame");
+                              hc->SetMarkerColor(9);
+			      hc->DrawClone("sames");
+                              fitsnrHe->SetLineColor(6);
+	                      fitsnrHe->DrawClone("lsameq");
                               std::cout<< fitsnrHe->GetParameter(1) <<"\t"<< fitsnrHe->GetParError(1)<<"\t"<<fitsnrHe->GetParameter(0) <<"\t"<< 
                               fitsnrHe->GetParError(0) << "\t"<<fitsnrHe->GetParameter(3) <<"\t"<< fitsnrHe->GetParError(3) << std::endl;
                               //c[i]->Write();
-                             // hP[j]->SetLineColor(kRed);
-                            //  hP[j]->Draw("same");
-                             // hHe[j]->SetLineColor(kMagenta);
-                             // hHe[j]->Draw("same");
-                             c[j]->SaveAs("PLOTS/25_39.eps");                    
-                           }
+                              //leg->AddEntry(fitsnrHe,"Langaus fit helium","l");
+			      //leg->Draw();                 
+ /*
+                         sigma_He = sqrt((fitsnrHe->GetParameter(0)*fitsnrHe->GetParameter(0))+(fitsnrHe->GetParameter(3)*fitsnrHe->GetParameter(3)));
+                         std::cout << "MPV_He + 6sigma: " << fitsnrHe->GetParameter(1) + 6*sigma_He << std::endl;
+
+			 TLine *l = new TLine(fitsnrHe->GetParameter(1) + 6*sigma_He,0.1,fitsnrHe->GetParameter(1) + 6*sigma_He,44e03);
+			 l->SetLineColor(kRed+1);
+			 l->SetLineStyle(2);
+			 l->SetLineWidth(2);
+			 l->Draw();
+  */                          
+ 			 }
 //*************************************************************************************************************************************************//
  
  
