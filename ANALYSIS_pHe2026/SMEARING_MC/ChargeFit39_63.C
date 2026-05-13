@@ -334,7 +334,7 @@ void langaus() {
 void ChargeFit39_63()
 {
  
-	TFile *InputFile = new TFile("../PHe_MC_p_He_5PeV_charge_240bins.root");
+	TFile *InputFile = new TFile("../ROOT_FILES/PHe_MC_p_He_5PeV_charge_240bins_v1.root");
 //	TFile *OutputFile = new TFile("HistoLanGausFit.root","RECREATE");
 //		TFile *OutputFile = new TFile("HistoLanGausFit.root","UPDATE");
 
@@ -386,12 +386,12 @@ void ChargeFit39_63()
   // fr[0]=0.3*h1->GetMean();
   // fr[1]=3.0*h1->GetMean();
 	 fr[0]=0.5; 
-	 fr[1]=2.0; 
+    fr[1]=2.2; 
 
 
-   pllo[0]=0.1; pllo[1]=1.0; pllo[2]=1.0E-04; pllo[3]=1.0E-03;
-   plhi[0]=0.3; plhi[1]=3.0; plhi[2]=1.0E-01; plhi[3]=1.0;
-   sv[0]=0.24; sv[1]=2.2; sv[2]=1.0E-02; sv[3]=0.08;
+   pllo[0]=0.05; pllo[1]=0.5; pllo[2]=1.0E-09; pllo[3]=1.0E-03;
+   plhi[0]=0.4; plhi[1]=2.0; plhi[2]=1.0E-05; plhi[3]=1.0;
+   sv[0]=0.1; sv[1]=1.0; sv[2]=1.0E-06; sv[3]=0.08;
 
    //   par[0]=Width (scale) parameter of Landau density
    //   par[1]=Most Probable (MP, location) parameter of Landau density
@@ -450,13 +450,13 @@ void ChargeFit39_63()
    Double_t svHe[4], plloHe[4], plhiHe[4], fpHe[4], fpeHe[4];
   // fr[0]=0.3*h1->GetMean();
   // fr[1]=3.0*h1->GetMean();
-	 frHe[0]=1.8;  
-	 frHe[1]=3.5;  
+	 frHe[0]=1.6;  
+    frHe[1]=3.5;  
 
 
-   plloHe[0]=0.1; plloHe[1]=7.0; plloHe[2]=1.0E-04; plloHe[3]=1.0E-02;
-   plhiHe[0]=1.0; plhiHe[1]=10.0; plhiHe[2]=1.0E-02; plhiHe[3]=1.0;
-   svHe[0]=0.5; svHe[1]=8.8; svHe[2]=1.0E-03; svHe[3]=0.4;
+   plloHe[0]=0.01; plloHe[1]=1.0; plloHe[2]=1.0E-09; plloHe[3]=1.0E-03;
+   plhiHe[0]=0.8; plhiHe[1]=4.0; plhiHe[2]=1.0E-05; plhiHe[3]=1.0;
+   svHe[0]=0.2; svHe[1]=2.0; svHe[2]=1.0E-06; svHe[3]=0.2;
 
    //   par[0]=Width (scale) parameter of Landau density
    //   par[1]=Most Probable (MP, location) parameter of Landau density
@@ -511,7 +511,7 @@ void ChargeFit39_63()
                             //  hP[j]->Draw("same");
                              // hHe[j]->SetLineColor(kMagenta);
                              // hHe[j]->Draw("same");
-                             c[j]->SaveAs("PLOTS/25_39.eps");                    
+                             //c[j]->SaveAs("PLOTS/25_39.eps");                    
                            }
 //*************************************************************************************************************************************************//
  

@@ -334,7 +334,7 @@ void langaus() {
 void ChargeFit6309_10000()
 {
  
-	TFile *InputFile = new TFile("../PHe_MC_p_He_5PeV_charge_240bins.root");
+	TFile *InputFile = new TFile("../ROOT_FILES/PHe_MC_p_He_5PeV_charge_240bins_v1.root");
 //	TFile *OutputFile = new TFile("HistoLanGausFit.root","RECREATE");
 //		TFile *OutputFile = new TFile("HistoLanGausFit.root","UPDATE");
 
@@ -378,6 +378,77 @@ void ChargeFit6309_10000()
      }	
 
 
+//*********************************************************************************************************************************************//
+//******************************* HELIUM PEAK ***********************************// 
+ 
+   // Setting fit range and start values
+   Double_t frHe[2];
+   Double_t svHe[4], plloHe[4], plhiHe[4], fpHe[4], fpeHe[4];
+  // fr[0]=0.3*h1->GetMean();
+  // fr[1]=3.0*h1->GetMean();
+    frHe[0]=1.8;  
+    frHe[1]=4.6;  
+
+
+   plloHe[0]=0.01; plloHe[1]=1.0; plloHe[2]=1.0E-014; plloHe[3]=1.0E-04;
+   plhiHe[0]=0.8; plhiHe[1]=4.0; plhiHe[2]=1.0E-11; plhiHe[3]=1.0E-03;
+   svHe[0]=0.2; svHe[1]=2.0; svHe[2]=1.0E-13; svHe[3]=0.0002;
+
+   //   par[0]=Width (scale) parameter of Landau density
+   //   par[1]=Most Probable (MP, location) parameter of Landau density
+   //   par[2]=Total area (integral -inf to inf, normalization constant)
+   //   par[3]=Width (sigma) of convoluted Gaussian function
+
+   Double_t chisqrHe;
+   Int_t    ndfHe;
+
+   gStyle->SetOptFit(022);
+   char *h_helium = new char[25];
+
+/*
+   for (int i=1; i<17; i++){
+                             sprintf(PSDE_C,"PSDE_C%d",i);
+                             c[i] = new TCanvas(PSDE_C,PSDE_C,1000,800);
+                              TF1 *fitsnr = langaufit(h[i],fr,sv,pllo,plhi,fp,fpe,&chisqr,&ndf);
+
+                              h[i]->Draw();
+                              fitsnr->Draw("lsameq");
+                              std::cout<< fitsnr->GetParameter(1) <<"\t"<< fitsnr->GetParError(1)<<"\t"<<fitsnr->GetParameter(0) <<"\t"<< 
+                              fitsnr->GetParError(0) << "\t"<<fitsnr->GetParameter(3) <<"\t"<< fitsnr->GetParError(3) << std::endl;
+                              c[i]->Write();
+
+                           }
+*/
+   int a = 13;
+    gStyle->SetOptStat(0);
+   gStyle->SetOptFit(0);
+   std::cout<<"HELIUM: "<<std::endl;
+  for (int j=a; j<a+1; j++){
+                              sprintf(PSDE_C,"c_%02d",i);
+                              c[i] = new TCanvas(PSDE_C,PSDE_C,1000,800);
+                              c[i]->SetTickx();
+                              c[i]->SetTicky();
+
+                              //h[j]->SetLineColor(kMagenta);
+                              //h[j]->SetMarkerColor(kMagenta);
+                              sprintf(h_helium,"hHe[%i]",j);
+                              TH1F *hc = (TH1F*)hHe[j]->Clone("h_helium");
+                              // hc->Rebin(2);
+                              TF1 *fitsnrHe = langaufit(hc,frHe,svHe,plloHe,plhiHe,fpHe,fpeHe,&chisqrHe,&ndfHe);
+                              hc->Draw();
+                              //hc->DrawClone("sames");
+                              fitsnrHe->SetLineColor(kMagenta);
+                              fitsnrHe->DrawClone("lsame");
+                              std::cout<< fitsnrHe->GetParameter(1) <<"\t"<< fitsnrHe->GetParError(1)<<"\t"<<fitsnrHe->GetParameter(0) <<"\t"<< 
+                              fitsnrHe->GetParError(0) << "\t"<<fitsnrHe->GetParameter(3) <<"\t"<< fitsnrHe->GetParError(3) << std::endl;
+                              //c[i]->Write();
+                             // hP[j]->SetLineColor(kRed);
+                            //  hP[j]->Draw("same");
+                             // hHe[j]->SetLineColor(kMagenta);
+                             // hHe[j]->Draw("same");
+                             //c[j]->SaveAs("PLOTS/25_39.eps");                    
+                           }
+
 
 //******************************* PROTON PEAK ***********************************//	
 	// Setting fit range and start values
@@ -385,13 +456,13 @@ void ChargeFit6309_10000()
    Double_t sv[4], pllo[4], plhi[4], fp[4], fpe[4];
   // fr[0]=0.3*h1->GetMean();
   // fr[1]=3.0*h1->GetMean();
-	 fr[0]=0.5; 
-	 fr[1]=2.0; 
+    fr[0]=0.8; 
+    fr[1]=2.9; 
 
 
-   pllo[0]=0.1; pllo[1]=1.0; pllo[2]=1.0E-04; pllo[3]=1.0E-03;
-   plhi[0]=0.3; plhi[1]=3.0; plhi[2]=1.0E-01; plhi[3]=1.0;
-   sv[0]=0.24; sv[1]=2.2; sv[2]=1.0E-02; sv[3]=0.08;
+   pllo[0]=0.05; pllo[1]=0.5; pllo[2]=1.0E-14; pllo[3]=1.0E-10;
+   plhi[0]=0.4; plhi[1]=2.0; plhi[2]=1.0E-11; plhi[3]=1.0E-04;
+   sv[0]=0.1; sv[1]=1.0; sv[2]=1.0E-12; sv[3]=8.0E-05;
 
    //   par[0]=Width (scale) parameter of Landau density
    //   par[1]=Most Probable (MP, location) parameter of Landau density
@@ -417,15 +488,15 @@ void ChargeFit6309_10000()
 
                            }
 */
-   int a = 13;
+   //int a = 13;
    gStyle->SetOptStat(0);
    gStyle->SetOptFit(0);
       std::cout<<"PROTON: "<<std::endl;
   for (int i=a; i<a+1; i++){
-                              sprintf(PSDE_C,"c_%02d",i);
+                              /*sprintf(PSDE_C,"c_%02d",i);
                               c[i] = new TCanvas(PSDE_C,PSDE_C,1000,800);
                               c[i]->SetTickx();
-                              c[i]->SetTicky();
+                              c[i]->SetTicky();*/
                               
                               hP[i]->SetLineColor(9);
                               hP[i]->SetMarkerColor(9);
@@ -434,88 +505,15 @@ void ChargeFit6309_10000()
                              // hc1->Rebin(2);
                               TF1 *fitsnr = langaufit(hc1,fr,sv,pllo,plhi,fp,fpe,&chisqr,&ndf);
                               //hc1->Sumw2();
-                              hc1->Draw();
-                             // hc1->DrawClone("sames");
+                              //hc1->Draw();
+                              hc1->DrawClone("sames");
                               fitsnr->SetLineColor(8);
 	                           fitsnr->DrawClone("lsame");
                               std::cout<< fitsnr->GetParameter(1) <<"\t"<< fitsnr->GetParError(1)<<"\t"<<fitsnr->GetParameter(0) <<"\t"<< 
                               fitsnr->GetParError(0) << "\t"<<fitsnr->GetParameter(3) <<"\t"<< fitsnr->GetParError(3) << std::endl;
                            //   c[i]->Write();
                            }
-//*********************************************************************************************************************************************//
-//******************************* HELIUM PEAK ***********************************//	
- 
-	// Setting fit range and start values
-   Double_t frHe[2];
-   Double_t svHe[4], plloHe[4], plhiHe[4], fpHe[4], fpeHe[4];
-  // fr[0]=0.3*h1->GetMean();
-  // fr[1]=3.0*h1->GetMean();
-	 frHe[0]=1.8;  
-	 frHe[1]=3.5;  
 
-
-   plloHe[0]=0.1; plloHe[1]=7.0; plloHe[2]=1.0E-04; plloHe[3]=1.0E-02;
-   plhiHe[0]=1.0; plhiHe[1]=10.0; plhiHe[2]=1.0E-02; plhiHe[3]=1.0;
-   svHe[0]=0.5; svHe[1]=8.8; svHe[2]=1.0E-03; svHe[3]=0.4;
-
-   //   par[0]=Width (scale) parameter of Landau density
-   //   par[1]=Most Probable (MP, location) parameter of Landau density
-   //   par[2]=Total area (integral -inf to inf, normalization constant)
-   //   par[3]=Width (sigma) of convoluted Gaussian function
-
-   Double_t chisqrHe;
-   Int_t    ndfHe;
-
-   gStyle->SetOptFit(022);
-   char *h_helium = new char[25];
-
-/*
-   for (int i=1; i<17; i++){
-                             sprintf(PSDE_C,"PSDE_C%d",i);
-                             c[i] = new TCanvas(PSDE_C,PSDE_C,1000,800);
-                              TF1 *fitsnr = langaufit(h[i],fr,sv,pllo,plhi,fp,fpe,&chisqr,&ndf);
-
-	                           h[i]->Draw();
-	                           fitsnr->Draw("lsameq");
-                              std::cout<< fitsnr->GetParameter(1) <<"\t"<< fitsnr->GetParError(1)<<"\t"<<fitsnr->GetParameter(0) <<"\t"<< 
-                              fitsnr->GetParError(0) << "\t"<<fitsnr->GetParameter(3) <<"\t"<< fitsnr->GetParError(3) << std::endl;
-                              c[i]->Write();
-
-                           }
-*/
-// int a = 2;
-    gStyle->SetOptStat(0);
-   gStyle->SetOptFit(0);
-   std::cout<<"HELIUM: "<<std::endl;
-  for (int j=a; j<a+1; j++){
-                              /*
-                              sprintf(PSDE_C,"PSDE_C%d",j);
-                              c[j] = new TCanvas(PSDE_C,PSDE_C,1000,800);
-                              c[j]->SetTickx();
-                              c[j]->SetTicky();
-                              */
-                              //h[j]->SetLineColor(kMagenta);
-                              //h[j]->SetMarkerColor(kMagenta);
-                              sprintf(h_helium,"hHe[%i]",j);
-                              TH1F *hc = (TH1F*)hHe[j]->Clone("h_helium");
-                              // hc->Rebin(2);
-                              TF1 *fitsnrHe = langaufit(hc,frHe,svHe,plloHe,plhiHe,fpHe,fpeHe,&chisqrHe,&ndfHe);
-                              //hc->Draw();
-                              hc->DrawClone("sames");
-                              fitsnrHe->SetLineColor(kMagenta);
-	                           fitsnrHe->DrawClone("lsame");
-                              std::cout<< fitsnrHe->GetParameter(1) <<"\t"<< fitsnrHe->GetParError(1)<<"\t"<<fitsnrHe->GetParameter(0) <<"\t"<< 
-                              fitsnrHe->GetParError(0) << "\t"<<fitsnrHe->GetParameter(3) <<"\t"<< fitsnrHe->GetParError(3) << std::endl;
-                              //c[i]->Write();
-                             // hP[j]->SetLineColor(kRed);
-                            //  hP[j]->Draw("same");
-                             // hHe[j]->SetLineColor(kMagenta);
-                             // hHe[j]->Draw("same");
-                             c[j]->SaveAs("PLOTS/25_39.eps");                    
-                           }
-//*************************************************************************************************************************************************//
- 
- 
  //   OutputFile->Write();
   // OutputFile->Close();
    /*

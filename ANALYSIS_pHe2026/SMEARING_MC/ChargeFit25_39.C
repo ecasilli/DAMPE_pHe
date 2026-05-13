@@ -454,7 +454,7 @@ void ChargeFit25_39()
 	 frHe[1]=3.5;  
 
 
-   plloHe[0]=0.05; plloHe[1]=1.0; plloHe[2]=1.0E-09; plloHe[3]=1.0E-03;
+   plloHe[0]=0.01; plloHe[1]=1.0; plloHe[2]=1.0E-09; plloHe[3]=1.0E-03;
    plhiHe[0]=0.8; plhiHe[1]=4.0; plhiHe[2]=1.0E-05; plhiHe[3]=1.0;
    svHe[0]=0.2; svHe[1]=2.0; svHe[2]=1.0E-06; svHe[3]=0.2;
 
