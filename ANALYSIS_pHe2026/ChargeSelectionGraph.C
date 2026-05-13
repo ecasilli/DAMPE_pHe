@@ -125,6 +125,10 @@ void ChargeSelectionGraph()
 		ChargeSelectionMPVHMC->Fit("ChargeFitFuncHMC","R"); 
 		gStyle->SetOptFit(222);		
 		ChargeSelectionMPVHMC->Draw("AP");
+
+		cout << "TString PMPVf= \"(" << ChargeFitFuncH->GetParameter(0) << "+(" << ChargeFitFuncH->GetParameter(1) << "*log10(BGO_EnergyG))" << "+(" << ChargeFitFuncH->GetParameter(2) << "*log10(BGO_EnergyG)**2)" << "+(" << ChargeFitFuncH->GetParameter(3) << "*log10(BGO_EnergyG)**3)+(" << ChargeFitFuncH->GetParameter(4) << "*log10(BGO_EnergyG)**4) )\";" << endl;
+    	cout << "TString PMcMPVf= \"(" << ChargeFitFuncHMC->GetParameter(0) << "+(" << ChargeFitFuncHMC->GetParameter(1) << "*log10(BGO_EnergyG))" << "+(" << ChargeFitFuncHMC->GetParameter(2) << "*log10(BGO_EnergyG)**2)" << "+(" << ChargeFitFuncHMC->GetParameter(3) << "*log10(BGO_EnergyG)**3)+(" << ChargeFitFuncHMC->GetParameter(4) << "*log10(BGO_EnergyG)**4)" << ")\";" << endl;
+    
 			
 	TMultiGraph *mg = new TMultiGraph();	
 	mg->SetTitle(" ;BGO Energy (GeV);MPV H (MeV)");
@@ -227,6 +231,10 @@ leg->Draw();
 		WidthHMC->Fit("ChargeFitFuncWidthHMC","R"); 		
 		WidthHMC->Draw("AP");
 
+		cout << "TString PWidthf = \"(" << ChargeFitFuncWidthH->GetParameter(0) << "+(" << ChargeFitFuncWidthH->GetParameter(1) << "*log10(BGO_EnergyG))" << "+(" << ChargeFitFuncWidthH->GetParameter(2) << "*log10(BGO_EnergyG)**2)" << "+(" << ChargeFitFuncWidthH->GetParameter(3) << "*log10(BGO_EnergyG)**3)+(" << ChargeFitFuncWidthH->GetParameter(4) << "*log10(BGO_EnergyG)**4)" << ")\";" << endl;
+    	cout << "TString PMcWidthf = \"(" << ChargeFitFuncWidthHMC->GetParameter(0) << "+(" << ChargeFitFuncWidthHMC->GetParameter(1) << "*log10(BGO_EnergyG))" << "+(" << ChargeFitFuncWidthHMC->GetParameter(2) << "*log10(BGO_EnergyG)**2)" << "+(" << ChargeFitFuncWidthHMC->GetParameter(3) << "*log10(BGO_EnergyG)**3)+(" << ChargeFitFuncWidthHMC->GetParameter(4) << "*log10(BGO_EnergyG)**4)" << ")\";" << endl;
+    
+
    	TMultiGraph *mg2 = new TMultiGraph();
 	mg2->SetTitle(" ;BGO Energy (GeV);Width H (MeV)");
     	mg2->Add(WidthH);
@@ -290,6 +298,10 @@ leg1->Draw();
 		GausSigmaHMC->SetFillStyle(0);   
 		GausSigmaHMC->Fit("FitFuncGausHMC","R");GausSigmaHMC->Fit("FitFuncGausHMC","R");
 		GausSigmaHMC->Draw("AP");
+
+		cout << "TString PGSigmaf = \"(" << FitFuncGausH->GetParameter(0) << "+(" << FitFuncGausH->GetParameter(1) << "*log10(BGO_EnergyG))" << "+(" << FitFuncGausH->GetParameter(2) << "*log10(BGO_EnergyG)**2)" << "+(" << FitFuncGausH->GetParameter(3) << "*log10(BGO_EnergyG)**3)+(" << FitFuncGausH->GetParameter(4) << "*log10(BGO_EnergyG)**4)" << ")\";" << endl;
+    	cout << "TString PMcGSigmaf = \"(" << FitFuncGausHMC->GetParameter(0) << "+(" << FitFuncGausHMC->GetParameter(1) << "*log10(BGO_EnergyG))" << "+(" << FitFuncGausHMC->GetParameter(2) << "*log10(BGO_EnergyG)**2)" << "+(" << FitFuncGausHMC->GetParameter(3) << "*log10(BGO_EnergyG)**3)+(" << FitFuncGausHMC->GetParameter(4) << "*log10(BGO_EnergyG)**4)" << ")\";" << endl;
+    
   
    	TMultiGraph *mg3 = new TMultiGraph();
 	mg3->SetTitle(" ;BGO Energy (GeV);#sigma_{gaus} H (MeV)");
