@@ -1,0 +1,164 @@
+[?1049h[22;0;0t[>4;2m[?1h=[?2004h[?1004h[1;63r[?12h[?12l[22;2t[22;1t[27m[23m[29m[m[H[2J[?25l[63;1H"ChargeFit10000_31622.C" 525L, 16949B[1;31Hhc1->Draw([31m""[m);[2;31HTF1 *fitsnr = langaufit(hc1,fr,sv,pllo,plhi,fp,fpe,&chisqr,&ndf);[3;31Hfitsnr->SetLineColor([31m9[m);[4;31Hfitsnr->DrawClone([31m"lsame"[m);[5;31Hstd::cout<< fitsnr->GetParameter([31m1[m) <<[31m"[m[35m\t[m[31m"[m<< fitsnr->GetParError([31m1[m)<<[31m"[m[35m\t[m[31m"[m<<fitsnr->GetParameter([31m0[m) <<[31m"[m[35m\t[m[31m"[m<<[6;31Hfitsnr->GetParError([31m0[m) << [31m"[m[35m\t[m[31m"[m<<fitsnr->GetParameter([31m3[m) <<[31m"[m[35m\t[m[31m"[m<< fitsnr->GetParError([31m3[m) << std::endl;[7;28H[34m//   c[i]->Write;[8;28H// leg->AddEntry(hc1,[m[31m"Flight data"[m[34m,[m[31m"ep"[m[34m);[9;28H// leg->AddEntry(fitsnr,[m[31m"Langaus fit protons"[m[34m,[m[31m"l"[m[34m);[m[11;28Hsigma_p = sqrt((fitsnr->GetParameter([31m0[m)*fitsnr->GetParameter([31m0[m))+(fitsnr->GetParameter([31m3[m)*fitsnr->GetParameter([31m3[m)));[12;31Hstd::cout << [31m"MPV_p - 2sigma: "[m << fitsnr->GetParameter([31m1[m) - [31m2[m*sigma_p << std::endl;[13;32H}
+
+[34m/*
+TLine *lp = new TLine(fitsnr->GetParameter([m[31m1[m[34m) - [m[31m2[m[34m*sigma_p,[m[31m0.1[m[34m,fitsnr->GetParameter([m[31m1[m[34m) - [m[31m2[m[34m*sigma_p,[m[31m44e03[m[34m);
+lp->SetLineColor(kRed+[m[31m1[m[34m);
+lp->SetLineStyle([m[31m2[m[34m);
+lp->SetLineWidth([m[31m2[m[34m);
+lp->Draw();
+*/
+
+//********************************************************************************************************************************************[m[97m[101m*/[m[34m/
+//******************************* HELIUM PEAK **********************************[m[97m[101m*/[m[34m/     [26;9H// Setting fit range and start values[m
+   Double_t frHe[[31m2[m];
+   Double_t svHe[[31m4[m], plloHe[[31m4[m], plhiHe[[31m4[m], fpHe[[31m4[m], fpeHe[[31m4[m];[30;4HfrHe[[31m0[m]=[31m1.9[m;
+   frHe[[31m1[m]=[31m3.5[m;[33;4HplloHe[[31m0[m]=[31m0.05[m; plloHe[[31m1[m]=[31m1.0[m; plloHe[[31m2[m]=[31m1.0E02[m; plloHe[[31m3[m]=[31m1.0E-03[m;
+   plhiHe[[31m0[m]=[31m0.8[m; plhiHe[[31m1[m]=[31m4.0[m; plhiHe[[31m2[m]=[31m1.0E06[m; plhiHe[[31m3[m]=[31m1.0[m;
+   svHe[[31m0[m]=[31m0.2[m; svHe[[31m1[m]=[31m2.0[m; svHe[[31m2[m]=[31m1.0E03[m; svHe[[31m3[m]=[31m0.2[m;[37;4H[34m//   par[[m[31m0[m[34m]=Width (scale) parameter of Landau density
+[m   [34m//   par[[m[31m1[m[34m]=Most Probable (MP, location) parameter of Landau density
+[m   [34m//   par[[m[31m2[m[34m]=Total area (integral -inf to inf, normalization constant)
+[m   [34m//   par[[m[31m3[m[34m]=Width (sigma) of convoluted Gaussian function[m[42;4HDouble_t chisqrHe;
+   Int_t    ndfHe;[45;4HgStyle->SetOptFit([31m0[m);
+   gStyle->SetOptStat([31m0[m);[48;4H[32mchar[m *h_helium = [38;5;130mnew[m [32mchar[m[[31m25[m];
+
+[34m/*
+   for (int i=[m[31m1[m[34m; i<[m[31m17[m[34m; i++){
+                             sprintf(PSDE_C,[m[31m"PSDE_C%d"[m[34m,i);
+                             c[i] = new TCanvas(PSDE_C,PSDE_C,[m[31m1000[m[34m,[m[31m800[m[34m);
+                              TF1 *fitsnr = langaufit(h[i],fr,sv,pllo,plhi,fp,fpe,&chisqr,&ndf);
+
+                                   h[i]->Draw();
+                                   fitsnr->Draw([m[31m"lsameq"[m[34m);
+                              std::cout<< fitsnr->GetParameter([m[31m1[m[34m) <<[m[31m"[m[35m\t[m[31m"[m[34m<< fitsnr->GetParError([m[31m1[m[34m)<<[m[31m"[m[35m\t[m[31m"[m[34m<<fitsnr->GetParameter([m[31m0[m[34m) <<[m[31m"[m[35m\t[m[31m"[m[34m<< 
+                              fitsnr->GetParError([m[31m0[m[34m) << [m[31m"[m[35m\t[m[31m"[m[34m<<fitsnr->GetParameter([m[31m3[m[34m) <<[m[31m"[m[35m\t[m[31m"[m[34m<< fitsnr->GetParError([m[31m3[m[34m) << std::endl;
+                              c[i]->Write();
+
+                           }[m[63;237H444,14[8C89%[31;14H[?25h[?25l[63;1HType  :qa  and press <Enter> to exit Vim[63;237H[K[63;237H444,14[8C89%[31;14H[?25h[?25l[63;237H[K[63;237H444,14[8C89%[31;14H[?25h[?25l[63;227H^X[31;14H[63;227H  [31;14H[31m4[?25h[?25l[m[63;227H~@k[31;14H[63;227H   [30;14H[63;239H3[30;14H[?25h[?25l[63;227H^M[30;14H[63;227H  [31;4H[63;239H4,4 [31;4H[?25h[?25l[63;227H^M[31;4H[63;227H  [32;1H[63;239H5,0-1[32;1H[?25h[?25l[63;227H^M[32;1H[63;227H  [33;4H[63;239H6,4  [33;4H[?25h[?25l[63;227H^M[33;4H[63;227H  [34;4H[63;239H7[34;4H[?25h[?25l[63;227H^M[34;4H[63;227H  [35;4H[63;239H8[35;4H[?25h[?25l[63;227H^M[35;4H[63;227H  [36;1H[63;239H9,0-1[36;1H[?25h[?25l[63;227H^M[36;1H[63;227H  [37;4H[63;238H50,4  [37;4H[?25h[?25l[63;10H!  and press <Enter> to abandon all changes and exit Vim[63;237H[K[63;237H450,4[9C89%[37;4H[?25h[?25l[63;237H[K[63;237H450,4[9C89%[37;4H[?25h[?25l[63;237H[K[63;237H450,4[9C89%[37;4H[?25h[?25l[63;237H[K[63;237H450,4[9C89%[37;4H[?25h[?25l[63;237H[K[63;237H450,4[9C89%[37;4H[?25h[?25l[63;227H^X[37;4H[63;227H  [37;14H[34m-[m[31m1[m[34m]=Width (scale) parameter of Landau density[m[63;241H14[37;14H[?25h[?25l[63;227H^X[37;14H[63;227H  [37;14H[31m2[?25h[?25l[m[63;227H^X[37;14H[63;227H  [37;14H[31m3[?25h[?25l[m[63;227H~@k[37;14H[63;227H   [38;14H[34m[106m[[1C][m[63;239H1[38;14H[?25h[?25l[63;227H~@k[38;14H[63;227H   [39;14H[38;12H[34m[[1C][m[39;12H[34m[106m[[1C][m[63;239H2[39;14H[?25h[?25l[63;227H~@k[39;14H[63;227H   [38;14H[34m[106m[[1C][m[39;12H[34m[[1C][m[63;239H1[38;14H[?25h[27m[23m[29m[m[H[2J[?25l[1;9H[34m// Setting fit range and start values[m
+   Double_t frHe[[31m2[m];
+   Double_t svHe[[31m4[m], plloHe[[31m4[m], plhiHe[[31m4[m], fpHe[[31m4[m], fpeHe[[31m4[m];[5;4HfrHe[[31m0[m]=[31m1.9[m;
+   frHe[[31m1[m]=[31m3.4[m;[8;4HplloHe[[31m0[m]=[31m0.05[m; plloHe[[31m1[m]=[31m1.0[m; plloHe[[31m2[m]=[31m1.0E02[m; plloHe[[31m3[m]=[31m1.0E-03[m;
+   plhiHe[[31m0[m]=[31m0.8[m; plhiHe[[31m1[m]=[31m4.0[m; plhiHe[[31m2[m]=[31m1.0E06[m; plhiHe[[31m3[m]=[31m1.0[m;
+   svHe[[31m0[m]=[31m0.2[m; svHe[[31m1[m]=[31m2.0[m; svHe[[31m2[m]=[31m1.0E03[m; svHe[[31m3[m]=[31m0.2[m;[12;4H[34m//   par[-[m[31m3[m[34m]=Width (scale) parameter of Landau density
+[m   [34m//   par[m[34m[106m[[m[31m1[m[34m[106m][m[34m=Most Probable (MP, location) parameter of Landau density
+[m   [34m//   par[[m[31m2[m[34m]=Total area (integral -inf to inf, normalization constant)
+[m   [34m//   par[[m[31m3[m[34m]=Width (sigma) of convoluted Gaussian function[m[17;4HDouble_t chisqrHe;
+   Int_t    ndfHe;[20;4HgStyle->SetOptFit([31m0[m);[21;57H451,14[8C86%[13;14H[?25h[27m[23m[29m[m[H[2J[?25l[1;28H[34m//   c[i]->Write;[2;28H// leg->AddEntry(hc1,[m[31m"Flight data"[m[34m,[m[31m"ep"[m[34m);[3;28H// leg->AddEntry(fitsnr,[m[31m"Langaus fit protons"[m[34m,[m[31m"l"[m[34m);[m[5;28Hsigma_p = sqrt((fitsnr->GetParameter([31m0[m)*fitsnr->GetParameter([31m0[m))+(fitsnr->GetParameter([31m3[m)*fitsnr->GetParameter([31m3[m)));[6;31Hstd::cout << [31m"MPV_p - 2sigma: "[m << fitsnr->GetParameter([31m1[m) - [31m2[m*sigma_p << std::endl;[7;32H}
+
+[34m/*
+TLine *lp = new TLine(fitsnr->GetParameter([m[31m1[m[34m) - [m[31m2[m[34m*sigma_p,[m[31m0.1[m[34m,fitsnr->GetParameter([m[31m1[m[34m) - [m[31m2[m[34m*sigma_p,[m[31m44e03[m[34m);
+lp->SetLineColor(kRed+[m[31m1[m[34m);
+lp->SetLineStyle([m[31m2[m[34m);
+lp->SetLineWidth([m[31m2[m[34m);
+lp->Draw();
+*/
+
+//********************************************************************************************************************************************[m[97m[101m*/[m[34m/
+//******************************* HELIUM PEAK **********************************[m[97m[101m*/[m[34m/     [20;9H// Setting fit range and start values[m
+   Double_t frHe[[31m2[m];
+   Double_t svHe[[31m4[m], plloHe[[31m4[m], plhiHe[[31m4[m], fpHe[[31m4[m], fpeHe[[31m4[m];[24;4HfrHe[[31m0[m]=[31m1.9[m;
+   frHe[[31m1[m]=[31m3.4[m;[27;4HplloHe[[31m0[m]=[31m0.05[m; plloHe[[31m1[m]=[31m1.0[m; plloHe[[31m2[m]=[31m1.0E02[m; plloHe[[31m3[m]=[31m1.0E-03[m;
+   plhiHe[[31m0[m]=[31m0.8[m; plhiHe[[31m1[m]=[31m4.0[m; plhiHe[[31m2[m]=[31m1.0E06[m; plhiHe[[31m3[m]=[31m1.0[m;
+   svHe[[31m0[m]=[31m0.2[m; svHe[[31m1[m]=[31m2.0[m; svHe[[31m2[m]=[31m1.0E03[m; svHe[[31m3[m]=[31m0.2[m;[31;4H[34m//   par[-[m[31m3[m[34m]=Width (scale) parameter of Landau density
+[m   [34m//   par[m[34m[106m[[m[31m1[m[34m[106m][m[34m=Most Probable (MP, location) parameter of Landau density
+[m   [34m//   par[[m[31m2[m[34m]=Total area (integral -inf to inf, normalization constant)
+[m   [34m//   par[[m[31m3[m[34m]=Width (sigma) of convoluted Gaussian function[m[36;4HDouble_t chisqrHe;
+   Int_t    ndfHe;[39;4HgStyle->SetOptFit([31m0[m);
+   gStyle->SetOptStat([31m0[m);[42;4H[32mchar[m *h_helium = [38;5;130mnew[m [32mchar[m[[31m25[m];
+
+[34m/*
+   for (int i=[m[31m1[m[34m; i<[m[31m17[m[34m; i++){
+                             sprintf(PSDE_C,[m[31m"PSDE_C%d"[m[34m,i);
+                             c[i] = new TCanvas(PSDE_C,PSDE_C,[m[31m1000[m[34m,[m[31m800[m[34m);
+                              TF1 *fitsnr = langaufit(h[i],fr,sv,pllo,plhi,fp,fpe,&chisqr,&ndf);
+
+                                   h[i]->Draw();
+                                   fitsnr->Draw([m[31m"lsameq"[m[34m);
+                              std::cout<< fitsnr->GetParameter([m[31m1[m[34m) <<[m[31m"[m[35m\t[m[31m"[m[34m<< fitsnr->GetParError([m[31m1[m[34m)<<[m[31m"[m[35m\t[m[31m"[m[34m<<fitsnr->GetParameter([m[31m0[m[34m) <<[m[31m"[m[35m\t[m[31m"[m[34m<< 
+                              fitsnr->GetParError([m[31m0[m[34m) << [m[31m"[m[35m\t[m[31m"[m[34m<<fitsnr->GetParameter([m[31m3[m[34m) <<[m[31m"[m[35m\t[m[31m"[m[34m<< fitsnr->GetParError([m[31m3[m[34m) << std::endl;
+                              c[i]->Write();
+
+                           }
+*/
+// int a = [m[31m2[m[34m;[m
+  [32mdouble[m sigma_He = [31m0.[m;
+
+  [38;5;130mfor[m ([32mint[m j=a; j<a+[31m1[m; j++){[63;31Hsprintf(h_helium,[31m"h[[m[35m%i[m[31m]"[m,j);[64;31HTH1F *hc = (TH1F*)h[j]->Clone([31m"h_helium"[m);[65;242H451,14[8C90%[32;14H[?25h[27m[23m[29m[m[H[2J[?25l[1;28H[34m// leg->AddEntry(hc1,[m[31m"Flight data"[m[34m,[m[31m"ep"[m[34m);[2;28H// leg->AddEntry(fitsnr,[m[31m"Langaus fit protons"[m[34m,[m[31m"l"[m[34m);[m[4;28Hsigma_p = sqrt((fitsnr->GetParameter([31m0[m)*fitsnr->GetParameter([31m0[m))+(fitsnr->GetParameter([31m3[m)*fitsnr->GetParameter([31m3[m)));[5;31Hstd::cout << [31m"MPV_p - 2sigma: "[m << fitsnr->GetParameter([31m1[m) - [31m2[m*sigma_p << std::endl;[6;32H}
+
+[34m/*
+TLine *lp = new TLine(fitsnr->GetParameter([m[31m1[m[34m) - [m[31m2[m[34m*sigma_p,[m[31m0.1[m[34m,fitsnr->GetParameter([m[31m1[m[34m) - [m[31m2[m[34m*sigma_p,[m[31m44e03[m[34m);
+lp->SetLineColor(kRed+[m[31m1[m[34m);
+lp->SetLineStyle([m[31m2[m[34m);
+lp->SetLineWidth([m[31m2[m[34m);
+lp->Draw();
+*/
+
+//********************************************************************************************************************************************[m[97m[101m*/[m[34m/
+//******************************* HELIUM PEAK **********************************[m[97m[101m*/[m[34m/     [19;9H// Setting fit range and start values[m
+   Double_t frHe[[31m2[m];
+   Double_t svHe[[31m4[m], plloHe[[31m4[m], plhiHe[[31m4[m], fpHe[[31m4[m], fpeHe[[31m4[m];[23;4HfrHe[[31m0[m]=[31m1.9[m;
+   frHe[[31m1[m]=[31m3.4[m;[26;4HplloHe[[31m0[m]=[31m0.05[m; plloHe[[31m1[m]=[31m1.0[m; plloHe[[31m2[m]=[31m1.0E02[m; plloHe[[31m3[m]=[31m1.0E-03[m;
+   plhiHe[[31m0[m]=[31m0.8[m; plhiHe[[31m1[m]=[31m4.0[m; plhiHe[[31m2[m]=[31m1.0E06[m; plhiHe[[31m3[m]=[31m1.0[m;
+   svHe[[31m0[m]=[31m0.2[m; svHe[[31m1[m]=[31m2.0[m; svHe[[31m2[m]=[31m1.0E03[m; svHe[[31m3[m]=[31m0.2[m;[30;4H[34m//   par[-[m[31m3[m[34m]=Width (scale) parameter of Landau density
+[m   [34m//   par[m[34m[106m[[m[31m1[m[34m[106m][m[34m=Most Probable (MP, location) parameter of Landau density
+[m   [34m//   par[[m[31m2[m[34m]=Total area (integral -inf to inf, normalization constant)
+[m   [34m//   par[[m[31m3[m[34m]=Width (sigma) of convoluted Gaussian function[m[35;4HDouble_t chisqrHe;
+   Int_t    ndfHe;[38;4HgStyle->SetOptFit([31m0[m);
+   gStyle->SetOptStat([31m0[m);[41;4H[32mchar[m *h_helium = [38;5;130mnew[m [32mchar[m[[31m25[m];
+
+[34m/*
+   for (int i=[m[31m1[m[34m; i<[m[31m17[m[34m; i++){
+                             sprintf(PSDE_C,[m[31m"PSDE_C%d"[m[34m,i);
+                             c[i] = new TCanvas(PSDE_C,PSDE_C,[m[31m1000[m[34m,[m[31m800[m[34m);
+                              TF1 *fitsnr = langaufit(h[i],fr,sv,pllo,plhi,fp,fpe,&chisqr,&ndf);
+
+                                   h[i]->Draw();
+                                   fitsnr->Draw([m[31m"lsameq"[m[34m);
+                              std::cout<< fitsnr->GetParameter([m[31m1[m[34m) <<[m[31m"[m[35m\t[m[31m"[m[34m<< fitsnr->GetParError([m[31m1[m[34m)<<[m[31m"[m[35m\t[m[31m"[m[34m<<fitsnr->GetParameter([m[31m0[m[34m) <<[m[31m"[m[35m\t[m[31m"[m[34m<< 
+                              fitsnr->GetParError([m[31m0[m[34m) << [m[31m"[m[35m\t[m[31m"[m[34m<<fitsnr->GetParameter([m[31m3[m[34m) <<[m[31m"[m[35m\t[m[31m"[m[34m<< fitsnr->GetParError([m[31m3[m[34m) << std::endl;
+                              c[i]->Write();
+
+                           }
+*/
+// int a = [m[31m2[m[34m;[m
+  [32mdouble[m sigma_He = [31m0.[m;
+
+  [38;5;130mfor[m ([32mint[m j=a; j<a+[31m1[m; j++){[62;31Hsprintf(h_helium,[31m"h[[m[35m%i[m[31m]"[m,j);[63;237H451,14[8C90%[31;14H[?25h[?25l[63;227H^M[31;14H[63;227H  [32;4H[31;12H[34m[[1C][m[63;239H2,4 [32;4H[?25h[?25l[63;227H^M[32;4H[63;227H  [33;4H[63;239H3[33;4H[?25h[?25l[63;227H^M[33;4H[63;227H  [34;1H[63;239H4,0-1[34;1H[?25h[?25l[63;227H^M[34;1H[63;227H  [35;4H[63;239H5,4  [35;4H[?25h[?25l[63;1HType  :qa!  and press <Enter> to abandon all changes and exit Vim[63;237H[K[63;237H455,4[9C90%[35;4H[?25h[?25l[63;237H[K[63;237H455,4[9C90%[35;4H[?25h[?25l[63;237H[K[63;237H455,4[9C90%[35;4H[?25h[?25l[63;237H[K[63;237H455,4[9C90%[35;4H[?25h[?25l[63;237H[K[63;237H455,4[9C90%[35;4H[?25h[?25l[63;237H[K[63;237H455,4[9C90%[35;4H[?25h[?25l[63;237H[K[63;237H455,4[9C90%[35;4H[?25h[?25l[63;237H[K[63;237H455,4[9C90%[35;4H[?25h[?25l[63;237H[K[63;237H455,4[9C90%[35;4H[?25h[?25l[63;237H[K[63;237H455,4[9C90%[35;4H[?25h[?25l[63;227H^M[35;4H[63;227H  [36;4H[63;239H6[36;4H[?25h[?25l[63;227H^M[36;4H[63;227H  [37;1H[63;239H7,0-1[37;1H[?25h[?25l[63;227H^M[37;1H[63;227H  [38;4H[63;239H8,4  [38;4H[?25h[?25l[63;227H^M[38;4H[63;227H  [39;4H[63;239H9[39;4H[?25h[?25l[63;227H^M[39;4H[63;227H  [40;1H[63;238H60,0-1[40;1H[?25h[63;1H[?2004l[>4;m[?1004l[?2004l[?1l>[>4;m[?1049l[23;0;0tVim: Error reading input, exiting...
+Vim: preserving files...
+Vim: Finished.
+[63;1H[?25h[23;2t[23;1t[J
+Processing ChargeFit10000_31622.C...
+ FCN=37.6478 FROM MIGRAD    STATUS=CONVERGED     166 CALLS         167 TOTAL
+                     EDM=9.72212e-09    STRATEGY= 1  ERROR MATRIX UNCERTAINTY   0.5 per cent
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Width        2.57824e-01   1.14104e-02   3.73889e-05  -9.96865e-03
+   2  MP           1.57208e+00   1.85856e-02   3.69937e-05   9.33638e-03
+   3  Area         7.69402e+01   3.23799e+00   1.81528e-06   1.46027e-02
+   4  GSigma       8.13056e-08   8.84271e-08  -5.68048e-04  -2.08196e-10
+ FCN=37.6478 FROM MIGRAD    STATUS=CONVERGED      51 CALLS          52 TOTAL
+                     EDM=7.13663e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Width        2.57824e-01   1.14645e-02   4.01628e-05   1.62593e-03
+   2  MP           1.57208e+00   1.88450e-02   3.63531e-05   6.31845e-04
+   3  Area         7.69401e+01   3.28928e+00   2.16732e-05   4.35242e-03
+   4  GSigma       7.92422e-08   8.23707e-08   5.00000e-01   2.28958e-08
+1.57208	0.018845	0.257824	0.0114645	7.92422e-08	8.23707e-08
+MPV_p - 2sigma: 1.05643
+ FCN=78.0966 FROM MIGRAD    STATUS=CONVERGED     527 CALLS         528 TOTAL
+                     EDM=3.03386e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Width        2.06781e-01   1.55539e-02   8.52075e-05  -4.96610e-03
+   2  MP           2.36275e+00   8.82517e-03   2.35043e-05   3.01886e-03
+   3  Area         1.40331e+02   2.91763e+00   1.35063e-06   1.82975e-01
+   4  GSigma       2.15995e-01   3.09182e-02   1.53752e-04   5.47660e-03
+ FCN=78.0966 FROM MIGRAD    STATUS=CONVERGED      51 CALLS          52 TOTAL
+                     EDM=1.73358e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Width        2.06781e-01   1.55334e-02   8.52082e-05   2.75567e-03
+   2  MP           2.36275e+00   8.82341e-03   2.35045e-05  -1.70097e-04
+   3  Area         1.40331e+02   2.91633e+00   1.35056e-06  -1.43601e-01
+   4  GSigma       2.15996e-01   3.08766e-02   1.53757e-04  -1.14182e-03
+2.36275	0.00882341	0.206781	0.0155334	0.215996	0.0308766

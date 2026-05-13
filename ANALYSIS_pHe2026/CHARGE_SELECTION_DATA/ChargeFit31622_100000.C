@@ -331,7 +331,7 @@ void langaus() {
    fitsnr->Draw("lsame");
 }
 
-void ChargeFit1000_1584()
+void ChargeFit31622_100000()
 {
  
 	TFile *InputFile = new TFile("../ROOT_FILES/PHe_charge_Orb120Month_240bins.root");
@@ -357,13 +357,13 @@ void ChargeFit1000_1584()
    Double_t sv[4], pllo[4], plhi[4], fp[4], fpe[4];
   // fr[0]=0.3*h1->GetMean();
   // fr[1]=3.0*h1->GetMean();
-	 fr[0]=0.8; 
-	 fr[1]=1.9; 
+	 fr[0]=1.0; 
+	 fr[1]=2.1; 
 
 
-   pllo[0]=0.01; pllo[1]=0.5; pllo[2]=1.0E02; pllo[3]=1.0E-12;
-   plhi[0]=0.1; plhi[1]=2.0; plhi[2]=1.0E07; plhi[3]=1.0E-07;
-   sv[0]=0.05; sv[1]=1.0; sv[2]=1.0E04; sv[3]=1.0E-09;
+   pllo[0]=0.01; pllo[1]=0.5; pllo[2]=10; pllo[3]=1.0E-12;
+   plhi[0]=0.8; plhi[1]=2.0; plhi[2]=1000; plhi[3]=1.0E-07;
+   sv[0]=0.1; sv[1]=1.0; sv[2]=100; sv[3]=1.0E-09;
 
    //   par[0]=Width (scale) parameter of Landau density
    //   par[1]=Most Probable (MP, location) parameter of Landau density
@@ -398,7 +398,7 @@ void ChargeFit1000_1584()
 
    double sigma_p = 0.;
 
-   int a = 9;
+   int a = 15;
    gStyle->SetOptStat(0);
    gStyle->SetOptFit(0);
    
@@ -409,7 +409,8 @@ void ChargeFit1000_1584()
                               c[i]->SetTicky();                              
                               sprintf(h_proton,"h[%i]",i);
                               TH1F *hc1 = (TH1F*)h[i]->Clone("h_proton");
-                              hc1->Sumw2();
+                              hc1->Rebin(3);
+			      hc1->Sumw2();
                               hc1->SetMarkerColor(9);
                               hc1->Draw("");
 			      TF1 *fitsnr = langaufit(hc1,fr,sv,pllo,plhi,fp,fpe,&chisqr,&ndf);
@@ -440,12 +441,12 @@ lp->Draw();
    Double_t frHe[2];
    Double_t svHe[4], plloHe[4], plhiHe[4], fpHe[4], fpeHe[4];
   
-   frHe[0]=1.9;  
-   frHe[1]=3.0;  
+   frHe[0]=2.15;  
+   frHe[1]=4.1;  
 
-   plloHe[0]=0.05; plloHe[1]=1.0; plloHe[2]=1.0E03; plloHe[3]=1.0E-03;
-   plhiHe[0]=0.8; plhiHe[1]=4.0; plhiHe[2]=1.0E07; plhiHe[3]=1.0;
-   svHe[0]=0.2; svHe[1]=2.0; svHe[2]=1.0E04; svHe[3]=0.2;
+   plloHe[0]=0.05; plloHe[1]=1.0; plloHe[2]=1.0E02; plloHe[3]=1.0E-03;
+   plhiHe[0]=0.8; plhiHe[1]=4.0; plhiHe[2]=1.0E06; plhiHe[3]=1.0;
+   svHe[0]=0.2; svHe[1]=2.0; svHe[2]=1.0E03; svHe[3]=0.2;
 
    //   par[0]=Width (scale) parameter of Landau density
    //   par[1]=Most Probable (MP, location) parameter of Landau density
@@ -481,7 +482,8 @@ lp->Draw();
                               
 	  		      sprintf(h_helium,"h[%i]",j);
                               TH1F *hc = (TH1F*)h[j]->Clone("h_helium");
-                              hc->Sumw2();
+                              hc->Rebin(3);
+			      hc->Sumw2();
                               TF1 *fitsnrHe = langaufit(hc,frHe,svHe,plloHe,plhiHe,fpHe,fpeHe,&chisqrHe,&ndfHe);
                               hc->SetMarkerColor(9);
 			      hc->DrawClone("sames");
