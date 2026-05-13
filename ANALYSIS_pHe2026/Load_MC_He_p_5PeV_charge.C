@@ -131,7 +131,7 @@ for(int i=0; i<nsetHe; i++){
 
 //== here we have a normalization factor (SAME NUMBERS, as before)
 TCut wP[nsetP] = {
-	"(1./1740700000.)*log(100.)",      //1-100 GeV//      
+	"(1./1740700000.)*log(10.)",      //10-100 GeV//      
     "(1./519070000.)*log(10.)",       //100GeV-1TeV//
     "(1./201032000.)*log(10.)" ,       //1TeV-10TeV//
 	"(1./138744900.)*log(10.)",       //10TeV-100TeV
@@ -163,7 +163,7 @@ TCut wEnergy = "(MC_EnergyT)**(-1.7)";
 
 // MODIFICARE ???
 for (int i=0; i< nsetP; i++) { wPN1[i] = wP[i]*wEnergy; }; //wspectAmsPs; };
-for (int i=0; i< nsetHe; i++) { wHeN1[i] = wHe[i]*wEnergy; }; //*wspectAmsHes; };
+for (int i=0; i< nsetHe; i++) { wHeN1[i] = wHe[i]*wEnergy*GeoCorr; }; //*wspectAmsHes; };
 
 /*
 TCut weightsInterval[noe];
@@ -258,54 +258,54 @@ TCut bgo13 = "(BGO_EnergyG_QuenchSatCorr_ML_ions_v3 > 6309.57) && (BGO_EnergyG_Q
 TCut bgo14 = "(BGO_EnergyG_QuenchSatCorr_ML_ions_v3 > 10000.0) && (BGO_EnergyG_QuenchSatCorr_ML_ions_v3 < 31622.8)";
 TCut bgo15 = "(BGO_EnergyG_QuenchSatCorr_ML_ions_v3 > 31622.8) && (BGO_EnergyG_QuenchSatCorr_ML_ions_v3 < 100000.0)";
 
-TString name01 = "25 < E_{BGO} < 39";
-TString name02 = "39 < E_{BGO} < 63";
-TString name03 = "63 < E_{BGO} < 100";
-TString name04 = "100 < E_{BGO} < 158";
-TString name05 = "158 < E_{BGO} < 251";
-TString name06 = "251 < E_{BGO} < 398";
-TString name07 = "398 < E_{BGO} < 630)";
-TString name08 = "630 < E_{BGO} < 1000)";
-TString name09 = "1000 < E_{BGO} < 1584";
-TString name10 = "1584 < E_{BGO} < 2511";
-TString name11 = "2511 < E_{BGO} < 3981";
-TString name12 = "3981 < E_{BGO} < 6309";
-TString name13 = "6309 < E_{BGO} < 10000";
-TString name14 = "10000 < E_{BGO} < 31622";
-TString name15 = "31622 < E_{BGO} < 100000";
+TString name01 = "25 GeV < E_{BGO} < 39 GeV";
+TString name02 = "39 GeV < E_{BGO} < 63 GeV";
+TString name03 = "63 GeV < E_{BGO} < 100 GeV";
+TString name04 = "100 GeV < E_{BGO} < 158 GeV";
+TString name05 = "158 GeV < E_{BGO} < 251 GeV";
+TString name06 = "251 GeV < E_{BGO} < 398 GeV";
+TString name07 = "398 GeV < E_{BGO} < 630) GeV";
+TString name08 = "630 GeV < E_{BGO} < 1000) GeV";
+TString name09 = "1000 GeV < E_{BGO} < 1584 GeV";
+TString name10 = "1584 GeV < E_{BGO} < 2511 GeV";
+TString name11 = "2511 GeV < E_{BGO} < 3981 GeV";
+TString name12 = "3981 GeV < E_{BGO} < 6309 GeV";
+TString name13 = "6309 GeV < E_{BGO} < 10000 GeV";
+TString name14 = "10000 GeV < E_{BGO} < 31622 GeV";
+TString name15 = "31622 GeV < E_{BGO} < 100000 GeV";
 
-TH1F *h01_p=new TH1F("h01_p", name01, 240, 0. , 5.); h01_p->GetXaxis()->SetTitle("PSD charge"); h01_p->GetYaxis()->SetTitle("Normalized counts"); h01_p->SetLineColor(9); h01_p->SetMarkerColor(9); h01_p->Sumw2();
-TH1F *h02_p=new TH1F("h02_p", name02, 240, 0. , 5.); h02_p->GetXaxis()->SetTitle("PSD charge"); h02_p->GetYaxis()->SetTitle("Normalized counts"); h02_p->SetLineColor(9); h02_p->SetMarkerColor(9); h02_p->Sumw2();
-TH1F *h03_p=new TH1F("h03_p", name03, 240, 0. , 5.); h03_p->GetXaxis()->SetTitle("PSD charge"); h03_p->GetYaxis()->SetTitle("Normalized counts"); h03_p->SetLineColor(9); h03_p->SetMarkerColor(9); h03_p->Sumw2();
-TH1F *h04_p=new TH1F("h04_p", name04, 240, 0. , 5.); h04_p->GetXaxis()->SetTitle("PSD charge"); h04_p->GetYaxis()->SetTitle("Normalized counts"); h04_p->SetLineColor(9); h04_p->SetMarkerColor(9); h04_p->Sumw2();
-TH1F *h05_p=new TH1F("h05_p", name05, 240, 0. , 5.); h05_p->GetXaxis()->SetTitle("PSD charge"); h05_p->GetYaxis()->SetTitle("Normalized counts"); h05_p->SetLineColor(9); h05_p->SetMarkerColor(9); h05_p->Sumw2();
-TH1F *h06_p=new TH1F("h06_p", name06, 240, 0. , 5.); h06_p->GetXaxis()->SetTitle("PSD charge"); h06_p->GetYaxis()->SetTitle("Normalized counts"); h06_p->SetLineColor(9); h06_p->SetMarkerColor(9); h06_p->Sumw2();
-TH1F *h07_p=new TH1F("h07_p", name07, 240, 0. , 5.); h07_p->GetXaxis()->SetTitle("PSD charge"); h07_p->GetYaxis()->SetTitle("Normalized counts"); h07_p->SetLineColor(9); h07_p->SetMarkerColor(9); h07_p->Sumw2();
-TH1F *h08_p=new TH1F("h08_p", name08, 240, 0. , 5.); h08_p->GetXaxis()->SetTitle("PSD charge"); h08_p->GetYaxis()->SetTitle("Normalized counts"); h08_p->SetLineColor(9); h08_p->SetMarkerColor(9); h08_p->Sumw2();
-TH1F *h09_p=new TH1F("h09_p", name09, 240, 0. , 5.); h09_p->GetXaxis()->SetTitle("PSD charge"); h09_p->GetYaxis()->SetTitle("Normalized counts"); h09_p->SetLineColor(9); h09_p->SetMarkerColor(9); h09_p->Sumw2();
-TH1F *h10_p=new TH1F("h10_p", name10, 240, 0. , 5.); h10_p->GetXaxis()->SetTitle("PSD charge"); h10_p->GetYaxis()->SetTitle("Normalized counts"); h10_p->SetLineColor(9); h10_p->SetMarkerColor(9); h10_p->Sumw2();
-TH1F *h11_p=new TH1F("h11_p", name11, 240, 0. , 5.); h11_p->GetXaxis()->SetTitle("PSD charge"); h11_p->GetYaxis()->SetTitle("Normalized counts"); h11_p->SetLineColor(9); h11_p->SetMarkerColor(9); h11_p->Sumw2();
-TH1F *h12_p=new TH1F("h12_p", name12, 240, 0. , 5.); h12_p->GetXaxis()->SetTitle("PSD charge"); h12_p->GetYaxis()->SetTitle("Normalized counts"); h12_p->SetLineColor(9); h12_p->SetMarkerColor(9); h12_p->Sumw2();
-TH1F *h13_p=new TH1F("h13_p", name13, 240, 0. , 5.); h13_p->GetXaxis()->SetTitle("PSD charge"); h13_p->GetYaxis()->SetTitle("Normalized counts"); h13_p->SetLineColor(9); h13_p->SetMarkerColor(9); h13_p->Sumw2();
-TH1F *h14_p=new TH1F("h14_p", name14, 240, 0. , 5.); h14_p->GetXaxis()->SetTitle("PSD charge"); h14_p->GetYaxis()->SetTitle("Normalized counts"); h14_p->SetLineColor(9); h14_p->SetMarkerColor(9); h14_p->Sumw2();
-TH1F *h15_p=new TH1F("h15_p", name15, 240, 0. , 5.); h15_p->GetXaxis()->SetTitle("PSD charge"); h15_p->GetYaxis()->SetTitle("Normalized counts"); h15_p->SetLineColor(9); h15_p->SetMarkerColor(9); h15_p->Sumw2();
+TH1F *h01_p=new TH1F("h01_p", name01, 240, 0., 6.); h01_p->GetXaxis()->SetTitle("PSD charge"); h01_p->GetYaxis()->SetTitle("Normalized counts"); h01_p->SetLineColor(9); h01_p->SetMarkerColor(9); h01_p->Sumw2();
+TH1F *h02_p=new TH1F("h02_p", name02, 240, 0., 6.); h02_p->GetXaxis()->SetTitle("PSD charge"); h02_p->GetYaxis()->SetTitle("Normalized counts"); h02_p->SetLineColor(9); h02_p->SetMarkerColor(9); h02_p->Sumw2();
+TH1F *h03_p=new TH1F("h03_p", name03, 240, 0., 6.); h03_p->GetXaxis()->SetTitle("PSD charge"); h03_p->GetYaxis()->SetTitle("Normalized counts"); h03_p->SetLineColor(9); h03_p->SetMarkerColor(9); h03_p->Sumw2();
+TH1F *h04_p=new TH1F("h04_p", name04, 240, 0., 6.); h04_p->GetXaxis()->SetTitle("PSD charge"); h04_p->GetYaxis()->SetTitle("Normalized counts"); h04_p->SetLineColor(9); h04_p->SetMarkerColor(9); h04_p->Sumw2();
+TH1F *h05_p=new TH1F("h05_p", name05, 240, 0., 6.); h05_p->GetXaxis()->SetTitle("PSD charge"); h05_p->GetYaxis()->SetTitle("Normalized counts"); h05_p->SetLineColor(9); h05_p->SetMarkerColor(9); h05_p->Sumw2();
+TH1F *h06_p=new TH1F("h06_p", name06, 240, 0., 6.); h06_p->GetXaxis()->SetTitle("PSD charge"); h06_p->GetYaxis()->SetTitle("Normalized counts"); h06_p->SetLineColor(9); h06_p->SetMarkerColor(9); h06_p->Sumw2();
+TH1F *h07_p=new TH1F("h07_p", name07, 240, 0., 6.); h07_p->GetXaxis()->SetTitle("PSD charge"); h07_p->GetYaxis()->SetTitle("Normalized counts"); h07_p->SetLineColor(9); h07_p->SetMarkerColor(9); h07_p->Sumw2();
+TH1F *h08_p=new TH1F("h08_p", name08, 240, 0., 6.); h08_p->GetXaxis()->SetTitle("PSD charge"); h08_p->GetYaxis()->SetTitle("Normalized counts"); h08_p->SetLineColor(9); h08_p->SetMarkerColor(9); h08_p->Sumw2();
+TH1F *h09_p=new TH1F("h09_p", name09, 240, 0., 6.); h09_p->GetXaxis()->SetTitle("PSD charge"); h09_p->GetYaxis()->SetTitle("Normalized counts"); h09_p->SetLineColor(9); h09_p->SetMarkerColor(9); h09_p->Sumw2();
+TH1F *h10_p=new TH1F("h10_p", name10, 240, 0., 6.); h10_p->GetXaxis()->SetTitle("PSD charge"); h10_p->GetYaxis()->SetTitle("Normalized counts"); h10_p->SetLineColor(9); h10_p->SetMarkerColor(9); h10_p->Sumw2();
+TH1F *h11_p=new TH1F("h11_p", name11, 240, 0., 6.); h11_p->GetXaxis()->SetTitle("PSD charge"); h11_p->GetYaxis()->SetTitle("Normalized counts"); h11_p->SetLineColor(9); h11_p->SetMarkerColor(9); h11_p->Sumw2();
+TH1F *h12_p=new TH1F("h12_p", name12, 240, 0., 6.); h12_p->GetXaxis()->SetTitle("PSD charge"); h12_p->GetYaxis()->SetTitle("Normalized counts"); h12_p->SetLineColor(9); h12_p->SetMarkerColor(9); h12_p->Sumw2();
+TH1F *h13_p=new TH1F("h13_p", name13, 240, 0., 6.); h13_p->GetXaxis()->SetTitle("PSD charge"); h13_p->GetYaxis()->SetTitle("Normalized counts"); h13_p->SetLineColor(9); h13_p->SetMarkerColor(9); h13_p->Sumw2();
+TH1F *h14_p=new TH1F("h14_p", name14, 240, 0., 6.); h14_p->GetXaxis()->SetTitle("PSD charge"); h14_p->GetYaxis()->SetTitle("Normalized counts"); h14_p->SetLineColor(9); h14_p->SetMarkerColor(9); h14_p->Sumw2();
+TH1F *h15_p=new TH1F("h15_p", name15, 240, 0., 6.); h15_p->GetXaxis()->SetTitle("PSD charge"); h15_p->GetYaxis()->SetTitle("Normalized counts"); h15_p->SetLineColor(9); h15_p->SetMarkerColor(9); h15_p->Sumw2();
 
 
-TH1F *h01_he=new TH1F("h01_he", name01, 240, 0. , 5.); h01_he->GetXaxis()->SetTitle("PSD charge"); h01_he->GetYaxis()->SetTitle("Normalized counts"); h01_he->SetLineColor(6); h01_he->SetMarkerColor(6); h01_he->Sumw2();
-TH1F *h02_he=new TH1F("h02_he", name02, 240, 0. , 5.); h02_he->GetXaxis()->SetTitle("PSD charge"); h02_he->GetYaxis()->SetTitle("Normalized counts"); h02_he->SetLineColor(6); h02_he->SetMarkerColor(6); h02_he->Sumw2();
-TH1F *h03_he=new TH1F("h03_he", name03, 240, 0. , 5.); h03_he->GetXaxis()->SetTitle("PSD charge"); h03_he->GetYaxis()->SetTitle("Normalized counts"); h03_he->SetLineColor(6); h03_he->SetMarkerColor(6); h03_he->Sumw2();
-TH1F *h04_he=new TH1F("h04_he", name04, 240, 0. , 5.); h04_he->GetXaxis()->SetTitle("PSD charge"); h04_he->GetYaxis()->SetTitle("Normalized counts"); h04_he->SetLineColor(6); h04_he->SetMarkerColor(6); h04_he->Sumw2();
-TH1F *h05_he=new TH1F("h05_he", name05, 240, 0. , 5.); h05_he->GetXaxis()->SetTitle("PSD charge"); h05_he->GetYaxis()->SetTitle("Normalized counts"); h05_he->SetLineColor(6); h05_he->SetMarkerColor(6); h05_he->Sumw2();
-TH1F *h06_he=new TH1F("h06_he", name06, 240, 0. , 5.); h06_he->GetXaxis()->SetTitle("PSD charge"); h06_he->GetYaxis()->SetTitle("Normalized counts"); h06_he->SetLineColor(6); h06_he->SetMarkerColor(6); h06_he->Sumw2();
-TH1F *h07_he=new TH1F("h07_he", name07, 240, 0. , 5.); h07_he->GetXaxis()->SetTitle("PSD charge"); h07_he->GetYaxis()->SetTitle("Normalized counts"); h07_he->SetLineColor(6); h07_he->SetMarkerColor(6); h07_he->Sumw2();
-TH1F *h08_he=new TH1F("h08_he", name08, 240, 0. , 5.); h08_he->GetXaxis()->SetTitle("PSD charge"); h08_he->GetYaxis()->SetTitle("Normalized counts"); h08_he->SetLineColor(6); h08_he->SetMarkerColor(6); h08_he->Sumw2();
-TH1F *h09_he=new TH1F("h09_he", name09, 240, 0. , 5.); h09_he->GetXaxis()->SetTitle("PSD charge"); h09_he->GetYaxis()->SetTitle("Normalized counts"); h09_he->SetLineColor(6); h09_he->SetMarkerColor(6); h09_he->Sumw2();
-TH1F *h10_he=new TH1F("h10_he", name10, 240, 0. , 5.); h10_he->GetXaxis()->SetTitle("PSD charge"); h10_he->GetYaxis()->SetTitle("Normalized counts"); h10_he->SetLineColor(6); h10_he->SetMarkerColor(6); h10_he->Sumw2();
-TH1F *h11_he=new TH1F("h11_he", name11, 240, 0. , 5.); h11_he->GetXaxis()->SetTitle("PSD charge"); h11_he->GetYaxis()->SetTitle("Normalized counts"); h11_he->SetLineColor(6); h11_he->SetMarkerColor(6); h11_he->Sumw2();
-TH1F *h12_he=new TH1F("h12_he", name12, 240, 0. , 5.); h12_he->GetXaxis()->SetTitle("PSD charge"); h12_he->GetYaxis()->SetTitle("Normalized counts"); h12_he->SetLineColor(6); h12_he->SetMarkerColor(6); h12_he->Sumw2();
-TH1F *h13_he=new TH1F("h13_he", name13, 240, 0. , 5.); h13_he->GetXaxis()->SetTitle("PSD charge"); h13_he->GetYaxis()->SetTitle("Normalized counts"); h13_he->SetLineColor(6); h13_he->SetMarkerColor(6); h13_he->Sumw2();
-TH1F *h14_he=new TH1F("h14_he", name14, 240, 0. , 5.); h14_he->GetXaxis()->SetTitle("PSD charge"); h14_he->GetYaxis()->SetTitle("Normalized counts"); h14_he->SetLineColor(6); h14_he->SetMarkerColor(6); h14_he->Sumw2();
-TH1F *h15_he=new TH1F("h15_he", name15, 240, 0. , 5.); h15_he->GetXaxis()->SetTitle("PSD charge"); h15_he->GetYaxis()->SetTitle("Normalized counts"); h15_he->SetLineColor(6); h15_he->SetMarkerColor(6); h15_he->Sumw2();
+TH1F *h01_he=new TH1F("h01_he", name01, 240, 0., 6.); h01_he->GetXaxis()->SetTitle("PSD charge"); h01_he->GetYaxis()->SetTitle("Normalized counts"); h01_he->SetLineColor(6); h01_he->SetMarkerColor(6); h01_he->Sumw2();
+TH1F *h02_he=new TH1F("h02_he", name02, 240, 0., 6.); h02_he->GetXaxis()->SetTitle("PSD charge"); h02_he->GetYaxis()->SetTitle("Normalized counts"); h02_he->SetLineColor(6); h02_he->SetMarkerColor(6); h02_he->Sumw2();
+TH1F *h03_he=new TH1F("h03_he", name03, 240, 0., 6.); h03_he->GetXaxis()->SetTitle("PSD charge"); h03_he->GetYaxis()->SetTitle("Normalized counts"); h03_he->SetLineColor(6); h03_he->SetMarkerColor(6); h03_he->Sumw2();
+TH1F *h04_he=new TH1F("h04_he", name04, 240, 0., 6.); h04_he->GetXaxis()->SetTitle("PSD charge"); h04_he->GetYaxis()->SetTitle("Normalized counts"); h04_he->SetLineColor(6); h04_he->SetMarkerColor(6); h04_he->Sumw2();
+TH1F *h05_he=new TH1F("h05_he", name05, 240, 0., 6.); h05_he->GetXaxis()->SetTitle("PSD charge"); h05_he->GetYaxis()->SetTitle("Normalized counts"); h05_he->SetLineColor(6); h05_he->SetMarkerColor(6); h05_he->Sumw2();
+TH1F *h06_he=new TH1F("h06_he", name06, 240, 0., 6.); h06_he->GetXaxis()->SetTitle("PSD charge"); h06_he->GetYaxis()->SetTitle("Normalized counts"); h06_he->SetLineColor(6); h06_he->SetMarkerColor(6); h06_he->Sumw2();
+TH1F *h07_he=new TH1F("h07_he", name07, 240, 0., 6.); h07_he->GetXaxis()->SetTitle("PSD charge"); h07_he->GetYaxis()->SetTitle("Normalized counts"); h07_he->SetLineColor(6); h07_he->SetMarkerColor(6); h07_he->Sumw2();
+TH1F *h08_he=new TH1F("h08_he", name08, 240, 0., 6.); h08_he->GetXaxis()->SetTitle("PSD charge"); h08_he->GetYaxis()->SetTitle("Normalized counts"); h08_he->SetLineColor(6); h08_he->SetMarkerColor(6); h08_he->Sumw2();
+TH1F *h09_he=new TH1F("h09_he", name09, 240, 0., 6.); h09_he->GetXaxis()->SetTitle("PSD charge"); h09_he->GetYaxis()->SetTitle("Normalized counts"); h09_he->SetLineColor(6); h09_he->SetMarkerColor(6); h09_he->Sumw2();
+TH1F *h10_he=new TH1F("h10_he", name10, 240, 0., 6.); h10_he->GetXaxis()->SetTitle("PSD charge"); h10_he->GetYaxis()->SetTitle("Normalized counts"); h10_he->SetLineColor(6); h10_he->SetMarkerColor(6); h10_he->Sumw2();
+TH1F *h11_he=new TH1F("h11_he", name11, 240, 0., 6.); h11_he->GetXaxis()->SetTitle("PSD charge"); h11_he->GetYaxis()->SetTitle("Normalized counts"); h11_he->SetLineColor(6); h11_he->SetMarkerColor(6); h11_he->Sumw2();
+TH1F *h12_he=new TH1F("h12_he", name12, 240, 0., 6.); h12_he->GetXaxis()->SetTitle("PSD charge"); h12_he->GetYaxis()->SetTitle("Normalized counts"); h12_he->SetLineColor(6); h12_he->SetMarkerColor(6); h12_he->Sumw2();
+TH1F *h13_he=new TH1F("h13_he", name13, 240, 0., 6.); h13_he->GetXaxis()->SetTitle("PSD charge"); h13_he->GetYaxis()->SetTitle("Normalized counts"); h13_he->SetLineColor(6); h13_he->SetMarkerColor(6); h13_he->Sumw2();
+TH1F *h14_he=new TH1F("h14_he", name14, 240, 0., 6.); h14_he->GetXaxis()->SetTitle("PSD charge"); h14_he->GetYaxis()->SetTitle("Normalized counts"); h14_he->SetLineColor(6); h14_he->SetMarkerColor(6); h14_he->Sumw2();
+TH1F *h15_he=new TH1F("h15_he", name15, 240, 0., 6.); h15_he->GetXaxis()->SetTitle("PSD charge"); h15_he->GetYaxis()->SetTitle("Normalized counts"); h15_he->SetLineColor(6); h15_he->SetMarkerColor(6); h15_he->Sumw2();
 
 
 /*
@@ -398,72 +398,83 @@ TCut ctot=cutEt*cut00*cut01*cut02*cut05*cut06*SpCut;
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
 TCanvas *c0=new TCanvas("c0","BGO-PSDglob",1200,900); c0->Divide(3,5);
 c0_1->cd();  c0_1->SetTicks();  c0_2->cd();  c0_2->SetTicks();  c0_3->cd();  c0_3->SetTicks();  
 c0_4->cd();  c0_4->SetTicks();  c0_5->cd();  c0_5->SetTicks();  c0_6->cd();  c0_6->SetTicks();
 c0_7->cd();  c0_7->SetTicks();  c0_8->cd();  c0_8->SetTicks();  c0_9->cd();  c0_9->SetTicks(); 
 c0_10->cd();  c0_10->SetTicks();  c0_11->cd();  c0_11->SetTicks();  c0_12->cd();  c0_12->SetTicks(); 
-c0_13->cd();  c0_13->SetTicks();  c0_14->cd();  c0_14->SetTicks();  c0_15->cd();  c0_15->SetTicks(); 
+c0_13->cd();  c0_13->SetTicks();  c0_14->cd();  c0_14->SetTicks();  c0_15->cd();  c0_15->SetTicks(); */
+
+TCanvas* c[15];
+
+for (int i = 0; i < 15; ++i) {
+
+    TString name  = Form("c_%02d", i+1);
+    TString title = Form(" %02d", i+1);
+
+    c[i] = new TCanvas(name, title, 800, 600);
+}
 
 // -------------- h01
-c0_1->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( ""+PSDcharge+">>+h01_p", ctot*wPN1[i]*bgo01, "");} 
-			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(""+PSDcharge+">>+h01_he",ctot*wHeN1[i]*bgo01,"");} cout<<"... h01 ..."<<endl;
+c[0]->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( PSDcharge+">>+h01_p", ctot*wPN1[i]*bgo01, "");} 
+			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(PSDcharge+">>+h01_he",ctot*wHeN1[i]*bgo01,"");} cout<<"... h01 ..."<<endl;
 
 // -------------- h02
-c0_2->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( ""+PSDcharge+">>+h02_p", ctot*wPN1[i]*bgo02, "");} 
-			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(""+PSDcharge+">>+h02_he",ctot*wHeN1[i]*bgo02,"");} cout<<"... h02 ..."<<endl;
+c[1]->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( PSDcharge+">>+h02_p", ctot*wPN1[i]*bgo02, "");} 
+			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(PSDcharge+">>+h02_he",ctot*wHeN1[i]*bgo02,"");} cout<<"... h02 ..."<<endl;
 
 // -------------- h03
-c0_3->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( ""+PSDcharge+">>+h03_p", ctot*wPN1[i]*bgo03, "");} 
-			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(""+PSDcharge+">>+h03_he",ctot*wHeN1[i]*bgo03,"");} cout<<"... h03 ..."<<endl;
+c[2]->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( PSDcharge+">>+h03_p", ctot*wPN1[i]*bgo03, "");} 
+			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(PSDcharge+">>+h03_he",ctot*wHeN1[i]*bgo03,"");} cout<<"... h03 ..."<<endl;
 
 // -------------- h04
-c0_4->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( ""+PSDcharge+">>+h04_p", ctot*wPN1[i]*bgo04, "");} 
-			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(""+PSDcharge+">>+h04_he",ctot*wHeN1[i]*bgo04,"");} cout<<"... h04 ..."<<endl;
+c[3]->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( PSDcharge+">>+h04_p", ctot*wPN1[i]*bgo04, "");} 
+			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(PSDcharge+">>+h04_he",ctot*wHeN1[i]*bgo04,"");} cout<<"... h04 ..."<<endl;
 
 // -------------- h05
-c0_5->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( ""+PSDcharge+">>+h05_p", ctot*wPN1[i]*bgo05, "");} 
-			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(""+PSDcharge+">>+h05_he",ctot*wHeN1[i]*bgo05,"");} cout<<"... h05 ..."<<endl;
+c[4]->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( PSDcharge+">>+h05_p", ctot*wPN1[i]*bgo05, "");} 
+			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(PSDcharge+">>+h05_he",ctot*wHeN1[i]*bgo05,"");} cout<<"... h05 ..."<<endl;
 
 // -------------- h06
-c0_6->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( ""+PSDcharge+">>+h06_p", ctot*wPN1[i]*bgo06, "");} 
-			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(""+PSDcharge+">>+h06_he",ctot*wHeN1[i]*bgo06,"");} cout<<"... h06 ..."<<endl;
+c[5]->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( PSDcharge+">>+h06_p", ctot*wPN1[i]*bgo06, "");} 
+			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(PSDcharge+">>+h06_he",ctot*wHeN1[i]*bgo06,"");} cout<<"... h06 ..."<<endl;
 
 // -------------- h07
-c0_7->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( ""+PSDcharge+">>+h07_p", ctot*wPN1[i]*bgo07, "");} 
-			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(""+PSDcharge+">>+h07_he",ctot*wHeN1[i]*bgo07,"");} cout<<"... h07 ..."<<endl;
+c[6]->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( PSDcharge+">>+h07_p", ctot*wPN1[i]*bgo07, "");} 
+			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(PSDcharge+">>+h07_he",ctot*wHeN1[i]*bgo07,"");} cout<<"... h07 ..."<<endl;
 
 // -------------- h08
-c0_8->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( ""+PSDcharge+">>+h08_p", ctot*wPN1[i]*bgo08, "");} 
-			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(""+PSDcharge+">>+h08_he",ctot*wHeN1[i]*bgo08,"");} cout<<"... h08 ..."<<endl;
+c[7]->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( PSDcharge+">>+h08_p", ctot*wPN1[i]*bgo08, "");} 
+			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(PSDcharge+">>+h08_he",ctot*wHeN1[i]*bgo08,"");} cout<<"... h08 ..."<<endl;
 
 // -------------- h09
-c0_9->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( ""+PSDcharge+">>+h09_p", ctot*wPN1[i]*bgo09, "");} 
-			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(""+PSDcharge+">>+h09_he",ctot*wHeN1[i]*bgo09,"");} cout<<"... h09 ..."<<endl;
+c[8]->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( PSDcharge+">>+h09_p", ctot*wPN1[i]*bgo09, "");} 
+			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(PSDcharge+">>+h09_he",ctot*wHeN1[i]*bgo09,"");} cout<<"... h09 ..."<<endl;
 
 // -------------- h10
-c0_10->cd();for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( ""+PSDcharge+">>+h10_p", ctot*wPN1[i]*bgo10, "");} 
-	 		for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(""+PSDcharge+">>+h10_he",ctot*wHeN1[i]*bgo10,"");} cout<<"... h10 ..."<<endl;
+c[9]->cd();for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( PSDcharge+">>+h10_p", ctot*wPN1[i]*bgo10, "");} 
+	 		for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(PSDcharge+">>+h10_he",ctot*wHeN1[i]*bgo10,"");} cout<<"... h10 ..."<<endl;
 
 // -------------- h11
-c0_11->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( ""+PSDcharge+">>+h11_p", ctot*wPN1[i]*bgo11, "");} 
-			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(""+PSDcharge+">>+h11_he",ctot*wHeN1[i]*bgo11,"");} cout<<"... h11 ..."<<endl;
+c[10]->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( PSDcharge+">>+h11_p", ctot*wPN1[i]*bgo11, "");} 
+			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(PSDcharge+">>+h11_he",ctot*wHeN1[i]*bgo11,"");} cout<<"... h11 ..."<<endl;
 
 // -------------- h12
-c0_12->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( ""+PSDcharge+">>+h12_p", ctot*wPN1[i]*bgo12, "");} 
-			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(""+PSDcharge+">>+h12_he",ctot*wHeN1[i]*bgo12,"");} cout<<"... h12 ..."<<endl;
+c[11]->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( PSDcharge+">>+h12_p", ctot*wPN1[i]*bgo12, "");} 
+			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(PSDcharge+">>+h12_he",ctot*wHeN1[i]*bgo12,"");} cout<<"... h12 ..."<<endl;
 
 // -------------- h13
-c0_13->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( ""+PSDcharge+">>+h13_p", ctot*wPN1[i]*bgo13, "");} 
-			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(""+PSDcharge+">>+h13_he",ctot*wHeN1[i]*bgo13,"");} cout<<"... h13 ..."<<endl;
+c[12]->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( PSDcharge+">>+h13_p", ctot*wPN1[i]*bgo13, "");} 
+			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(PSDcharge+">>+h13_he",ctot*wHeN1[i]*bgo13,"");} cout<<"... h13 ..."<<endl;
 
 // -------------- h14
-c0_14->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( ""+PSDcharge+">>+h14_p", ctot*wPN1[i]*bgo14, "");} 
-			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(""+PSDcharge+">>+h14_he",ctot*wHeN1[i]*bgo14,"");} cout<<"... h14 ..."<<endl;
+c[13]->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( PSDcharge+">>+h14_p", ctot*wPN1[i]*bgo14, "");} 
+			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(PSDcharge+">>+h14_he",ctot*wHeN1[i]*bgo14,"");} cout<<"... h14 ..."<<endl;
 
 // -------------- h15
-c0_15->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( ""+PSDcharge+">>+h15_p", ctot*wPN1[i]*bgo15, "");} 
-			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(""+PSDcharge+">>+h15_he",ctot*wHeN1[i]*bgo15,"");} cout<<"... h15 ..."<<endl;
+c[14]->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( PSDcharge+">>+h15_p", ctot*wPN1[i]*bgo15, "");} 
+			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(PSDcharge+">>+h15_he",ctot*wHeN1[i]*bgo15,"");} cout<<"... h15 ..."<<endl;
 	
 
 
@@ -502,6 +513,10 @@ h12_he->Write(); // save the histogram
 h13_he->Write(); // save the histogram
 h14_he->Write(); // save the histogram
 h15_he->Write(); // save the histogram
+
+for (int i=0; i<15; i++){
+	c[i]->Write();
+}
 
 
 fout->Close();
