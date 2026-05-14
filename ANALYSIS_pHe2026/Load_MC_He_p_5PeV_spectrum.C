@@ -13,22 +13,22 @@ const int nsetHe = 7; //number of different energy intervals used to produce the
 const int nsetP = 6;
 
 std::vector<TString> filesP = {
-        "/nfs/argo/dampe/PATH/Proton_10GeV_100GeV_FTFP_merged.root",
-        "/nfs/argo/dampe/PATH/Proton_100GeV_1TeV_FTFP_merged.root",
-        "/nfs/argo/dampe/PATH/Proton_1TeV_10TeV_FTFP_merged.root",
-        "/nfs/argo/dampe/PATH/Proton_10TeV_100TeV_FTFP_merged.root",
-        "/nfs/argo/dampe/PATH/Proton_100TeV_1PeV_EPOSLHC_FTFP_merged.root",
-        "/nfs/argo/dampe/PATH/Proton_1PeV_5PeV_EPOSLHC_FTFP_merged.root"
+        "/nfs/argo/dampe/SKIM_2026_pHe/PROTON/Proton_10GeV_100GeV_FTFP_merged.root",
+        "/nfs/argo/dampe/SKIM_2026_pHe/PROTON/Proton_100GeV_1TeV_FTFP_merged.root",
+        "/nfs/argo/dampe/SKIM_2026_pHe/PROTON/Proton_1TeV_10TeV_FTFP_merged.root",
+        "/nfs/argo/dampe/SKIM_2026_pHe/PROTON/Proton_10TeV_100TeV_FTFP_merged.root",
+        "/nfs/argo/dampe/SKIM_2026_pHe/PROTON/Proton_100TeV_1PeV_EPOSLHC_FTFP_merged.root",
+        "/nfs/argo/dampe/SKIM_2026_pHe/PROTON/Proton_1PeV_5PeV_EPOSLHC_FTFP_merged.root"
     };
 
 std::vector<TString> filesHe = {
-        "/nfs/argo/dampe/PATH/He4_10GeV_100GeV_FTFP_BGO_Quenching_merged.root",
-        "/nfs/argo/dampe/PATH/He4_100GeV_1TeV_FTFP_merged.root",
-        "/nfs/argo/dampe/PATH/He4_1TeV_10TeV_FTFP_merged.root",
-        "/nfs/argo/dampe/PATH/He4_10TeV_100TeV_EPOSLHC_FTFP_merged.root",
-        "/nfs/argo/dampe/PATH/He4_100TeV_500TeV_EPOSLHC_FTFP_merged.root",
-        "/nfs/argo/dampe/PATH/He4_500TeV_1PeV_EPOSLHC_FTFP_merged.root",
-        "/nfs/argo/dampe/PATH/He4_1PeV_5PeV_EPOSLHC_FTFP_merged.root"
+        "/nfs/argo/dampe/SKIM_2026_pHe/HELIUM/He4_10GeV_100GeV_FTFP_BGO_Quenching_merged.root",
+        "/nfs/argo/dampe/SKIM_2026_pHe/HELIUM/He4_100GeV_1TeV_FTFP_merged.root",
+        "/nfs/argo/dampe/SKIM_2026_pHe/HELIUM/He4_1TeV_10TeV_FTFP_merged.root",
+        "/nfs/argo/dampe/SKIM_2026_pHe/HELIUM/He4_10TeV_100TeV_EPOSLHC_FTFP_merged.root",
+        "/nfs/argo/dampe/SKIM_2026_pHe/HELIUM/He4_100TeV_500TeV_EPOSLHC_FTFP_merged.root",
+        "/nfs/argo/dampe/SKIM_2026_pHe/HELIUM/He4_500TeV_1PeV_EPOSLHC_FTFP_merged.root",
+        "/nfs/argo/dampe/SKIM_2026_pHe/HELIUM/He4_1PeV_5PeV_EPOSLHC_FTFP_merged.root"
     };
 
 
@@ -124,7 +124,7 @@ cout<<" "<<endl;
 TH1F *h1Ngen_he = new TH1F("h1Ngen_he", "Ngen(Et)", noe, Ebin);
 double splitEnergy = 5e5; // 500 TeV
 int overlapBin = h1Ngen_he->FindBin(splitEnergy);
-double norm45 = 00/00;
+double norm45 = 10305100./10281395.;
 for(int i=0; i<nsetHe; i++){
 
 	TFile *p = TFile::Open(filesHe[i], "READ");
@@ -143,7 +143,7 @@ for(int i=0; i<nsetHe; i++){
 }
 //
 // -----------------------------------------------------------------------------------------
-
+/*
  // vecchi tagli?
 //== here we have a normalization factor (SAME NUMBERS, as before)
 TCut wP[nsetP] = {
@@ -167,7 +167,7 @@ TCut wHe[nsetHe] = {
 
 TCut wHeN1[nsetHe];
 TCut wPN1[nsetP];
-
+*/
 TCut wcomP = "2*3.1415*3.1415*1.38*1.38";                                                 // !!!!!!!!!!!!!!!!!!!!!!
 TCut wcomHe = "2*3.14159*3.14159";  
 TCut GeoCorr = "(2.*3.14159*3.14159)/(2.*3.14159*3.14159*1.38*1.38)"; 
@@ -177,8 +177,8 @@ TCut wspectAmsHes =  "((0.0948/2.)*(1./(2*45.))**(-2.780)*(MC_EnergyT)**(-1.780)
 
 
 // MODIFICARE ???
-for (int i=0; i< nsetP; i++) { wPN1[i] = wP[i]*wspectAmsPs; };
-for (int i=0; i< nsetHe; i++) { wHeN1[i] = wHe[i]*wspectAmsHes; };
+//for (int i=0; i< nsetP; i++) { wPN1[i] = wP[i]*wspectAmsPs; };
+//for (int i=0; i< nsetHe; i++) { wHeN1[i] = wHe[i]*wspectAmsHes; };
 
 
 TCut weightsInterval[noe];
@@ -203,8 +203,10 @@ for (int i=0; i<noe; i++){
 	Weights[i] = (weights[i]*weightsInterval[i]);
 
 	wNgen_p[i] = Form("%e", 1./h1Ngen_p->GetBinContent(i+1));
+	cout << "P,  bin " << i << ": " << wNgen_p[i] << endl;
 	wPN[i] = wNgen_p[i];
 	wNgen_he[i] = Form("%e", 1./h1Ngen_he->GetBinContent(i+1));
+	cout << "He, bin " << i << ": " << wNgen_p[i] << endl;
 	wHeN[i] = wNgen_he[i];
 
 }
@@ -228,7 +230,7 @@ TCut bgo_acceptance =
 */
 
 TCut Trig_HEP="BGO_HET>0.";
-TCut cc204s = "(BGO_EnergyG>20.)";
+TCut cc204s = "(BGO_EnergyG_QuenchSatCorr_ML_ions_v3>20.)";
 
 TCut cut00  = cc204s*Trig_HEP;
 TCut cut01 = "(PSD_ChargeY0>0.0 || PSD_ChargeY1>0.0) && (PSD_ChargeX0>0.0 || PSD_ChargeX1>0.0)"; // un segnale su entrambe i due piani di PSD
@@ -342,7 +344,7 @@ for (int i=0; i<nsetHe; i++) {
 	for (int j=0; j<noe; j++) {
 
 		//sk_he[i]->Draw("(BGO_EnergyG_QuenchSatCorr_ML_ions):(MC_EnergyT)>>+h2Ntrig_wgt",ctot*Weights[j]*Weights2*wHeN[j]*GeoCorr,"goff");
-		sk_he[i]->Draw("(BGO_EnergyG_QuenchSatCorr_ML_ions_v3):(MC_EnergyT)>>+h2Ntrig_wgt_v3",ctot*Weights[j]*Weights2*wHeN[j]*GeoCorr,"goff");
+		sk_he[i]->Draw("(BGO_EnergyG_QuenchSatCorr_ML_ions_v3):(MC_EnergyT)>>+h2Ntrig_wgt_v3",ctot*wHeN[j]*GeoCorr*Weights[j]*Weights2,"goff");
 	}
     cout<<"He...Cor in:"<<i<<endl;
 }
@@ -350,8 +352,8 @@ for (int i=0; i<nsetHe; i++) {
 for (int i=0; i<nsetP; i++) {
 	for (int j=0; j<noe; j++) {
 
-		//sk_p[i]->Draw("(BGO_EnergyG_QuenchSatCorr_ML_ions):(MC_EnergyT)>>+h2Ntrig_wgt",ctot*Weights[j]*Weights2*wPN[j]*GeoCorr,"goff");
-		sk_p[i]->Draw("(BGO_EnergyG_QuenchSatCorr_ML_ions_v3):(MC_EnergyT)>>+h2Ntrig_wgt_v3",ctot*Weights[j]*Weights2*wPN[j]*GeoCorr,"goff");
+		//sk_p[i]->Draw("(BGO_EnergyG_QuenchSatCorr_ML_ions):(MC_EnergyT)>>+h2Ntrig_wgt",ctot*Weights[j]*Weights2*wPN[j],"goff");
+		sk_p[i]->Draw("(BGO_EnergyG_QuenchSatCorr_ML_ions_v3):(MC_EnergyT)>>+h2Ntrig_wgt_v3",ctot*wPN[j]*Weights[j]*Weights2,"goff");
 	}
     cout<<"P...Cor in:"<<i<<endl;
 }
@@ -361,8 +363,11 @@ TFile *fout = new TFile("PHe_MC_p_He_5PeV_unfolding_6binperdecade.root","RECREAT
 
 fout->cd();
 
-h2Ntrig_wgt->Write();
+//h2Ntrig_wgt->Write();
 h2Ntrig_wgt_v3->Write();
+
+h1Ngen_he->Write();
+h1Ngen_p->Write();
 
 fout->Close();
 

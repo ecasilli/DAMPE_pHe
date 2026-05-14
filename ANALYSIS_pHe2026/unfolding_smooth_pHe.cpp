@@ -30,6 +30,11 @@ const double STARTING_DATA_VAL = 1e2;//Min E value with N obs events > 0
 const std::string Test_Stat = "chi2"; // "ks" (Kolmogorov-Smirnov) or "chi2" (Reduced Chi2)
 double MIN_TS = (Test_Stat == "ks" ? 1e-4 : 1.);
 
+const bool SMOOTHING = false;
+
+std::string fout_name = "unfold_results_pHe_2026.root";
+std::string fdat_name = "flux_spectrum_pHe_2026.dat";
+
 // Global variables
 std::vector<double> TRUGUESS;
 std::vector<double> NORM_TRUE;
@@ -203,8 +208,11 @@ void iterative_bayesian(const Matrix& kernel, const std::vector<double>& eff, co
     std::vector<double> truthprevious;
 
     for(int attempt = 0; attempt < NATTEMPTS; attempt++) {
-        //std::vector<double> smoothtru_prob = truth;//NO SMOOTHING
-        std::vector<double> smoothtru_prob = smooth_(truth, originaltruth);
+        std::vector<double> smoothtru_prob;
+        if (SMOOTHING)
+            smoothtru_prob = smooth_(truth, originaltruth);
+        else
+            smoothtru_prob = truth;//NO SMOOTHING
         double Ntrue{0.};
         for(std::vector<double>::iterator it = smoothtru_prob.begin(); it != smoothtru_prob.end(); ++it){
             Ntrue += *it;
@@ -294,13 +302,13 @@ std::vector<double> compute_std(const std::vector<std::vector<double>>& data) {
     return stds;
 }
 
-int unfolding_smooth_ne() {
+int unfolding_smooth_pHe() {
 
     // Parse command line arguments
-    std::string response_file = "OUTPUTS/Out_MC_FTFP_NEON_E2e7_v8_Feb26_20bins_norm34.root";
-    std::string response_histo = "h2Ntrig_wgt";
-    std::string data_file = "OUTPUTS/Out_DATA_120months_NEON_Mar26_20bins.root";
-    std::string data_histo = "h1Nobs_nobkg";
+    std::string response_file = "PHe_MC_p_He_5PeV_unfolding_6binperdecade.root";
+    std::string response_histo = "h2Ntrig_wgt_v3";
+    std::string data_file = "PHe_skim_Orb120Month_6binperdecade.root";
+    std::string data_histo = "h1SelBGO_orb_v3";
     //std::string ngen_file = ""; //uncomment if response-mat to be normalized
     //std::string ngen_histo = ""; //uncomment if response-mat to be normalized
 
@@ -469,7 +477,7 @@ int unfolding_smooth_ne() {
     hfluxpow->SetName("flux_pow");
     hfluxpow->SetTitle("flux_pow");
 
-    std::ofstream outfile("DATA_POINTS/flux_spectrum_neon_E2e7_20bins_nobkg_norm34_5iter_toy10000_10y.dat");
+    std::ofstream outfile(fdat_name);
     outfile << "# E  lowE  upE  Flux  StatErr\n";
     //outfile << std::setprecision(8) << std::scientific;
 
@@ -520,7 +528,6 @@ int unfolding_smooth_ne() {
 
 
     // Save output
-    TString fout_name = "OUTPUTS/unfold_results_neon_E2e7_20bins_nobkg_norm34_5iter_toy10000_10y.root";
     TFile* fout = TFile::Open(fout_name, "RECREATE");
     fout->cd();
     h->Write();
