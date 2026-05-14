@@ -1,0 +1,46 @@
+
+Processing ChargeFit63_100.C...
+PROTON: 
+****************************************
+Minimizer is Minuit2 / Migrad
+Chi2                      =      444.489
+NDf                       =           52
+Edm                       =  4.43568e-08
+NCalls                    =          504
+Width                     =    0.0527768   +/-   0.000300153  	 (limited)
+MP                        =      1.04385   +/-   0.000367597  	 (limited)
+Area                      =  2.07163e-09   +/-   7.0565e-12   	 (limited)
+GSigma                    =    0.0105637   +/-   0.0016064    	 (limited)
+****************************************
+Minimizer is Minuit2 / Migrad
+Chi2                      =      444.489
+NDf                       =           52
+Edm                       =  2.65234e-08
+NCalls                    =           54
+Width                     =    0.0527768   +/-   0.000300151  	 (limited)
+MP                        =      1.04385   +/-   0.000367597  	 (limited)
+Area                      =  2.07163e-09   +/-   7.0565e-12   	 (limited)
+GSigma                    =    0.0105637   +/-   0.00160637   	 (limited)
+1.04385	0.000367597	0.0527768	0.000300151	0.0105637	0.00160637
+HELIUM: 
+****************************************
+Minimizer is Minuit2 / Migrad
+Chi2                      =      117.483
+NDf                       =           72
+Edm                       =  1.76952e-10
+NCalls                    =          731
+Width                     =    0.0705024   +/-   0.00170954   	 (limited)
+MP                        =      2.04843   +/-   0.00197413   	 (limited)
+Area                      =  2.31535e-09   +/-   2.5138e-11   	 (limited)
+GSigma                    =    0.0657378   +/-   0.00346903   	 (limited)
+****************************************
+Minimizer is Minuit2 / Migrad
+Chi2                      =      117.483
+NDf                       =           72
+Edm                       =  2.38544e-11
+NCalls                    =           53
+Width                     =    0.0705024   +/-   0.00170991   	 (limited)
+MP                        =      2.04843   +/-   0.00197441   	 (limited)
+Area                      =  2.31535e-09   +/-   2.51386e-11  	 (limited)
+GSigma                    =    0.0657378   +/-   0.00347012   	 (limited)
+2.04843	0.00197441	0.0705024	0.00170991	0.0657378	0.00347012

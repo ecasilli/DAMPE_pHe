@@ -334,7 +334,7 @@ void langaus() {
 void ChargeFit3981_6309()
 {
  
-	TFile *InputFile = new TFile("../ROOT_FILES/PHe_MC_p_He_5PeV_charge_240bins_v1.root");
+	TFile *InputFile = new TFile("../ROOT_FILES/PHe_MC_p_He_5PeV_charge_240bins_corrected.root");
 //	TFile *OutputFile = new TFile("HistoLanGausFit.root","RECREATE");
 //		TFile *OutputFile = new TFile("HistoLanGausFit.root","UPDATE");
 
@@ -390,8 +390,8 @@ void ChargeFit3981_6309()
     frHe[1]=4.0;  
 
 
-   plloHe[0]=0.01; plloHe[1]=1.0; plloHe[2]=1.0E-014; plloHe[3]=1.0E-04;
-   plhiHe[0]=0.8; plhiHe[1]=4.0; plhiHe[2]=1.0E-11; plhiHe[3]=1.0E-03;
+   plloHe[0]=0.01; plloHe[1]=1.0; plloHe[2]=1.0E-014; plloHe[3]=1.0E-05;
+   plhiHe[0]=0.8; plhiHe[1]=4.0; plhiHe[2]=1.0E-11; plhiHe[3]=1.0E-01;
    svHe[0]=0.2; svHe[1]=2.0; svHe[2]=1.0E-13; svHe[3]=0.0002;
 
    //   par[0]=Width (scale) parameter of Landau density
@@ -424,10 +424,10 @@ void ChargeFit3981_6309()
    gStyle->SetOptFit(0);
    std::cout<<"HELIUM: "<<std::endl;
   for (int j=a; j<a+1; j++){
-                              sprintf(PSDE_C,"c_%02d",i);
-                              c[i] = new TCanvas(PSDE_C,PSDE_C,1000,800);
-                              c[i]->SetTickx();
-                              c[i]->SetTicky();
+                              sprintf(PSDE_C,"c_%02d",j);
+                              c[j] = new TCanvas(PSDE_C,PSDE_C,1000,800);
+                              c[j]->SetTickx();
+                              c[j]->SetTicky();
 
                               //h[j]->SetLineColor(kMagenta);
                               //h[j]->SetMarkerColor(kMagenta);

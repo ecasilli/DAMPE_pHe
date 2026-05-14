@@ -334,7 +334,7 @@ void langaus() {
 void ChargeFit251_398()
 {
  
-	TFile *InputFile = new TFile("../ROOT_FILES/PHe_MC_p_He_5PeV_charge_240bins_v1.root");
+	TFile *InputFile = new TFile("../ROOT_FILES/PHe_MC_p_He_5PeV_charge_240bins_corrected.root");
 //	TFile *OutputFile = new TFile("HistoLanGausFit.root","RECREATE");
 //		TFile *OutputFile = new TFile("HistoLanGausFit.root","UPDATE");
 
@@ -423,10 +423,10 @@ void ChargeFit251_398()
    gStyle->SetOptFit(0);
    std::cout<<"HELIUM: "<<std::endl;
   for (int j=a; j<a+1; j++){
-                              sprintf(PSDE_C,"c_%02d",i);
-                              c[i] = new TCanvas(PSDE_C,PSDE_C,1000,800);
-                              c[i]->SetTickx();
-                              c[i]->SetTicky();
+                              sprintf(PSDE_C,"c_%02d",j);
+                              c[j] = new TCanvas(PSDE_C,PSDE_C,1000,800);
+                              c[j]->SetTickx();
+                              c[j]->SetTicky();
 
                               //h[j]->SetLineColor(kMagenta);
                               //h[j]->SetMarkerColor(kMagenta);
@@ -456,7 +456,7 @@ void ChargeFit251_398()
   // fr[0]=0.3*h1->GetMean();
   // fr[1]=3.0*h1->GetMean();
 	 fr[0]=0.7; 
-    fr[1]=2.4; 
+    fr[1]=2.2; 
 
 
    pllo[0]=0.05; pllo[1]=0.5; pllo[2]=1.0E-012; pllo[3]=1.0E-10;
