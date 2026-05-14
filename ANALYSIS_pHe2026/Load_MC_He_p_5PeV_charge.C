@@ -326,14 +326,14 @@ TString HeMcGSigmaf_Cor="(0.5533)+(-2.406e-22)*log10(BGO_EnergyG)";
 TString HeGSigmaf="(0.4789)+(-4.384e-33)*log10(BGO_EnergyG)";	
 */
 // 13/05/2026
-TString HeMPVf= "(1.81869+(0.290607*log10(BGO_EnergyG))+(-0.146116*log10(BGO_EnergyG)**2)+(0.0338788*log10(BGO_EnergyG)**3)+(-0.00192039*log10(BGO_EnergyG)**4) )";
-TString HeMcMPVf= "(1.24779+(1.25798*log10(BGO_EnergyG))+(-0.698468*log10(BGO_EnergyG)**2)+(0.169728*log10(BGO_EnergyG)**3)+(-0.0123542*log10(BGO_EnergyG)**4))";
+TString HeMPVf= "(1.81869+(0.290607*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(-0.146116*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(0.0338788*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(-0.00192039*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4) )";
+TString HeMcMPVf= "(1.24779+(1.25798*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(-0.698468*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(0.169728*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(-0.0123542*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4))";
 
-TString HeWidthf = "(-0.404366+(0.742843*log10(BGO_EnergyG))+(-0.422432*log10(BGO_EnergyG)**2)+(0.10251*log10(BGO_EnergyG)**3)+(-0.00846052*log10(BGO_EnergyG)**4))";
-TString HeMcWidthf = "(-0.207321+(0.351723*log10(BGO_EnergyG))+(-0.173553*log10(BGO_EnergyG)**2)+(0.0388396*log10(BGO_EnergyG)**3)+(-0.00242266*log10(BGO_EnergyG)**4))";
+TString HeWidthf = "(-0.404366+(0.742843*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(-0.422432*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(0.10251*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(-0.00846052*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4))";
+TString HeMcWidthf = "(-0.207321+(0.351723*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(-0.173553*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(0.0388396*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(-0.00242266*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4))";
 
-TString HeGSigmaf = "(0.060102+(-1.43351e-39*log10(BGO_EnergyG)))";
-TString HeMcGSigmaf = "(0.0626831+(-2.19752e-40*log10(BGO_EnergyG)))";
+TString HeGSigmaf = "(0.060102+(-1.43351e-39*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)))";
+TString HeMcGSigmaf = "(0.0626831+(-2.19752e-40*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)))";
 
 TString HeMcFSig= "sqrt("+HeMcWidthf+"**2+"+HeMcGSigmaf+"**2)";
 //TString HeMcFSigCor= "sqrt("+HeMcWidthf_Cor+"**2+"+HeMcGSigmaf_Cor+"**2)";
