@@ -12,24 +12,22 @@
 const int nsetHe = 7; //number of different energy intervals used to produce the MC data
 const int nsetP = 6;
 
-std::vector<TString> filesP = {
-        "/nfs/argo/dampe/SKIM_2026_pHe/PROTON/Proton_10GeV_100GeV_FTFP_merged.root",
-        "/nfs/argo/dampe/SKIM_2026_pHe/PROTON/Proton_100GeV_1TeV_FTFP_merged.root",
-        "/nfs/argo/dampe/SKIM_2026_pHe/PROTON/Proton_1TeV_10TeV_FTFP_merged.root",
-        "/nfs/argo/dampe/SKIM_2026_pHe/PROTON/Proton_10TeV_100TeV_FTFP_merged.root",
-        "/nfs/argo/dampe/SKIM_2026_pHe/PROTON/Proton_100TeV_1PeV_EPOSLHC_FTFP_merged.root",
-        "/nfs/argo/dampe/SKIM_2026_pHe/PROTON/Proton_1PeV_5PeV_EPOSLHC_FTFP_merged.root"
-    };
+std::vector<TString> filesP;
+filesP.push_back("/nfs/argo/dampe/SKIM_2026_pHe/PROTON/Proton_10GeV_100GeV_FTFP_merged.root");
+filesP.push_back("/nfs/argo/dampe/SKIM_2026_pHe/PROTON/Proton_100GeV_1TeV_FTFP_merged.root");
+filesP.push_back("/nfs/argo/dampe/SKIM_2026_pHe/PROTON/Proton_1TeV_10TeV_FTFP_merged.root");
+filesP.push_back("/nfs/argo/dampe/SKIM_2026_pHe/PROTON/Proton_10TeV_100TeV_FTFP_merged.root");
+filesP.push_back("/nfs/argo/dampe/SKIM_2026_pHe/PROTON/Proton_100TeV_1PeV_EPOSLHC_FTFP_merged.root");
+filesP.push_back("/nfs/argo/dampe/SKIM_2026_pHe/PROTON/Proton_1PeV_5PeV_EPOSLHC_FTFP_merged.root");
 
-std::vector<TString> filesHe = {
-        "/nfs/argo/dampe/SKIM_2026_pHe/HELIUM/He4_10GeV_100GeV_FTFP_BGO_Quenching_merged.root",
-        "/nfs/argo/dampe/SKIM_2026_pHe/HELIUM/He4_100GeV_1TeV_FTFP_merged.root",
-        "/nfs/argo/dampe/SKIM_2026_pHe/HELIUM/He4_1TeV_10TeV_FTFP_merged.root",
-        "/nfs/argo/dampe/SKIM_2026_pHe/HELIUM/He4_10TeV_100TeV_EPOSLHC_FTFP_merged.root",
-        "/nfs/argo/dampe/SKIM_2026_pHe/HELIUM/He4_100TeV_500TeV_EPOSLHC_FTFP_merged.root",
-        "/nfs/argo/dampe/SKIM_2026_pHe/HELIUM/He4_500TeV_1PeV_EPOSLHC_FTFP_merged.root",
-        "/nfs/argo/dampe/SKIM_2026_pHe/HELIUM/He4_1PeV_5PeV_EPOSLHC_FTFP_merged.root"
-    };
+std::vector<TString> filesHe;
+filesHe.push_back("/nfs/argo/dampe/SKIM_2026_pHe/HELIUM/He4_10GeV_100GeV_FTFP_BGO_Quenching_merged.root");
+filesHe.push_back("/nfs/argo/dampe/SKIM_2026_pHe/HELIUM/He4_100GeV_1TeV_FTFP_merged.root");
+filesHe.push_back("/nfs/argo/dampe/SKIM_2026_pHe/HELIUM/He4_1TeV_10TeV_FTFP_merged.root");
+filesHe.push_back("/nfs/argo/dampe/SKIM_2026_pHe/HELIUM/He4_10TeV_100TeV_EPOSLHC_FTFP_merged.root");
+filesHe.push_back("/nfs/argo/dampe/SKIM_2026_pHe/HELIUM/He4_100TeV_500TeV_EPOSLHC_FTFP_merged.root");
+filesHe.push_back("/nfs/argo/dampe/SKIM_2026_pHe/HELIUM/He4_500TeV_1PeV_EPOSLHC_FTFP_merged.root");
+filesHe.push_back("/nfs/argo/dampe/SKIM_2026_pHe/HELIUM/He4_1PeV_5PeV_EPOSLHC_FTFP_merged.root");
 
 
 int nbd = 6; // 6 bins per decade
@@ -122,6 +120,82 @@ cout<<" "<<endl;
 // -------------------------------------------------------- Evaluate Ngen:
 
 TH1F *h1Ngen_he = new TH1F("h1Ngen_he", "Ngen(Et)", noe, Ebin);
+
+TFile *p0 = TFile::Open(filesHe[0], "READ");
+TFile *p1 = TFile::Open(filesHe[1], "READ");
+TFile *p2 = TFile::Open(filesHe[2], "READ");
+TFile *p3 = TFile::Open(filesHe[3], "READ");
+TFile *p4 = TFile::Open(filesHe[4], "READ");
+TFile *p5 = TFile::Open(filesHe[5], "READ");
+TFile *p6 = TFile::Open(filesHe[6], "READ");
+
+TH1D *h00 = (TH1D*) p0->Get("h_energy_truth_6bins_weight_E2e7_cut_0"); // 10 GeV - 100 GeV 
+TH1D *h01 = (TH1D*) p1->Get("h_energy_truth_6bins_weight_E2e7_cut_0"); // 100 GeV - 1 TeV 
+TH1D *h02 = (TH1D*) p2->Get("h_energy_truth_6bins_weight_E2e7_cut_0"); // 1 TeV - 10 TeV 
+TH1D *h03 = (TH1D*) p3->Get("h_energy_truth_6bins_weight_E2e7_cut_0"); // 10 TeV - 100 TeV 
+TH1D *h04 = (TH1D*) p4->Get("h_energy_truth_6bins_weight_E2e7_cut_0"); // 100 TeV - 500 TeV 
+TH1D *h05 = (TH1D*) p5->Get("h_energy_truth_6bins_weight_E2e7_cut_0"); // 500 TeV - 1 PeV 
+TH1D *h06 = (TH1D*) p6->Get("h_energy_truth_6bins_weight_E2e7_cut_0"); // 1 PeV - 5 PeV 
+
+double norm45 = 10305100./10281395.;
+const double Esplit = 5.0e5; // 500 TeV
+const double E0 = 1.0e2;   // 100 GeV
+const double E1 = 1.0e3;   // 1 TeV
+const double E2 = 1.0e4;   // 10 TeV
+const double E3 = 1.0e5;   // 100 TeV
+const double E4 = 1.0e6;   // 1 PeV
+
+for (int i = 1; i < 7; i++) h1Ngen_he->SetBinContent( i,  h00->GetBinContent(i) );
+for (int i = 7; i < 13; i++) h1Ngen_he->SetBinContent( i, h01->GetBinContent(i) );
+for (int i = 13; i < 19; i++) h1Ngen_he->SetBinContent( i,  h02->GetBinContent(i) );
+for (int i = 19; i < 25; i++) h1Ngen_he->SetBinContent( i,  h03->GetBinContent(i) );
+for (int i = 25; i < 29; i++) h1Ngen_he->SetBinContent( i,  h04->GetBinContent(i) );
+h1Ngen_he->SetBinContent( 29,  h04->GetBinContent(29)+h05->GetBinContent(29)*norm45 );
+h1Ngen_he->SetBinContent( 30,  h05->GetBinContent(30) );
+for (int i = 31; i < 37; i++) h1Ngen_he->SetBinContent( i,  h06->GetBinContent(i) );
+
+/*
+for (int i = 0; i < noe; i++) {
+	double E_low  = Ebin[i];
+	double E_high = Ebin[i+1];
+	double ngen = 0.0;
+	// ---------------- 10 GeV – 100 GeV
+	if (E_high <= E0) {
+	    ngen = h00->GetBinContent(i+1);
+	}
+	// ---------------- 100 GeV – 1 TeV
+	else if (E_high <= E1) {
+	    ngen = h01->GetBinContent(i+1);
+	}
+	// ---------------- 1 – 10 TeV
+	else if (E_high <= E2) {
+	    ngen = h02->GetBinContent(i+1);
+	}
+	// ---------------- 10 – 100 TeV
+	else if (E_high <= E3) {
+	    ngen = h03->GetBinContent(i+1);
+	}
+	// ---------------- 100 – 500 TeV
+	else if (E_high <= Esplit) {
+	    ngen = h04->GetBinContent(i+1);
+	}
+	// ---------------- 500 TeV – 1 PeV
+	else if (E_low >= Esplit && E_high <= E4) {
+	    ngen = h05->GetBinContent(i+1);
+	}
+	// ---------------- 1 PeV - 5 PeV
+	else if (E_low >= E4) {
+	    ngen = h06->GetBinContent(i+1);
+	}
+	// ---------------- bin a cavallo di 500 TeV
+	else {
+	    ngen = h04->GetBinContent(i+1)+h05->GetBinContent(i+1)*norm45;
+	}
+
+    h1Ngen_he->SetBinContent(i+1, ngen);
+
+}*/
+/*
 double splitEnergy = 5e5; // 500 TeV
 int overlapBin = h1Ngen_he->FindBin(splitEnergy);
 double norm45 = 10305100./10281395.;
@@ -141,6 +215,7 @@ for(int i=0; i<nsetHe; i++){
 	}
 	p->Close();
 }
+*/
 //
 // -----------------------------------------------------------------------------------------
 /*
@@ -202,12 +277,29 @@ for (int i=0; i<noe; i++){
 	weights[i]="(1.7)*TMath::Log("+PriE1[i]+"/"+PriE0[i]+")/(TMath::Power("+PriE0[i]+",-(1.7))-TMath::Power("+PriE1[i]+",-(1.7)))";
 	Weights[i] = (weights[i]*weightsInterval[i]);
 
-	wNgen_p[i] = Form("%e", 1./h1Ngen_p->GetBinContent(i+1));
-	cout << "P,  bin " << i << ": " << wNgen_p[i] << endl;
-	wPN[i] = wNgen_p[i];
-	wNgen_he[i] = Form("%e", 1./h1Ngen_he->GetBinContent(i+1));
-	cout << "He, bin " << i << ": " << wNgen_p[i] << endl;
+	double ngenP  = h1Ngen_p->GetBinContent(i+1);
+	double ngenHe = h1Ngen_he->GetBinContent(i+1);
+
+	if (ngenP > 0)
+	    wNgen_p[i] = Form("%e", 1./ngenP);
+	else
+	    wNgen_p[i] = "1.";
+
+	if (ngenHe > 0)
+	    wNgen_he[i] = Form("%e", 1./ngenHe);
+	else
+	    wNgen_he[i] = "1.";
+
+	wPN[i]  = wNgen_p[i];
 	wHeN[i] = wNgen_he[i];
+
+	cout << i
+     << "  E = [" << Ebin[i]
+     << ", " << Ebin[i+1]
+     << "]"
+     << "  NgenP = " << ngenP
+     << "  NgenHe = " << ngenHe
+     << endl;
 
 }
 
@@ -272,9 +364,9 @@ TString HeMcWidthf = "(-0.207321+(0.351723*log10(BGO_EnergyG_QuenchSatCorr_ML_io
 TString HeGSigmaf = "(0.060102+(-1.43351e-39*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)))";
 TString HeMcGSigmaf = "(0.0626831+(-2.19752e-40*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)))";
 
-TString HeMcMPVf_Cor= "";
-TString HeMcWidthf_Cor= "";
-TString HeMcGSigmaf_Cor= "";
+TString HeMcMPVf_Cor= "(2.00152+(-0.0127222*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(0.0376776*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(-0.0140209*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(0.00265541*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4))";
+TString HeMcWidthf_Cor= "(-0.201235+(0.341636*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(-0.160983*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(0.0339152*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(-0.00215655*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4))";
+TString HeMcGSigmaf_Cor= "(0.0603583)";
 
 TString HeMcFSig= "sqrt("+HeMcWidthf+"**2+"+HeMcGSigmaf+"**2)";
 TString HeMcFSigCor= "sqrt("+HeMcWidthf_Cor+"**2+"+HeMcGSigmaf_Cor+"**2)";
@@ -289,9 +381,9 @@ TString PMcWidthf = "(-0.151341+(0.289686*log10(BGO_EnergyG_QuenchSatCorr_ML_ion
 TString PGSigmaf = "(4.15872e-08+(-1.46051e-40*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)))";
 TString PMcGSigmaf = "(0.000112937+(-1.43351e-40*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)))";
 
-TString PMcMPVf_Cor= "";
-TString PMcWidthf_Cor= "";
-TString PMcGSigmaf_Cor= "";
+TString PMcMPVf_Cor= "(0.980513+(0.0274524*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(0.0158863*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(-0.0142169*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(0.00389876*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4))";
+TString PMcWidthf_Cor= "(-0.0221089+(0.0690865*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(-0.019641*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(0.000380102*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(0.000891969*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4))";
+TString PMcGSigmaf_Cor= "(0.000170636+(-2.71193e-08*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)))";
 
 TString PMcFSig= "sqrt("+PMcWidthf+"**2+"+PMcGSigmaf+"**2)";
 TString PMcFSigCor= "sqrt("+PMcWidthf_Cor+"**2+"+PMcGSigmaf_Cor+"**2)";

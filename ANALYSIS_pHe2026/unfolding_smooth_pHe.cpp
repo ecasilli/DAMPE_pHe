@@ -47,7 +47,8 @@ double median_energy(double e_min, double e_max) {
 
 void prior_prob(int nbins, Double_t *Ebins, std::vector<double>& p0) {
     double a_norm = (egamma - 1.) * TMath::Power(Ebins[5], egamma - 1.);
-    double prior_sum{0.}, sum_check{0.};
+    double prior_sum = 0.;
+    double sum_check = 0.;
     for (int ibin=0; ibin<nbins; ibin++){
         prior_sum += a_norm * (TMath::Power(Ebins[ibin+1], 1. - egamma) - TMath::Power(Ebins[ibin], 1. - egamma)) / (1. - egamma);
     }
@@ -308,7 +309,7 @@ int unfolding_smooth_pHe() {
     std::string response_file = "PHe_MC_p_He_5PeV_unfolding_6binperdecade.root";
     std::string response_histo = "h2Ntrig_wgt_v3";
     std::string data_file = "PHe_skim_Orb120Month_6binperdecade.root";
-    std::string data_histo = "h1SelBGO_orb_v3";
+    std::string data_histo = "h1SelBGO_orb";
     //std::string ngen_file = ""; //uncomment if response-mat to be normalized
     //std::string ngen_histo = ""; //uncomment if response-mat to be normalized
 
@@ -340,7 +341,7 @@ int unfolding_smooth_pHe() {
     }
 
     int nbin_obs = hdata->GetNbinsX();
-    int Nobs{0};
+    int Nobs = 0;
     for(int i = 0; i < nbin_obs; i++) {
         Nobs += hdata->GetBinContent(i+1);
     }
@@ -478,7 +479,8 @@ int unfolding_smooth_pHe() {
     hfluxpow->SetTitle("flux_pow");
 
     std::ofstream outfile(fdat_name);
-    outfile << "# E  lowE  upE  Flux  StatErr\n";
+    //outfile << "# E  lowE  upE  Flux  StatErr\n";
+    //TotalEnergyDAMPE[j]>>FluxDAMPE[j]>>Stat_errDAMPE[j]>>EnergyErrDAMPE[j]
     //outfile << std::setprecision(8) << std::scientific;
 
     for(int i = 0; i < nx; i++) {
@@ -498,7 +500,8 @@ int unfolding_smooth_pHe() {
         hfluxpow->SetBinContent(i+1, y * TMath::Power(em, alpha));
         hfluxpow->SetBinError(i+1, yerr * TMath::Power(em, alpha));
 
-        outfile << em << "  " << lowE << "  " << upE << "  " << y << "  " << yerr << "\n";
+        //outfile << em << "  " << lowE << "  " << upE << "  " << y << "  " << yerr << "\n";
+        outfile << em << "\t" << y << "\t" << yerr << "\t0.0\t " << "\n";
     }
 
     hdata->SetLineColor(kRed);
@@ -528,7 +531,7 @@ int unfolding_smooth_pHe() {
 
 
     // Save output
-    TFile* fout = TFile::Open(fout_name, "RECREATE");
+    TFile* fout = TFile::Open(fout_name.c_str(), "RECREATE");
     fout->cd();
     h->Write();
     hunfold_matrix->Write();
