@@ -30,10 +30,10 @@ const double STARTING_DATA_VAL = 1e2;//Min E value with N obs events > 0
 const std::string Test_Stat = "chi2"; // "ks" (Kolmogorov-Smirnov) or "chi2" (Reduced Chi2)
 double MIN_TS = (Test_Stat == "ks" ? 1e-4 : 1.);
 
-const bool SMOOTHING = false;
+const bool SMOOTHING = true;
 
-std::string fout_name = "unfold_results_pHe_2026.root";
-std::string fdat_name = "flux_spectrum_pHe_2026.dat";
+std::string fout_name = "unfold_results_pHe_2026_smooth.root";
+std::string fdat_name = "flux_spectrum_pHe_2026_smooth.dat";
 
 // Global variables
 std::vector<double> TRUGUESS;

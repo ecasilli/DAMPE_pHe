@@ -5,8 +5,8 @@ void Spectra_Direct(){
     double  TotalEnergyDAMPE[27]={0}, FluxDAMPE[27]={0}, FluxEDAMPE[27]={0}, Stat_errDAMPE[27]={0}, Stat_errEDAMPE[27]={0}, 
             EnergyErrDAMPE[27]={0}, Sys_errDAMPE[27]={0}, Sys_errDAMPEFlux[27]={0}, Sys_errEDAMPE_minus[27]={0}, Sys_errEDAMPE_plus[27]={0}, SysHad[27]={0}, SysHadFlux[27]={0};
 
-    double  TotalEnergyDAMPE_2026[27]={0}, FluxDAMPE_2026[27]={0}, FluxEDAMPE_2026[27]={0}, Stat_errDAMPE_2026[27]={0}, Stat_errEDAMPE_2026[27]={0}, 
-            EnergyErrDAMPE_2026[27]={0};
+    double  TotalEnergyDAMPE_2026[36]={0}, FluxDAMPE_2026[36]={0}, FluxEDAMPE_2026[36]={0}, Stat_errDAMPE_2026[36]={0}, Stat_errEDAMPE_2026[36]={0}, 
+            EnergyErrDAMPE_2026[36]={0};
 
     double EnergyATIC[15]={0.}, FluxProtonATIC[15]={0.}, ErrProtonATIC[15]={0.}, FluxHeliumATIC[15]={0.}, ErrHeliumATIC[15]={0.}, ErrEnergyATIC[15]={0.},
            Flux_Proton_Helium_ATIC_27[15]={0.}, Err_Proton_Helium_ATIC_27[15]={0.};
@@ -59,7 +59,7 @@ void Spectra_Direct(){
     }
 
     // outfile << "# E  lowE  upE  Flux  StatErr\n";
-    for(int j=0; j<36; i++){
+    for(int j=0; j<36; j++){
         in5>>TotalEnergyDAMPE_2026[j]>>FluxDAMPE_2026[j]>>Stat_errDAMPE_2026[j]>>EnergyErrDAMPE_2026[j];
         FluxEDAMPE_2026[j]=FluxDAMPE_2026[j]*(TMath::Power(TotalEnergyDAMPE_2026[j],2.7));
         Stat_errEDAMPE_2026[j]=Stat_errDAMPE_2026[j]*(TMath::Power(TotalEnergyDAMPE_2026[j],2.7));
@@ -129,7 +129,7 @@ pHe_flux_Sys_Up->SetFillStyle(1001);
 
 pHe_flux_Sys_Had->SetTitle(" ;Primary energy (GeV); E^{2.7} #Phi(E)(GeV^{1.7}s^{-1}m^{-2}sr^{-1})");
 
-   pHe_flux_Sys_Had->GetXaxis()->SetRangeUser(20,31E5);
+   pHe_flux_Sys_Had->GetXaxis()->SetRangeUser(20,1.0E6);
    pHe_flux_Sys_Had->GetYaxis()->SetRangeUser(0,60E03);
    pHe_flux_Sys_Had->GetXaxis()->SetTitleSize(0.042);
    pHe_flux_Sys_Had->GetXaxis()->SetLabelSize(0.04);
@@ -140,7 +140,7 @@ pHe_flux_Sys_Had->SetTitle(" ;Primary energy (GeV); E^{2.7} #Phi(E)(GeV^{1.7}s^{
    pHe_flux_Sys_Had->GetYaxis()->SetDecimals();
 
 
-TGraphErrors *pHe_flux_DAMPE_2026 = new TGraphErrors(26, TotalEnergyDAMPE_2026, FluxEDAMPE_2026, EnergyErrDAMPE_2026, Stat_errEDAMPE_2026);
+TGraphErrors *pHe_flux_DAMPE_2026 = new TGraphErrors(35, TotalEnergyDAMPE_2026, FluxEDAMPE_2026, EnergyErrDAMPE_2026, Stat_errEDAMPE_2026);
 pHe_flux_DAMPE_2026->SetMarkerStyle(20);
 pHe_flux_DAMPE_2026->SetMarkerSize(1.4);
 pHe_flux_DAMPE_2026->SetMarkerColor(kBlack);
