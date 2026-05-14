@@ -13,21 +13,21 @@ const int nsetHe = 7; //number of different energy intervals used to produce the
 const int nsetP = 6;
 
 std::vector<TString> filesP;
-filesP.push_back("../../DATA/Proton_10GeV_100GeV_FTFP_merged.root");
-filesP.push_back("../../DATA/Proton_100GeV_1TeV_FTFP_merged.root");
-filesP.push_back("../../DATA/Proton_1TeV_10TeV_FTFP_merged.root");
-filesP.push_back("../../DATA/Proton_10TeV_100TeV_FTFP_merged.root");
-filesP.push_back("../../DATA/Proton_100TeV_1PeV_EPOSLHC_FTFP_merged.root");
-filesP.push_back("../../DATA/Proton_1PeV_5PeV_EPOSLHC_FTFP_merged.root");
+filesP.push_back("/nfs/argo/dampe/SKIM_2026_pHe/PROTON/Proton_10GeV_100GeV_FTFP_merged.root");
+filesP.push_back("/nfs/argo/dampe/SKIM_2026_pHe/PROTON/Proton_100GeV_1TeV_FTFP_merged.root");
+filesP.push_back("/nfs/argo/dampe/SKIM_2026_pHe/PROTON/Proton_1TeV_10TeV_FTFP_merged.root");
+filesP.push_back("/nfs/argo/dampe/SKIM_2026_pHe/PROTON/Proton_10TeV_100TeV_FTFP_merged.root");
+filesP.push_back("/nfs/argo/dampe/SKIM_2026_pHe/PROTON/Proton_100TeV_1PeV_EPOSLHC_FTFP_merged.root");
+filesP.push_back("/nfs/argo/dampe/SKIM_2026_pHe/PROTON/Proton_1PeV_5PeV_EPOSLHC_FTFP_merged.root");
 
 std::vector<TString> filesHe;
-filesHe.push_back("../../DATA/He4_10GeV_100GeV_FTFP_BGO_Quenching_merged.root");
-filesHe.push_back("../../DATA/He4_100GeV_1TeV_FTFP_merged.root");
-filesHe.push_back("../../DATA/He4_1TeV_10TeV_FTFP_merged.root");
-filesHe.push_back("../../DATA/He4_10TeV_100TeV_EPOSLHC_FTFP_merged.root");
-filesHe.push_back("../../DATA/He4_100TeV_500TeV_EPOSLHC_FTFP_merged.root");
-filesHe.push_back("../../DATA/He4_500TeV_1PeV_EPOSLHC_FTFP_merged.root");
-filesHe.push_back("../../DATA/He4_1PeV_5PeV_EPOSLHC_FTFP_merged.root");
+filesHe.push_back("/nfs/argo/dampe/SKIM_2026_pHe/HELIUM/He4_10GeV_100GeV_FTFP_BGO_Quenching_merged.root");
+filesHe.push_back("/nfs/argo/dampe/SKIM_2026_pHe/HELIUM/He4_100GeV_1TeV_FTFP_merged.root");
+filesHe.push_back("/nfs/argo/dampe/SKIM_2026_pHe/HELIUM/He4_1TeV_10TeV_FTFP_merged.root");
+filesHe.push_back("/nfs/argo/dampe/SKIM_2026_pHe/HELIUM/He4_10TeV_100TeV_EPOSLHC_FTFP_merged.root");
+filesHe.push_back("/nfs/argo/dampe/SKIM_2026_pHe/HELIUM/He4_100TeV_500TeV_EPOSLHC_FTFP_merged.root");
+filesHe.push_back("/nfs/argo/dampe/SKIM_2026_pHe/HELIUM/He4_500TeV_1PeV_EPOSLHC_FTFP_merged.root");
+filesHe.push_back("/nfs/argo/dampe/SKIM_2026_pHe/HELIUM/He4_1PeV_5PeV_EPOSLHC_FTFP_merged.root");
 
 
 //
@@ -308,9 +308,11 @@ TH1F *h14_he=new TH1F("h14_he", name14, 240, 0., 6.); h14_he->GetXaxis()->SetTit
 TH1F *h15_he=new TH1F("h15_he", name15, 240, 0., 6.); h15_he->GetXaxis()->SetTitle("PSD charge"); h15_he->GetYaxis()->SetTitle("Normalized counts"); h15_he->SetLineColor(6); h15_he->SetMarkerColor(6); h15_he->Sumw2();
 
 
-/*
+
 //************** CHARGE SELECTION ***********************
-// nota: sono quelli vecchi, da modificare
+
+/*
+// old:
 TString HeMcMPVf="((12.69)+(-6.543)*log10(BGO_EnergyG)+(3.776)*log10(BGO_EnergyG)**2+(-0.9158)*log10(BGO_EnergyG)**3+(0.1075)*log10(BGO_EnergyG)**4)";
 TString HeMcMPVf_Cor="((10.95)+(-4.175)*log10(BGO_EnergyG)+(2.653)*log10(BGO_EnergyG)**2+(-0.6897)*log10(BGO_EnergyG)**3+(0.07261)*log10(BGO_EnergyG)**4)";
 TString HeMPVf="((7.852)+(1.035)*log10(BGO_EnergyG)+(-0.4836)*log10(BGO_EnergyG)**2+(0.1124)*log10(BGO_EnergyG)**3+(-0.001648)*log10(BGO_EnergyG)**4)";
@@ -322,13 +324,23 @@ TString HeWidthf="((0.2505)+(0.02188)*log10(BGO_EnergyG)+(0.1554)*log10(BGO_Ener
 TString HeMcGSigmaf="(0.5807)+(-1.46e-42)*log10(BGO_EnergyG)";
 TString HeMcGSigmaf_Cor="(0.5533)+(-2.406e-22)*log10(BGO_EnergyG)";
 TString HeGSigmaf="(0.4789)+(-4.384e-33)*log10(BGO_EnergyG)";	
+*/
+// 13/05/2026
+TString HeMPVf= "(1.81869+(0.290607*log10(BGO_EnergyG))+(-0.146116*log10(BGO_EnergyG)**2)+(0.0338788*log10(BGO_EnergyG)**3)+(-0.00192039*log10(BGO_EnergyG)**4) )";
+TString HeMcMPVf= "(1.24779+(1.25798*log10(BGO_EnergyG))+(-0.698468*log10(BGO_EnergyG)**2)+(0.169728*log10(BGO_EnergyG)**3)+(-0.0123542*log10(BGO_EnergyG)**4))";
 
+TString HeWidthf = "(-0.404366+(0.742843*log10(BGO_EnergyG))+(-0.422432*log10(BGO_EnergyG)**2)+(0.10251*log10(BGO_EnergyG)**3)+(-0.00846052*log10(BGO_EnergyG)**4))";
+TString HeMcWidthf = "(-0.207321+(0.351723*log10(BGO_EnergyG))+(-0.173553*log10(BGO_EnergyG)**2)+(0.0388396*log10(BGO_EnergyG)**3)+(-0.00242266*log10(BGO_EnergyG)**4))";
+
+TString HeGSigmaf = "(0.060102+(-1.43351e-39*log10(BGO_EnergyG)))";
+TString HeMcGSigmaf = "(0.0626831+(-2.19752e-40*log10(BGO_EnergyG)))";
 
 TString HeMcFSig= "sqrt("+HeMcWidthf+"**2+"+HeMcGSigmaf+"**2)";
-TString HeMcFSigCor= "sqrt("+HeMcWidthf_Cor+"**2+"+HeMcGSigmaf_Cor+"**2)";
+//TString HeMcFSigCor= "sqrt("+HeMcWidthf_Cor+"**2+"+HeMcGSigmaf_Cor+"**2)";
 TString HeFSig= "sqrt("+HeWidthf+"**2+"+HeGSigmaf+"**2)";
 
-
+/*
+// old:
 TString PMcMPVf="((3.945)+(-3.557)*log10(BGO_EnergyG)+(2.546)*log10(BGO_EnergyG)**2+(-0.7748)*log10(BGO_EnergyG)**3+(0.09923)*log10(BGO_EnergyG)**4)";
 TString PMcMPVf_Cor="((1.948)+(-0.1462)*log10(BGO_EnergyG)+(0.3469)*log10(BGO_EnergyG)**2+(-0.1806)*log10(BGO_EnergyG)**3+(0.03454)*log10(BGO_EnergyG)**4)";
 TString PMPVf="((2.071)+(-0.3114)*log10(BGO_EnergyG)+(0.4153)*log10(BGO_EnergyG)**2+(-0.1876)*log10(BGO_EnergyG)**3+(0.03373)*log10(BGO_EnergyG)**4)";
@@ -339,34 +351,24 @@ TString PWidthf="((0.03606)+(0.09163)*log10(BGO_EnergyG)+(0.05757)*log10(BGO_Ene
 TString PMcGSigmaf="(1.056E-09)+(-1.461E-40)*log10(BGO_EnergyG)";
 TString PMcGSigmaf_Cor="(8.949E-10)+(-1.461E-40)*log10(BGO_EnergyG)";
 TString PGSigmaf="(6.945E-09)+(-1.461E-40)*log10(BGO_EnergyG)";		
+*/
 
-
-//********************** END NEW **********************************
+// 13/05/2026
+TString PMPVf= "(1.01823+(-0.0471954*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(0.0688881*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(-0.0306054*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(0.0057345*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4) )";
+TString PMcMPVf= "(0.526726+(0.806415*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(-0.488731*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(0.12969*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(-0.00965891*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4))";
+TString PWidthf = "(0.0115231+(0.0107847*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(0.0168705*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(-0.00982277*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(0.00196218*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4))";
+TString PMcWidthf = "(-0.151341+(0.289686*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(-0.154241*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(0.0383403*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(-0.00270482*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4))";
+TString PGSigmaf = "(4.15872e-08+(-1.46051e-40*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)))";
+TString PMcGSigmaf = "(0.000112937+(-1.43351e-40*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)))";
 
 TString PMcFSig= "sqrt("+PMcWidthf+"**2+"+PMcGSigmaf+"**2)";
-TString PMcFSigCor= "sqrt("+PMcWidthf_Cor+"**2+"+PMcGSigmaf_Cor+"**2)";
+//TString PMcFSigCor= "sqrt("+PMcWidthf_Cor+"**2+"+PMcGSigmaf_Cor+"**2)";
 TString PFSig= "sqrt("+PWidthf+"**2+"+PGSigmaf+"**2)";
-
-
-// Simple average
-//TString PSDcharge = "( (((TMath.Sign(1.,PSD_ChargeY0)+1.)/2.)*PSD_ChargeY0)+(((TMath.Sign(1.,PSD_ChargeY1)+1.)/2.)*PSD_ChargeY1)+(((TMath.Sign(1.,PSD_ChargeX0)+1.)/2.)*PSD_ChargeX0)+(((TMath.Sign(1.,PSD_ChargeX1)+1.)/2.)*PSD_ChargeX1) ) / ( ((TMath.Sign(1.,PSD_ChargeY0)+1.)/2.)+((TMath.Sign(1.,PSD_ChargeY1)+1.)/2.)+((TMath.Sign(1.,PSD_ChargeX0)+1.)/2.)+((TMath.Sign(1.,PSD_ChargeX1)+1.)/2.) )";
-
-// Pathweighted average
-TString PSDchargePW = "PSD_PathWeighted_Charge";
-
-// Simple average Y-X
-//TString PSDchargeY = "( ((TMath::Sign(1.,PSD_ChargeY0)+1.)/2.*PSD_ChargeY0+(TMath::Sign(1.,PSD_ChargeY1)+1.)/2.*PSD_ChargeY1)/((TMath::Sign(1.,PSD_ChargeY0)+1.)/2.+(TMath::Sign(1.,PSD_ChargeY1)+1.)/2.) )";
-//TString PSDchargeX = "( ((TMath::Sign(1.,PSD_ChargeX0)+1.)/2.*PSD_ChargeX0+(TMath::Sign(1.,PSD_ChargeX1)+1.)/2.*PSD_ChargeX1)/((TMath::Sign(1.,PSD_ChargeX0)+1.)/2.+(TMath::Sign(1.,PSD_ChargeX1)+1.)/2.) )";
-
-// Pathweighted average Y-X
-//TString PSDchargeAvX="( ((TMath::Sign(1.,PSD_ChargeX0)+1.)/2.*PSD_ChargeX0*PSD_psdX_pathlength[0]+(TMath::Sign(1.,PSD_ChargeX1)+1.)/2.*PSD_ChargeX1*PSD_psdX_pathlength[1])/((TMath::Sign(1.,PSD_ChargeX0)+1.)/2.*PSD_psdX_pathlength[0]+(TMath::Sign(1.,PSD_ChargeX1)+1.)/2.*PSD_psdX_pathlength[1]))";
-//TString PSDchargeAvY="( ((TMath::Sign(1.,PSD_ChargeY0)+1.)/2.*PSD_ChargeY0*PSD_psdY_pathlength[0]+(TMath::Sign(1.,PSD_ChargeY1)+1.)/2.*PSD_ChargeY1*PSD_psdY_pathlength[1])/((TMath::Sign(1.,PSD_ChargeY0)+1.)/2.*PSD_psdY_pathlength[0]+(TMath::Sign(1.,PSD_ChargeY1)+1.)/2.*PSD_psdY_pathlength[1]))";
-
 
 //Questo è il valore di PSD energy corretto da usare per i nuovi istogrammi di carica
 TString HeliumCor ="(("+PSDcharge+"-"+HeMcMPVf+")*("+HeFSig+"/"+HeMcFSig+")+"+HeMPVf+")";
 TString ProtonCor ="(("+PSDcharge+"-"+PMcMPVf+")*("+PFSig+"/"+PMcFSig+")+"+PMPVf+")";
-
+/*
 TString p_low_mcCor= "("+PMcMPVf_Cor+"-"+ProtonCor +")<(2*"+PMcFSigCor+")";
 TString he_high_mcCor6= "("+HeliumCor+"-"+HeMcMPVf_Cor+")<(6*"+HeMcFSigCor+")";
 
@@ -417,68 +419,68 @@ for (int i = 0; i < 15; ++i) {
 }
 
 // -------------- h01
-c[0]->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( PSDcharge+">>+h01_p", ctot*wPN1[i]*bgo01, "");} 
-			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(PSDcharge+">>+h01_he",ctot*wHeN1[i]*bgo01,"");} cout<<"... h01 ..."<<endl;
+c[0]->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( ProtonCor+">>+h01_p", ctot*wPN1[i]*bgo01, "");} 
+			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(HeliumCor+">>+h01_he",ctot*wHeN1[i]*bgo01,"");} cout<<"... h01 ..."<<endl;
 
 // -------------- h02
-c[1]->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( PSDcharge+">>+h02_p", ctot*wPN1[i]*bgo02, "");} 
-			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(PSDcharge+">>+h02_he",ctot*wHeN1[i]*bgo02,"");} cout<<"... h02 ..."<<endl;
+c[1]->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( ProtonCor+">>+h02_p", ctot*wPN1[i]*bgo02, "");} 
+			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(HeliumCor+">>+h02_he",ctot*wHeN1[i]*bgo02,"");} cout<<"... h02 ..."<<endl;
 
 // -------------- h03
-c[2]->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( PSDcharge+">>+h03_p", ctot*wPN1[i]*bgo03, "");} 
-			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(PSDcharge+">>+h03_he",ctot*wHeN1[i]*bgo03,"");} cout<<"... h03 ..."<<endl;
+c[2]->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( ProtonCor+">>+h03_p", ctot*wPN1[i]*bgo03, "");} 
+			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(HeliumCor+">>+h03_he",ctot*wHeN1[i]*bgo03,"");} cout<<"... h03 ..."<<endl;
 
 // -------------- h04
-c[3]->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( PSDcharge+">>+h04_p", ctot*wPN1[i]*bgo04, "");} 
-			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(PSDcharge+">>+h04_he",ctot*wHeN1[i]*bgo04,"");} cout<<"... h04 ..."<<endl;
+c[3]->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( ProtonCor+">>+h04_p", ctot*wPN1[i]*bgo04, "");} 
+			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(HeliumCor+">>+h04_he",ctot*wHeN1[i]*bgo04,"");} cout<<"... h04 ..."<<endl;
 
 // -------------- h05
-c[4]->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( PSDcharge+">>+h05_p", ctot*wPN1[i]*bgo05, "");} 
-			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(PSDcharge+">>+h05_he",ctot*wHeN1[i]*bgo05,"");} cout<<"... h05 ..."<<endl;
+c[4]->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( ProtonCor+">>+h05_p", ctot*wPN1[i]*bgo05, "");} 
+			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(HeliumCor+">>+h05_he",ctot*wHeN1[i]*bgo05,"");} cout<<"... h05 ..."<<endl;
 
 // -------------- h06
-c[5]->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( PSDcharge+">>+h06_p", ctot*wPN1[i]*bgo06, "");} 
-			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(PSDcharge+">>+h06_he",ctot*wHeN1[i]*bgo06,"");} cout<<"... h06 ..."<<endl;
+c[5]->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( ProtonCor+">>+h06_p", ctot*wPN1[i]*bgo06, "");} 
+			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(HeliumCor+">>+h06_he",ctot*wHeN1[i]*bgo06,"");} cout<<"... h06 ..."<<endl;
 
 // -------------- h07
-c[6]->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( PSDcharge+">>+h07_p", ctot*wPN1[i]*bgo07, "");} 
-			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(PSDcharge+">>+h07_he",ctot*wHeN1[i]*bgo07,"");} cout<<"... h07 ..."<<endl;
+c[6]->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( ProtonCor+">>+h07_p", ctot*wPN1[i]*bgo07, "");} 
+			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(HeliumCor+">>+h07_he",ctot*wHeN1[i]*bgo07,"");} cout<<"... h07 ..."<<endl;
 
 // -------------- h08
-c[7]->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( PSDcharge+">>+h08_p", ctot*wPN1[i]*bgo08, "");} 
-			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(PSDcharge+">>+h08_he",ctot*wHeN1[i]*bgo08,"");} cout<<"... h08 ..."<<endl;
+c[7]->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( ProtonCor+">>+h08_p", ctot*wPN1[i]*bgo08, "");} 
+			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(HeliumCor+">>+h08_he",ctot*wHeN1[i]*bgo08,"");} cout<<"... h08 ..."<<endl;
 
 // -------------- h09
-c[8]->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( PSDcharge+">>+h09_p", ctot*wPN1[i]*bgo09, "");} 
-			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(PSDcharge+">>+h09_he",ctot*wHeN1[i]*bgo09,"");} cout<<"... h09 ..."<<endl;
+c[8]->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( ProtonCor+">>+h09_p", ctot*wPN1[i]*bgo09, "");} 
+			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(HeliumCor+">>+h09_he",ctot*wHeN1[i]*bgo09,"");} cout<<"... h09 ..."<<endl;
 
 // -------------- h10
-c[9]->cd();for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( PSDcharge+">>+h10_p", ctot*wPN1[i]*bgo10, "");} 
-	 		for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(PSDcharge+">>+h10_he",ctot*wHeN1[i]*bgo10,"");} cout<<"... h10 ..."<<endl;
+c[9]->cd();for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( ProtonCor+">>+h10_p", ctot*wPN1[i]*bgo10, "");} 
+	 		for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(HeliumCor+">>+h10_he",ctot*wHeN1[i]*bgo10,"");} cout<<"... h10 ..."<<endl;
 
 // -------------- h11
-c[10]->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( PSDcharge+">>+h11_p", ctot*wPN1[i]*bgo11, "");} 
-			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(PSDcharge+">>+h11_he",ctot*wHeN1[i]*bgo11,"");} cout<<"... h11 ..."<<endl;
+c[10]->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( ProtonCor+">>+h11_p", ctot*wPN1[i]*bgo11, "");} 
+			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(HeliumCor+">>+h11_he",ctot*wHeN1[i]*bgo11,"");} cout<<"... h11 ..."<<endl;
 
 // -------------- h12
-c[11]->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( PSDcharge+">>+h12_p", ctot*wPN1[i]*bgo12, "");} 
-			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(PSDcharge+">>+h12_he",ctot*wHeN1[i]*bgo12,"");} cout<<"... h12 ..."<<endl;
+c[11]->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( ProtonCor+">>+h12_p", ctot*wPN1[i]*bgo12, "");} 
+			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(HeliumCor+">>+h12_he",ctot*wHeN1[i]*bgo12,"");} cout<<"... h12 ..."<<endl;
 
 // -------------- h13
-c[12]->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( PSDcharge+">>+h13_p", ctot*wPN1[i]*bgo13, "");} 
-			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(PSDcharge+">>+h13_he",ctot*wHeN1[i]*bgo13,"");} cout<<"... h13 ..."<<endl;
+c[12]->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( ProtonCor+">>+h13_p", ctot*wPN1[i]*bgo13, "");} 
+			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(HeliumCor+">>+h13_he",ctot*wHeN1[i]*bgo13,"");} cout<<"... h13 ..."<<endl;
 
 // -------------- h14
-c[13]->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( PSDcharge+">>+h14_p", ctot*wPN1[i]*bgo14, "");} 
-			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(PSDcharge+">>+h14_he",ctot*wHeN1[i]*bgo14,"");} cout<<"... h14 ..."<<endl;
+c[13]->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( ProtonCor+">>+h14_p", ctot*wPN1[i]*bgo14, "");} 
+			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(HeliumCor+">>+h14_he",ctot*wHeN1[i]*bgo14,"");} cout<<"... h14 ..."<<endl;
 
 // -------------- h15
-c[14]->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( PSDcharge+">>+h15_p", ctot*wPN1[i]*bgo15, "");} 
-			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(PSDcharge+">>+h15_he",ctot*wHeN1[i]*bgo15,"");} cout<<"... h15 ..."<<endl;
+c[14]->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( ProtonCor+">>+h15_p", ctot*wPN1[i]*bgo15, "");} 
+			for(int i=0; i<nsetHe; i++){ sk_he[i]->Draw(HeliumCor+">>+h15_he",ctot*wHeN1[i]*bgo15,"");} cout<<"... h15 ..."<<endl;
 	
 
 
-TFile *fout = new TFile("PHe_MC_p_He_5PeV_charge_240bins.root","RECREATE");
+TFile *fout = new TFile("PHe_MC_p_He_5PeV_charge_240bins_corrected.root","RECREATE");
 
 fout->cd();
 
