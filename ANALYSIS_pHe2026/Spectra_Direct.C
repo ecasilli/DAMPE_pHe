@@ -24,7 +24,7 @@ void Spectra_Direct(){
     in3.open("../pHe2024/SPECTRUM/Direct/CREAM_Proton_Helium.dat");
     in4.open("../pHe2024/SPECTRUM/Direct/Nucleon_p_He.dat");
 
-    in5.open("flux_spectrum_pHe_2026.dat");
+    in5.open("flux_spectrum_pHe_2026_MLionsv3.dat");
 
 
     for(int j=0; j<26; j++){
@@ -104,6 +104,26 @@ C2->SetLogx();
 C2->SetTickx();
 C2->SetTicky();
 
+TPad *pad = new TPad("pad","pad",0,0,1,1);
+pad->SetLogx();
+pad->Draw();
+pad->cd();
+
+TH1F *frame = pad->DrawFrame(1e1, 0, 1e6, 50E03);
+
+frame->GetXaxis()->SetTitleSize(0.042);
+frame->GetXaxis()->SetLabelSize(0.04);
+
+frame->GetYaxis()->SetTitleSize(0.042);
+frame->GetYaxis()->SetLabelSize(0.045);
+
+frame->GetXaxis()->SetTitleOffset(1.25);
+frame->GetYaxis()->SetTitleOffset(0.7);
+
+frame->GetYaxis()->SetDecimals();
+
+frame->SetTitle(";Primary energy (GeV);E^{2.7} #Phi(E) (GeV^{1.7} s^{-1} m^{-2} sr^{-1})");
+
 TGraphErrors *pHe_flux_DAMPE = new TGraphErrors(26, TotalEnergyDAMPE, FluxEDAMPE, EnergyErrDAMPE, Stat_errEDAMPE);
 pHe_flux_DAMPE->SetMarkerStyle(20);
 pHe_flux_DAMPE->SetMarkerSize(1.4);
@@ -147,7 +167,7 @@ pHe_flux_DAMPE_2026->SetMarkerColor(kBlack);
 pHe_flux_DAMPE_2026->SetLineColor(kBlack); 
 mg->Add(pHe_flux_DAMPE_2026);   
 
-pHe_flux_Sys_Had->Draw("a3");
+pHe_flux_Sys_Had->Draw("3");
 pHe_flux_Sys_Up->Draw("3");
 mg->Draw("P");
 pHe_flux_DAMPE->Draw("P");
