@@ -4,8 +4,34 @@
 #include <fstream>
 #include <string>
 
+// =============================
+// ----- Helper function -------
+
+void addYear(TChain *skim, TString basePath, int year) {
+    skim->Add(basePath + TString::Format("/SKIM_2026_pHe/FLIGHT/skim_flight_002_010_%d_merged.root", year));
+    skim->Add(basePath + TString::Format("/SKIM_2026_pHe/FLIGHT/skim_flight_010_025_%d_merged.root", year));
+    skim->Add(basePath + TString::Format("/SKIM_2026_pHe/FLIGHT/skim_flight_025_050_%d_merged.root", year));
+    skim->Add(basePath + TString::Format("/SKIM_2026_pHe/FLIGHT/skim_flight_050_100_%d_merged.root", year));
+    skim->Add(basePath + TString::Format("/SKIM_2026_pHe/FLIGHT/skim_flight_100_500_%d_merged.root", year));
+    skim->Add(basePath + TString::Format("/SKIM_2026_pHe/FLIGHT/skim_flight_500_000_%d_merged.root", year));
+}
+
 void Load_orb_120month_MLSATcor()
 {
+
+// =============================
+// ----- Selezione del sito ----
+TString basePath;
+TString hostname = gSystem->HostName();
+if (hostname.Contains("cnaf")) {
+    basePath = "/storage/gpfs_data/dampe/users";
+} else if (hostname.Contains("le.infn")) {
+    basePath = "/nfs/argo/dampe";
+} else {
+    cout << "WARNING: hostname non riconosciuto: " << hostname << endl;
+    return;
+}
+
 // =============================
 // ----- Dichiarazioni variabili
 
@@ -24,85 +50,16 @@ Double_t BGO_slopeYZ_analy, BGO_interceptYZ_analy;
 
 TChain *skim = new TChain("newtree");
 
-// 2016 (Jan-Dec)
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_002_010_2016_merged.root");
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_010_025_2016_merged.root");
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_025_050_2016_merged.root");
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_050_100_2016_merged.root");
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_100_500_2016_merged.root");
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_500_000_2016_merged.root");
+// Anni 2016-2024 (tutti "merged")
+for (int y = 2016; y <= 2024; y++) addYear(skim, basePath, y);
 
-// 2017 (Jan-Dec)
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_002_010_2017_merged.root");
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_010_025_2017_merged.root");
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_025_050_2017_merged.root");
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_050_100_2017_merged.root");
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_100_500_2017_merged.root");
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_500_000_2017_merged.root");
-
-// 2018 (Jan-Dec)
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_002_010_2018_merged.root");
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_010_025_2018_merged.root");
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_025_050_2018_merged.root");
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_050_100_2018_merged.root");
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_100_500_2018_merged.root");
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_500_000_2018_merged.root");
-
-// 2019 (Jan-Dec)
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_002_010_2019_merged.root");
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_010_025_2019_merged.root");
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_025_050_2019_merged.root");
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_050_100_2019_merged.root");
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_100_500_2019_merged.root");
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_500_000_2019_merged.root");
-
-// 2020 (Jan-Dec)
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_002_010_2020_merged.root");
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_010_025_2020_merged.root");
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_025_050_2020_merged.root");
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_050_100_2020_merged.root");
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_100_500_2020_merged.root");
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_500_000_2020_merged.root");
-
-// 2021 (Jan-Dec)
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_002_010_2021_merged.root");
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_010_025_2021_merged.root");
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_025_050_2021_merged.root");
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_050_100_2021_merged.root");
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_100_500_2021_merged.root");
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_500_000_2021_merged.root");
-
-// 2022 (Jan-Dec)
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_002_010_2022_merged.root");
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_010_025_2022_merged.root");
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_025_050_2022_merged.root");
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_050_100_2022_merged.root");
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_100_500_2022_merged.root");
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_500_000_2022_merged.root");
-
-// 2023 (Jan-Dec)
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_002_010_2023_merged.root");
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_010_025_2023_merged.root");
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_025_050_2023_merged.root");
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_050_100_2023_merged.root");
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_100_500_2023_merged.root");
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_500_000_2023_merged.root");
-
-// 2024 (Jan-Dec)
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_002_010_2024_merged.root");
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_010_025_2024_merged.root");
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_025_050_2024_merged.root");
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_050_100_2024_merged.root");
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_100_500_2024_merged.root");
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_500_000_2024_merged.root");
-
-// 2025 (Jan-Dec)
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_002_010_2025_partially_merged.root");
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_010_025_2025_merged.root");
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_025_050_2025_merged.root");
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_050_100_2025_merged.root");
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_100_500_2025_merged.root");
-skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT/skim_flight_500_000_2025_merged.root");
+// 2025: il primo bin ha suffix diverso
+skim->Add(basePath + "/SKIM_2026_pHe/FLIGHT/skim_flight_002_010_2025_partially_merged.root");
+skim->Add(basePath + "/SKIM_2026_pHe/FLIGHT/skim_flight_010_025_2025_merged.root");
+skim->Add(basePath + "/SKIM_2026_pHe/FLIGHT/skim_flight_025_050_2025_merged.root");
+skim->Add(basePath + "/SKIM_2026_pHe/FLIGHT/skim_flight_050_100_2025_merged.root");
+skim->Add(basePath + "/SKIM_2026_pHe/FLIGHT/skim_flight_100_500_2025_merged.root");
+skim->Add(basePath + "/SKIM_2026_pHe/FLIGHT/skim_flight_500_000_2025_merged.root");
 
 cout << "Orbital Data Entries: " << skim->GetEntries() << endl;
 

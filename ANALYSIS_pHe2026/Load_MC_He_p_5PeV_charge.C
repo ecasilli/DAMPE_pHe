@@ -8,26 +8,45 @@
 //
 
 // =============================
+// ----- Rilevamento automatico del sito ----
+ 
+TString basePath;
+TString hostname = gSystem->HostName();
+ 
+if (hostname.Contains("cnaf")) {
+    basePath = "/storage/gpfs_data/dampe/users/SKIM_2026_pHe";
+} else if (hostname.Contains("le.infn.it")) {
+    basePath = "/nfs/argo/dampe/SKIM_2026_pHe";
+} else {
+    cout << "ERROR: hostname non riconosciuto: " << hostname << endl;
+    cout << "  Aggiungere il path corretto per questo sito." << endl;
+    return;
+}
+ 
+cout << "Hostname: " << hostname << endl;
+cout << "Base path: " << basePath << endl;
+
+// =============================
 
 const int nsetHe = 7; //number of different energy intervals used to produce the MC data
 const int nsetP = 6;
 
 std::vector<TString> filesP;
-filesP.push_back("/nfs/argo/dampe/SKIM_2026_pHe/PROTON/Proton_10GeV_100GeV_FTFP_merged.root");
-filesP.push_back("/nfs/argo/dampe/SKIM_2026_pHe/PROTON/Proton_100GeV_1TeV_FTFP_merged.root");
-filesP.push_back("/nfs/argo/dampe/SKIM_2026_pHe/PROTON/Proton_1TeV_10TeV_FTFP_merged.root");
-filesP.push_back("/nfs/argo/dampe/SKIM_2026_pHe/PROTON/Proton_10TeV_100TeV_FTFP_merged.root");
-filesP.push_back("/nfs/argo/dampe/SKIM_2026_pHe/PROTON/Proton_100TeV_1PeV_EPOSLHC_FTFP_merged.root");
-filesP.push_back("/nfs/argo/dampe/SKIM_2026_pHe/PROTON/Proton_1PeV_5PeV_EPOSLHC_FTFP_merged.root");
+filesP.push_back(basePath + "/PROTON/Proton_10GeV_100GeV_FTFP_merged.root");
+filesP.push_back(basePath + "/PROTON/Proton_100GeV_1TeV_FTFP_merged.root");
+filesP.push_back(basePath + "/PROTON/Proton_1TeV_10TeV_FTFP_merged.root");
+filesP.push_back(basePath + "/PROTON/Proton_10TeV_100TeV_FTFP_merged.root");
+filesP.push_back(basePath + "/PROTON/Proton_100TeV_1PeV_EPOSLHC_FTFP_merged.root");
+filesP.push_back(basePath + "/PROTON/Proton_1PeV_5PeV_EPOSLHC_FTFP_merged.root");
 
 std::vector<TString> filesHe;
-filesHe.push_back("/nfs/argo/dampe/SKIM_2026_pHe/HELIUM/He4_10GeV_100GeV_FTFP_BGO_Quenching_merged.root");
-filesHe.push_back("/nfs/argo/dampe/SKIM_2026_pHe/HELIUM/He4_100GeV_1TeV_FTFP_merged.root");
-filesHe.push_back("/nfs/argo/dampe/SKIM_2026_pHe/HELIUM/He4_1TeV_10TeV_FTFP_merged.root");
-filesHe.push_back("/nfs/argo/dampe/SKIM_2026_pHe/HELIUM/He4_10TeV_100TeV_EPOSLHC_FTFP_merged.root");
-filesHe.push_back("/nfs/argo/dampe/SKIM_2026_pHe/HELIUM/He4_100TeV_500TeV_EPOSLHC_FTFP_merged.root");
-filesHe.push_back("/nfs/argo/dampe/SKIM_2026_pHe/HELIUM/He4_500TeV_1PeV_EPOSLHC_FTFP_merged.root");
-filesHe.push_back("/nfs/argo/dampe/SKIM_2026_pHe/HELIUM/He4_1PeV_5PeV_EPOSLHC_FTFP_merged.root");
+filesHe.push_back(basePath + "/HELIUM/He4_10GeV_100GeV_FTFP_BGO_Quenching_merged.root");
+filesHe.push_back(basePath + "/HELIUM/He4_100GeV_1TeV_FTFP_merged.root");
+filesHe.push_back(basePath + "/HELIUM/He4_1TeV_10TeV_FTFP_merged.root");
+filesHe.push_back(basePath + "/HELIUM/He4_10TeV_100TeV_EPOSLHC_FTFP_merged.root");
+filesHe.push_back(basePath + "/HELIUM/He4_100TeV_500TeV_EPOSLHC_FTFP_merged.root");
+filesHe.push_back(basePath + "/HELIUM/He4_500TeV_1PeV_EPOSLHC_FTFP_merged.root");
+filesHe.push_back(basePath + "/HELIUM/He4_1PeV_5PeV_EPOSLHC_FTFP_merged.root");
 
 
 //
