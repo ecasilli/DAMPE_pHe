@@ -25,15 +25,15 @@ const double alpha = 2.7; // exponential to show flux_pow
 const double egamma = 2.7; // exponential of prior power law
 const int NATTEMPTS = 5; // max n. of unfolding iterations
 int STARTING_DATA_BIN = 1;
-const double STARTING_DATA_VAL = 20;//Min E value with N obs events > 0
+const double STARTING_DATA_VAL = 30;//Min E value with N obs events > 0
 
 const std::string Test_Stat = "chi2"; // "ks" (Kolmogorov-Smirnov) or "chi2" (Reduced Chi2)
 double MIN_TS = (Test_Stat == "ks" ? 1e-4 : 1.);
 
-const bool SMOOTHING = true;
+const bool SMOOTHING = false;
 
-std::string fout_name = "unfold_results_pHe_2026_MLionsv3_smooth.root";
-std::string fdat_name = "flux_spectrum_pHe_2026_MLionsv3_smooth.dat";
+std::string fout_name = "unfold_results_pHe_2026_MLionsv3_BGOAccCut.root";
+std::string fdat_name = "flux_spectrum_pHe_2026_MLionsv3_BGOAccCut.dat";
 
 // Global variables
 std::vector<double> TRUGUESS;
@@ -46,14 +46,14 @@ double median_energy(double e_min, double e_max) {
 }
 
 void prior_prob(int nbins, Double_t *Ebins, std::vector<double>& p0) {
-    double a_norm = (egamma - 1.) * TMath::Power(Ebins[5], egamma - 1.);
+    double a_norm = (egamma - 1.) * TMath::Power(Ebins[10], egamma - 1.);
     double prior_sum = 0.;
     double sum_check = 0.;
     for (int ibin=0; ibin<nbins; ibin++){
         prior_sum += a_norm * (TMath::Power(Ebins[ibin+1], 1. - egamma) - TMath::Power(Ebins[ibin], 1. - egamma)) / (1. - egamma);
     }
     std::cout<<"prior_sum "<<prior_sum<<'\n';
-    std::cout<<"Ebins[5] "<<Ebins[5]<<'\n';
+    std::cout<<"Ebins[10] "<<Ebins[10]<<'\n';
     for (int ibin=0; ibin<nbins; ibin++){
         double prior_pow = a_norm * (TMath::Power(Ebins[ibin+1], 1. - egamma) - TMath::Power(Ebins[ibin], 1. - egamma)) / (1. - egamma);
         p0[ibin] = prior_pow / prior_sum;
@@ -306,9 +306,9 @@ std::vector<double> compute_std(const std::vector<std::vector<double>>& data) {
 int unfolding_smooth_pHe() {
 
     // Parse command line arguments
-    std::string response_file = "PHe_MC_p_He_5PeV_unfolding_6binperdecade.root";
+    std::string response_file = "PHe_MC_p_He_5PeV_unfolding_6binperdecade_BGOAccCut.root";
     std::string response_histo = "h2Ntrig_wgt_v3";
-    std::string data_file = "PHe_skim_Orb120Month_6binperdecade_v1.root";
+    std::string data_file = "PHe_skim_Orb120Month_6binperdecade_BGOAccCut.root";
     std::string data_histo = "h1SelBGO_orb_v3";
     //std::string ngen_file = ""; //uncomment if response-mat to be normalized
     //std::string ngen_histo = ""; //uncomment if response-mat to be normalized

@@ -14,8 +14,10 @@ Double_t BGO_E, BGO_E_corr, BGO_xtr;
 Double_t BGO_EneLay[14], BGO_cbgomax[14], BGO_cbgostk[14];
 Double_t PSD_CY0, PSD_CY1, PSD_CX0, PSD_CX1;
 Double_t STK_Y, STK_X;
-Int_t    BGO_HET;
+Int_t    BGO_HET, STK_ntrack;
 Double_t BGO_E_corr_v1, BGO_EnergyG_SatCorr_ML_ions_v3;
+Double_t BGO_slopeXZ_analy, BGO_interceptXZ_analy;
+Double_t BGO_slopeYZ_analy, BGO_interceptYZ_analy;
 
 // =============================
 // --------- Orbital data ------
@@ -123,6 +125,11 @@ skim->SetBranchStatus("PSD_ChargeX1",                   1);
 skim->SetBranchStatus("STKtrack_to_PSD_topY",           1);
 skim->SetBranchStatus("STKtrack_to_PSD_topX",           1);
 skim->SetBranchStatus("BGO_xtr",                        1);
+skim->SetBranchStatus("BGO_slopeXZ_analy",              1);
+skim->SetBranchStatus("BGO_interceptXZ_analy",          1);
+skim->SetBranchStatus("BGO_slopeYZ_analy",              1);
+skim->SetBranchStatus("BGO_interceptYZ_analy",          1);
+skim->SetBranchStatus("STK_ntrack",                     1);
 
 // =============================
 // ----- Branch addresses ------
@@ -141,6 +148,11 @@ skim->SetBranchAddress("PSD_ChargeX0",                    &PSD_CX0);
 skim->SetBranchAddress("PSD_ChargeX1",                    &PSD_CX1);
 skim->SetBranchAddress("STKtrack_to_PSD_topY",            &STK_Y);
 skim->SetBranchAddress("STKtrack_to_PSD_topX",            &STK_X);
+skim->SetBranchAddress("BGO_slopeXZ_analy",               &BGO_slopeXZ_analy);
+skim->SetBranchAddress("BGO_interceptXZ_analy",           &BGO_interceptXZ_analy);
+skim->SetBranchAddress("BGO_slopeYZ_analy",               &BGO_slopeYZ_analy);
+skim->SetBranchAddress("BGO_interceptYZ_analy",           &BGO_interceptYZ_analy);
+skim->SetBranchAddress("STK_ntrack",                      &STK_ntrack);
 
 // =============================
 
@@ -155,6 +167,8 @@ Ebin[0] = e0;
 for (int j = 1; j < noe+1; j++) {
     Ebin[j] = Ebin[j-1]*TMath::Power(10., arg1);
 }
+
+TFile *fout1 = new TFile("PHe_skim_Orb120Month_6binperdecade_BGOAccCut.root", "RECREATE");
 
 TH1F *h1SelBGO_orb    = new TH1F("h1SelBGO_orb",    "Selected(E_bgo) orbital", noe, Ebin);
 h1SelBGO_orb->Sumw2();
@@ -174,6 +188,24 @@ for (Long64_t i = 0; i < nEntries; i++) {
     skim->GetEntry(i);
 
     // ---- Tagli ----
+    
+    // BGO analytical acceptance cut
+    bool bgo_valid =
+        !((BGO_slopeXZ_analy == 0. && BGO_interceptXZ_analy == 0.) ||
+          (BGO_slopeYZ_analy == 0. && BGO_interceptYZ_analy == 0.));
+
+    if (!bgo_valid) continue;
+
+    bool bgo_acceptance =
+        fabs(BGO_interceptXZ_analy + 448.*BGO_slopeXZ_analy) < 280. &&
+        fabs(BGO_interceptYZ_analy + 448.*BGO_slopeYZ_analy) < 280. &&
+        fabs(BGO_interceptXZ_analy + 46.*BGO_slopeXZ_analy)  < 280. &&
+        fabs(BGO_interceptYZ_analy + 46.*BGO_slopeYZ_analy)  < 280.;
+
+    if (!bgo_acceptance) continue;
+    
+    // Ntrack 
+    //if (STK_ntrack == 0) continue;
 
     // cut00 = cc204s * Trig_HEP
     if (BGO_HET <= 0)   continue;
@@ -232,7 +264,7 @@ cout << "Loop finished." << endl;
 
 // =============================
 // ----- Salvataggio -----------
-TFile *fout1 = new TFile("PHe_skim_Orb120Month_6binperdecade_v1.root", "RECREATE");
+
 fout1->cd();
 h1SelBGO_orb->Write();
 h1SelBGO_orb_v3->Write();

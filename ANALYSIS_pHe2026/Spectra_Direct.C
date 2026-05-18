@@ -8,6 +8,15 @@ void Spectra_Direct(){
     double  TotalEnergyDAMPE_2026[36]={0}, FluxDAMPE_2026[36]={0}, FluxEDAMPE_2026[36]={0}, Stat_errDAMPE_2026[36]={0}, Stat_errEDAMPE_2026[36]={0}, 
             EnergyErrDAMPE_2026[36]={0};
 
+    double  TotalEnergyDAMPE_2026_1[36]={0}, FluxDAMPE_2026_1[36]={0}, FluxEDAMPE_2026_1[36]={0}, Stat_errDAMPE_2026_1[36]={0}, Stat_errEDAMPE_2026_1[36]={0}, 
+            EnergyErrDAMPE_2026_1[36]={0};
+
+    double  TotalEnergyDAMPE_2026_2[36]={0}, FluxDAMPE_2026_2[36]={0}, FluxEDAMPE_2026_2[36]={0}, Stat_errDAMPE_2026_2[36]={0}, Stat_errEDAMPE_2026_2[36]={0}, 
+            EnergyErrDAMPE_2026_2[36]={0};
+
+    double  TotalEnergyDAMPE_2026_3[36]={0}, FluxDAMPE_2026_3[36]={0}, FluxEDAMPE_2026_3[36]={0}, Stat_errDAMPE_2026_3[36]={0}, Stat_errEDAMPE_2026_3[36]={0}, 
+            EnergyErrDAMPE_2026_3[36]={0};
+
     double EnergyATIC[15]={0.}, FluxProtonATIC[15]={0.}, ErrProtonATIC[15]={0.}, FluxHeliumATIC[15]={0.}, ErrHeliumATIC[15]={0.}, ErrEnergyATIC[15]={0.},
            Flux_Proton_Helium_ATIC_27[15]={0.}, Err_Proton_Helium_ATIC_27[15]={0.};
 
@@ -18,13 +27,17 @@ void Spectra_Direct(){
            Flux_Proton_Helium_Nucleon_27[10]={0.}, Err_Proton_Helium_Nucleon_27[10]={0.};
 
 
-    ifstream in1, in2, in3, in4, in5;
+    ifstream in1, in2, in3, in4, in5, in6, in7, in8;
     in1.open("../pHe2024/SPECTRUM/Direct/DAMPE_p+He_72M26.dat");
     in2.open("../pHe2024/SPECTRUM/Direct/ATIC2_ProtonStat_HeliumStat.dat");
     in3.open("../pHe2024/SPECTRUM/Direct/CREAM_Proton_Helium.dat");
     in4.open("../pHe2024/SPECTRUM/Direct/Nucleon_p_He.dat");
 
     in5.open("flux_spectrum_pHe_2026_MLionsv3.dat");
+    in6.open("flux_spectrum_pHe_2026_MLionsv3_ntrackCut.dat");
+    in7.open("flux_spectrum_pHe_2026_MLionsv3_BGOAccCut_v0.dat");
+
+    in8.open("flux_spectrum_pHe_2026_MLionsv3_smooth.dat");
 
 
     for(int j=0; j<26; j++){
@@ -63,6 +76,27 @@ void Spectra_Direct(){
         in5>>TotalEnergyDAMPE_2026[j]>>FluxDAMPE_2026[j]>>Stat_errDAMPE_2026[j]>>EnergyErrDAMPE_2026[j];
         FluxEDAMPE_2026[j]=FluxDAMPE_2026[j]*(TMath::Power(TotalEnergyDAMPE_2026[j],2.7));
         Stat_errEDAMPE_2026[j]=Stat_errDAMPE_2026[j]*(TMath::Power(TotalEnergyDAMPE_2026[j],2.7));
+    }
+
+    // outfile << "# E  lowE  upE  Flux  StatErr\n";
+    for(int j=0; j<36; j++){
+        in6>>TotalEnergyDAMPE_2026_1[j]>>FluxDAMPE_2026_1[j]>>Stat_errDAMPE_2026_1[j]>>EnergyErrDAMPE_2026_1[j];
+        FluxEDAMPE_2026_1[j]=FluxDAMPE_2026_1[j]*(TMath::Power(TotalEnergyDAMPE_2026_1[j],2.7));
+        Stat_errEDAMPE_2026_1[j]=Stat_errDAMPE_2026_1[j]*(TMath::Power(TotalEnergyDAMPE_2026_1[j],2.7));
+    }
+
+    // outfile << "# E  lowE  upE  Flux  StatErr\n";
+    for(int j=0; j<36; j++){
+        in7>>TotalEnergyDAMPE_2026_2[j]>>FluxDAMPE_2026_2[j]>>Stat_errDAMPE_2026_2[j]>>EnergyErrDAMPE_2026_2[j];
+        FluxEDAMPE_2026_2[j]=FluxDAMPE_2026_2[j]*(TMath::Power(TotalEnergyDAMPE_2026_2[j],2.7));
+        Stat_errEDAMPE_2026_2[j]=Stat_errDAMPE_2026_2[j]*(TMath::Power(TotalEnergyDAMPE_2026_2[j],2.7));
+    }
+
+    // outfile << "# E  lowE  upE  Flux  StatErr\n";
+    for(int j=0; j<36; j++){
+        in8>>TotalEnergyDAMPE_2026_3[j]>>FluxDAMPE_2026_3[j]>>Stat_errDAMPE_2026_3[j]>>EnergyErrDAMPE_2026_3[j];
+        FluxEDAMPE_2026_3[j]=FluxDAMPE_2026_3[j]*(TMath::Power(TotalEnergyDAMPE_2026_3[j],2.7));
+        Stat_errEDAMPE_2026_3[j]=Stat_errDAMPE_2026_3[j]*(TMath::Power(TotalEnergyDAMPE_2026_3[j],2.7));
     }
 
 TGaxis::SetMaxDigits(3);
@@ -109,7 +143,7 @@ pad->SetLogx();
 pad->Draw();
 pad->cd();
 
-TH1F *frame = pad->DrawFrame(1e1, 0, 1e6, 50E03);
+TH1F *frame = pad->DrawFrame(2e1, 0, 1e6, 50E03);
 
 frame->GetXaxis()->SetTitleSize(0.042);
 frame->GetXaxis()->SetLabelSize(0.04);
@@ -165,7 +199,28 @@ pHe_flux_DAMPE_2026->SetMarkerStyle(20);
 pHe_flux_DAMPE_2026->SetMarkerSize(1.4);
 pHe_flux_DAMPE_2026->SetMarkerColor(kBlack);
 pHe_flux_DAMPE_2026->SetLineColor(kBlack); 
-mg->Add(pHe_flux_DAMPE_2026);   
+mg->Add(pHe_flux_DAMPE_2026);  
+
+TGraphErrors *pHe_flux_DAMPE_2026_1 = new TGraphErrors(35, TotalEnergyDAMPE_2026_1, FluxEDAMPE_2026_1, EnergyErrDAMPE_2026_1, Stat_errEDAMPE_2026_1);
+pHe_flux_DAMPE_2026_1->SetMarkerStyle(20);
+pHe_flux_DAMPE_2026_1->SetMarkerSize(1.4);
+pHe_flux_DAMPE_2026_1->SetMarkerColor(kMagenta);
+pHe_flux_DAMPE_2026_1->SetLineColor(kMagenta); 
+//mg->Add(pHe_flux_DAMPE_2026_1);  
+
+TGraphErrors *pHe_flux_DAMPE_2026_2 = new TGraphErrors(35, TotalEnergyDAMPE_2026_2, FluxEDAMPE_2026_2, EnergyErrDAMPE_2026_2, Stat_errEDAMPE_2026_2);
+pHe_flux_DAMPE_2026_2->SetMarkerStyle(20);
+pHe_flux_DAMPE_2026_2->SetMarkerSize(1.4);
+pHe_flux_DAMPE_2026_2->SetMarkerColor(kBlue);
+pHe_flux_DAMPE_2026_2->SetLineColor(kBlue); 
+//mg->Add(pHe_flux_DAMPE_2026_2);   
+
+TGraphErrors *pHe_flux_DAMPE_2026_3 = new TGraphErrors(35, TotalEnergyDAMPE_2026_3, FluxEDAMPE_2026_3, EnergyErrDAMPE_2026_3, Stat_errEDAMPE_2026_3);
+pHe_flux_DAMPE_2026_3->SetMarkerStyle(20);
+pHe_flux_DAMPE_2026_3->SetMarkerSize(1.4);
+pHe_flux_DAMPE_2026_3->SetMarkerColor(kBlue);
+pHe_flux_DAMPE_2026_3->SetLineColor(kBlue); 
+//mg->Add(pHe_flux_DAMPE_2026_3);  
 
 pHe_flux_Sys_Had->Draw("3");
 pHe_flux_Sys_Up->Draw("3");
@@ -206,6 +261,9 @@ leg->AddEntry(CREAM,"CREAM-III (2017) ","ep");
 leg->AddEntry(Nucleon,"NUCLEON (KLEM; 2017)","ep");
 leg->AddEntry(pHe_flux_DAMPE,"DAMPE (2024)","ep");
 leg->AddEntry(pHe_flux_DAMPE_2026,"DAMPE (2026)","ep");
+leg->AddEntry(pHe_flux_DAMPE_2026,"DAMPE (2026) w smoothing","ep");
+//leg->AddEntry(pHe_flux_DAMPE_2026_1,"DAMPE (2026) w N track (analy)","ep");
+//leg->AddEntry(pHe_flux_DAMPE_2026_2,"DAMPE (2026) w BGO acc (analy)","ep");
 
 leg->Draw();
 /*

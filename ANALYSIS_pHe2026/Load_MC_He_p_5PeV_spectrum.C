@@ -311,7 +311,7 @@ TCut Weights2 = weights2;
 // ------------------------------------------------------------------------------
 //    LISTA TAGLI
 
-/*
+
 // taglio BGO acceptance analitico --> DA AGGIUNGERE?
 TCut bgo_valid = "!( (BGO_slopeXZ_analy==0 && BGO_interceptXZ_analy==0) || (BGO_slopeYZ_analy==0 && BGO_interceptYZ_analy==0) )";
 TCut bgo_acceptance =
@@ -319,7 +319,7 @@ TCut bgo_acceptance =
     "fabs(BGO_interceptYZ_analy + 448.*BGO_slopeYZ_analy) < 280. && "
     "fabs(BGO_interceptXZ_analy + 46.*BGO_slopeXZ_analy)  < 280. && "
     "fabs(BGO_interceptYZ_analy + 46.*BGO_slopeYZ_analy)  < 280.";
-*/
+
 
 TCut Trig_HEP="BGO_HET>0.";
 TCut cc204s = "(BGO_EnergyG_QuenchSatCorr_ML_ions_v3>20.)";
@@ -348,7 +348,7 @@ TCut SpCut = "BGO_xtr > 12."; // nuovo taglio per gli elettroni
  
 TCut cutEt = "MC_EnergyT>20.";
 
-
+TCut cutNtrack = "STK_ntrack>0";
 
 //************** CHARGE SELECTION ***********************//
 
@@ -421,12 +421,14 @@ TCut Cut_PHe_MCCor6 =PLow_MCCor*HeHigh_MCCor6;
 //TCut Cut_PHe6 =PLow*HeHigh6;
 
 // ---------------  TOTAL CUTS
-TCut ctot=cut00*cut01*cut02*cut05*cut06*SpCut*Cut_PHe_MCCor6;
+//TCut ctot=cut00*cut01*cut02*cut05*cut06*SpCut*Cut_PHe_MCCor6;
+//TCut ctot=bgo_valid*bgo_acceptance*cut00*cut01*cut02*cut05*cut06*SpCut*Cut_PHe_MCCor6;
+TCut ctot=cutNtrack*cut00*cut01*cut02*cut05*cut06*SpCut*Cut_PHe_MCCor6;
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-//TH2F *h2Ntrig_wgt = new TH2F("h2Ntrig_wgt", "Ntrig(Eo,Et)", noe, Ebin, noe, Ebin);
+TH2F *h2Ntrig_wgt = new TH2F("h2Ntrig_wgt", "Ntrig(Eo,Et)", noe, Ebin, noe, Ebin);
 TH2F *h2Ntrig_wgt_v3 = new TH2F("h2Ntrig_wgt_v3", "Ntrig(Eo,Et)", noe, Ebin, noe, Ebin);
 
 // =============================
@@ -435,7 +437,7 @@ TH2F *h2Ntrig_wgt_v3 = new TH2F("h2Ntrig_wgt_v3", "Ntrig(Eo,Et)", noe, Ebin, noe
 for (int i=0; i<nsetHe; i++) {
 	for (int j=0; j<noe; j++) {
 
-		//sk_he[i]->Draw("(BGO_EnergyG_QuenchSatCorr_ML_ions):(MC_EnergyT)>>+h2Ntrig_wgt",ctot*Weights[j]*Weights2*wHeN[j]*GeoCorr,"goff");
+		sk_he[i]->Draw("(BGO_EnergyG_QuenchSatCorr_ML_ions):(MC_EnergyT)>>+h2Ntrig_wgt",ctot*Weights[j]*Weights2*wHeN[j]*GeoCorr,"goff");
 		sk_he[i]->Draw("(BGO_EnergyG_QuenchSatCorr_ML_ions_v3):(MC_EnergyT)>>+h2Ntrig_wgt_v3",ctot*wHeN[j]*GeoCorr*Weights[j]*Weights2,"goff");
 	}
     cout<<"He...Cor in:"<<i<<endl;
@@ -444,18 +446,18 @@ for (int i=0; i<nsetHe; i++) {
 for (int i=0; i<nsetP; i++) {
 	for (int j=0; j<noe; j++) {
 
-		//sk_p[i]->Draw("(BGO_EnergyG_QuenchSatCorr_ML_ions):(MC_EnergyT)>>+h2Ntrig_wgt",ctot*Weights[j]*Weights2*wPN[j],"goff");
+		sk_p[i]->Draw("(BGO_EnergyG_QuenchSatCorr_ML_ions):(MC_EnergyT)>>+h2Ntrig_wgt",ctot*Weights[j]*Weights2*wPN[j],"goff");
 		sk_p[i]->Draw("(BGO_EnergyG_QuenchSatCorr_ML_ions_v3):(MC_EnergyT)>>+h2Ntrig_wgt_v3",ctot*wPN[j]*Weights[j]*Weights2,"goff");
 	}
     cout<<"P...Cor in:"<<i<<endl;
 }
 
 
-TFile *fout = new TFile("PHe_MC_p_He_5PeV_unfolding_6binperdecade.root","RECREATE");
+TFile *fout = new TFile("PHe_MC_p_He_5PeV_unfolding_6binperdecade_ntrackCut.root","RECREATE");
 
 fout->cd();
 
-//h2Ntrig_wgt->Write();
+h2Ntrig_wgt->Write();
 h2Ntrig_wgt_v3->Write();
 
 h1Ngen_he->Write();
