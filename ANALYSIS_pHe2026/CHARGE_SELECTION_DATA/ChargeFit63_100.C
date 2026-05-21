@@ -357,8 +357,8 @@ void ChargeFit63_100()
    Double_t sv[4], pllo[4], plhi[4], fp[4], fpe[4];
   // fr[0]=0.3*h1->GetMean();
   // fr[1]=3.0*h1->GetMean();
-	 fr[0]=0.8; 
-	 fr[1]=1.7; 
+	 fr[0]=0.85; 
+	 fr[1]=1.6; 
 
 
    pllo[0]=0.01; pllo[1]=0.5; pllo[2]=1.0E05; pllo[3]=1.0E-03;
@@ -440,8 +440,8 @@ lp->Draw();
    Double_t frHe[2];
    Double_t svHe[4], plloHe[4], plhiHe[4], fpHe[4], fpeHe[4];
   
-   frHe[0]=1.8;  
-   frHe[1]=3.0;  
+   frHe[0]=1.88;  
+   frHe[1]=2.7;  
 
    plloHe[0]=0.05; plloHe[1]=1.0; plloHe[2]=1.0E05; plloHe[3]=1.0E-03;
    plhiHe[0]=0.8; plhiHe[1]=4.0; plhiHe[2]=1.0E09; plhiHe[3]=1.0;

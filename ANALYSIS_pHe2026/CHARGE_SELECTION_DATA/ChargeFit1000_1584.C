@@ -357,8 +357,8 @@ void ChargeFit1000_1584()
    Double_t sv[4], pllo[4], plhi[4], fp[4], fpe[4];
   // fr[0]=0.3*h1->GetMean();
   // fr[1]=3.0*h1->GetMean();
-	 fr[0]=0.8; 
-	 fr[1]=1.9; 
+	 fr[0]=0.9; 
+	 fr[1]=1.8; 
 
 
    pllo[0]=0.01; pllo[1]=0.5; pllo[2]=1.0E02; pllo[3]=1.0E-12;
