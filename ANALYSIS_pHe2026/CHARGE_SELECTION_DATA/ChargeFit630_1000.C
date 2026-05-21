@@ -357,7 +357,7 @@ void ChargeFit630_1000()
    Double_t sv[4], pllo[4], plhi[4], fp[4], fpe[4];
   // fr[0]=0.3*h1->GetMean();
   // fr[1]=3.0*h1->GetMean();
-	 fr[0]=0.8; 
+	 fr[0]=0.9; 
 	 fr[1]=1.7; 
 
 

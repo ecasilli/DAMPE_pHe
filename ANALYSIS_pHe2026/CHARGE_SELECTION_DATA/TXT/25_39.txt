@@ -35,3 +35,93 @@ MPV_p - 2sigma: 0.93116
    3  Area         4.30251e+05   1.00682e+02   1.36732e-06   1.42328e+02
    4  GSigma       6.05155e-02   7.39475e-05   5.54997e-05  -8.85351e-01
 2.03115	3.5031e-05	0.063252	3.5636e-05	0.0605155	7.39475e-05
+
+Processing ChargeFit25_39.C...
+****************************************
+Minimizer is Minuit2 / Migrad
+Chi2                      =      82829.1
+NDf                       =           25
+Edm                       =  2.17774e-08
+NCalls                    =          542
+Width                     =    0.0415571   +/-   1.8438e-05   	 (limited)
+MP                        =      1.02792   +/-   1.81298e-05  	 (limited)
+Area                      =       563545   +/-   118.541      	 (limited)
+GSigma                    =    0.0232733   +/-   4.26523e-05  	 (limited)
+****************************************
+Minimizer is Minuit2 / Migrad
+Chi2                      =      82829.1
+NDf                       =           25
+Edm                       =  1.23839e-08
+NCalls                    =           54
+Width                     =    0.0415571   +/-   1.84226e-05  	 (limited)
+MP                        =      1.02792   +/-   1.81419e-05  	 (limited)
+Area                      =       563545   +/-   118.599      	 (limited)
+GSigma                    =    0.0232733   +/-   4.26871e-05  	 (limited)
+1.02792	1.81419e-05	0.0415571	1.84226e-05	0.0232733	4.26871e-05
+MPV_p - 2sigma: 0.932657
+****************************************
+Minimizer is Minuit2 / Migrad
+Chi2                      =      12433.8
+NDf                       =           27
+Edm                       =  4.66685e-07
+NCalls                    =          404
+Width                     =    0.0589015   +/-   4.76912e-05  	 (limited)
+MP                        =      2.03095   +/-   3.56036e-05  	 (limited)
+Area                      =       417066   +/-   115.352      	 (limited)
+GSigma                    =    0.0561039   +/-   9.37248e-05  	 (limited)
+****************************************
+Minimizer is Minuit2 / Migrad
+Chi2                      =      12433.8
+NDf                       =           27
+Edm                       =  2.52814e-08
+NCalls                    =           48
+Width                     =    0.0589015   +/-   4.76898e-05  	 (limited)
+MP                        =      2.03095   +/-   3.56036e-05  	 (limited)
+Area                      =       417066   +/-   115.352      	 (limited)
+GSigma                    =    0.0561039   +/-   9.37213e-05  	 (limited)
+2.03095	3.56036e-05	0.0589015	4.76898e-05	0.0561039	9.37213e-05
+
+Processing ChargeFit25_39.C...
+****************************************
+Minimizer is Minuit2 / Migrad
+Chi2                      =      82829.1
+NDf                       =           25
+Edm                       =  2.17774e-08
+NCalls                    =          542
+Width                     =    0.0415571   +/-   1.8438e-05   	 (limited)
+MP                        =      1.02792   +/-   1.81298e-05  	 (limited)
+Area                      =       563545   +/-   118.541      	 (limited)
+GSigma                    =    0.0232733   +/-   4.26523e-05  	 (limited)
+****************************************
+Minimizer is Minuit2 / Migrad
+Chi2                      =      82829.1
+NDf                       =           25
+Edm                       =  1.23839e-08
+NCalls                    =           54
+Width                     =    0.0415571   +/-   1.84226e-05  	 (limited)
+MP                        =      1.02792   +/-   1.81419e-05  	 (limited)
+Area                      =       563545   +/-   118.599      	 (limited)
+GSigma                    =    0.0232733   +/-   4.26871e-05  	 (limited)
+1.02792	1.81419e-05	0.0415571	1.84226e-05	0.0232733	4.26871e-05
+MPV_p - 2sigma: 0.932657
+****************************************
+Minimizer is Minuit2 / Migrad
+Chi2                      =        23119
+NDf                       =           37
+Edm                       =  1.48276e-07
+NCalls                    =          366
+Width                     =    0.0611496   +/-   3.88487e-05  	 (limited)
+MP                        =       2.0313   +/-   3.50266e-05  	 (limited)
+Area                      =       421105   +/-   104.057      	 (limited)
+GSigma                    =    0.0528923   +/-   8.73806e-05  	 (limited)
+****************************************
+Minimizer is Minuit2 / Migrad
+Chi2                      =        23119
+NDf                       =           37
+Edm                       =  1.21893e-07
+NCalls                    =           45
+Width                     =    0.0611496   +/-   3.88423e-05  	 (limited)
+MP                        =       2.0313   +/-   3.50264e-05  	 (limited)
+Area                      =       421105   +/-   104.056      	 (limited)
+GSigma                    =    0.0528923   +/-   8.73658e-05  	 (limited)
+2.0313	3.50264e-05	0.0611496	3.88423e-05	0.0528923	8.73658e-05

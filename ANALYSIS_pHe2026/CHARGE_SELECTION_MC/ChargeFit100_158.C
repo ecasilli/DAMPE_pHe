@@ -334,7 +334,7 @@ void langaus() {
 void ChargeFit100_158()
 {
  
-	TFile *InputFile = new TFile("../ROOT_FILES/PHe_MC_p_He_5PeV_charge_240bins_corrected.root");
+	TFile *InputFile = new TFile("../ROOT_FILES/PHe_MC_p_He_5PeV_charge_240bins_corrected_v2.root");
 //	TFile *OutputFile = new TFile("HistoLanGausFit.root","RECREATE");
 //		TFile *OutputFile = new TFile("HistoLanGausFit.root","UPDATE");
 
@@ -379,7 +379,7 @@ void ChargeFit100_158()
 
 //*********************************************************************************************************************************************//
 //******************************* HELIUM PEAK ***********************************// 
- 
+/* 
    // Setting fit range and start values
    Double_t frHe[2];
    Double_t svHe[4], plloHe[4], plhiHe[4], fpHe[4], fpeHe[4];
@@ -403,7 +403,7 @@ void ChargeFit100_158()
 
    gStyle->SetOptFit(022);
    char *h_helium = new char[25];
-
+*/
 /*
    for (int i=1; i<17; i++){
                              sprintf(PSDE_C,"PSDE_C%d",i);
@@ -418,6 +418,7 @@ void ChargeFit100_158()
 
                            }
 */
+/*
    int a = 4;
     gStyle->SetOptStat(0);
    gStyle->SetOptFit(0);
@@ -448,7 +449,7 @@ void ChargeFit100_158()
                              // hHe[j]->Draw("same");
                               //c[j]->SaveAs("PLOTS/25_39.eps");                    
                            }
-
+*/
 //******************************* PROTON PEAK ***********************************//	
 	// Setting fit range and start values
    Double_t fr[2];
@@ -487,7 +488,7 @@ void ChargeFit100_158()
 
                            }
 */
-   //int a = 4;
+   int a = 4;
    gStyle->SetOptStat(0);
    gStyle->SetOptFit(0);
       std::cout<<"PROTON: "<<std::endl;
@@ -505,79 +506,17 @@ void ChargeFit100_158()
                              // hc1->Rebin(2);
                               TF1 *fitsnr = langaufit(hc1,fr,sv,pllo,plhi,fp,fpe,&chisqr,&ndf);
                               //hc1->Sumw2();
-                              //hc1->Draw();
-                              hc1->DrawClone("sames");
-                              fitsnr->SetLineColor(8);
-	                           fitsnr->DrawClone("lsame");
-                              std::cout<< fitsnr->GetParameter(1) <<"\t"<< fitsnr->GetParError(1)<<"\t"<<fitsnr->GetParameter(0) <<"\t"<< 
-                              fitsnr->GetParError(0) << "\t"<<fitsnr->GetParameter(3) <<"\t"<< fitsnr->GetParError(3) << std::endl;
-                           //   c[i]->Write();
-                           }
-*/
-
-//******************************* PROTON PEAK ***********************************//	
-	// Setting fit range and start values
-   Double_t fr[2];
-   Double_t sv[4], pllo[4], plhi[4], fp[4], fpe[4];
-  // fr[0]=0.3*h1->GetMean();
-  // fr[1]=3.0*h1->GetMean();
-	 fr[0]=0.8; 
-    fr[1]=2.2; 
-
-
-   pllo[0]=0.02; pllo[1]=0.5; pllo[2]=1.0E-09; pllo[3]=1.0E-03;
-   plhi[0]=0.4; plhi[1]=2.0; plhi[2]=1.0E-05; plhi[3]=1.0;
-   sv[0]=0.1; sv[1]=1.0; sv[2]=1.0E-06; sv[3]=0.08;
-
-   //   par[0]=Width (scale) parameter of Landau density
-   //   par[1]=Most Probable (MP, location) parameter of Landau density
-   //   par[2]=Total area (integral -inf to inf, normalization constant)
-   //   par[3]=Width (sigma) of convoluted Gaussian function
-
-
-   Double_t chisqr;
-   Int_t    ndf;
-   gStyle->SetOptFit(022);
-   char *h_proton = new char[25];
-    
-/*
-   for (int i=2; i<3; i++){
-                             sprintf(PSDE_C,"PSDE_C%d",i);
-                             c[i] = new TCanvas(PSDE_C,PSDE_C,1000,800);
-                              TF1 *fitsnr = langaufit(h[i],fr,sv,pllo,plhi,fp,fpe,&chisqr,&ndf);
-	                           h[i]->Draw();
-	                           fitsnr->Draw("lsameq");
-                              std::cout<< fitsnr->GetParameter(1) <<"\t"<< fitsnr->GetParError(1)<<"\t"<<fitsnr->GetParameter(0) <<"\t"<< 
-                              fitsnr->GetParError(0) << "\t"<<fitsnr->GetParameter(3) <<"\t"<< fitsnr->GetParError(3) << std::endl;
-                            //  c[i]->Write();
-
-                           }
-*/
-   int a = 3;
-   gStyle->SetOptStat(0);
-   gStyle->SetOptFit(0);
-      std::cout<<"PROTON: "<<std::endl;
-  for (int i=a; i<a+1; i++){
-                              sprintf(PSDE_C,"c_%02d",i);
-                              c[i] = new TCanvas(PSDE_C,PSDE_C,1000,800);
-                              c[i]->SetTickx();
-                              c[i]->SetTicky();
-                              
-                              hP[i]->SetLineColor(9);
-                              hP[i]->SetMarkerColor(9);
-                              sprintf(h_proton,"hP[%i]",i);
-                              TH1F *hc1 = (TH1F*)hP[i]->Clone("h_proton");
-                             // hc1->Rebin(2);
-                              TF1 *fitsnr = langaufit(hc1,fr,sv,pllo,plhi,fp,fpe,&chisqr,&ndf);
-                              //hc1->Sumw2();
                               hc1->Draw();
-                             // hc1->DrawClone("sames");
+                              //hc1->DrawClone("sames");
                               fitsnr->SetLineColor(8);
 	                           fitsnr->DrawClone("lsame");
                               std::cout<< fitsnr->GetParameter(1) <<"\t"<< fitsnr->GetParError(1)<<"\t"<<fitsnr->GetParameter(0) <<"\t"<< 
                               fitsnr->GetParError(0) << "\t"<<fitsnr->GetParameter(3) <<"\t"<< fitsnr->GetParError(3) << std::endl;
                            //   c[i]->Write();
                            }
+
+
+
 //*********************************************************************************************************************************************//
 //******************************* HELIUM PEAK ***********************************//	
  

@@ -357,12 +357,12 @@ void ChargeFit251_398()
    Double_t sv[4], pllo[4], plhi[4], fp[4], fpe[4];
   // fr[0]=0.3*h1->GetMean();
   // fr[1]=3.0*h1->GetMean();
-	 fr[0]=0.8; 
-	 fr[1]=1.7; 
+	 fr[0]=0.9; 
+	 fr[1]=1.6; 
 
 
-   pllo[0]=0.01; pllo[1]=0.5; pllo[2]=1.0E02; pllo[3]=1.0E-06;
-   plhi[0]=0.1; plhi[1]=2.0; plhi[2]=1.0E07; plhi[3]=1.0E-01;
+   pllo[0]=0.01; pllo[1]=0.5; pllo[2]=1.0E02; pllo[3]=1.0E-20;
+   plhi[0]=0.1; plhi[1]=2.0; plhi[2]=1.0E07; plhi[3]=1.0;
    sv[0]=0.05; sv[1]=1.0; sv[2]=1.0E04; sv[3]=1.0E-03;
 
    //   par[0]=Width (scale) parameter of Landau density
@@ -440,7 +440,7 @@ lp->Draw();
    Double_t frHe[2];
    Double_t svHe[4], plloHe[4], plhiHe[4], fpHe[4], fpeHe[4];
   
-   frHe[0]=1.8;  
+   frHe[0]=1.9;  
    frHe[1]=2.8;  
 
    plloHe[0]=0.05; plloHe[1]=1.0; plloHe[2]=1.0E03; plloHe[3]=1.0E-03;

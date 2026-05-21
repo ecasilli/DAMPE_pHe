@@ -35,7 +35,7 @@ void ChargeSelectionGraph()
 		double E_SigmaGHMC[20] = {0.};
 	
 		std::ifstream in;	
-		in.open("LangausResults_He_corrected.txt");
+		in.open("LangausResults_corrected_v2.txt");
 		
 		int i;
 		
@@ -80,7 +80,8 @@ void ChargeSelectionGraph()
 		gStyle->SetOptFit(222);		
 	
 	//	TF1 *ChargeFitFuncH  = new TF1("ChargeFitFuncH","[0]+[1]*log10(x)+[2]*log10(x)**2+[3]*log10(x)**3+[4]*log10(x)**4",25.0,41000.0);	//39820.0
-		TF1 *ChargeFitFuncH  = new TF1("ChargeFitFuncH","[0]+[1]*log10(x)+[2]*log10(x)**2+[3]*log10(x)**3+[4]*log10(x)**4",25.0,100000.0);
+		TF1 *ChargeFitFuncH  = new TF1("ChargeFitFuncH","[0]+[1]*log10(x)+[2]*log10(x)**2+[3]*log10(x)**3",25.0,100000.0);
+		//TF1 *ChargeFitFuncH  = new TF1("ChargeFitFuncH","[0]+[1]*log10(x)+[2]*log10(x)**2+[3]*log10(x)**3+[4]*log10(x)**4",25.0,100000.0);
 	//	TF1 *ChargeFitFuncH  = new TF1("ChargeFitFuncH","[0]+[1]*log10(x)+[2]*log10(x)**2+[3]*log10(x)**3+[4]*log10(x)**4",25.0,15000.0);
 
 		ChargeFitFuncH->SetParameters(2.236, -0.6383, 0.622, -0.2396, 0.03738);	
@@ -103,7 +104,8 @@ void ChargeSelectionGraph()
 		gStyle->SetOptFit(222);
 		ChargeSelectionMPVH->Draw("AP");	
 
-		TF1 *ChargeFitFuncHMC  = new TF1("ChargeFitFuncHMC","[0]+[1]*log10(x)+[2]*log10(x)**2+[3]*log10(x)**3+[4]*log10(x)**4",25.0,100000.0);
+		TF1 *ChargeFitFuncHMC  = new TF1("ChargeFitFuncHMC","[0]+[1]*log10(x)+[2]*log10(x)**2+[3]*log10(x)**3",25.0,100000.0);
+		//TF1 *ChargeFitFuncHMC  = new TF1("ChargeFitFuncHMC","[0]+[1]*log10(x)+[2]*log10(x)**2+[3]*log10(x)**3+[4]*log10(x)**4",25.0,100000.0);
 		//TF1 *ChargeFitFuncHMC  = new TF1("ChargeFitFuncHMC","[0]+[1]*log10(x)+[2]*log10(x)**2+[3]*log10(x)**3+[4]*log10(x)**4",25.0,25120.0);
 		ChargeFitFuncHMC->SetParameters(2.236, -0.6383, 0.622, -0.2396, 0.03738);
 		ChargeFitFuncHMC->SetLineColor(kRed+1);
@@ -184,9 +186,10 @@ leg->Draw();
 		SigmaHMC->Draw("AP");
 
 */		
+		TF1 *ChargeFitFuncWidthH  = new TF1("ChargeFitFuncWidthH","[0]+[1]*log10(x)",25.0,100000.0);
 //		TF1 *ChargeFitFuncWidthH  = new TF1("ChargeFitFuncWidthH","[0]+[1]*log10(x)+[2]*log10(x)**2+[3]*log10(x)**3",25.0,100000.0);
 //		TF1 *ChargeFitFuncWidthH  = new TF1("ChargeFitFuncWidthH","[0]+[1]*log10(x)+[2]*log10(x)**2+[3]*log10(x)**3+[4]*log10(x)**4",25.0,39820.0);	
-		TF1 *ChargeFitFuncWidthH  = new TF1("ChargeFitFuncWidthH","[0]+[1]*log10(x)+[2]*log10(x)**2+[3]*log10(x)**3+[4]*log10(x)**4",25.0,100000.0);
+//		TF1 *ChargeFitFuncWidthH  = new TF1("ChargeFitFuncWidthH","[0]+[1]*log10(x)+[2]*log10(x)**2+[3]*log10(x)**3+[4]*log10(x)**4",25.0,100000.0);
 		ChargeFitFuncWidthH->SetParameters(-1.25302, 2.11415, -1.07456, 0.225429, -0.0132164);
 		ChargeFitFuncWidthH->SetLineColor(kBlue+1);
 		
@@ -207,8 +210,11 @@ leg->Draw();
 		WidthH->SetFillStyle(0);  
 		WidthH->Fit("ChargeFitFuncWidthH","R"); 
 		WidthH->Draw("AP");
-//				TF1 *ChargeFitFuncWidthHMC  = new TF1("ChargeFitFuncWidthHMC","[0]+[1]*log10(x)+[2]*log10(x)**2+[3]*log10(x)**3",25.0,100000.0);
-		TF1 *ChargeFitFuncWidthHMC  = new TF1("ChargeFitFuncWidthHMC","[0]+[1]*log10(x)+[2]*log10(x)**2+[3]*log10(x)**3+[4]*log10(x)**4",25.0,100000.0);
+		
+		
+		TF1 *ChargeFitFuncWidthHMC  = new TF1("ChargeFitFuncWidthHMC","[0]+[1]*log10(x)",25.0,100000.0);
+//		TF1 *ChargeFitFuncWidthHMC  = new TF1("ChargeFitFuncWidthHMC","[0]+[1]*log10(x)+[2]*log10(x)**2+[3]*log10(x)**3",25.0,100000.0);
+//		TF1 *ChargeFitFuncWidthHMC  = new TF1("ChargeFitFuncWidthHMC","[0]+[1]*log10(x)+[2]*log10(x)**2+[3]*log10(x)**3+[4]*log10(x)**4",25.0,100000.0);
 //		TF1 *ChargeFitFuncWidthHMC  = new TF1("ChargeFitFuncWidthHMC","[0]+[1]*log10(x)+[2]*log10(x)**2+[3]*log10(x)**3+[4]*log10(x)**4",25.0,25120.0);
 		ChargeFitFuncWidthHMC->SetParameters(-1.25302, 2.11415, -1.07456, 0.225429, -0.0132164);		
 		ChargeFitFuncWidthHMC->SetLineColor(kRed+1);
