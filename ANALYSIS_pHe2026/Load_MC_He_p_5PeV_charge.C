@@ -345,6 +345,7 @@ TString HeMcGSigmaf_Cor="(0.5533)+(-2.406e-22)*log10(BGO_EnergyG)";
 TString HeGSigmaf="(0.4789)+(-4.384e-33)*log10(BGO_EnergyG)";	
 */
 // 13/05/2026
+/*
 TString HeMPVf= "(1.81869+(0.290607*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(-0.146116*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(0.0338788*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(-0.00192039*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4) )";
 TString HeMcMPVf= "(1.24779+(1.25798*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(-0.698468*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(0.169728*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(-0.0123542*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4))";
 
@@ -353,10 +354,20 @@ TString HeMcWidthf = "(-0.207321+(0.351723*log10(BGO_EnergyG_QuenchSatCorr_ML_io
 
 TString HeGSigmaf = "(0.060102+(-1.43351e-39*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)))";
 TString HeMcGSigmaf = "(0.0626831+(-2.19752e-40*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)))";
-
+*/
 TString HeMcFSig= "sqrt("+HeMcWidthf+"**2+"+HeMcGSigmaf+"**2)";
 //TString HeMcFSigCor= "sqrt("+HeMcWidthf_Cor+"**2+"+HeMcGSigmaf_Cor+"**2)";
 TString HeFSig= "sqrt("+HeWidthf+"**2+"+HeGSigmaf+"**2)";
+
+// 21/05/2026
+TString HeMPVf =   "(2.00012+(-0.0321304*log10(BGO_EnergyG))+(0.0595323*log10(BGO_EnergyG)**2)+(-0.021437*log10(BGO_EnergyG)**3)+(0.00339764*log10(BGO_EnergyG)**4) )";
+TString HeMcMPVf = "(1.28561+(1.19563*log10(BGO_EnergyG))+(-0.662075*log10(BGO_EnergyG)**2)+(0.160817*log10(BGO_EnergyG)**3)+(-0.0115808*log10(BGO_EnergyG)**4))";
+
+TString HeWidthf = "(0.00275837+(0.010328*log10(BGO_EnergyG))+(0.0449405*log10(BGO_EnergyG)**2)+(-0.0225188*log10(BGO_EnergyG)**3)+(0.00342892*log10(BGO_EnergyG)**4))";
+TString HeMcWidthf = "(-0.129504+(0.225536*log10(BGO_EnergyG))+(-0.100745*log10(BGO_EnergyG)**2)+(0.0212134*log10(BGO_EnergyG)**3)+(-0.000899676*log10(BGO_EnergyG)**4))";
+
+TString PGSigmaf = "0.0497501";
+TString PMcGSigmaf = "0.014387";
 
 /*
 // old:
@@ -373,12 +384,25 @@ TString PGSigmaf="(6.945E-09)+(-1.461E-40)*log10(BGO_EnergyG)";
 */
 
 // 13/05/2026
+/*
 TString PMPVf= "(1.01823+(-0.0471954*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(0.0688881*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(-0.0306054*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(0.0057345*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4) )";
 TString PMcMPVf= "(0.526726+(0.806415*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(-0.488731*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(0.12969*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(-0.00965891*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4))";
 TString PWidthf = "(0.0115231+(0.0107847*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(0.0168705*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(-0.00982277*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(0.00196218*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4))";
 TString PMcWidthf = "(-0.151341+(0.289686*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(-0.154241*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(0.0383403*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(-0.00270482*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4))";
 TString PGSigmaf = "(4.15872e-08+(-1.46051e-40*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)))";
 TString PMcGSigmaf = "(0.000112937+(-1.43351e-40*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)))";
+*/
+
+TString PMPVf= "(0.992285+(-0.00168559*log10(BGO_EnergyG))+(0.0393867*log10(BGO_EnergyG)**2)+(-0.0224261*log10(BGO_EnergyG)**3)+(0.004913*log10(BGO_EnergyG)**4) )";
+TString PMcMPVf= "(0.534909+(0.792833*log10(BGO_EnergyG))+(-0.480815*log10(BGO_EnergyG)**2)+(0.127773*log10(BGO_EnergyG)**3)+(-0.00949878*log10(BGO_EnergyG)**4))";
+
+TString PWidthf = "(-0.056499+(0.13078*log10(BGO_EnergyG))+(-0.061324*log10(BGO_EnergyG)**2)+(0.0121567*log10(BGO_EnergyG)**3)+(-0.000282473*log10(BGO_EnergyG)**4))";
+TString PMcWidthf = "(-0.195588+(0.369778*log10(BGO_EnergyG))+(-0.207333*log10(BGO_EnergyG)**2)+(0.0535356*log10(BGO_EnergyG)**3)+(-0.00428548*log10(BGO_EnergyG)**4))";
+
+TString PGSigmaf = "5.46393e-08";
+TString PMcGSigmaf = "6.9926e-05";
+ 
+// 21/05/2026
 
 TString PMcFSig= "sqrt("+PMcWidthf+"**2+"+PMcGSigmaf+"**2)";
 //TString PMcFSigCor= "sqrt("+PMcWidthf_Cor+"**2+"+PMcGSigmaf_Cor+"**2)";
@@ -499,7 +523,7 @@ c[14]->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( ProtonCor+">>+h15_p", c
 	
 
 
-TFile *fout = new TFile("PHe_MC_p_He_5PeV_charge_240bins_corrected.root","RECREATE");
+TFile *fout = new TFile("PHe_MC_p_He_5PeV_charge_240bins_corrected_v2.root","RECREATE");
 
 fout->cd();
 
