@@ -14,9 +14,10 @@ void draw_scatterplot_DATA_PSD_BGO(){
     hDATA->GetXaxis()->SetTitleOffset(1.2);
     hDATA->GetYaxis()->SetTitle("PSD charge");
     hDATA->GetYaxis()->SetTitleOffset(1.1);
-    hDATA->GetYaxis()->SetRangeUser(0.8,5.6);
+    hDATA->GetYaxis()->SetRangeUser(0.8,5.4);
     hDATA->GetXaxis()->SetRangeUser(20.,900000.);
-    TCanvas *cc = new TCanvas("cc","cc",780,780); cc->SetLogx(); //cc->SetLogz();
+    TCanvas *cc = new TCanvas("cc","cc",1);//780,780); 
+    cc->SetLogx(); cc->SetLogz();
     hDATA->Draw("colz"); 
 
     /////////////////////////////////////////////////////////////////////////////////

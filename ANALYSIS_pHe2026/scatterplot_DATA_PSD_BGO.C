@@ -77,7 +77,7 @@ for (int j = 1; j < noe+1; j++) {
 // =============================
 // ----- Histograms ------------
 
-TH2F *h2psdbgo = new TH2F("h2psdbgo","",noe,Ebin,1200,0.,30.); 
+TH2F *h2psdbgo = new TH2F("h2psdbgo","",noe,Ebin,600,0.,30.); 
 h2psdbgo->GetXaxis()->SetTitle("Deposited energy (GeV)"); 
 h2psdbgo->GetYaxis()->SetTitle("PSD charge");
 h2psdbgo->GetYaxis()->SetTitleOffset(1.3); 
