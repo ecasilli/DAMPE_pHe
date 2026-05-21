@@ -355,9 +355,7 @@ TString HeMcWidthf = "(-0.207321+(0.351723*log10(BGO_EnergyG_QuenchSatCorr_ML_io
 TString HeGSigmaf = "(0.060102+(-1.43351e-39*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)))";
 TString HeMcGSigmaf = "(0.0626831+(-2.19752e-40*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)))";
 */
-TString HeMcFSig= "sqrt("+HeMcWidthf+"**2+"+HeMcGSigmaf+"**2)";
-//TString HeMcFSigCor= "sqrt("+HeMcWidthf_Cor+"**2+"+HeMcGSigmaf_Cor+"**2)";
-TString HeFSig= "sqrt("+HeWidthf+"**2+"+HeGSigmaf+"**2)";
+
 
 // 21/05/2026
 TString HeMPVf =   "(2.00012+(-0.0321304*log10(BGO_EnergyG))+(0.0595323*log10(BGO_EnergyG)**2)+(-0.021437*log10(BGO_EnergyG)**3)+(0.00339764*log10(BGO_EnergyG)**4) )";
@@ -366,9 +364,12 @@ TString HeMcMPVf = "(1.28561+(1.19563*log10(BGO_EnergyG))+(-0.662075*log10(BGO_E
 TString HeWidthf = "(0.00275837+(0.010328*log10(BGO_EnergyG))+(0.0449405*log10(BGO_EnergyG)**2)+(-0.0225188*log10(BGO_EnergyG)**3)+(0.00342892*log10(BGO_EnergyG)**4))";
 TString HeMcWidthf = "(-0.129504+(0.225536*log10(BGO_EnergyG))+(-0.100745*log10(BGO_EnergyG)**2)+(0.0212134*log10(BGO_EnergyG)**3)+(-0.000899676*log10(BGO_EnergyG)**4))";
 
-TString PGSigmaf = "0.0497501";
-TString PMcGSigmaf = "0.014387";
+TString HeGSigmaf = "0.0497501";
+TString HeMcGSigmaf = "0.014387";
 
+TString HeMcFSig= "sqrt("+HeMcWidthf+"**2+"+HeMcGSigmaf+"**2)";
+//TString HeMcFSigCor= "sqrt("+HeMcWidthf_Cor+"**2+"+HeMcGSigmaf_Cor+"**2)";
+TString HeFSig= "sqrt("+HeWidthf+"**2+"+HeGSigmaf+"**2)";
 /*
 // old:
 TString PMcMPVf="((3.945)+(-3.557)*log10(BGO_EnergyG)+(2.546)*log10(BGO_EnergyG)**2+(-0.7748)*log10(BGO_EnergyG)**3+(0.09923)*log10(BGO_EnergyG)**4)";

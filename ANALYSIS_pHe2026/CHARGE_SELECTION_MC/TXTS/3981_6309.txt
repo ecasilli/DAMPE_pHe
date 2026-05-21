@@ -44,3 +44,49 @@ MP                        =      1.31977   +/-   0.00170409   	 (limited)
 Area                      =  2.17357e-12   +/-   1.16655e-14  	 (limited)
 GSigma                    =  1.93713e-08   +/-   9.74295e-05  	 (limited)
 1.31977	0.00170409	0.155055	0.000873991	1.93713e-08	9.74295e-05
+
+Processing ChargeFit3981_6309.C...
+HELIUM: 
+****************************************
+Minimizer is Minuit2 / Migrad
+Chi2                      =      108.531
+NDf                       =           84
+Edm                       =  9.95967e-06
+NCalls                    =          334
+Width                     =     0.169114   +/-   0.00193342   	 (limited)
+MP                        =       2.2527   +/-   0.00341399   	 (limited)
+Area                      =  2.48208e-12   +/-   2.58023e-14  	 (limited)
+GSigma                    =  6.62325e-05   +/-   0.0502829    	 (limited)
+****************************************
+Minimizer is Minuit2 / Migrad
+Chi2                      =      108.531
+NDf                       =           84
+Edm                       =  8.85838e-07
+NCalls                    =           60
+Width                     =     0.169113   +/-   0.00193337   	 (limited)
+MP                        =       2.2527   +/-   0.00341399   	 (limited)
+Area                      =  2.48204e-12   +/-   2.58024e-14  	 (limited)
+GSigma                    =  1.08859e-05   +/-   0.0831528    	 (limited)
+2.2527	0.00341399	0.169113	0.00193337	1.08859e-05	0.0831528
+PROTON: 
+****************************************
+Minimizer is Minuit2 / Migrad
+Chi2                      =      159.632
+NDf                       =           78
+Edm                       =  6.24659e-07
+NCalls                    =          318
+Width                     =     0.154286   +/-   0.000874674  	 (limited)
+MP                        =      1.31908   +/-   0.00168191   	 (limited)
+Area                      =  2.17477e-12   +/-   1.16095e-14  	 (limited)
+GSigma                    =  9.94662e-05   +/-   6.36206e-05  	 (limited)
+****************************************
+Minimizer is Minuit2 / Migrad
+Chi2                      =      159.632
+NDf                       =           78
+Edm                       =  1.96705e-07
+NCalls                    =           72
+Width                     =     0.154286   +/-   0.000875097  	 (limited)
+MP                        =      1.31908   +/-   0.00169171   	 (limited)
+Area                      =  2.17477e-12   +/-   1.16651e-14  	 (limited)
+GSigma                    =  2.08224e-10   +/-   9.97206e-05  	 (limited)
+1.31908	0.00169171	0.154286	0.000875097	2.08224e-10	9.97206e-05

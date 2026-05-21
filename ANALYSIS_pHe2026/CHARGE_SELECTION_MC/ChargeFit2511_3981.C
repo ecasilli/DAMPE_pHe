@@ -334,7 +334,7 @@ void langaus() {
 void ChargeFit2511_3981()
 {
  
-	TFile *InputFile = new TFile("../ROOT_FILES/PHe_MC_p_He_5PeV_charge_240bins_corrected.root");
+	TFile *InputFile = new TFile("../ROOT_FILES/PHe_MC_p_He_5PeV_charge_240bins_corrected_v2.root");
 //	TFile *OutputFile = new TFile("HistoLanGausFit.root","RECREATE");
 //		TFile *OutputFile = new TFile("HistoLanGausFit.root","UPDATE");
 
@@ -459,7 +459,7 @@ void ChargeFit2511_3981()
     fr[1]=2.8; 
 
 
-   pllo[0]=0.05; pllo[1]=0.5; pllo[2]=1.0E-14; pllo[3]=1.0E-10;
+   pllo[0]=0.05; pllo[1]=0.5; pllo[2]=1.0E-14; pllo[3]=1.0E-09;
    plhi[0]=0.4; plhi[1]=2.0; plhi[2]=1.0E-11; plhi[3]=1.0E-04;
    sv[0]=0.1; sv[1]=1.0; sv[2]=1.0E-12; sv[3]=8.0E-05;
 
