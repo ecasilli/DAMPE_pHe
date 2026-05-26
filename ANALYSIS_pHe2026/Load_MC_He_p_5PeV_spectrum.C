@@ -338,7 +338,7 @@ TCut bgo_acceptance =
     "fabs(BGO_interceptYZ_analy + 448.*BGO_slopeYZ_analy) < 280. && "
     "fabs(BGO_interceptXZ_analy + 46.*BGO_slopeXZ_analy)  < 280. && "
     "fabs(BGO_interceptYZ_analy + 46.*BGO_slopeYZ_analy)  < 280.";
-
+TCut bgo_acc = bgo_valid*bgo_acceptance;
 
 TCut Trig_HEP="BGO_HET>0.";
 TCut cc204s = "(BGO_EnergyG_QuenchSatCorr_ML_ions_v3>20.)";
@@ -369,40 +369,44 @@ TCut cutEt = "MC_EnergyT>20.";
 
 TCut cutNtrack = "STK_ntrack>0";
 
+TCut thetaMC = "MC_theta<50.";
+
 //************** CHARGE SELECTION ***********************//
 
 
 // Simple average
 TString PSDcharge = "( (((TMath::Sign(1.,PSD_ChargeY0)+1.)/2.)*PSD_ChargeY0)+(((TMath::Sign(1.,PSD_ChargeY1)+1.)/2.)*PSD_ChargeY1)+(((TMath::Sign(1.,PSD_ChargeX0)+1.)/2.)*PSD_ChargeX0)+(((TMath::Sign(1.,PSD_ChargeX1)+1.)/2.)*PSD_ChargeX1) ) / ( ((TMath::Sign(1.,PSD_ChargeY0)+1.)/2.)+((TMath::Sign(1.,PSD_ChargeY1)+1.)/2.)+((TMath::Sign(1.,PSD_ChargeX0)+1.)/2.)+((TMath::Sign(1.,PSD_ChargeX1)+1.)/2.) )";
 
-// HELIUM 05/2026
-TString HeMPVf= "(1.81869+(0.290607*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(-0.146116*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(0.0338788*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(-0.00192039*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4) )";
-TString HeMcMPVf= "(1.24779+(1.25798*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(-0.698468*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(0.169728*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(-0.0123542*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4))";
-TString HeWidthf = "(-0.404366+(0.742843*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(-0.422432*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(0.10251*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(-0.00846052*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4))";
-TString HeMcWidthf = "(-0.207321+(0.351723*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(-0.173553*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(0.0388396*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(-0.00242266*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4))";
-TString HeGSigmaf = "(0.060102+(-1.43351e-39*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)))";
-TString HeMcGSigmaf = "(0.0626831+(-2.19752e-40*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)))";
+// HELIUM
+TString HeMPVf= "(1.88586+(0.185264*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(-0.0867115*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(0.0200701*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(-0.000810826*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4) )";
+TString HeWidthf = "(-0.0824082+(0.201315*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(-0.0989824*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(0.0218456*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(-0.00136192*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4))";
+TString HeGSigmaf = "(0.0396516)";
 
-TString HeMcMPVf_Cor= "(2.00152+(-0.0127222*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(0.0376776*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(-0.0140209*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(0.00265541*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4))";
-TString HeMcWidthf_Cor= "(-0.201235+(0.341636*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(-0.160983*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(0.0339152*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(-0.00215655*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4))";
-TString HeMcGSigmaf_Cor= "(0.0603583)";
+TString HeMcMPVf= "(1.24779+(1.25798*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(-0.698468*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(0.169728*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(-0.0123542*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4))";
+TString HeMcWidthf = "(-0.207322+(0.351724*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(-0.173554*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(0.0388396*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(-0.00242265*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4))";
+TString HeMcGSigmaf = "(0.0626831)";
+
+TString HeMcMPVf_Cor= "(1.94878+(0.0790806*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(-0.0187037*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(0.00120807*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(0.00112927*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4))";
+TString HeMcWidthf_Cor = "(0.00973057+(0.0360571*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(-0.00109536*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(-0.00185953*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(0.000683651*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4))";
+TString HeMcGSigmaf_Cor = "(0.0389501)";
 
 TString HeMcFSig= "sqrt("+HeMcWidthf+"**2+"+HeMcGSigmaf+"**2)";
 TString HeMcFSigCor= "sqrt("+HeMcWidthf_Cor+"**2+"+HeMcGSigmaf_Cor+"**2)";
 TString HeFSig= "sqrt("+HeWidthf+"**2+"+HeGSigmaf+"**2)";
 
 
-// PROTON 05/2026
-TString PMPVf= "(1.01823+(-0.0471954*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(0.0688881*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(-0.0306054*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(0.0057345*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4) )";
-TString PMcMPVf= "(0.526726+(0.806415*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(-0.488731*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(0.12969*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(-0.00965891*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4))";
-TString PWidthf = "(0.0115231+(0.0107847*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(0.0168705*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(-0.00982277*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(0.00196218*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4))";
-TString PMcWidthf = "(-0.151341+(0.289686*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(-0.154241*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(0.0383403*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(-0.00270482*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4))";
-TString PGSigmaf = "(4.15872e-08+(-1.46051e-40*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)))";
-TString PMcGSigmaf = "(0.000112937+(-1.43351e-40*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)))";
+// PROTON
+TString PMPVf= "(0.993603+(-0.00402039*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(0.0408375*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(-0.0227868*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(0.00494042*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4) )";
+TString PWidthf = "(-0.0611545+(0.140328*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(-0.0683705*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(0.0143596*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(-0.000527989*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4))";
+TString PGSigmaf = "(5.5475e-08)";
 
-TString PMcMPVf_Cor= "(0.980513+(0.0274524*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(0.0158863*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(-0.0142169*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(0.00389876*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4))";
-TString PMcWidthf_Cor= "(-0.0221089+(0.0690865*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(-0.019641*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(0.000380102*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(0.000891969*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4))";
-TString PMcGSigmaf_Cor= "(0.000170636+(-2.71193e-08*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)))";
+TString PMcMPVf= "(0.526726+(0.806415*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(-0.488731*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(0.129689*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(-0.00965891*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4))";
+TString PMcWidthf = "(-0.151343+(0.289688*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(-0.154242*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(0.0383406*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(-0.00270484*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4))";
+TString PMcGSigmaf = "(0.000127013)";
+
+TString PMcMPVf_Cor= "(0.931721+(0.1114*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(-0.0370493*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(0.000118024*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(0.00248452*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4))";
+TString PMcWidthf_Cor = "(-0.116835+(0.233937*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(-0.125023*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(0.0294152*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(-0.0020157*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4))";
+TString PMcGSigmaf_Cor = "(9.39232e-05)";
 
 TString PMcFSig= "sqrt("+PMcWidthf+"**2+"+PMcGSigmaf+"**2)";
 TString PMcFSigCor= "sqrt("+PMcWidthf_Cor+"**2+"+PMcGSigmaf_Cor+"**2)";
@@ -414,7 +418,7 @@ TString PFSig= "sqrt("+PWidthf+"**2+"+PGSigmaf+"**2)";
 TString HeliumCor ="(("+PSDcharge+"-"+HeMcMPVf+")*("+HeFSig+"/"+HeMcFSig+")+"+HeMPVf+")";
 TString ProtonCor ="(("+PSDcharge+"-"+PMcMPVf+")*("+PFSig+"/"+PMcFSig+")+"+PMPVf+")";
 
-TString p_low_mcCor= "("+PMcMPVf_Cor+"-"+ProtonCor +")<(2*"+PMcFSigCor+")";
+TString p_low_mcCor= "("+PMcMPVf_Cor+"-"+ProtonCor +")<(2.5*"+PMcFSigCor+")";
 TString he_high_mcCor6= "("+HeliumCor+"-"+HeMcMPVf_Cor+")<(6*"+HeMcFSigCor+")";
 
 /*
@@ -440,14 +444,29 @@ TCut Cut_PHe_MCCor6 =PLow_MCCor*HeHigh_MCCor6;
 //TCut Cut_PHe6 =PLow*HeHigh6;
 
 // ---------------  TOTAL CUTS
-//TCut ctot=cut00*cut01*cut02*cut05*cut06*SpCut*Cut_PHe_MCCor6;
-//TCut ctot=bgo_valid*bgo_acceptance*cut00*cut01*cut02*cut05*cut06*SpCut*Cut_PHe_MCCor6;
-TCut ctot=cutNtrack*cut00*cut01*cut02*cut05*cut06*SpCut*Cut_PHe_MCCor6;
+TCut ctot_00   =cut00;
+TCut ctot_01   =cut00*cut01;
+//TCut ctot_02   =cut00*cut01;
+TCut ctot_05   =cut00*cut01*cut05;
+TCut ctot_06   =cut00*cut01*cut05*cut06;
+TCut ctot_SpCut=cut00*cut01*cut05*cut06*SpCut;
+TCut ctot      =cut00*cut01*cut05*cut06*SpCut*Cut_PHe_MCCor6;
 
+//TCut ctot=bgo_valid*bgo_acceptance*cut00*cut01*cut02*cut05*cut06*SpCut*Cut_PHe_MCCor6;
+//TCut ctot=cutNtrack*cut00*cut01*cut02*cut05*cut06*SpCut*Cut_PHe_MCCor6;
+
+TFile *fout = new TFile("ROOT_FILES/PHe_MC_p_He_5PeV_unfolding_6binperdecade_2e5sigmaLow_6sigmaUp_new_noCut02.root","RECREATE");
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-TH2F *h2Ntrig_wgt = new TH2F("h2Ntrig_wgt", "Ntrig(Eo,Et)", noe, Ebin, noe, Ebin);
+//TH2F *h2Ntrig_wgt = new TH2F("h2Ntrig_wgt", "Ntrig(Eo,Et)", noe, Ebin, noe, Ebin);
+TH2F *h2Ntrig_wgt_v3_all   = new TH2F("h2Ntrig_wgt_v3_all", "Ntrig(Eo,Et)", noe, Ebin, noe, Ebin);
+TH2F *h2Ntrig_wgt_v3_cut00 = new TH2F("h2Ntrig_wgt_v3_cut00", "Ntrig(Eo,Et)", noe, Ebin, noe, Ebin);
+TH2F *h2Ntrig_wgt_v3_cut01 = new TH2F("h2Ntrig_wgt_v3_cut01", "Ntrig(Eo,Et)", noe, Ebin, noe, Ebin);
+//TH2F *h2Ntrig_wgt_v3_cut02 = new TH2F("h2Ntrig_wgt_v3_cut02", "Ntrig(Eo,Et)", noe, Ebin, noe, Ebin);
+TH2F *h2Ntrig_wgt_v3_cut05 = new TH2F("h2Ntrig_wgt_v3_cut05", "Ntrig(Eo,Et)", noe, Ebin, noe, Ebin);
+TH2F *h2Ntrig_wgt_v3_cut06 = new TH2F("h2Ntrig_wgt_v3_cut06", "Ntrig(Eo,Et)", noe, Ebin, noe, Ebin);
+TH2F *h2Ntrig_wgt_v3_SpCut = new TH2F("h2Ntrig_wgt_v3_SpCut", "Ntrig(Eo,Et)", noe, Ebin, noe, Ebin);
 TH2F *h2Ntrig_wgt_v3 = new TH2F("h2Ntrig_wgt_v3", "Ntrig(Eo,Et)", noe, Ebin, noe, Ebin);
 
 // =============================
@@ -456,7 +475,14 @@ TH2F *h2Ntrig_wgt_v3 = new TH2F("h2Ntrig_wgt_v3", "Ntrig(Eo,Et)", noe, Ebin, noe
 for (int i=0; i<nsetHe; i++) {
 	for (int j=0; j<noe; j++) {
 
-		sk_he[i]->Draw("(BGO_EnergyG_QuenchSatCorr_ML_ions):(MC_EnergyT)>>+h2Ntrig_wgt",ctot*Weights[j]*Weights2*wHeN[j]*GeoCorr,"goff");
+		//sk_he[i]->Draw("(BGO_EnergyG_QuenchSatCorr_ML_ions):(MC_EnergyT)>>+h2Ntrig_wgt",ctot*Weights[j]*Weights2*wHeN[j]*GeoCorr,"goff");
+		sk_he[i]->Draw("(BGO_EnergyG_QuenchSatCorr_ML_ions_v3):(MC_EnergyT)>>+h2Ntrig_wgt_v3_all",wHeN[j]*GeoCorr*Weights[j]*Weights2,"goff");
+		sk_he[i]->Draw("(BGO_EnergyG_QuenchSatCorr_ML_ions_v3):(MC_EnergyT)>>+h2Ntrig_wgt_v3_cut00",ctot_00*wHeN[j]*GeoCorr*Weights[j]*Weights2,"goff");
+		sk_he[i]->Draw("(BGO_EnergyG_QuenchSatCorr_ML_ions_v3):(MC_EnergyT)>>+h2Ntrig_wgt_v3_cut01",ctot_01*wHeN[j]*GeoCorr*Weights[j]*Weights2,"goff");
+		//sk_he[i]->Draw("(BGO_EnergyG_QuenchSatCorr_ML_ions_v3):(MC_EnergyT)>>+h2Ntrig_wgt_v3_cut02",ctot_02*wHeN[j]*GeoCorr*Weights[j]*Weights2,"goff");
+		sk_he[i]->Draw("(BGO_EnergyG_QuenchSatCorr_ML_ions_v3):(MC_EnergyT)>>+h2Ntrig_wgt_v3_cut05",ctot_05*wHeN[j]*GeoCorr*Weights[j]*Weights2,"goff");
+		sk_he[i]->Draw("(BGO_EnergyG_QuenchSatCorr_ML_ions_v3):(MC_EnergyT)>>+h2Ntrig_wgt_v3_cut06",ctot_06*wHeN[j]*GeoCorr*Weights[j]*Weights2,"goff");
+		sk_he[i]->Draw("(BGO_EnergyG_QuenchSatCorr_ML_ions_v3):(MC_EnergyT)>>+h2Ntrig_wgt_v3_SpCut",ctot_SpCut*wHeN[j]*GeoCorr*Weights[j]*Weights2,"goff");
 		sk_he[i]->Draw("(BGO_EnergyG_QuenchSatCorr_ML_ions_v3):(MC_EnergyT)>>+h2Ntrig_wgt_v3",ctot*wHeN[j]*GeoCorr*Weights[j]*Weights2,"goff");
 	}
     cout<<"He...Cor in:"<<i<<endl;
@@ -465,18 +491,32 @@ for (int i=0; i<nsetHe; i++) {
 for (int i=0; i<nsetP; i++) {
 	for (int j=0; j<noe; j++) {
 
-		sk_p[i]->Draw("(BGO_EnergyG_QuenchSatCorr_ML_ions):(MC_EnergyT)>>+h2Ntrig_wgt",ctot*Weights[j]*Weights2*wPN[j],"goff");
+		//sk_p[i]->Draw("(BGO_EnergyG_QuenchSatCorr_ML_ions):(MC_EnergyT)>>+h2Ntrig_wgt",ctot*Weights[j]*Weights2*wPN[j],"goff");
+		sk_p[i]->Draw("(BGO_EnergyG_QuenchSatCorr_ML_ions_v3):(MC_EnergyT)>>+h2Ntrig_wgt_v3_all",wPN[j]*Weights[j]*Weights2,"goff");
+		sk_p[i]->Draw("(BGO_EnergyG_QuenchSatCorr_ML_ions_v3):(MC_EnergyT)>>+h2Ntrig_wgt_v3_cut00",ctot_00*wPN[j]*Weights[j]*Weights2,"goff");
+		sk_p[i]->Draw("(BGO_EnergyG_QuenchSatCorr_ML_ions_v3):(MC_EnergyT)>>+h2Ntrig_wgt_v3_cut01",ctot_01*wPN[j]*Weights[j]*Weights2,"goff");
+		//sk_p[i]->Draw("(BGO_EnergyG_QuenchSatCorr_ML_ions_v3):(MC_EnergyT)>>+h2Ntrig_wgt_v3_cut02",ctot_02*wPN[j]*Weights[j]*Weights2,"goff");
+		sk_p[i]->Draw("(BGO_EnergyG_QuenchSatCorr_ML_ions_v3):(MC_EnergyT)>>+h2Ntrig_wgt_v3_cut05",ctot_05*wPN[j]*Weights[j]*Weights2,"goff");
+		sk_p[i]->Draw("(BGO_EnergyG_QuenchSatCorr_ML_ions_v3):(MC_EnergyT)>>+h2Ntrig_wgt_v3_cut06",ctot_06*wPN[j]*Weights[j]*Weights2,"goff");
+		sk_p[i]->Draw("(BGO_EnergyG_QuenchSatCorr_ML_ions_v3):(MC_EnergyT)>>+h2Ntrig_wgt_v3_SpCut",ctot_SpCut*wPN[j]*Weights[j]*Weights2,"goff");
 		sk_p[i]->Draw("(BGO_EnergyG_QuenchSatCorr_ML_ions_v3):(MC_EnergyT)>>+h2Ntrig_wgt_v3",ctot*wPN[j]*Weights[j]*Weights2,"goff");
 	}
     cout<<"P...Cor in:"<<i<<endl;
 }
 
 
-TFile *fout = new TFile("PHe_MC_p_He_5PeV_unfolding_6binperdecade_ntrackCut.root","RECREATE");
+
 
 fout->cd();
 
-h2Ntrig_wgt->Write();
+//h2Ntrig_wgt->Write();
+h2Ntrig_wgt_v3_all->Write();
+h2Ntrig_wgt_v3_cut00->Write();
+h2Ntrig_wgt_v3_cut01->Write();
+h2Ntrig_wgt_v3_cut02->Write();
+h2Ntrig_wgt_v3_cut05->Write();
+h2Ntrig_wgt_v3_cut06->Write();
+h2Ntrig_wgt_v3_SpCut->Write();
 h2Ntrig_wgt_v3->Write();
 
 h1Ngen_he->Write();

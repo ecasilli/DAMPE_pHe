@@ -125,7 +125,7 @@ for (int j = 1; j < noe+1; j++) {
     Ebin[j] = Ebin[j-1]*TMath::Power(10., arg1);
 }
 
-TFile *fout1 = new TFile("PHe_skim_Orb120Month_6binperdecade_BGOAccCut.root", "RECREATE");
+TFile *fout1 = new TFile("PHe_skim_Orb120Month_6binperdecade_2e5sigmaLow_6sigmaUp_new_noCut02.root", "RECREATE");
 
 TH1F *h1SelBGO_orb    = new TH1F("h1SelBGO_orb",    "Selected(E_bgo) orbital", noe, Ebin);
 h1SelBGO_orb->Sumw2();
@@ -145,7 +145,7 @@ for (Long64_t i = 0; i < nEntries; i++) {
     skim->GetEntry(i);
 
     // ---- Tagli ----
-    
+    /*
     // BGO analytical acceptance cut
     bool bgo_valid =
         !((BGO_slopeXZ_analy == 0. && BGO_interceptXZ_analy == 0.) ||
@@ -160,7 +160,7 @@ for (Long64_t i = 0; i < nEntries; i++) {
         fabs(BGO_interceptYZ_analy + 46.*BGO_slopeYZ_analy)  < 280.;
 
     if (!bgo_acceptance) continue;
-    
+    */
     // Ntrack 
     //if (STK_ntrack == 0) continue;
 
@@ -173,7 +173,7 @@ for (Long64_t i = 0; i < nEntries; i++) {
         (PSD_CX0 <= 0. && PSD_CX1 <= 0.)) continue;
 
     // cut02: profilo di shower
-    if (BGO_EneLay[0] + BGO_EneLay[1] >= BGO_EneLay[2] + BGO_EneLay[3]) continue;
+    //if (BGO_EneLay[0] + BGO_EneLay[1] >= BGO_EneLay[2] + BGO_EneLay[3]) continue;
 
     // cut05: consistenza posizione BGO
     if (TMath::Abs(BGO_cbgomax[0] - BGO_cbgostk[0]) >= 30.) continue;
@@ -195,19 +195,19 @@ for (Long64_t i = 0; i < nEntries; i++) {
     if (den == 0.) continue;
     Double_t charge = num / den;
 
-    // 13/05/2026
-    Double_t HeMPVf= (1.81869+(0.290607*log10(BGO_EnergyG_SatCorr_ML_ions_v3))+(-0.146116*log10(BGO_EnergyG_SatCorr_ML_ions_v3)**2)+(0.0338788*log10(BGO_EnergyG_SatCorr_ML_ions_v3)**3)+(-0.00192039*log10(BGO_EnergyG_SatCorr_ML_ions_v3)**4) );
-    Double_t HeWidthf = (-0.404366+(0.742843*log10(BGO_EnergyG_SatCorr_ML_ions_v3))+(-0.422432*log10(BGO_EnergyG_SatCorr_ML_ions_v3)**2)+(0.10251*log10(BGO_EnergyG_SatCorr_ML_ions_v3)**3)+(-0.00846052*log10(BGO_EnergyG_SatCorr_ML_ions_v3)**4));
-    Double_t HeGSigmaf = (0.060102);
+    // 25/05/2026
+    Double_t HeMPVf= (1.88586+(0.185264*log10(BGO_EnergyG_SatCorr_ML_ions_v3))+(-0.0867115*log10(BGO_EnergyG_SatCorr_ML_ions_v3)**2)+(0.0200701*log10(BGO_EnergyG_SatCorr_ML_ions_v3)**3)+(-0.000810826*log10(BGO_EnergyG_SatCorr_ML_ions_v3)**4) );
+    Double_t HeWidthf = (-0.0824082+(0.201315*log10(BGO_EnergyG_SatCorr_ML_ions_v3))+(-0.0989824*log10(BGO_EnergyG_SatCorr_ML_ions_v3)**2)+(0.0218456*log10(BGO_EnergyG_SatCorr_ML_ions_v3)**3)+(-0.00136192*log10(BGO_EnergyG_SatCorr_ML_ions_v3)**4));
+    Double_t HeGSigmaf = (0.0396516);
     Double_t HeFSig= TMath::Sqrt(HeWidthf*HeWidthf + HeGSigmaf*HeGSigmaf);
 
-    Double_t PMPVf= (1.01823+(-0.0471954*log10(BGO_EnergyG_SatCorr_ML_ions_v3))+(0.0688881*log10(BGO_EnergyG_SatCorr_ML_ions_v3)**2)+(-0.0306054*log10(BGO_EnergyG_SatCorr_ML_ions_v3)**3)+(0.0057345*log10(BGO_EnergyG_SatCorr_ML_ions_v3)**4) );
-    Double_t PWidthf = (0.0115231+(0.0107847*log10(BGO_EnergyG_SatCorr_ML_ions_v3))+(0.0168705*log10(BGO_EnergyG_SatCorr_ML_ions_v3)**2)+(-0.00982277*log10(BGO_EnergyG_SatCorr_ML_ions_v3)**3)+(0.00196218*log10(BGO_EnergyG_SatCorr_ML_ions_v3)**4));
-    Double_t PGSigmaf = (4.15872e-08+(-1.46051e-40*log10(BGO_EnergyG_SatCorr_ML_ions_v3)));
+    Double_t PMPVf= (0.993603+(-0.00402039*log10(BGO_EnergyG_SatCorr_ML_ions_v3))+(0.0408375*log10(BGO_EnergyG_SatCorr_ML_ions_v3)**2)+(-0.0227868*log10(BGO_EnergyG_SatCorr_ML_ions_v3)**3)+(0.00494042*log10(BGO_EnergyG_SatCorr_ML_ions_v3)**4) );
+    Double_t PWidthf = (-0.0611545+(0.140328*log10(BGO_EnergyG_SatCorr_ML_ions_v3))+(-0.0683705*log10(BGO_EnergyG_SatCorr_ML_ions_v3)**2)+(0.0143596*log10(BGO_EnergyG_SatCorr_ML_ions_v3)**3)+(-0.000527989*log10(BGO_EnergyG_SatCorr_ML_ions_v3)**4));
+    Double_t PGSigmaf = (5.5475e-08);
     Double_t PFSig= TMath::Sqrt(PWidthf*PWidthf+PGSigmaf*PGSigmaf);
 
     // PLow: charge < proton MPV + 2*sigma
-    if (!((PMPVf - charge) < (2. * PFSig)))  continue;
+    if (!((PMPVf - charge) < (2.5 * PFSig)))  continue;
     // HeHigh: charge - He MPV < 6*sigma
     if (!((charge - HeMPVf) < (6. * HeFSig))) continue;
 

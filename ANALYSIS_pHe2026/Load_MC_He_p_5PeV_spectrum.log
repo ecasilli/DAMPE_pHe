@@ -1,5 +1,7 @@
 
 Processing Load_MC_He_p_5PeV_spectrum.C...
+Hostname: login.le.infn.it
+Base path: /nfs/argo/dampe/SKIM_2026_pHe
 Number of energy bin 36
  
   10 GeV - 100 GeV ...sk_p[0]-> 2216022
@@ -62,9 +64,3 @@ He...Cor in:4
 He...Cor in:5
 He...Cor in:6
 P...Cor in:0
-P...Cor in:1
-P...Cor in:2
-P...Cor in:3
-P...Cor in:4
-P...Cor in:5
-End script.
