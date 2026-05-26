@@ -23,7 +23,7 @@ const double livetime = 242576599.4;//10 years
 const double TotTime = livetime * Amc;
 const double alpha = 2.7; // exponential to show flux_pow
 const double egamma = 2.7; // exponential of prior power law
-const int NATTEMPTS = 5; // max n. of unfolding iterations
+const int NATTEMPTS = 10; // max n. of unfolding iterations
 int STARTING_DATA_BIN = 1;
 const double STARTING_DATA_VAL = 30;//Min E value with N obs events > 0
 
@@ -32,8 +32,8 @@ double MIN_TS = (Test_Stat == "ks" ? 1e-4 : 1.);
 
 const bool SMOOTHING = false;
 
-std::string fout_name = "unfold_results_pHe_2026_MLionsv3_BGOAccCut.root";
-std::string fdat_name = "flux_spectrum_pHe_2026_MLionsv3_BGOAccCut.dat";
+std::string fout_name = "unfold_results_pHe_2026_MLionsv3_2e5sigmaLow_6sigmaUp_new.root";
+std::string fdat_name = "flux_spectrum_pHe_2026_MLionsv3_2e5sigmaLow_6sigmaUp_new.dat";
 
 // Global variables
 std::vector<double> TRUGUESS;
@@ -306,9 +306,9 @@ std::vector<double> compute_std(const std::vector<std::vector<double>>& data) {
 int unfolding_smooth_pHe() {
 
     // Parse command line arguments
-    std::string response_file = "PHe_MC_p_He_5PeV_unfolding_6binperdecade_BGOAccCut.root";
+    std::string response_file = "ROOT_FILES/PHe_MC_p_He_5PeV_unfolding_6binperdecade_2e5sigmaLow_6sigmaUp_new.root";
     std::string response_histo = "h2Ntrig_wgt_v3";
-    std::string data_file = "PHe_skim_Orb120Month_6binperdecade_BGOAccCut.root";
+    std::string data_file = "ROOT_FILES/PHe_skim_Orb120Month_6binperdecade_2e5sigmaLow_6sigmaUp_new.root";
     std::string data_histo = "h1SelBGO_orb_v3";
     //std::string ngen_file = ""; //uncomment if response-mat to be normalized
     //std::string ngen_histo = ""; //uncomment if response-mat to be normalized

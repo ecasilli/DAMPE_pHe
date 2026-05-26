@@ -1,0 +1,48 @@
+
+Processing ChargeFit3981_6309.C...
+====================================
+Running ChargeFit3981_6309.C
+Date: 2026-05-25  13:35:52
+====================================
+
+ * * * * * * HELIUM * * * * * * * 
+
+HELIUM: 
+ FCN=88.1141 FROM MIGRAD    STATUS=CONVERGED     157 CALLS         158 TOTAL
+                     EDM=4.03345e-07    STRATEGY= 1  ERROR MATRIX UNCERTAINTY   0.5 per cent
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Width        2.32417e-01   2.87950e-03   3.01576e-05   1.65020e-01
+   2  MP           2.62266e+00   5.14178e-03   1.05194e-05  -4.77514e-01
+   3  Area         2.45193e-12   2.80770e-14  -5.49783e-06  -4.19597e-02
+   4  GSigma       9.99779e-04   8.17540e-04   6.58131e-03  -2.66922e-05
+ FCN=88.1131 FROM MIGRAD    STATUS=CONVERGED      67 CALLS          68 TOTAL
+                     EDM=9.29578e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Width        2.32418e-01   2.87865e-03   2.42256e-05  -4.97033e-02
+   2  MP           2.62266e+00   5.20276e-03   1.04324e-05  -2.66572e-01
+   3  Area         2.45193e-12   2.81540e-14   2.83013e-05  -3.69838e-02
+   4  GSigma       1.00003e-04   8.17667e-04   5.00000e-01  -3.06389e-07
+2.62266	0.00520276	0.232418	0.00287865	0.000100003	0.000817667
+
+ * * * * * * PROTON * * * * * * * 
+
+PROTON: 
+ FCN=134.497 FROM MIGRAD    STATUS=CONVERGED     204 CALLS         205 TOTAL
+                     EDM=3.10707e-07    STRATEGY= 1  ERROR MATRIX UNCERTAINTY   1.6 per cent
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Width        2.50771e-01   1.69615e-03  -4.50333e-04   1.15708e-01
+   2  MP           1.59549e+00   3.05526e-03  -2.88337e-04  -1.62553e-01
+   3  Area         2.18482e-12   1.32194e-14  -7.49909e-05  -1.04054e-01
+   4  GSigma       9.96597e-05   9.65977e-05   6.64091e-02  -2.32292e-06
+ FCN=134.497 FROM MIGRAD    STATUS=CONVERGED      65 CALLS          66 TOTAL
+                     EDM=2.1474e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Width        2.50771e-01   1.68313e-03   3.83976e-05   2.15534e-02
+   2  MP           1.59549e+00   3.05391e-03   1.85354e-05   2.87459e-03
+   3  Area         2.18482e-12   1.31912e-14   1.70956e-05  -2.67623e-02
+   4  GSigma       3.06244e-09   8.00992e-05   5.00000e-01  -2.09499e-08
+1.59549	0.00305391	0.250771	0.00168313	3.06244e-09	8.00992e-05

@@ -1,0 +1,80 @@
+
+Processing ChargeSelectionGraph.C...
+****************************************
+Minimizer is Minuit2 / Migrad
+Chi2                      =      43.2324
+NDf                       =            9
+Edm                       =  3.94444e-09
+NCalls                    =          443
+p0                        =     0.992285   +/-   0.000119756 
+p1                        =  -0.00168559   +/-   9.96875e-05 
+p2                        =    0.0393867   +/-   5.73063e-05 
+p3                        =   -0.0224261   +/-   3.0798e-05  
+p4                        =     0.004913   +/-   9.54378e-06 
+****************************************
+Minimizer is Minuit2 / Migrad
+Chi2                      =      174.372
+NDf                       =            9
+Edm                       =  1.95392e-06
+NCalls                    =          228
+p0                        =     0.534909   +/-   0.0134601   
+p1                        =     0.792833   +/-   0.0219702   
+p2                        =    -0.480815   +/-   0.0132399   
+p3                        =     0.127773   +/-   0.00350068  
+p4                        =  -0.00949878   +/-   0.000340727 
+TString PMPVf= "(0.992285+(-0.00168559*log10(BGO_EnergyG))+(0.0393867*log10(BGO_EnergyG)**2)+(-0.0224261*log10(BGO_EnergyG)**3)+(0.004913*log10(BGO_EnergyG)**4) )";
+TString PMcMPVf= "(0.534909+(0.792833*log10(BGO_EnergyG))+(-0.480815*log10(BGO_EnergyG)**2)+(0.127773*log10(BGO_EnergyG)**3)+(-0.00949878*log10(BGO_EnergyG)**4))";
+****************************************
+Minimizer is Minuit2 / Migrad
+Chi2                      =      264.542
+NDf                       =            9
+Edm                       =  9.29575e-07
+NCalls                    =          346
+p0                        =    -0.056499   +/-   0.000113797 
+p1                        =      0.13078   +/-   9.65331e-05 
+p2                        =    -0.061324   +/-   5.31637e-05 
+p3                        =    0.0121567   +/-   2.75774e-05 
+p4                        = -0.000282473   +/-   7.77569e-06 
+****************************************
+Minimizer is Minuit2 / Migrad
+Chi2                      =      137.104
+NDf                       =            9
+Edm                       =  9.73033e-10
+NCalls                    =          226
+p0                        =    -0.195588   +/-   0.0238725   
+p1                        =     0.369778   +/-   0.0398285   
+p2                        =    -0.207333   +/-   0.0240435   
+p3                        =    0.0535356   +/-   0.00623987  
+p4                        =  -0.00428548   +/-   0.000588635 
+TString PWidthf = "(-0.056499+(0.13078*log10(BGO_EnergyG))+(-0.061324*log10(BGO_EnergyG)**2)+(0.0121567*log10(BGO_EnergyG)**3)+(-0.000282473*log10(BGO_EnergyG)**4))";
+TString PMcWidthf = "(-0.195588+(0.369778*log10(BGO_EnergyG))+(-0.207333*log10(BGO_EnergyG)**2)+(0.0535356*log10(BGO_EnergyG)**3)+(-0.00428548*log10(BGO_EnergyG)**4))";
+****************************************
+Minimizer is Minuit2 / Migrad
+Chi2                      =       398907
+NDf                       =           13
+Edm                       =  4.90668e-13
+NCalls                    =           15
+p0                        =  5.46393e-08   +/-   2.37943e-08 
+****************************************
+Minimizer is Minuit2 / Migrad
+Chi2                      =       398907
+NDf                       =           13
+Edm                       =  4.90007e-13
+NCalls                    =           13
+p0                        =  5.46393e-08   +/-   2.37943e-08 
+****************************************
+Minimizer is Minuit2 / Migrad
+Chi2                      =      3994.86
+NDf                       =           13
+Edm                       =  2.14921e-17
+NCalls                    =           15
+p0                        =   6.9926e-05   +/-   2.25184e-05 
+****************************************
+Minimizer is Minuit2 / Migrad
+Chi2                      =      3994.86
+NDf                       =           13
+Edm                       =  2.17095e-17
+NCalls                    =            9
+p0                        =   6.9926e-05   +/-   2.25184e-05 
+TString PGSigmaf = "(5.46393e-08+(nan*log10(BGO_EnergyG))+(nan*log10(BGO_EnergyG)**2)+(nan*log10(BGO_EnergyG)**3)+(nan*log10(BGO_EnergyG)**4))";
+TString PMcGSigmaf = "(6.9926e-05+(nan*log10(BGO_EnergyG))+(nan*log10(BGO_EnergyG)**2)+(nan*log10(BGO_EnergyG)**3)+(nan*log10(BGO_EnergyG)**4))";

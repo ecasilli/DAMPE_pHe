@@ -1,5 +1,7 @@
 
 Processing Load_MC_He_p_5PeV_charge.C...
+Hostname: login.le.infn.it
+Base path: /nfs/argo/dampe/SKIM_2026_pHe
  
   10 GeV - 100 GeV ...sk_p[0]-> 2216022
  100 GeV - 1 TeV   ...sk_p[1]-> 2134014

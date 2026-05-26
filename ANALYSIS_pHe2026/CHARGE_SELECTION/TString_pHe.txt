@@ -1,0 +1,27 @@
+
+
+// HELIUM
+TString HeMPVf= "(1.88586+(0.185264*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(-0.0867115*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(0.0200701*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(-0.000810826*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4) )";
+TString HeWidthf = "(-0.0824082+(0.201315*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(-0.0989824*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(0.0218456*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(-0.00136192*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4))";
+TString HeGSigmaf = "(0.0396516)";
+
+TString HeMcMPVf= "(1.24779+(1.25798*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(-0.698468*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(0.169728*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(-0.0123542*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4))";
+TString HeMcWidthf = "(-0.207322+(0.351724*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(-0.173554*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(0.0388396*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(-0.00242265*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4))";
+TString HeMcGSigmaf = "(0.0626831)";
+
+TString HeMcMPVf_Cor= "(1.94878+(0.0790806*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(-0.0187037*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(0.00120807*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(0.00112927*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4))";
+TString HeMcWidthf_Cor = "(0.00973057+(0.0360571*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(-0.00109536*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(-0.00185953*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(0.000683651*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4))"
+TString HeMcGSigmaf_Cor = "(0.0389501)";
+
+// PROTON
+TString PMPVf= "(0.993603+(-0.00402039*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(0.0408375*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(-0.0227868*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(0.00494042*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4) )";
+TString PWidthf = "(-0.0611545+(0.140328*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(-0.0683705*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(0.0143596*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(-0.000527989*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4))";
+TString PGSigmaf = "(5.5475e-08)";
+
+TString PMcMPVf= "(0.526726+(0.806415*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(-0.488731*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(0.129689*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(-0.00965891*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4))";
+TString PMcWidthf = "(-0.151343+(0.289688*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(-0.154242*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(0.0383406*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(-0.00270484*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4))";
+TString PMcGSigmaf = "(0.000127013)";
+
+TString PMcMPVf_Cor= "(0.931721+(0.1114*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(-0.0370493*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(0.000118024*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(0.00248452*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4))";
+TString PMcWidthf_Cor = "(-0.116835+(0.233937*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(-0.125023*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(0.0294152*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(-0.0020157*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4))";
+TString PMcGSigmaf_Cor = "(9.39232e-05)";

@@ -33,11 +33,12 @@ void Spectra_Direct(){
     in3.open("../pHe2024/SPECTRUM/Direct/CREAM_Proton_Helium.dat");
     in4.open("../pHe2024/SPECTRUM/Direct/Nucleon_p_He.dat");
 
-    in5.open("flux_spectrum_pHe_2026_MLionsv3.dat");
-    in6.open("flux_spectrum_pHe_2026_MLionsv3_ntrackCut.dat");
-    in7.open("flux_spectrum_pHe_2026_MLionsv3_BGOAccCut_v0.dat");
+    in5.open("TXT_FILES/flux_spectrum_pHe_2026_MLionsv3_2e5sigmaLow_6sigmaUp_new.dat");
+    //in5.open("TXT_FILES/flux_spectrum_pHe_2026_MLionsv3.dat");
+    in6.open("TXT_FILES/flux_spectrum_pHe_2026_MLionsv3_ntrackCut.dat");
+    in7.open("TXT_FILES/flux_spectrum_pHe_2026_MLionsv3_BGOAccCut_v0.dat");
 
-    in8.open("flux_spectrum_pHe_2026_MLionsv3_smooth.dat");
+    in8.open("TXT_FILES/flux_spectrum_pHe_2026_MLionsv3_smooth.dat");
 
 
     for(int j=0; j<26; j++){
@@ -143,16 +144,16 @@ pad->SetLogx();
 pad->Draw();
 pad->cd();
 
-TH1F *frame = pad->DrawFrame(2e1, 0, 1e6, 50E03);
+TH1F *frame = pad->DrawFrame(2e1, 0, 2e6, 50E03);
 
 frame->GetXaxis()->SetTitleSize(0.042);
-frame->GetXaxis()->SetLabelSize(0.04);
+//frame->GetXaxis()->SetLabelSize(0.04);
 
 frame->GetYaxis()->SetTitleSize(0.042);
-frame->GetYaxis()->SetLabelSize(0.045);
+//frame->GetYaxis()->SetLabelSize(0.045);
 
 frame->GetXaxis()->SetTitleOffset(1.25);
-frame->GetYaxis()->SetTitleOffset(0.7);
+frame->GetYaxis()->SetTitleOffset(1.1);
 
 frame->GetYaxis()->SetDecimals();
 
@@ -185,12 +186,12 @@ pHe_flux_Sys_Had->SetTitle(" ;Primary energy (GeV); E^{2.7} #Phi(E)(GeV^{1.7}s^{
 
    pHe_flux_Sys_Had->GetXaxis()->SetRangeUser(20,1.0E6);
    pHe_flux_Sys_Had->GetYaxis()->SetRangeUser(0,60E03);
-   pHe_flux_Sys_Had->GetXaxis()->SetTitleSize(0.042);
-   pHe_flux_Sys_Had->GetXaxis()->SetLabelSize(0.04);
-   pHe_flux_Sys_Had->GetYaxis()->SetTitleSize(0.042);
-   pHe_flux_Sys_Had->GetYaxis()->SetLabelSize(0.04);
-   pHe_flux_Sys_Had->GetXaxis()->SetTitleOffset(1.07);
-   pHe_flux_Sys_Had->GetYaxis()->SetTitleOffset(1.07);
+   //pHe_flux_Sys_Had->GetXaxis()->SetTitleSize(0.042);
+   //pHe_flux_Sys_Had->GetXaxis()->SetLabelSize(0.04);
+   //pHe_flux_Sys_Had->GetYaxis()->SetTitleSize(0.042);
+   //pHe_flux_Sys_Had->GetYaxis()->SetLabelSize(0.04);
+   pHe_flux_Sys_Had->GetXaxis()->SetTitleOffset(1.10);
+   pHe_flux_Sys_Had->GetYaxis()->SetTitleOffset(1.10);
    pHe_flux_Sys_Had->GetYaxis()->SetDecimals();
 
 
@@ -261,7 +262,7 @@ leg->AddEntry(CREAM,"CREAM-III (2017) ","ep");
 leg->AddEntry(Nucleon,"NUCLEON (KLEM; 2017)","ep");
 leg->AddEntry(pHe_flux_DAMPE,"DAMPE (2024)","ep");
 leg->AddEntry(pHe_flux_DAMPE_2026,"DAMPE (2026)","ep");
-leg->AddEntry(pHe_flux_DAMPE_2026,"DAMPE (2026) w smoothing","ep");
+//leg->AddEntry(pHe_flux_DAMPE_2026,"DAMPE (2026) w smoothing","ep");
 //leg->AddEntry(pHe_flux_DAMPE_2026_1,"DAMPE (2026) w N track (analy)","ep");
 //leg->AddEntry(pHe_flux_DAMPE_2026_2,"DAMPE (2026) w BGO acc (analy)","ep");
 
@@ -277,6 +278,7 @@ leg->Draw();
  label -> DrawText(0.6, 0.82, "Preliminary");
  */
 C2->Update();
+C2->SaveAs("PLOTS/flux_new_20260526.pdf");
 
 }
 

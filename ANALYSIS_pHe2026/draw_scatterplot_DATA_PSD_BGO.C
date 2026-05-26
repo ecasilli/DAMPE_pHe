@@ -22,18 +22,9 @@ void draw_scatterplot_DATA_PSD_BGO(){
 
     /////////////////////////////////////////////////////////////////////////////////
     
-    // HELIUM 05/2026
-    /*
-	TString HeMPVf= "(1.81869+(0.290607*log10(x))+(-0.146116*log10(x)**2)+(0.0338788*log10(x)**3)+(-0.00192039*log10(x)**4) )";
-	TString HeWidthf = "(-0.404366+(0.742843*log10(x))+(-0.422432*log10(x)**2)+(0.10251*log10(x)**3)+(-0.00846052*log10(x)**4))";
-	TString HeGSigmaf = "(0.060102+(-1.43351e-39*log10(x)))";
-    */
-
-    TString HeMPVf= "(1.81867+(0.290641*log10(x))+(-0.146139*log10(x)**2)+(0.0338854*log10(x)**3)+(-0.00192108*log10(x)**4) )";
-    TString HeWidthf = "(0.0255146+(0.0254532*log10(x)))";
-    TString HeGSigmaf = "(0.060102)";
-
-
+    TString HeMPVf= "(1.88586+(0.185264*log10(x))+(-0.0867115*log10(x)**2)+(0.0200701*log10(x)**3)+(-0.000810826*log10(x)**4) )";
+    TString HeWidthf = "(-0.0824082+(0.201315*log10(x))+(-0.0989824*log10(x)**2)+(0.0218456*log10(x)**3)+(-0.00136192*log10(x)**4))";
+    TString HeGSigmaf = "(0.0396516)";
 
 	TString HeFSig= "sqrt("+HeWidthf+"**2+"+HeGSigmaf+"**2)";
 
@@ -41,25 +32,16 @@ void draw_scatterplot_DATA_PSD_BGO(){
 
 	TF1 *ch_high= new TF1("ch_high",HeMPVf+"+"+"6*"+HeFSig, 20.,900000.); ch_high->SetLineColor(8); ch_high->SetLineStyle(3); ch_high->SetLineWidth(3); ch_high->Draw("same");
 
-
-	// PROTON 05/2026
-    /*
-	TString PMPVf= "(1.01823+(-0.0471954*log10(x))+(0.0688881*log10(x)**2)+(-0.0306054*log10(x)**3)+(0.0057345*log10(x)**4) )";
-	TString PWidthf = "(0.0115231+(0.0107847*log10(x))+(0.0168705*log10(x)**2)+(-0.00982277*log10(x)**3)+(0.00196218*log10(x)**4))";
-	TString PGSigmaf = "(4.15872e-08+(-1.46051e-40*log10(x)))";
-	*/
-  
-    TString PMPVf= "(1.01823+(-0.0471953*log10(x))+(0.068888*log10(x)**2)+(-0.0306054*log10(x)**3)+(0.00573449*log10(x)**4) )";
-    TString PWidthf = "(0.0115053+(0.010819*log10(x))+(0.0168463*log10(x)**2)+(-0.00981535*log10(x)**3)+(0.00196135*log10(x)**4))";
-    TString PGSigmaf = "(4.15873e-08)";
-
-
+    TString PMPVf= "(0.993603+(-0.00402039*log10(x))+(0.0408375*log10(x)**2)+(-0.0227868*log10(x)**3)+(0.00494042*log10(x)**4) )";
+    TString PWidthf = "(-0.0611545+(0.140328*log10(x))+(-0.0683705*log10(x)**2)+(0.0143596*log10(x)**3)+(-0.000527989*log10(x)**4))";
+    TString PGSigmaf = "(5.5475e-08)";
+	
 	TString PFSig= "sqrt("+PWidthf+"**2+"+PGSigmaf+"**2)";
 
 	TF1 *mpv_p = new TF1("mpv_p", PMPVf, 20.,900000.); mpv_p->SetLineColor(9); mpv_p->SetLineWidth(3); mpv_p->Draw("same");
 
 	TF1 *ch_low= new TF1("ch_low",PMPVf+"-"+"2.9*"+PFSig, 20.,900000.); ch_low->SetLineColor(8); ch_low->SetLineStyle(3); ch_low->SetLineWidth(3); ch_low->Draw("same");
 
-	cc->SaveAs("scatterplot_PHe_PSD_BGO_Orb120Month_v2.png");
+	cc->SaveAs("scatterplot_PHe_PSD_BGO_Orb120Month_2e5sigmaLow_6sigmaUp_new3.pdf");
 
 }
