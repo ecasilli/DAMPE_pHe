@@ -32,8 +32,8 @@ double MIN_TS = (Test_Stat == "ks" ? 1e-4 : 1.);
 
 const bool SMOOTHING = true;
 
-std::string fout_name = "ROOT_FILES/unfold_results_pHe_2026_MLionsv3_2e5sigmaLow_6sigmaUp_new_smooth_CORR3.root";
-std::string fdat_name = "TXT_FILES/flux_spectrum_pHe_2026_MLionsv3_2e5sigmaLow_6sigmaUp_new_smooth_CORR3.dat";
+std::string fout_name = "ROOT_FILES/unfold_results_pHe_2026_MLionsv3_2e5sigmaLow_6sigmaUp_new_smooth.root";
+std::string fdat_name = "TXT_FILES/flux_spectrum_pHe_2026_MLionsv3_2e5sigmaLow_6sigmaUp_new_smooth.dat";
 
 // Global variables
 std::vector<double> TRUGUESS;
@@ -306,7 +306,7 @@ std::vector<double> compute_std(const std::vector<std::vector<double>>& data) {
 int unfolding_smooth_pHe() {
 
     // Parse command line arguments
-    std::string response_file = "ROOT_FILES/PHe_MC_p_He_5PeV_unfolding_6binperdecade_2e5sigmaLow_6sigmaUp_new_CORRECTED3.root";
+    std::string response_file = "ROOT_FILES/PHe_MC_p_He_5PeV_unfolding_6binperdecade_2e5sigmaLow_6sigmaUp_new.root";
     std::string response_histo = "h2Ntrig_wgt_v3";
     std::string data_file = "ROOT_FILES/PHe_skim_Orb120Month_6binperdecade_2e5sigmaLow_6sigmaUp_new.root";
     std::string data_histo = "h1SelBGO_orb_v3";
