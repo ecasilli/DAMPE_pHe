@@ -120,7 +120,7 @@ skim->SetBranchAddress("PSD_ChargeX1",                    &PSD_CX1);
 skim->SetBranchAddress("STKtrack_to_PSD_topY",            &STK_Y);
 skim->SetBranchAddress("STKtrack_to_PSD_topX",            &STK_X);
 
-TFile *fout1 = new TFile("scatterplot_PHe_PSD_BGO_Orb120Month.root", "RECREATE");
+TFile *fout1 = new TFile("ROOT_FILES/scatterplot_PHe_PSD_BGO_Orb120Month.root", "RECREATE");
 
 // =============================
 // ----- Loop unico su tutti gli eventi ------

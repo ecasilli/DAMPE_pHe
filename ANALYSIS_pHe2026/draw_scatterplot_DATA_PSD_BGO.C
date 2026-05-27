@@ -9,7 +9,7 @@ void draw_scatterplot_DATA_PSD_BGO(){
     gStyle->SetPadTopMargin(0.04);
     gStyle->SetPadBottomMargin(0.09);
 
-    TFile aa("scatterplot_PHe_PSD_BGO_Orb120Month.root");
+    TFile aa("ROOT_FILES/scatterplot_PHe_PSD_BGO_Orb120Month.root");
     TH1F *hDATA = (TH1F*)aa.Get("h2psdbgo"); hDATA->SetStats(0);
     hDATA->GetXaxis()->SetTitleOffset(1.2);
     hDATA->GetYaxis()->SetTitle("PSD charge");
@@ -42,6 +42,6 @@ void draw_scatterplot_DATA_PSD_BGO(){
 
 	TF1 *ch_low= new TF1("ch_low",PMPVf+"-"+"2.9*"+PFSig, 20.,900000.); ch_low->SetLineColor(8); ch_low->SetLineStyle(3); ch_low->SetLineWidth(3); ch_low->Draw("same");
 
-	cc->SaveAs("scatterplot_PHe_PSD_BGO_Orb120Month_2e5sigmaLow_6sigmaUp_new3.pdf");
+	cc->SaveAs("PLOTS/scatterplot_PHe_PSD_BGO_Orb120Month_2e5sigmaLow_6sigmaUp_new3.pdf");
 
 }

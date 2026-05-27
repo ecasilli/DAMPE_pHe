@@ -21,19 +21,19 @@ const double Amc = 2.0 * TMath::Pi() * TMath::Pi();
 //const double livetime = 217488673.3;// 9 years
 const double livetime = 242576599.4;//10 years
 const double TotTime = livetime * Amc;
-const double alpha = 2.7; // exponential to show flux_pow
+const double alpha = 2.6; // exponential to show flux_pow
 const double egamma = 2.7; // exponential of prior power law
-const int NATTEMPTS = 10; // max n. of unfolding iterations
+const int NATTEMPTS = 5; // max n. of unfolding iterations
 int STARTING_DATA_BIN = 1;
 const double STARTING_DATA_VAL = 30;//Min E value with N obs events > 0
 
 const std::string Test_Stat = "chi2"; // "ks" (Kolmogorov-Smirnov) or "chi2" (Reduced Chi2)
 double MIN_TS = (Test_Stat == "ks" ? 1e-4 : 1.);
 
-const bool SMOOTHING = false;
+const bool SMOOTHING = true;
 
-std::string fout_name = "unfold_results_pHe_2026_MLionsv3_2e5sigmaLow_6sigmaUp_new.root";
-std::string fdat_name = "flux_spectrum_pHe_2026_MLionsv3_2e5sigmaLow_6sigmaUp_new.dat";
+std::string fout_name = "ROOT_FILES/unfold_results_pHe_2026_MLionsv3_2e5sigmaLow_6sigmaUp_new_smooth_CORR3.root";
+std::string fdat_name = "TXT_FILES/flux_spectrum_pHe_2026_MLionsv3_2e5sigmaLow_6sigmaUp_new_smooth_CORR3.dat";
 
 // Global variables
 std::vector<double> TRUGUESS;
@@ -306,7 +306,7 @@ std::vector<double> compute_std(const std::vector<std::vector<double>>& data) {
 int unfolding_smooth_pHe() {
 
     // Parse command line arguments
-    std::string response_file = "ROOT_FILES/PHe_MC_p_He_5PeV_unfolding_6binperdecade_2e5sigmaLow_6sigmaUp_new.root";
+    std::string response_file = "ROOT_FILES/PHe_MC_p_He_5PeV_unfolding_6binperdecade_2e5sigmaLow_6sigmaUp_new_CORRECTED3.root";
     std::string response_histo = "h2Ntrig_wgt_v3";
     std::string data_file = "ROOT_FILES/PHe_skim_Orb120Month_6binperdecade_2e5sigmaLow_6sigmaUp_new.root";
     std::string data_histo = "h1SelBGO_orb_v3";
@@ -468,6 +468,12 @@ int unfolding_smooth_pHe() {
     hresult->SetName("result");
     hresult->SetTitle("result");
 
+    // Create output histograms
+    TH1D* hcts_unf = (TH1D*)hetru->Clone();
+    hcts_unf->SetDirectory(0);
+    hcts_unf->SetName("unfold_cts");
+    hcts_unf->SetTitle("unfold_cts");
+
     TH1D* hflux = (TH1D*)hetru->Clone();
     hflux->SetDirectory(0);
     hflux->SetName("flux");
@@ -486,6 +492,9 @@ int unfolding_smooth_pHe() {
     for(int i = 0; i < nx; i++) {
         hresult->SetBinContent(i+1, result[i]);
         hresult->SetBinError(i+1, resulterr[i]);
+
+        hcts_unf->SetBinContent(i+1, result[i]*hetru->GetBinContent(i+1));
+        hcts_unf->SetBinError(i+1, result[i]*hetru->GetBinContent(i+1));
 
         double lowE = hflux->GetXaxis()->GetBinLowEdge(i+1);
         double upE = hflux->GetXaxis()->GetBinUpEdge(i+1);
@@ -541,6 +550,7 @@ int unfolding_smooth_pHe() {
     hresult->Write();//unfolded counts
     hflux->Write();
     hfluxpow->Write();
+    hcts_unf->Write();
     //heff->Write();
     //hacc->Write();
 

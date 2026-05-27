@@ -125,7 +125,7 @@ for (int j = 1; j < noe+1; j++) {
     Ebin[j] = Ebin[j-1]*TMath::Power(10., arg1);
 }
 
-TFile *fout1 = new TFile("PHe_skim_Orb120Month_6binperdecade_2e5sigmaLow_6sigmaUp_new_noCut02.root", "RECREATE");
+TFile *fout1 = new TFile("ROOT_FILES/PHe_skim_Orb120Month_6binperdecade_2e5sigmaLow_6sigmaUp_new_noCut02.root", "RECREATE");
 
 TH1F *h1SelBGO_orb    = new TH1F("h1SelBGO_orb",    "Selected(E_bgo) orbital", noe, Ebin);
 h1SelBGO_orb->Sumw2();

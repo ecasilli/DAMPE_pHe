@@ -285,7 +285,7 @@ for (int j = 0; j < 15; j++) {
 // =============================
 // ----- Salvataggio -----------
 
-TFile *fout1 = new TFile("PHe_charge_Orb120Month_240bins.root", "RECREATE");
+TFile *fout1 = new TFile("ROOT_FILES/PHe_charge_Orb120Month_240bins.root", "RECREATE");
 fout1->cd();
 fout1->Close();
 

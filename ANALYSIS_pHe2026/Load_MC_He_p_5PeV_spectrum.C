@@ -330,7 +330,7 @@ TCut Weights2 = weights2;
 // ------------------------------------------------------------------------------
 //    LISTA TAGLI
 
-
+/*
 // taglio BGO acceptance analitico --> DA AGGIUNGERE?
 TCut bgo_valid = "!( (BGO_slopeXZ_analy==0 && BGO_interceptXZ_analy==0) || (BGO_slopeYZ_analy==0 && BGO_interceptYZ_analy==0) )";
 TCut bgo_acceptance =
@@ -339,7 +339,7 @@ TCut bgo_acceptance =
     "fabs(BGO_interceptXZ_analy + 46.*BGO_slopeXZ_analy)  < 280. && "
     "fabs(BGO_interceptYZ_analy + 46.*BGO_slopeYZ_analy)  < 280.";
 TCut bgo_acc = bgo_valid*bgo_acceptance;
-
+*/
 TCut Trig_HEP="BGO_HET>0.";
 TCut cc204s = "(BGO_EnergyG_QuenchSatCorr_ML_ions_v3>20.)";
 

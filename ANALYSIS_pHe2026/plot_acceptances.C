@@ -43,7 +43,7 @@ void plot_acceptances() {
     };
 
     // === Caricamento istogrammi ===
-    const char *base = "unfold_results_pHe_2026_MLionsv3_2e5sigmaLow_6sigmaUp_new";
+    const char *base = "ROOT_FILES/unfold_results_pHe_2026_MLionsv3_2e5sigmaLow_6sigmaUp_new";
 
     TH1D *hcut00    = LoadHist(Form("%s_cut00.root",  base), "hcut00");
     TH1D *hcut01    = LoadHist(Form("%s_cut01.root",  base), "hcut01");
