@@ -122,6 +122,12 @@ if __name__ == '__main__':
     file_DAMPE2026_all = 'TXT_FILES/flux_spectrum_pHe_2026_MLionsv3_2e5sigmaLow_6sigmaUp_new_smooth.dat'
     gr_DAMPE2026_all = make_flux_graph_DAMPE2026(file_DAMPE2026_all, kRed+1, 24, 1.3, 2.6)
 
+    file_DAMPE2026_first6years = 'TXT_FILES/flux_spectrum_pHe_2026_72months_MLionsv3_2e5sigmaLow_6sigmaUp_new_smooth.dat'
+    gr_DAMPE2026_first6years = make_flux_graph_DAMPE2026(file_DAMPE2026_first6years, kOrange+1, 20, 1.3, 2.6)
+
+    file_DAMPE2026_last4years = 'TXT_FILES/flux_spectrum_pHe_2026_rem48months_MLionsv3_2e5sigmaLow_6sigmaUp_new_smooth.dat'
+    gr_DAMPE2026_last4years = make_flux_graph_DAMPE2026(file_DAMPE2026_last4years, kGreen+1, 20, 1.3, 2.6)
+
     file_DAMPE2026_COR = 'TXT_FILES/flux_spectrum_pHe_2026_MLionsv3_2e5sigmaLow_6sigmaUp_new_smooth_CORR_PLOT.dat'
     gr_DAMPE2026_COR = make_flux_graph_DAMPE2026(file_DAMPE2026_COR, kGreen, 24, 1.3, 2.6)
     
@@ -161,14 +167,16 @@ if __name__ == '__main__':
     
     gr_DAMPE2024_sys_had.Draw("E3 SAME")
     gr_DAMPE2024_sys.Draw("E3 SAME")
-    gr_LHAASO_EPOSLHC_sys.Draw("E3 SAME")
+    #gr_LHAASO_EPOSLHC_sys.Draw("E3 SAME")
     gr_DAMPE2024.Draw("P SAME")
     #gr_DAMPE2026_COR.Draw("P SAME")
     gr_DAMPE2026.Draw("P SAME")
+    gr_DAMPE2026_first6years.Draw("P SAME")
+    gr_DAMPE2026_last4years.Draw("P SAME")
     gr_DAMPE2026_all.Draw("P SAME")
-    gr_LHAASO_QGSJET.Draw("PEZ SAME")
-    gr_LHAASO_EPOSLHC.Draw("P SAME")
-    gr_LHAASO_SIBYLL.Draw("P SAME")
+    #gr_LHAASO_QGSJET.Draw("PEZ SAME")
+    #gr_LHAASO_EPOSLHC.Draw("P SAME")
+    #gr_LHAASO_SIBYLL.Draw("P SAME")
 
 
     # ------------------- LEGEND
@@ -185,6 +193,7 @@ if __name__ == '__main__':
     leg.AddEntry(gr_DAMPE2026, "p+He DAMPE (this work 2026 - in progress) ", "P")
     leg.Draw()
 
+    '''
     leg1 = TLegend(0.55, 0.72, 0.78, 0.9)  # x1,y1,x2,y2 in NDC pad1
     leg1.SetBorderSize(0)
     leg1.SetFillStyle(0)
@@ -196,12 +205,21 @@ if __name__ == '__main__':
     leg1.AddEntry(gr_LHAASO_SIBYLL, "light comp. LHAASO (SIBYLL 2.3d, PRL 2026)", "P")
     leg1.AddEntry(gr_LHAASO_EPOSLHC_sys, "sys. error LHAASO (EPOS-LHC, PRL 2026)", "f")
     leg1.Draw()
+    '''
+
+    leg1 = TLegend(0.55, 0.79, 0.78, 0.9)  # x1,y1,x2,y2 in NDC pad1
+    leg1.SetBorderSize(0)
+    leg1.SetFillStyle(0)
+    leg1.SetTextSize(0.023)
+    leg1.AddEntry(gr_DAMPE2026_first6years, "p+He DAMPE (this work 2016 - 2021)", "P")
+    leg1.AddEntry(gr_DAMPE2026_last4years, "p+He DAMPE (this work 2022 - 2025)", "P")
+    leg1.Draw()
 
 
     cc.Update()
 
-    cc.SaveAs('PLOTS/flux_pHe_update2026_cfrLHAASO_all.pdf')
-    cc.SaveAs('PLOTS/flux_pHe_update2026_cfrLHAASO_all.png')
+    cc.SaveAs('PLOTS/flux_pHe_update2026_all_cfr6-4years.pdf')
+    cc.SaveAs('PLOTS/flux_pHe_update2026_all_cfr6-4years.png')
 
     raw_input("Press enter..")
 

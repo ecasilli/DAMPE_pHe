@@ -337,6 +337,9 @@ def main(args=None):
     fPSD_Global_Charge_PathAverage = make_branch(newtree, 'PSD_Global_Charge_PathAverage', 'd', None, -999.)
     fPSD_PathWeighted_Charge = make_branch(newtree, 'PSD_PathWeighted_Charge', 'd', None, -999.)
     fPSD_nhits = make_branch(newtree, 'PSD_nhits', 'i', None, 0)
+    fPSD_EneDepoY = make_branch(newtree, 'PSD_EneDepoY', 'd', 41, -999.)
+    fPSD_EneDepoX = make_branch(newtree, 'PSD_EneDepoX', 'd', 41, -999.)
+    fPSD_average_Charge = make_branch(newtree, 'PSD_average_Charge', 'd', None, -999.)
 
     fSTK_chargeX = make_branch(newtree, 'STK_chargeX', 'd', 6, -999.)
     fSTK_chargeY = make_branch(newtree, 'STK_chargeY', 'd', 6, -999.)
@@ -366,11 +369,15 @@ def main(args=None):
     fBGO_UBT = make_branch(newtree, 'BGO_UBT', 'i', None, 0)
     fBGO_UBE = make_branch(newtree, 'BGO_UBE', 'i', None, 0)
     fBGO_EneLay = make_branch(newtree, 'BGO_EneLay', 'd', 14, -999.)
+    fBGO_EneBars = make_branch(newtree, 'BGO_EneBars', 'd', 308, -999.)
     fBGO_nhits_layers = make_branch(newtree, 'BGO_nhits_layers', 'i', 14, -999)
     fBGO_nbars = make_branch(newtree, 'BGO_nbars', 'i', None, -999)
     fBGO_Xtr = make_branch(newtree, 'BGO_xtr', 'd', None, -999.)
     fBGO_cbgomax = make_branch(newtree, 'BGO_cbgomax', 'd', 14, -999.)
     fBGO_cbgostk = make_branch(newtree, 'BGO_cbgostk', 'd', 14, -999.)
+
+    fBGO_sumRMS = make_branch(newtree, 'BGO_sumRMS', 'd', None, -999.)
+    fRMS2 = make_branch(newtree, 'RMS2', 'd', 14, -999.)
 
     ftime = make_branch(newtree, 'time', 'i', None, 0)
     ftimems = make_branch(newtree, 'timems', 'i', None, 0)
@@ -412,6 +419,8 @@ def main(args=None):
         fMC_stopZ = make_branch(newtree, 'MC_stopZ', 'd', None, -99999.)
         fMC_stopX = make_branch(newtree, 'MC_stopX', 'd', None, -99999.)
         fMC_stopY = make_branch(newtree, 'MC_stopY', 'd', None, -99999.)
+
+    fNUDrawADC = make_branch(newtree, 'NUDrawADC', 'd', 4, -999.)
 
     # -----------------------------
     # Input chains
@@ -737,14 +746,25 @@ def main(args=None):
         x_projection_fromBGO_to_BGOTop = pevspace_api.GetDirectionBGOInteceptX() + BGOzTop * pevspace_api.GetDirectionBGOSlopeX()
         y_projection_fromBGO_to_BGOTop = pevspace_api.GetDirectionBGOInteceptY() + BGOzTop * pevspace_api.GetDirectionBGOSlopeY()
 
+        ###### stesso taglio, ma analitico
+        x_projection_fromBGO_to_BGO_ana =  pev.pEvtBgoRec().GetInterceptXZ() + BGOzBot* pev.pEvtBgoRec().GetSlopeXZ()
+        y_projection_fromBGO_to_BGO_ana =  pev.pEvtBgoRec().GetInterceptYZ() + BGOzBot* pev.pEvtBgoRec().GetSlopeYZ()
+        x_projection_fromBGO_to_BGOTop_ana =  pev.pEvtBgoRec().GetInterceptXZ() +BGOzTop  * pev.pEvtBgoRec().GetSlopeXZ()
+        y_projection_fromBGO_to_BGOTop_ana =  pev.pEvtBgoRec().GetInterceptYZ() +BGOzTop  * pev.pEvtBgoRec().GetSlopeYZ()
+
         h_bgo_projection_before.Fill(x_projection_fromBGO_to_BGO, y_projection_fromBGO_to_BGO)
         h_bgo_projectionTop_before.Fill(x_projection_fromBGO_to_BGOTop, y_projection_fromBGO_to_BGOTop)
 
         bgo_acceptance = abs(x_projection_fromBGO_to_BGO) < bgo_acceptance_range and abs(y_projection_fromBGO_to_BGO) < bgo_acceptance_range and abs(x_projection_fromBGO_to_BGOTop) < bgo_acceptance_range and abs(y_projection_fromBGO_to_BGOTop) < bgo_acceptance_range
+        bgo_acceptance_ana = abs(x_projection_fromBGO_to_BGO_ana) < bgo_acceptance_range and abs(y_projection_fromBGO_to_BGO_ana) < bgo_acceptance_range and abs(x_projection_fromBGO_to_BGOTop_ana) < bgo_acceptance_range and abs(y_projection_fromBGO_to_BGOTop_ana) < bgo_acceptance_range
 
         # cut 2
         if ((pevspace_api.GetDirectionBGOSlopeX() == 0 and pevspace_api.GetDirectionBGOInteceptX() == 0) or
                 (pevspace_api.GetDirectionBGOSlopeY() == 0 and pevspace_api.GetDirectionBGOInteceptY() == 0)):
+            continue
+        # anche analitico:
+        if ((pev.pEvtBgoRec().GetSlopeXZ()==0 and pev.pEvtBgoRec().GetInterceptXZ()==0) or 
+                (pev.pEvtBgoRec().GetSlopeYZ()==0 and pev.pEvtBgoRec().GetInterceptYZ()==0)): 
             continue
 
         fBGO_interceptX_ML[0] = pevspace_api.GetDirectionBGOInteceptX()
@@ -754,6 +774,9 @@ def main(args=None):
 
         # cut 3
         if not bgo_acceptance:
+            continue
+        #anche analitico:
+        if not (bgo_acceptance_ana): 
             continue
 
         fill_energy_cut(2, etot, etot_truth, good_event, is_mc,
@@ -1224,25 +1247,45 @@ def main(args=None):
         fPSD_Global_Charge[0] = globalcharge
         fPSD_Global_Charge_PathAverage[0] = globalaverage
 
-        den_average_charge = (
+        den_pathaverage_charge = (
             (((TMath.Sign(1., psdchargeY01_corr[0]) + 1.) / 2.) * psdY_pathlength[0]) +
             (((TMath.Sign(1., psdchargeY01_corr[1]) + 1.) / 2.) * psdY_pathlength[1]) +
             (((TMath.Sign(1., psdchargeX01_corr[0]) + 1.) / 2.) * psdX_pathlength[0]) +
             (((TMath.Sign(1., psdchargeX01_corr[1]) + 1.) / 2.) * psdX_pathlength[1])
         )
+        
+        den_average_charge = (
+            (((TMath.Sign(1., psdchargeY01_corr[0]) + 1.) / 2.) ) + 
+            (((TMath.Sign(1., psdchargeY01_corr[1]) + 1.) / 2.) ) +
+            (((TMath.Sign(1., psdchargeX01_corr[0]) + 1.) / 2.) ) + 
+            (((TMath.Sign(1., psdchargeX01_corr[1]) + 1.) / 2.) )
+        )
 
-        if den_average_charge > 0:
-            average_charge = (
+        if den_pathaverage_charge > 0:
+            pathaverage_charge = (
                 ((((TMath.Sign(1., psdchargeY01_corr[0]) + 1.) / 2.) * psdchargeY01_corr[0] * psdY_pathlength[0]) +
                  (((TMath.Sign(1., psdchargeY01_corr[1]) + 1.) / 2.) * psdchargeY01_corr[1] * psdY_pathlength[1]) +
                  (((TMath.Sign(1., psdchargeX01_corr[0]) + 1.) / 2.) * psdchargeX01_corr[0] * psdX_pathlength[0]) +
                  (((TMath.Sign(1., psdchargeX01_corr[1]) + 1.) / 2.) * psdchargeX01_corr[1] * psdX_pathlength[1]))
+                / den_pathaverage_charge
+            )
+        else:
+            pathaverage_charge = -999.
+
+        if den_average_charge > 0:
+            average_charge = (
+                ((((TMath.Sign(1., psdchargeY01_corr[0]) + 1.) / 2.) * psdchargeY01_corr[0] ) +
+                 (((TMath.Sign(1., psdchargeY01_corr[1]) + 1.) / 2.) * psdchargeY01_corr[1] ) +
+                 (((TMath.Sign(1., psdchargeX01_corr[0]) + 1.) / 2.) * psdchargeX01_corr[0] ) +
+                 (((TMath.Sign(1., psdchargeX01_corr[1]) + 1.) / 2.) * psdchargeX01_corr[1] ))
                 / den_average_charge
             )
         else:
             average_charge = -999.
 
-        fPSD_PathWeighted_Charge[0] = average_charge
+
+        fPSD_PathWeighted_Charge[0] = pathaverage_charge
+        fPSD_average_Charge[0] = average_charge
 
         for ipsd in xrange(0, nlayer_psd):
             fPSD_EnergyY[ipsd] = psdchargeY[ipsd]
@@ -1314,6 +1357,11 @@ def main(args=None):
         else:
             fPSD_Etrack23[0] = -999.
 
+        for ipsd in xrange(0, 41):
+            #PSD Edep senza correzione tanto solo per display
+            fPSD_EneDepoY[ipsd] = pev.pEvtPsdRec().GetEdep(0,ipsd)/1000.
+            fPSD_EneDepoX[ipsd] = pev.pEvtPsdRec().GetEdep(1,ipsd)/1000.
+
         for iplane in xrange(0, 6):
             fSTK_chargeX[iplane] = cluster_chargeX[iplane]
             fSTK_chargeY[iplane] = cluster_chargeY[iplane]
@@ -1330,6 +1378,8 @@ def main(args=None):
         for ibgo in xrange(0, 14):
             fBGO_EneLay[ibgo] = pev.pEvtBgoRec().GetELayer(ibgo) / 1000.
             fBGO_nhits_layers[ibgo] = pev.pEvtBgoRec().GetLayerHits()[ibgo]
+            for ibar in xrange(0,22):
+                fBGO_EneBars[(ibgo*22)+ibar] = pev.pEvtBgoRec().GetEdep(ibgo,ibar)/1000.
 
         EBarLayers = [[] for _ in range(14)]
         PosBarLayers = [[] for _ in range(14)]
@@ -1426,6 +1476,9 @@ def main(args=None):
         fBGO_UBE[0] = pev.pEvtHeader().EnabledTrigger(0)
         fBGO_nbars[0] = pev.NEvtBgoHits()
         fBGO_Xtr[0] = Xtr
+        fBGO_sumRMS[0] = sumRMS
+        for i in range(14):
+            fRMS2[i] = rmsLayer[i]
 
         ftime[0] = pev.pEvtHeader().GetSecond()
         ftimems[0] = pev.pEvtHeader().GetMillisecond()
@@ -1437,6 +1490,9 @@ def main(args=None):
             fMC_stopZ[0] = stopZ_parent
             fMC_stopX[0] = stopX_parent
             fMC_stopY[0] = stopY_parent
+
+        for inud in range(4):
+            fNUDrawADC[inud] = pev.pEvtNudRaw().fADC[inud]
 
         entry_ntupla += 1
 

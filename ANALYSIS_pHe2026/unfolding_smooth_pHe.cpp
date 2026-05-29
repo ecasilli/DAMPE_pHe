@@ -19,7 +19,9 @@ const bool TOY_MC_ERROR_ESTIMATE = true;
 const int TOY_MC_ERROR_ESTIMATE_SAMPLES = 10000;
 const double Amc = 2.0 * TMath::Pi() * TMath::Pi();
 //const double livetime = 217488673.3;// 9 years
-const double livetime = 242576599.4;//10 years
+//const double livetime = 242576599.4;//10 years
+//const double livetime = 2183*86400*0.7667; // livetime 72 months -> Francesca's codes
+const double livetime = 242576599-(2183*86400*0.7667); // remaining 48 months
 const double TotTime = livetime * Amc;
 const double alpha = 2.6; // exponential to show flux_pow
 const double egamma = 2.7; // exponential of prior power law
@@ -30,10 +32,10 @@ const double STARTING_DATA_VAL = 30;//Min E value with N obs events > 0
 const std::string Test_Stat = "chi2"; // "ks" (Kolmogorov-Smirnov) or "chi2" (Reduced Chi2)
 double MIN_TS = (Test_Stat == "ks" ? 1e-4 : 1.);
 
-const bool SMOOTHING = true;
+const bool SMOOTHING = false;
 
-std::string fout_name = "ROOT_FILES/unfold_results_pHe_2026_MLionsv3_2e5sigmaLow_6sigmaUp_new_smooth.root";
-std::string fdat_name = "TXT_FILES/flux_spectrum_pHe_2026_MLionsv3_2e5sigmaLow_6sigmaUp_new_smooth.dat";
+std::string fout_name = "ROOT_FILES/unfold_results_pHe_2026_rem48months_MLionsv3_2e5sigmaLow_6sigmaUp_new.root";
+std::string fdat_name = "TXT_FILES/flux_spectrum_pHe_2026_rem48months_MLionsv3_2e5sigmaLow_6sigmaUp_new.dat";
 
 // Global variables
 std::vector<double> TRUGUESS;
@@ -308,7 +310,7 @@ int unfolding_smooth_pHe() {
     // Parse command line arguments
     std::string response_file = "ROOT_FILES/PHe_MC_p_He_5PeV_unfolding_6binperdecade_2e5sigmaLow_6sigmaUp_new.root";
     std::string response_histo = "h2Ntrig_wgt_v3";
-    std::string data_file = "ROOT_FILES/PHe_skim_Orb120Month_6binperdecade_2e5sigmaLow_6sigmaUp_new.root";
+    std::string data_file = "ROOT_FILES/PHe_skim_Orb_rem48Month_6binperdecade_2e5sigmaLow_6sigmaUp_new.root";
     std::string data_histo = "h1SelBGO_orb_v3";
     //std::string ngen_file = ""; //uncomment if response-mat to be normalized
     //std::string ngen_histo = ""; //uncomment if response-mat to be normalized
@@ -494,7 +496,7 @@ int unfolding_smooth_pHe() {
         hresult->SetBinError(i+1, resulterr[i]);
 
         hcts_unf->SetBinContent(i+1, result[i]*hetru->GetBinContent(i+1));
-        hcts_unf->SetBinError(i+1, result[i]*hetru->GetBinContent(i+1));
+        hcts_unf->SetBinError(i+1, resulterr[i]*hetru->GetBinContent(i+1));
 
         double lowE = hflux->GetXaxis()->GetBinLowEdge(i+1);
         double upE = hflux->GetXaxis()->GetBinUpEdge(i+1);
