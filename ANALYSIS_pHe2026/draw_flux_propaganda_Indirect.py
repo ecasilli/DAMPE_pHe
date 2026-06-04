@@ -243,6 +243,12 @@ if __name__ == '__main__':
 
     file_DAMPE2026_COR = 'TXT_FILES/flux_spectrum_pHe_2026_MLionsv3_2e5sigmaLow_6sigmaUp_new_smooth_CORR_PLOT.dat'
     gr_DAMPE2026_COR = make_flux_graph_DAMPE2026(file_DAMPE2026_COR, kGreen, 24, 1.3, 2.6)
+
+    file_DAMPE2026_9yall = 'TXT_FILES/flux_spectrum_pHe_2026_108Months_MLionsv3_2e5sigmaLow_6sigmaUp_new_smooth.dat'
+    gr_DAMPE2026_9yall = make_flux_graph_DAMPE2026(file_DAMPE2026_9yall, kRed+1, 24, 1.3, 2.6)
+
+    file_DAMPE2026_9y = 'TXT_FILES/flux_spectrum_pHe_2026_108Months_MLionsv3_2e5sigmaLow_6sigmaUp_new_smooth_PLOT.dat'
+    gr_DAMPE2026_9y = make_flux_graph_DAMPE2026(file_DAMPE2026_9y, kRed+1, 24, 1.3, 2.6)
     
     file_LHAASO_EPOSLHC = 'TXT_FILES/light_component_LHAASO_EPOSLHC.dat'
     gr_LHAASO_EPOSLHC, gr_LHAASO_EPOSLHC_sys = make_flux_graph_LHAASO(file_LHAASO_EPOSLHC, kBlue+1, 25, 1.3, 2.6)
@@ -317,8 +323,10 @@ if __name__ == '__main__':
 
     gr_DAMPE2024.Draw("P SAME")
     #gr_DAMPE2026_COR.Draw("P SAME")
-    gr_DAMPE2026.Draw("P SAME")
-    gr_DAMPE2026_all.Draw("P SAME")
+    #gr_DAMPE2026.Draw("P SAME")
+    #gr_DAMPE2026_all.Draw("P SAME")
+    gr_DAMPE2026_9y.Draw("P SAME")
+    gr_DAMPE2026_9yall.Draw("P SAME")
 
 
     # ------------------- LEGEND
@@ -337,7 +345,8 @@ if __name__ == '__main__':
     leg.AddEntry(gr_KASCADE_QGSJet,"KASCADE QGSjet01 (2005)","ep")
     leg.AddEntry(gr_KASCADE_SIBYLL,"KASCADE SIBYLL-2.1 (2005)","ep")
     leg.AddEntry(gr_DAMPE2024,"DAMPE (PRL 2024)","ep")
-    leg.AddEntry(gr_DAMPE2026,"DAMPE (this work 2026 - in progress)","ep")
+    #leg.AddEntry(gr_DAMPE2026,"DAMPE (this work 2026 - in progress)","ep")
+    leg.AddEntry(gr_DAMPE2026,"DAMPE (this work 9 years - in progress)","ep")
     
     leg.AddEntry(gr_LHAASO_QGSJET, "LHAASO (QGSJET-II-04, PRL 2026)", "EP")
     leg.AddEntry(gr_LHAASO_EPOSLHC,"LHAASO (EPOS-LHC, PRL 2026)", "EP")
@@ -348,8 +357,8 @@ if __name__ == '__main__':
 
     cc.Update()
 
-    cc.SaveAs('PLOTS/flux_pHe_update2026_cfrLHAASO_indirect_all.pdf')
-    cc.SaveAs('PLOTS/flux_pHe_update2026_cfrLHAASO_indirect_all.png')
+    cc.SaveAs('PLOTS/flux_pHe_update2026_cfrLHAASO_indirect_all_9years.pdf')
+    cc.SaveAs('PLOTS/flux_pHe_update2026_cfrLHAASO_indirect_all_9years.png')
 
     raw_input("Press enter..")
 

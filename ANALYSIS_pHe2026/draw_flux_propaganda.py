@@ -105,10 +105,45 @@ def make_flux_graph_LHAASO(filename, color, marker, size, alpha):
     gr_in.SetMarkerColor(color)
     gr_in.SetMarkerStyle(marker)
     gr_in.SetMarkerSize(size)
-    gr_in.SetFillColor(38)
-    gr_in.SetFillStyle(3002)
+    gr_in.SetFillColor(kBlue-10)
+    gr_in.SetFillStyle(1001)
 
     return gr, gr_in 
+
+def make_flux_graph_from_ROOT(filename, histname, color, marker, size, alpha):
+    from ROOT import TFile
+    
+    f = TFile.Open(filename)
+    h = f.Get(histname)
+    h.SetDirectory(0)
+    f.Close()
+
+    n = h.GetNbinsX()
+    Emean, Flux, Flux_err = [], [], []
+
+    for i in range(1, n+1):
+        xlow = h.GetBinLowEdge(i)
+        xup  = xlow + h.GetBinWidth(i)
+        x    = np.sqrt(xlow * xup)   # centro geometrico, corretto per bin log
+        y    = h.GetBinContent(i)
+        e    = h.GetBinError(i)
+        if y <= 0:
+            continue
+        Emean.append(x)
+        Flux.append(y * x**alpha)
+        Flux_err.append(e * x**alpha)
+
+    Emean    = np.array(Emean, dtype='d')
+    Flux     = np.array(Flux,  dtype='d')
+    Flux_err = np.array(Flux_err, dtype='d')
+    null     = np.zeros(len(Emean), dtype='d')
+
+    gr = TGraphAsymmErrors(len(Emean), Emean, Flux, null, null, Flux_err, Flux_err)
+    gr.SetLineColor(color)
+    gr.SetMarkerColor(color)
+    gr.SetMarkerStyle(marker)
+    gr.SetMarkerSize(size)
+    return gr
 
 
 if __name__ == '__main__':
@@ -121,6 +156,15 @@ if __name__ == '__main__':
 
     file_DAMPE2026_all = 'TXT_FILES/flux_spectrum_pHe_2026_MLionsv3_2e5sigmaLow_6sigmaUp_new_smooth.dat'
     gr_DAMPE2026_all = make_flux_graph_DAMPE2026(file_DAMPE2026_all, kRed+1, 24, 1.3, 2.6)
+
+    file_DAMPE2026_9yall = 'TXT_FILES/flux_spectrum_pHe_2026_108Months_MLionsv3_2e5sigmaLow_6sigmaUp_new_smooth.dat'
+    gr_DAMPE2026_9yall = make_flux_graph_DAMPE2026(file_DAMPE2026_9yall, kRed+1, 24, 1.3, 2.6)
+
+    file_DAMPE2026_9y = 'TXT_FILES/flux_spectrum_pHe_2026_108Months_MLionsv3_2e5sigmaLow_6sigmaUp_new_smooth_PLOT.dat'
+    gr_DAMPE2026_9y = make_flux_graph_DAMPE2026(file_DAMPE2026_9y, kRed+1, 24, 1.3, 2.6)
+
+    file_DAMPE2026_Irene = 'ROOT_FILES/unfold_result_2016-25_pHe_SampleTarget_fullSimu_IRENE_smooth.root'
+    gr_DAMPE2026_Irene = make_flux_graph_from_ROOT(file_DAMPE2026_Irene, 'flux', kMagenta+1, 21, 1.3, 2.6)
 
     file_DAMPE2026_first6years = 'TXT_FILES/flux_spectrum_pHe_2026_72months_MLionsv3_2e5sigmaLow_6sigmaUp_new_smooth.dat'
     gr_DAMPE2026_first6years = make_flux_graph_DAMPE2026(file_DAMPE2026_first6years, kOrange+1, 20, 1.3, 2.6)
@@ -167,16 +211,20 @@ if __name__ == '__main__':
     
     gr_DAMPE2024_sys_had.Draw("E3 SAME")
     gr_DAMPE2024_sys.Draw("E3 SAME")
-    #gr_LHAASO_EPOSLHC_sys.Draw("E3 SAME")
+    gr_LHAASO_EPOSLHC_sys.Draw("E3 SAME")
     gr_DAMPE2024.Draw("P SAME")
     #gr_DAMPE2026_COR.Draw("P SAME")
-    gr_DAMPE2026.Draw("P SAME")
-    gr_DAMPE2026_first6years.Draw("P SAME")
-    gr_DAMPE2026_last4years.Draw("P SAME")
-    gr_DAMPE2026_all.Draw("P SAME")
-    #gr_LHAASO_QGSJET.Draw("PEZ SAME")
-    #gr_LHAASO_EPOSLHC.Draw("P SAME")
-    #gr_LHAASO_SIBYLL.Draw("P SAME")
+    #gr_DAMPE2026.Draw("P SAME")
+    #gr_DAMPE2026_first6years.Draw("P SAME")
+    #gr_DAMPE2026_last4years.Draw("P SAME")
+    #gr_DAMPE2026_all.Draw("P SAME")
+    gr_DAMPE2026_9y.Draw("P SAME")
+    gr_DAMPE2026_9yall.Draw("P SAME")
+    gr_LHAASO_QGSJET.Draw("PEZ SAME")
+    gr_LHAASO_EPOSLHC.Draw("P SAME")
+    gr_LHAASO_SIBYLL.Draw("P SAME")
+
+    gr_DAMPE2026_Irene.Draw("SAME")
 
 
     # ------------------- LEGEND
@@ -190,10 +238,10 @@ if __name__ == '__main__':
     leg.AddEntry(gr_DAMPE2024, "p+He DAMPE (PRL 2024)", "P")
     leg.AddEntry(gr_DAMPE2024_sys,"ana. error (PRL 2024)","f")
     leg.AddEntry(gr_DAMPE2024_sys_had,"ana. #oplus had. error (PRL 2024)","f")
-    leg.AddEntry(gr_DAMPE2026, "p+He DAMPE (this work 2026 - in progress) ", "P")
+    leg.AddEntry(gr_DAMPE2026, "p+He DAMPE (this work 9 years - in progress) ", "P")
     leg.Draw()
 
-    '''
+    
     leg1 = TLegend(0.55, 0.72, 0.78, 0.9)  # x1,y1,x2,y2 in NDC pad1
     leg1.SetBorderSize(0)
     leg1.SetFillStyle(0)
@@ -214,12 +262,13 @@ if __name__ == '__main__':
     leg1.AddEntry(gr_DAMPE2026_first6years, "p+He DAMPE (this work 2016 - 2021)", "P")
     leg1.AddEntry(gr_DAMPE2026_last4years, "p+He DAMPE (this work 2022 - 2025)", "P")
     leg1.Draw()
+    '''
 
 
     cc.Update()
 
-    cc.SaveAs('PLOTS/flux_pHe_update2026_all_cfr6-4years.pdf')
-    cc.SaveAs('PLOTS/flux_pHe_update2026_all_cfr6-4years.png')
+    #cc.SaveAs('PLOTS/flux_pHe_update2026_cfrLHAASO_all_9years.pdf')
+    #cc.SaveAs('PLOTS/flux_pHe_update2026_cfrLHAASO_all_9years.png')
 
     raw_input("Press enter..")
 

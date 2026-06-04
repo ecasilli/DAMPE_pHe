@@ -1,0 +1,232 @@
+
+Processing energy_vs_time.C...
+BasePath: /nfs/argo/dampe
+
+=== Anno 2016 ===
+  20-100 GeV: 35941261 eventi
+  100-250 GeV: 3071175 eventi
+  250-500 GeV: 616949 eventi
+  0.5-1 TeV: 193744 eventi
+  1-5 TeV: 82151 eventi
+  >5 TeV: 6799 eventi
+=== Anno 2017 ===
+  20-100 GeV: 35990484 eventi
+  100-250 GeV: 3058043 eventi
+  250-500 GeV: 610626 eventi
+  0.5-1 TeV: 191898 eventi
+  1-5 TeV: 80602 eventi
+  >5 TeV: 6796 eventi
+=== Anno 2018 ===
+  20-100 GeV: 36249937 eventi
+  100-250 GeV: 3066657 eventi
+  250-500 GeV: 611353 eventi
+  0.5-1 TeV: 193047 eventi
+  1-5 TeV: 81141 eventi
+  >5 TeV: 6760 eventi
+=== Anno 2019 ===
+  20-100 GeV: 36145554 eventi
+  100-250 GeV: 3069420 eventi
+  250-500 GeV: 612844 eventi
+  0.5-1 TeV: 191693 eventi
+  1-5 TeV: 81155 eventi
+  >5 TeV: 6748 eventi
+=== Anno 2020 ===
+  20-100 GeV: 36126947 eventi
+  100-250 GeV: 3065158 eventi
+  250-500 GeV: 611875 eventi
+  0.5-1 TeV: 191993 eventi
+  1-5 TeV: 81663 eventi
+  >5 TeV: 6658 eventi
+=== Anno 2021 ===
+  20-100 GeV: 35787405 eventi
+  100-250 GeV: 3051046 eventi
+  250-500 GeV: 611563 eventi
+  0.5-1 TeV: 191239 eventi
+  1-5 TeV: 81423 eventi
+  >5 TeV: 6831 eventi
+=== Anno 2022 ===
+  20-100 GeV: 35427120 eventi
+  100-250 GeV: 3063227 eventi
+  250-500 GeV: 613958 eventi
+  0.5-1 TeV: 193534 eventi
+  1-5 TeV: 81758 eventi
+  >5 TeV: 6822 eventi
+=== Anno 2023 ===
+  20-100 GeV: 35114061 eventi
+  100-250 GeV: 3106455 eventi
+  250-500 GeV: 625176 eventi
+  0.5-1 TeV: 198386 eventi
+  1-5 TeV: 83533 eventi
+  >5 TeV: 7036 eventi
+=== Anno 2024 ===
+  20-100 GeV: 35318760 eventi
+  100-250 GeV: 3160786 eventi
+  250-500 GeV: 639820 eventi
+  0.5-1 TeV: 201049 eventi
+  1-5 TeV: 84888 eventi
+  >5 TeV: 7136 eventi
+=== Anno 2025 ===
+  20-100 GeV: 25387167 eventi
+  100-250 GeV: 3146333 eventi
+  250-500 GeV: 637086 eventi
+  0.5-1 TeV: 201993 eventi
+  1-5 TeV: 84890 eventi
+  >5 TeV: 7065 eventi
+
+=== Salvo i plot ===
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_total_all.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_total_all.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_total_2016.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_total_2016.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_total_2017.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_total_2017.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_total_2018.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_total_2018.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_total_2019.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_total_2019.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_total_2020.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_total_2020.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_total_2021.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_total_2021.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_total_2022.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_total_2022.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_total_2023.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_total_2023.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_total_2024.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_total_2024.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_total_2025.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_total_2025.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_002_010_all.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_002_010_all.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_010_025_all.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_010_025_all.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_025_050_all.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_025_050_all.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_050_100_all.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_050_100_all.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_100_500_all.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_100_500_all.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_500_000_all.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_500_000_all.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_002_010_2016.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_002_010_2016.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_002_010_2017.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_002_010_2017.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_002_010_2018.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_002_010_2018.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_002_010_2019.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_002_010_2019.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_002_010_2020.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_002_010_2020.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_002_010_2021.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_002_010_2021.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_002_010_2022.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_002_010_2022.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_002_010_2023.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_002_010_2023.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_002_010_2024.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_002_010_2024.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_002_010_2025.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_002_010_2025.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_010_025_2016.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_010_025_2016.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_010_025_2017.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_010_025_2017.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_010_025_2018.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_010_025_2018.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_010_025_2019.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_010_025_2019.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_010_025_2020.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_010_025_2020.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_010_025_2021.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_010_025_2021.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_010_025_2022.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_010_025_2022.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_010_025_2023.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_010_025_2023.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_010_025_2024.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_010_025_2024.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_010_025_2025.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_010_025_2025.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_025_050_2016.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_025_050_2016.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_025_050_2017.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_025_050_2017.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_025_050_2018.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_025_050_2018.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_025_050_2019.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_025_050_2019.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_025_050_2020.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_025_050_2020.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_025_050_2021.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_025_050_2021.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_025_050_2022.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_025_050_2022.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_025_050_2023.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_025_050_2023.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_025_050_2024.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_025_050_2024.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_025_050_2025.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_025_050_2025.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_050_100_2016.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_050_100_2016.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_050_100_2017.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_050_100_2017.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_050_100_2018.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_050_100_2018.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_050_100_2019.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_050_100_2019.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_050_100_2020.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_050_100_2020.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_050_100_2021.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_050_100_2021.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_050_100_2022.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_050_100_2022.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_050_100_2023.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_050_100_2023.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_050_100_2024.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_050_100_2024.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_050_100_2025.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_050_100_2025.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_100_500_2016.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_100_500_2016.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_100_500_2017.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_100_500_2017.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_100_500_2018.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_100_500_2018.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_100_500_2019.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_100_500_2019.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_100_500_2020.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_100_500_2020.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_100_500_2021.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_100_500_2021.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_100_500_2022.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_100_500_2022.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_100_500_2023.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_100_500_2023.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_100_500_2024.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_100_500_2024.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_100_500_2025.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_100_500_2025.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_500_000_2016.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_500_000_2016.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_500_000_2017.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_500_000_2017.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_500_000_2018.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_500_000_2018.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_500_000_2019.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_500_000_2019.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_500_000_2020.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_500_000_2020.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_500_000_2021.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_500_000_2021.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_500_000_2022.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_500_000_2022.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_500_000_2023.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_500_000_2023.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_500_000_2024.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_500_000_2024.png
+Info in <TCanvas::Print>: png file MEAN_ENERGY_PLOTS/plot_energy_500_000_2025.png has been created
+  Salvato: MEAN_ENERGY_PLOTS/plot_energy_500_000_2025.png
+
+Fatto!
