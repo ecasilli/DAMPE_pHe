@@ -51,10 +51,10 @@ Double_t BGO_slopeYZ_analy, BGO_interceptYZ_analy;
 TChain *skim = new TChain("newtree");
 
 // Anni 2016-2024 (tutti "merged")
-for (int y = 2022; y <= 2024; y++) addYear(skim, basePath, y);
+for (int y = 2016; y <= 2024; y++) addYear(skim, basePath, y);
 
 // 2025: il primo bin ha suffix diverso
-skim->Add(basePath + "/SKIM_2026_pHe/FLIGHT/skim_flight_002_010_2025_partially_merged.root");
+//skim->Add(basePath + "/SKIM_2026_pHe/FLIGHT/skim_flight_002_010_2025_partially_merged.root");
 skim->Add(basePath + "/SKIM_2026_pHe/FLIGHT/skim_flight_010_025_2025_merged.root");
 skim->Add(basePath + "/SKIM_2026_pHe/FLIGHT/skim_flight_025_050_2025_merged.root");
 skim->Add(basePath + "/SKIM_2026_pHe/FLIGHT/skim_flight_050_100_2025_merged.root");
@@ -125,7 +125,7 @@ for (int j = 1; j < noe+1; j++) {
     Ebin[j] = Ebin[j-1]*TMath::Power(10., arg1);
 }
 
-TFile *fout1 = new TFile("ROOT_FILES/PHe_skim_Orb_rem48Month_6binperdecade_2e5sigmaLow_6sigmaUp_new.root", "RECREATE");
+TFile *fout1 = new TFile("ROOT_FILES/PHe_skim_Orb120Month_except25low_6binperdecade_2e5sigmaLow_6sigmaUp_new.root", "RECREATE");
 
 TH1F *h1SelBGO_orb    = new TH1F("h1SelBGO_orb",    "Selected(E_bgo) orbital", noe, Ebin);
 h1SelBGO_orb->Sumw2();
