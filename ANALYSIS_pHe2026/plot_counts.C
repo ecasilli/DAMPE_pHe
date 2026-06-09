@@ -67,6 +67,22 @@ void plot_counts() {
     };
 
     // ---------------------------------------------------------------
+    // Funzione lambda per creare e configurare una TCanvas standard
+    // ---------------------------------------------------------------
+    auto MakeCanvas = [](const char* name, const char* title) -> TCanvas* {
+        TCanvas *c = new TCanvas(name, title, 900, 650);
+        c->SetLogx();
+        c->SetLogy();
+        c->SetGridx();
+        c->SetGridy();
+        c->SetLeftMargin(0.1);
+        c->SetRightMargin(0.06);
+        c->SetBottomMargin(0.1);
+        c->SetTopMargin(0.07);
+        return c;
+    };
+
+    // ---------------------------------------------------------------
     // === Livetime nei 3 casi (in secondi) ===
     // ---------------------------------------------------------------
     const double lt_All = 242576599.4; // ~10 anni in secondi 
@@ -75,49 +91,15 @@ void plot_counts() {
     //const double lt_9ys = 217488673.3;  // ~9 years
 
 
-    // === Canvas ===
-    TCanvas *c1 = new TCanvas("c1", "Counts before unfolding", 900, 650);
-    c1->SetLogx();
-    c1->SetLogy();
-    c1->SetGridx();
-    c1->SetGridy();
-    c1->SetLeftMargin(0.1);
-    c1->SetRightMargin(0.06);
-    c1->SetBottomMargin(0.1);
-    c1->SetTopMargin(0.07);
-
-    TCanvas *c2 = new TCanvas("c2", "Counts after unfolding", 900, 650);
-    c2->SetLogx();
-    c2->SetLogy();
-    c2->SetGridx();
-    c2->SetGridy();
-    c2->SetLeftMargin(0.1);
-    c2->SetRightMargin(0.06);
-    c2->SetBottomMargin(0.1);
-    c2->SetTopMargin(0.07);
-
-    TCanvas *c3 = new TCanvas("c3", "Rate before unfolding", 900, 650);
-    c3->SetLogx();
-    c3->SetLogy();
-    c3->SetGridx();
-    c3->SetGridy();
-    c3->SetLeftMargin(0.1);
-    c3->SetRightMargin(0.06);
-    c3->SetBottomMargin(0.1);
-    c3->SetTopMargin(0.07);
-
-    TCanvas *c4 = new TCanvas("c4", "Rate after unfolding", 900, 650);
-    c4->SetLogx();
-    c4->SetLogy();
-    c4->SetGridx();
-    c4->SetGridy();
-    c4->SetLeftMargin(0.1);
-    c4->SetRightMargin(0.06);
-    c4->SetBottomMargin(0.1);
-    c4->SetTopMargin(0.07);
+   // === Canvas ===
+    TCanvas *c1 = MakeCanvas("c1", "Counts before unfolding");
+    TCanvas *c2 = MakeCanvas("c2", "Counts after unfolding");
+    TCanvas *c3 = MakeCanvas("c3", "Rate before unfolding");
+    TCanvas *c4 = MakeCanvas("c4", "Rate after unfolding");
 
     // === Caricamento istogrammi ===
-    const char *fAll = "ROOT_FILES/unfold_results_pHe_2026_MLionsv3_2e5sigmaLow_6sigmaUp_new_smooth.root";
+    const char *fAll = "ROOT_FILES/unfold_results_pHe_2026_Orb120Month_except25low_MLionsv3_2e5sigmaLow_6sigmaUp_new.root";
+    //const char *fAll = "ROOT_FILES/unfold_results_pHe_2026_MLionsv3_2e5sigmaLow_6sigmaUp_new_smooth.root";
     const char *f6ys = "ROOT_FILES/unfold_results_pHe_2026_72months_MLionsv3_2e5sigmaLow_6sigmaUp_new_smooth.root";
     const char *f4ys = "ROOT_FILES/unfold_results_pHe_2026_rem48months_MLionsv3_2e5sigmaLow_6sigmaUp_new_smooth.root";
 
@@ -158,7 +140,7 @@ void plot_counts() {
     SetTitle(hAllaft_rate, "Primary energy (GeV)", "Rate after unfolding (s^{-1})");
     hAllbef_rate->GetYaxis()->SetRangeUser(1.5e-9, 0.7);
     hAllaft_rate->GetYaxis()->SetRangeUser(7e-11, 0.7);
-
+/*
     // === Legenda ===
     TLegend *legend = new TLegend(0.64, 0.63, 0.88, 0.86);
     legend->SetTextSize(0.028);
@@ -170,47 +152,47 @@ void plot_counts() {
     if (hAllbef) legend->AddEntry(hAllbef, "10 years (2016-2025)", "pe");
     if (h6ysbef) legend->AddEntry(h6ysbef, "6 years (2016-2021)", "pe");
     if (h4ysbef) legend->AddEntry(h4ysbef, "4 years (2022-2025)", "pe");
-
+*/
     // === Disegno — canvas 1 (counts before) ===
     c1->cd();
     if (hAllbef) hAllbef->Draw("E");
-    if (h6ysbef) h6ysbef->Draw("E same");
-    if (h4ysbef) h4ysbef->Draw("E same");
-    legend->Draw();
+    //if (h6ysbef) h6ysbef->Draw("E same");
+    //if (h4ysbef) h4ysbef->Draw("E same");
+    //legend->Draw();
 
     // === Disegno — canvas 2 (counts after) ===
     c2->cd();
     if (hAllaft) hAllaft->Draw("E");
-    if (h6ysaft) h6ysaft->Draw("E same");
-    if (h4ysaft) h4ysaft->Draw("E same");
-    legend->Draw();
+    //if (h6ysaft) h6ysaft->Draw("E same");
+    //if (h4ysaft) h4ysaft->Draw("E same");
+    //legend->Draw();
 
     // === Disegno — canvas 3 (rate before) ===
     c3->cd();
     if (hAllbef_rate) hAllbef_rate->Draw("E");
-    if (h6ysbef_rate) h6ysbef_rate->Draw("E same");
-    if (h4ysbef_rate) h4ysbef_rate->Draw("E same");
-    legend->Draw();
+    //if (h6ysbef_rate) h6ysbef_rate->Draw("E same");
+    //if (h4ysbef_rate) h4ysbef_rate->Draw("E same");
+    //legend->Draw();
 
     // === Disegno — canvas 4 (rate after) ===
     c4->cd();
     if (hAllaft_rate) hAllaft_rate->Draw("E");
-    if (h6ysaft_rate) h6ysaft_rate->Draw("E same");
-    if (h4ysaft_rate) h4ysaft_rate->Draw("E same");
-    legend->Draw();
+    //if (h6ysaft_rate) h6ysaft_rate->Draw("E same");
+    //if (h4ysaft_rate) h4ysaft_rate->Draw("E same");
+    //legend->Draw();
 
     // === Salvataggio in *.png e *.pdf ==
-    c1->SaveAs("PLOTS/counts_before_unfolding_pHe_6-4years_comparison.pdf");
-    c1->SaveAs("PLOTS/counts_before_unfolding_pHe_6-4years_comparison.png");
+    c1->SaveAs("PLOTS/counts_before_unfolding_pHe_Orb120Month_except25low.pdf");
+    c1->SaveAs("PLOTS/counts_before_unfolding_pHe_Orb120Month_except25low.png");
 
-    c2->SaveAs("PLOTS/counts_after_unfolding_pHe_6-4years_comparison.pdf");
-    c2->SaveAs("PLOTS/counts_after_unfolding_pHe_6-4years_comparison.png");
+    c2->SaveAs("PLOTS/counts_after_unfolding_pHe_Orb120Month_except25low.pdf");
+    c2->SaveAs("PLOTS/counts_after_unfolding_pHe_Orb120Month_except25low.png");
 
-    c3->SaveAs("PLOTS/rate_before_unfolding_pHe_6-4years_comparison.pdf");
-    c3->SaveAs("PLOTS/rate_before_unfolding_pHe_6-4years_comparison.png");
+    c3->SaveAs("PLOTS/rate_before_unfolding_pHe_Orb120Month_except25low.pdf");
+    c3->SaveAs("PLOTS/rate_before_unfolding_pHe_Orb120Month_except25low.png");
 
-    c4->SaveAs("PLOTS/rate_after_unfolding_pHe_6-4years_comparison.pdf");
-    c4->SaveAs("PLOTS/rate_after_unfolding_pHe_6-4years_comparison.png");
+    c4->SaveAs("PLOTS/rate_after_unfolding_pHe_Orb120Month_except25low.pdf");
+    c4->SaveAs("PLOTS/rate_after_unfolding_pHe_Orb120Month_except25low.png");
 
 
 }

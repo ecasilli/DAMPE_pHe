@@ -58,12 +58,7 @@ TString getBasePath() {
 
 void addFile(TChain* ch, const TString& base, int year, const char* suffix) {
     TString fname;
-    if (year == 2025 && TString(suffix) == "002_010")
-        fname = base + TString::Format(
-            "/SKIM_2026_pHe/FLIGHT/skim_flight_%s_%d_partially_merged.root", suffix, year);
-    else
-        fname = base + TString::Format(
-            "/SKIM_2026_pHe/FLIGHT/skim_flight_%s_%d_merged.root", suffix, year);
+    fname = base + TString::Format("/SKIM_2026_pHe/FLIGHT/skim_flight_%s_%d_merged.root", suffix, year);
     ch->Add(fname);
 }
 
@@ -96,7 +91,7 @@ void saveCanvas(const char* fname, const char* title,
     for (int k = 0; k < nidx; k++) {
         TProfile* h = hh[idx[k]];
         if (first) {
-            h->SetTitle(Form("%s;Data;Energia media [GeV]", title));
+            h->SetTitle(Form("%s; ;Mean energy [GeV]", title));
             setTimeAxis(h->GetXaxis(), shortFmt);
             h->GetYaxis()->SetLabelSize(0.038);
             h->GetYaxis()->SetTitleOffset(1.2);
@@ -214,22 +209,22 @@ void energy_vs_time() {
     int all_idx[NEBINS] = {0, 1, 2, 3, 4, 5};
 
     // 1) Tutti gli anni, tutti i range sovrapposti
-    saveCanvas("MEAN_ENERGY_PLOTS/plot_energy_total_all.png",
-               "DAMPE pHe - Energia media giornaliera (2016-2025)",
+    saveCanvas("MEAN_ENERGY_PLOTS/plot_energy_total_all_20260608.png",
+               "DAMPE pHe - Daily mean energy (2016-2025)",
                p_tot, all_idx, NEBINS, true);
 
     // 2) Per anno, tutti i range sovrapposti
     for (int iy = 0; iy < NYEARS; iy++) {
         int yr = START_YEAR + iy;
-        saveCanvas(Form("MEAN_ENERGY_PLOTS/plot_energy_total_%d.png", yr),
-                   Form("DAMPE pHe - Energia media giornaliera %d", yr),
+        saveCanvas(Form("MEAN_ENERGY_PLOTS/plot_energy_total_%d_20260608.png", yr),
+                   Form("DAMPE pHe - Daily mean energy %d", yr),
                    p_yr[iy], all_idx, NEBINS, false);
     }
 
     // 3) Per range, tutti gli anni
     for (int ie = 0; ie < NEBINS; ie++) {
         int one[1] = {ie};
-        saveCanvas(Form("MEAN_ENERGY_PLOTS/plot_energy_%s_all.png", ebins[ie].suffix),
+        saveCanvas(Form("MEAN_ENERGY_PLOTS/plot_energy_%s_all_20260608.png", ebins[ie].suffix),
                    Form("DAMPE pHe - %s (2016-2025)", ebins[ie].label),
                    p_tot, one, 1, true);
     }
@@ -239,7 +234,7 @@ void energy_vs_time() {
         int one[1] = {ie};
         for (int iy = 0; iy < NYEARS; iy++) {
             int yr = START_YEAR + iy;
-            saveCanvas(Form("MEAN_ENERGY_PLOTS/plot_energy_%s_%d.png", ebins[ie].suffix, yr),
+            saveCanvas(Form("MEAN_ENERGY_PLOTS/plot_energy_%s_%d_20260608.png", ebins[ie].suffix, yr),
                        Form("DAMPE pHe - %s - %d", ebins[ie].label, yr),
                        p_yr[iy], one, 1, false);
         }

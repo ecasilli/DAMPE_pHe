@@ -43,16 +43,16 @@ void plot_acceptances() {
     };
 
     // === Caricamento istogrammi ===
-    const char *base = "ROOT_FILES/unfold_results_pHe_2026_MLionsv3_2e5sigmaLow_6sigmaUp_new";
+    const char *base = "ROOT_FILES/unfold_results_pHe_2026_Orb120Month_except25low_MLionsv3_2e5sigmaLow_6sigmaUp_new_noCut02_noCut05";
 
-    TH1D *hall      = LoadHist("ROOT_FILES/PHe_MC_p_He_5PeV_unfolding_6binperdecade_2e5sigmaLow_6sigmaUp_new_noCut02.root", "hall");
+    TH1D *hall      = LoadHist(Form("%s_all.root",  base), "hall");
     TH1D *hcut00    = LoadHist(Form("%s_cut00.root",  base), "hcut00");
     TH1D *hcut01    = LoadHist(Form("%s_cut01.root",  base), "hcut01");
-    TH1D *hcut02    = LoadHist(Form("%s_cut02.root",  base), "hcut02");
-    TH1D *hcut05    = LoadHist(Form("%s_cut05.root",  base), "hcut05");
+    //TH1D *hcut02    = LoadHist(Form("%s_cut02.root",  base), "hcut02");
+    //TH1D *hcut05    = LoadHist(Form("%s_cut05.root",  base), "hcut05");
     TH1D *hcut06    = LoadHist(Form("%s_cut06.root",  base), "hcut06");
     TH1D *hcutSpCut = LoadHist(Form("%s_SpCut.root",  base), "hcutSpCut");
-    TH1D *hcutChSel = LoadHist(Form("%s.root", base), "hcutChSel"); // nuovo
+    TH1D *hcutChSel = LoadHist(Form("%s.root", base), "hcutChSel"); 
 
     // === Stile comune ===
     auto SetStyle = [](TH1D *h, int color, int lw = 2) {
@@ -65,9 +65,9 @@ void plot_acceptances() {
     SetStyle(hall,      kBlack);
     SetStyle(hcut00,    kCyan+1);
     //SetStyle(hcut01,  col2);
-    SetStyle(hcut02,    46);
-    SetStyle(hcut05,    col2);
-    SetStyle(hcut06,    8);
+    //SetStyle(hcut02,    46);
+    //SetStyle(hcut05,    col2);
+    SetStyle(hcut06,    kBlack);
     SetStyle(hcutSpCut, col4);
     SetStyle(hcutChSel, 9);
 
@@ -86,16 +86,16 @@ void plot_acceptances() {
 
     // === Disegno ===
     if (hcut00)    hcut00->Draw("HIST");
-    if (hall)      hall->Draw("HIST same");
+    //if (hall)      hall->Draw("HIST same");
     //if (hcut01)    hcut01->Draw("HIST same");
-    if (hcut02)    hcut02->Draw("HIST same");
-    if (hcut05)    hcut05->Draw("HIST same");
+    //if (hcut02)    hcut02->Draw("HIST same");
+    //if (hcut05)    hcut05->Draw("HIST same");
     if (hcut06)    hcut06->Draw("HIST same");
     if (hcutSpCut) hcutSpCut->Draw("HIST same");
     if (hcutChSel) hcutChSel->Draw("HIST same");
 
     // === Legenda ===
-    TLegend *legend = new TLegend(0.18, 0.55, 0.58, 0.88);
+    TLegend *legend = new TLegend(0.18, 0.62, 0.58, 0.88);
     legend->SetTextSize(0.028);
     legend->SetLineWidth(1);
     legend->SetBorderSize(1);
@@ -105,9 +105,9 @@ void plot_acceptances() {
     if (hall)    legend->AddEntry(hall,    "Pre-selection cuts",                                        "l");
     if (hcut00)    legend->AddEntry(hcut00,    "HET selection",                                        "l");
     //if (hcut01)    legend->AddEntry(hcut01,    "PSD charge on Y and X",                                "l");
-    if (hcut02)    legend->AddEntry(hcut02,    "E_{BGO,0}+E_{BGO,1} < E_{BGO,2}+E_{BGO,3}",           "l");
-    if (hcut05)    legend->AddEntry(hcut05,    "BGO-STK match",                                        "l");
-    if (hcut06)    legend->AddEntry(hcut06,    "STK track in PSD volume",                              "l");
+    //if (hcut02)    legend->AddEntry(hcut02,    "E_{BGO,0}+E_{BGO,1} < E_{BGO,2}+E_{BGO,3}",           "l");
+    //if (hcut05)    legend->AddEntry(hcut05,    "BGO-STK match",                                        "l");
+    //if (hcut06)    legend->AddEntry(hcut06,    "STK track in PSD volume",                              "l");
     if (hcutSpCut) legend->AddEntry(hcutSpCut, "Electron cut",                                        "l");
     if (hcutChSel) legend->AddEntry(hcutChSel, "Charge selection",                                    "l");
 
@@ -116,8 +116,8 @@ void plot_acceptances() {
     c1->RedrawAxis();
 
     // === Salvataggio ===
-    c1->SaveAs("PLOTS/partial_acceptances_perCut_20260528.pdf");
-    c1->SaveAs("PLOTS/partial_acceptances_perCut_20260528.png");
+    c1->SaveAs("PLOTS/partial_acceptances_perCut_noCut02_noCut05_2.pdf");
+    c1->SaveAs("PLOTS/partial_acceptances_perCut_noCut02_noCut05_2.png");
 
     ::Info("plot_acceptances", "Plot salvato con successo.");
 }

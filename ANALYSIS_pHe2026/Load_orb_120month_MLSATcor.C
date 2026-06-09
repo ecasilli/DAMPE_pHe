@@ -51,8 +51,8 @@ Double_t BGO_slopeYZ_analy, BGO_interceptYZ_analy;
 TChain *skim = new TChain("newtree");
 
 // Anni 2016-2024 (tutti "merged")
-for (int y = 2016; y <= 2024; y++) addYear(skim, basePath, y);
-
+for (int y = 2016; y <= 2025; y++) addYear(skim, basePath, y);
+/*
 // 2025: il primo bin ha suffix diverso
 //skim->Add(basePath + "/SKIM_2026_pHe/FLIGHT/skim_flight_002_010_2025_partially_merged.root");
 skim->Add(basePath + "/SKIM_2026_pHe/FLIGHT/skim_flight_010_025_2025_merged.root");
@@ -60,7 +60,7 @@ skim->Add(basePath + "/SKIM_2026_pHe/FLIGHT/skim_flight_025_050_2025_merged.root
 skim->Add(basePath + "/SKIM_2026_pHe/FLIGHT/skim_flight_050_100_2025_merged.root");
 skim->Add(basePath + "/SKIM_2026_pHe/FLIGHT/skim_flight_100_500_2025_merged.root");
 skim->Add(basePath + "/SKIM_2026_pHe/FLIGHT/skim_flight_500_000_2025_merged.root");
-
+*/
 cout << "Orbital Data Entries: " << skim->GetEntries() << endl;
 
 // =============================
@@ -125,11 +125,11 @@ for (int j = 1; j < noe+1; j++) {
     Ebin[j] = Ebin[j-1]*TMath::Power(10., arg1);
 }
 
-TFile *fout1 = new TFile("ROOT_FILES/PHe_skim_Orb120Month_except25low_6binperdecade_2e5sigmaLow_6sigmaUp_new.root", "RECREATE");
+TFile *fout1 = new TFile("ROOT_FILES/PHe_skim_Orb120Month_6binperdecade_2e5sigmaLow_6sigmaUp_new_noCut02.root", "RECREATE");
 
-TH1F *h1SelBGO_orb    = new TH1F("h1SelBGO_orb",    "Selected(E_bgo) orbital", noe, Ebin);
+TH1D *h1SelBGO_orb    = new TH1D("h1SelBGO_orb",    "Selected(E_bgo) orbital", noe, Ebin);
 h1SelBGO_orb->Sumw2();
-TH1F *h1SelBGO_orb_v3 = new TH1F("h1SelBGO_orb_v3", "Selected(E_bgo) orbital", noe, Ebin);
+TH1D *h1SelBGO_orb_v3 = new TH1D("h1SelBGO_orb_v3", "Selected(E_bgo) orbital", noe, Ebin);
 h1SelBGO_orb_v3->Sumw2();
 
 
@@ -173,7 +173,7 @@ for (Long64_t i = 0; i < nEntries; i++) {
         (PSD_CX0 <= 0. && PSD_CX1 <= 0.)) continue;
 
     // cut02: profilo di shower
-    if (BGO_EneLay[0] + BGO_EneLay[1] >= BGO_EneLay[2] + BGO_EneLay[3]) continue;
+    //if (BGO_EneLay[0] + BGO_EneLay[1] >= BGO_EneLay[2] + BGO_EneLay[3]) continue;
 
     // cut05: consistenza posizione BGO
     if (TMath::Abs(BGO_cbgomax[0] - BGO_cbgostk[0]) >= 30.) continue;
