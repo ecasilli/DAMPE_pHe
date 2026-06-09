@@ -64,12 +64,7 @@ TString getBasePath() {
 
 void addFile(TChain* ch, const TString& base, int year, const char* suffix) {
     TString fname;
-    if (year == 2025 && TString(suffix) == "002_010")
-        fname = base + TString::Format(
-            "/SKIM_2026_pHe/FLIGHT/skim_flight_%s_%d_partially_merged.root", suffix, year);
-    else
-        fname = base + TString::Format(
-            "/SKIM_2026_pHe/FLIGHT/skim_flight_%s_%d_merged.root", suffix, year);
+    fname = base + TString::Format("/SKIM_2026_pHe/FLIGHT/skim_flight_%s_%d_merged.root", suffix, year);
     ch->Add(fname);
 }
 
@@ -186,7 +181,7 @@ void counts_plots() {
         hframe->Reset();
         hframe->SetMaximum(ymax * 1.15);
         hframe->SetMinimum(0.5);
-        hframe->SetTitle(Form("DAMPE pHe - %d;Data;Conteggi / giorno", yr));
+        hframe->SetTitle(Form("DAMPE pHe - %d; ;Counts / day", yr));
         setTimeAxis(hframe, false);
         hframe->Draw("AXIS");
 
@@ -220,7 +215,7 @@ void counts_plots() {
     hframe_tot->Reset();
     hframe_tot->SetMaximum(ymax_tot * 1.15);
     hframe_tot->SetMinimum(0.5);
-    hframe_tot->SetTitle("DAMPE pHe - 2016-2025;Data;Conteggi / settimana");
+    hframe_tot->SetTitle("DAMPE pHe - 2016-2025; ;Counts / week");
     setTimeAxis(hframe_tot, true);
     hframe_tot->Draw("AXIS");
 
@@ -229,8 +224,8 @@ void counts_plots() {
 
     makeLegend(h_tot, NEBINS)->Draw();
     ctot->Update();
-    ctot->SaveAs("plot_total.pdf");
-    ctot->SaveAs("plot_total.png");
+    ctot->SaveAs("plot_total_20260608.pdf");
+    ctot->SaveAs("plot_total_20260608.png");
     std::cout << "Salvato: plot_total.pdf" << std::endl;
 
     std::cout << "\nFatto!" << std::endl;

@@ -114,9 +114,9 @@ def make_flux_graph_from_ROOT(filename, histname, color, marker, size, alpha):
     from ROOT import TFile
     
     f = TFile.Open(filename)
-    h = f.Get(histname)
+    h = f.FindObjectAny(histname)
     h.SetDirectory(0)
-    f.Close()
+    #f.Close()
 
     n = h.GetNbinsX()
     Emean, Flux, Flux_err = [], [], []
@@ -130,8 +130,8 @@ def make_flux_graph_from_ROOT(filename, histname, color, marker, size, alpha):
         if y <= 0:
             continue
         Emean.append(x)
-        Flux.append(y * x**alpha)
-        Flux_err.append(e * x**alpha)
+        Flux.append(y) #* x**alpha)
+        Flux_err.append(e) #* x**alpha)
 
     Emean    = np.array(Emean, dtype='d')
     Flux     = np.array(Flux,  dtype='d')
@@ -151,20 +151,26 @@ if __name__ == '__main__':
     file_DAMPE2024 = 'TXT_FILES/DAMPE_p+He_72M26.dat'
     gr_DAMPE2024, gr_DAMPE2024_sys, gr_DAMPE2024_sys_had = make_flux_graph_DAMPE2024(file_DAMPE2024, kRed+1, 20, 1.3, 2.6)
 
-    file_DAMPE2026 = 'TXT_FILES/flux_spectrum_pHe_2026_MLionsv3_2e5sigmaLow_6sigmaUp_new_smooth_PLOT.dat'
+    #file_DAMPE2026 = 'TXT_FILES/flux_spectrum_pHe_2026_MLionsv3_2e5sigmaLow_6sigmaUp_new_smooth_PLOT.dat'
+    file_DAMPE2026 = 'TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_except25low_MLionsv3_2e5sigmaLow_6sigmaUp_new_smooth_PLOT.dat'
     gr_DAMPE2026 = make_flux_graph_DAMPE2026(file_DAMPE2026, kRed+1, 24, 1.3, 2.6)
 
-    file_DAMPE2026_all = 'TXT_FILES/flux_spectrum_pHe_2026_MLionsv3_2e5sigmaLow_6sigmaUp_new_smooth.dat'
+    #file_DAMPE2026_all = 'TXT_FILES/flux_spectrum_pHe_2026_MLionsv3_2e5sigmaLow_6sigmaUp_new_smooth.dat'
+    file_DAMPE2026_all = 'TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_except25low_MLionsv3_2e5sigmaLow_6sigmaUp_new_smooth.dat'
     gr_DAMPE2026_all = make_flux_graph_DAMPE2026(file_DAMPE2026_all, kRed+1, 24, 1.3, 2.6)
 
+    #file_DAMPE2026_Irene = 'ROOT_FILES/unfold_result_2016-25_pHe_SampleTarget_fullSimu_IRENE_smooth.root'
+    #gr_DAMPE2026_Irene = make_flux_graph_from_ROOT(file_DAMPE2026_Irene, 'flux_pow', kMagenta+1, 21, 1.3, 2.6)
+
+    file_DAMPE2026_noCuts = 'TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_except25low_MLionsv3_2e5sigmaLow_6sigmaUp_new_noCut02_noCut05_smooth.dat'
+    gr_DAMPE2026_noCuts = make_flux_graph_DAMPE2026(file_DAMPE2026_noCuts, kMagenta+1, 20, 1.3, 2.6)
+    
+    '''
     file_DAMPE2026_9yall = 'TXT_FILES/flux_spectrum_pHe_2026_108Months_MLionsv3_2e5sigmaLow_6sigmaUp_new_smooth.dat'
     gr_DAMPE2026_9yall = make_flux_graph_DAMPE2026(file_DAMPE2026_9yall, kRed+1, 24, 1.3, 2.6)
 
     file_DAMPE2026_9y = 'TXT_FILES/flux_spectrum_pHe_2026_108Months_MLionsv3_2e5sigmaLow_6sigmaUp_new_smooth_PLOT.dat'
     gr_DAMPE2026_9y = make_flux_graph_DAMPE2026(file_DAMPE2026_9y, kRed+1, 24, 1.3, 2.6)
-
-    file_DAMPE2026_Irene = 'ROOT_FILES/unfold_result_2016-25_pHe_SampleTarget_fullSimu_IRENE_smooth.root'
-    gr_DAMPE2026_Irene = make_flux_graph_from_ROOT(file_DAMPE2026_Irene, 'flux', kMagenta+1, 21, 1.3, 2.6)
 
     file_DAMPE2026_first6years = 'TXT_FILES/flux_spectrum_pHe_2026_72months_MLionsv3_2e5sigmaLow_6sigmaUp_new_smooth.dat'
     gr_DAMPE2026_first6years = make_flux_graph_DAMPE2026(file_DAMPE2026_first6years, kOrange+1, 20, 1.3, 2.6)
@@ -174,7 +180,7 @@ if __name__ == '__main__':
 
     file_DAMPE2026_COR = 'TXT_FILES/flux_spectrum_pHe_2026_MLionsv3_2e5sigmaLow_6sigmaUp_new_smooth_CORR_PLOT.dat'
     gr_DAMPE2026_COR = make_flux_graph_DAMPE2026(file_DAMPE2026_COR, kGreen, 24, 1.3, 2.6)
-    
+    '''
     file_LHAASO_EPOSLHC = 'TXT_FILES/light_component_LHAASO_EPOSLHC.dat'
     gr_LHAASO_EPOSLHC, gr_LHAASO_EPOSLHC_sys = make_flux_graph_LHAASO(file_LHAASO_EPOSLHC, kBlue+1, 25, 1.3, 2.6)
 
@@ -213,19 +219,21 @@ if __name__ == '__main__':
     gr_DAMPE2024_sys.Draw("E3 SAME")
     gr_LHAASO_EPOSLHC_sys.Draw("E3 SAME")
     gr_DAMPE2024.Draw("P SAME")
+    
     #gr_DAMPE2026_COR.Draw("P SAME")
-    #gr_DAMPE2026.Draw("P SAME")
+    gr_DAMPE2026.Draw("P SAME")
+    gr_DAMPE2026_all.Draw("P SAME")
     #gr_DAMPE2026_first6years.Draw("P SAME")
     #gr_DAMPE2026_last4years.Draw("P SAME")
-    #gr_DAMPE2026_all.Draw("P SAME")
-    gr_DAMPE2026_9y.Draw("P SAME")
-    gr_DAMPE2026_9yall.Draw("P SAME")
+    #gr_DAMPE2026_9y.Draw("P SAME")
+    #gr_DAMPE2026_9yall.Draw("P SAME")
+    
     gr_LHAASO_QGSJET.Draw("PEZ SAME")
     gr_LHAASO_EPOSLHC.Draw("P SAME")
     gr_LHAASO_SIBYLL.Draw("P SAME")
 
-    gr_DAMPE2026_Irene.Draw("SAME")
-
+    #gr_DAMPE2026_Irene.Draw("P SAME")
+    gr_DAMPE2026_noCuts.Draw("P SAME")
 
     # ------------------- LEGEND
 
@@ -235,10 +243,12 @@ if __name__ == '__main__':
     leg.SetTextSize(0.023)
     #leg.SetHeader("p+He ");
     #leg.SetNColumns(2)
-    leg.AddEntry(gr_DAMPE2024, "p+He DAMPE (PRL 2024)", "P")
+    leg.AddEntry(gr_DAMPE2024, "p+He DAMPE (PRL 2024)", "PE")
     leg.AddEntry(gr_DAMPE2024_sys,"ana. error (PRL 2024)","f")
     leg.AddEntry(gr_DAMPE2024_sys_had,"ana. #oplus had. error (PRL 2024)","f")
-    leg.AddEntry(gr_DAMPE2026, "p+He DAMPE (this work 9 years - in progress) ", "P")
+    leg.AddEntry(gr_DAMPE2026, "p+He DAMPE (this work - in progress) ", "PE")
+    #leg.AddEntry(gr_DAMPE2026_Irene, "p+He DAMPE (Irene's skim) ", "PE")
+    leg.AddEntry(gr_DAMPE2026_noCuts, "p+He DAMPE (w/o cut02 and cut05) ", "PE")
     leg.Draw()
 
     
@@ -248,9 +258,9 @@ if __name__ == '__main__':
     leg1.SetTextSize(0.023)
 
 
-    leg1.AddEntry(gr_LHAASO_QGSJET, "light comp. LHAASO (QGSJET-II-04, PRL 2026)", "P")
-    leg1.AddEntry(gr_LHAASO_EPOSLHC, "light comp. LHAASO (EPOS-LHC, PRL 2026)", "P")
-    leg1.AddEntry(gr_LHAASO_SIBYLL, "light comp. LHAASO (SIBYLL 2.3d, PRL 2026)", "P")
+    leg1.AddEntry(gr_LHAASO_QGSJET, "light comp. LHAASO (QGSJET-II-04, PRL 2026)", "PE")
+    leg1.AddEntry(gr_LHAASO_EPOSLHC, "light comp. LHAASO (EPOS-LHC, PRL 2026)", "PE")
+    leg1.AddEntry(gr_LHAASO_SIBYLL, "light comp. LHAASO (SIBYLL 2.3d, PRL 2026)", "PE")
     leg1.AddEntry(gr_LHAASO_EPOSLHC_sys, "sys. error LHAASO (EPOS-LHC, PRL 2026)", "f")
     leg1.Draw()
     '''
@@ -267,8 +277,8 @@ if __name__ == '__main__':
 
     cc.Update()
 
-    #cc.SaveAs('PLOTS/flux_pHe_update2026_cfrLHAASO_all_9years.pdf')
-    #cc.SaveAs('PLOTS/flux_pHe_update2026_cfrLHAASO_all_9years.png')
+    cc.SaveAs('PLOTS/flux_pHe_update2026_cfrLHAASO_all_exc25Low_wIrene.pdf')
+    cc.SaveAs('PLOTS/flux_pHe_update2026_cfrLHAASO_all_exc25Low_wIrene.png')
 
     raw_input("Press enter..")
 

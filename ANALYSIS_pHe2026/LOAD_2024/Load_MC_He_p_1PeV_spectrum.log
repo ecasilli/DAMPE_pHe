@@ -1,0 +1,36 @@
+
+Processing Load_MC_He_p_1PeV_spectrum.C...
+ 
+ ...sk_p[0]-> 1286846
+ ...sk_p[1]-> 4111533
+ ...sk_p[2]-> 989238
+ ...sk_p[3]-> 465420
+ ...sk_p[4]-> 60465
+ 
+ 
+ ...sk_he[0]-> 503729
+ ...sk_he[1]-> 935182
+ ...sk_he[2]-> 915238
+ ...sk_he[3]-> 904044
+ ...sk_he[4]-> 170402
+ ...sk_he[5]-> 51574
+ 
+Number of entries He 1-10 TeV: 99545000
+Number of entries He 10-100 TeV: 99446452
+Number of entries He 100-500 TeV: 18673400
+Number of entries PeV He: 6102260
+Number of energy bin 288
+Info in <TCanvas::MakeDefCanvas>:  created default TCanvas with name c1
+He...Cor in:0
+He...Cor in:1
+He...Cor in:2
+He...Cor in:3
+He...Cor in:4
+He...Cor in:5
+P...Cor in:0
+P...Cor in:1
+P...Cor in:2
+P...Cor in:3
+P...Cor in:4
+h2Ntrig... 
+End script.
