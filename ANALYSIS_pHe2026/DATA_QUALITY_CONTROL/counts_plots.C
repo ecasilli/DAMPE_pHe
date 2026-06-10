@@ -119,13 +119,13 @@ void counts_plots() {
 
     Double_t t_global_min = yearStartUnix(START_YEAR);
     Double_t t_global_max = yearStartUnix(END_YEAR + 1);
-    int n_weeks = (int)((t_global_max - t_global_min) / WEEK) + 1;
+    int n_weeks = (int)((t_global_max - t_global_min) / DAY) + 1;
 
     TH1D* h_tot[NEBINS];
     for (int ie = 0; ie < NEBINS; ie++) {
         h_tot[ie] = new TH1D(
             Form("h_tot_%d", ie), "",
-            n_weeks, t_global_min, t_global_min + n_weeks * WEEK);
+            n_weeks, t_global_min, t_global_min + n_weeks * DAY);
         h_tot[ie]->SetLineColor(ebins[ie].color);
         h_tot[ie]->SetLineWidth(2);
     }
@@ -215,7 +215,7 @@ void counts_plots() {
     hframe_tot->Reset();
     hframe_tot->SetMaximum(ymax_tot * 1.15);
     hframe_tot->SetMinimum(0.5);
-    hframe_tot->SetTitle("DAMPE pHe - 2016-2025; ;Counts / week");
+    hframe_tot->SetTitle("DAMPE pHe - 2016-2025; ;Counts / day");
     setTimeAxis(hframe_tot, true);
     hframe_tot->Draw("AXIS");
 

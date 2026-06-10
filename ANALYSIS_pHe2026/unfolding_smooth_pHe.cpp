@@ -32,10 +32,10 @@ const double STARTING_DATA_VAL = 30;//Min E value with N obs events > 0
 const std::string Test_Stat = "chi2"; // "ks" (Kolmogorov-Smirnov) or "chi2" (Reduced Chi2)
 double MIN_TS = (Test_Stat == "ks" ? 1e-4 : 1.);
 
-const bool SMOOTHING = true;
+const bool SMOOTHING = false;
 
-std::string fout_name = "ROOT_FILES/unfold_results_pHe_2026_Orb120Month_except25low_MLionsv3_2e5sigmaLow_6sigmaUp_new_noCut02_noCut05_smooth.root";
-std::string fdat_name = "TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_except25low_MLionsv3_2e5sigmaLow_6sigmaUp_new_noCut02_noCut05_smooth.dat";
+std::string fout_name = "ROOT_FILES/unfold_results_pHe_2026_Orb120Month_MLionsv3_2e5sigmaLow_6sigmaUp_TH1D_noCut02.root";
+std::string fdat_name = "TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_MLionsv3_2e5sigmaLow_6sigmaUp_TH1D_noCut02.dat";
 
 // Global variables
 std::vector<double> TRUGUESS;
@@ -308,9 +308,9 @@ std::vector<double> compute_std(const std::vector<std::vector<double>>& data) {
 int unfolding_smooth_pHe() {
 
     // Parse command line arguments
-    std::string response_file = "ROOT_FILES/PHe_MC_p_He_5PeV_unfolding_6binperdecade_2e5sigmaLow_6sigmaUp_new_noCut02_noCut05.root";
+    std::string response_file = "ROOT_FILES/PHe_MC_p_He_5PeV_unfolding_6binperdecade_2e5sigmaLow_6sigmaUp_TH1D_nocut02.root";
     std::string response_histo = "h2Ntrig_wgt_v3";
-    std::string data_file = "ROOT_FILES/PHe_skim_Orb120Month_except25low_6binperdecade_2e5sigmaLow_6sigmaUp_new_noCut02_noCut05.root";
+    std::string data_file = "ROOT_FILES/PHe_skim_Orb120Month_6binperdecade_2e5sigmaLow_6sigmaUp_new_noCut02.root";
     std::string data_histo = "h1SelBGO_orb_v3";
     //std::string ngen_file = ""; //uncomment if response-mat to be normalized
     //std::string ngen_histo = ""; //uncomment if response-mat to be normalized

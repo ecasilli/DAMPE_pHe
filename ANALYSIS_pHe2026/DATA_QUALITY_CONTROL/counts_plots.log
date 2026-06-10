@@ -5,118 +5,118 @@ TIME_OFFSET: 1356998050
 
 
 === Anno 2016 ===
-  20-100 GeV: 35941261 eventi
-  100-250 GeV: 3071175 eventi
-  250-500 GeV: 616949 eventi
-  0.5-1 TeV: 193744 eventi
-  1-5 TeV: 82151 eventi
-  >5 TeV: 6799 eventi
+  20-100 GeV: 35941598 eventi
+  100-250 GeV: 3071213 eventi
+  250-500 GeV: 617053 eventi
+  0.5-1 TeV: 193717 eventi
+  1-5 TeV: 82146 eventi
+  >5 TeV: 6768 eventi
 Info in <TCanvas::Print>: pdf file plot_2016.pdf has been created
 Info in <TCanvas::Print>: png file plot_2016.png has been created
   Salvato: plot_2016.pdf
 
 === Anno 2017 ===
-  20-100 GeV: 35990484 eventi
-  100-250 GeV: 3058043 eventi
-  250-500 GeV: 610626 eventi
+  20-100 GeV: 35990468 eventi
+  100-250 GeV: 3058106 eventi
+  250-500 GeV: 610671 eventi
   0.5-1 TeV: 191898 eventi
-  1-5 TeV: 80602 eventi
-  >5 TeV: 6796 eventi
+  1-5 TeV: 80627 eventi
+  >5 TeV: 6763 eventi
 Info in <TCanvas::Print>: pdf file plot_2017.pdf has been created
 Info in <TCanvas::Print>: png file plot_2017.png has been created
   Salvato: plot_2017.pdf
 
 === Anno 2018 ===
-  20-100 GeV: 36249937 eventi
-  100-250 GeV: 3066657 eventi
-  250-500 GeV: 611353 eventi
-  0.5-1 TeV: 193047 eventi
-  1-5 TeV: 81141 eventi
-  >5 TeV: 6760 eventi
+  20-100 GeV: 36250252 eventi
+  100-250 GeV: 3066557 eventi
+  250-500 GeV: 611270 eventi
+  0.5-1 TeV: 193018 eventi
+  1-5 TeV: 81136 eventi
+  >5 TeV: 6753 eventi
 Info in <TCanvas::Print>: pdf file plot_2018.pdf has been created
 Info in <TCanvas::Print>: png file plot_2018.png has been created
   Salvato: plot_2018.pdf
 
 === Anno 2019 ===
-  20-100 GeV: 36145554 eventi
-  100-250 GeV: 3069420 eventi
-  250-500 GeV: 612844 eventi
-  0.5-1 TeV: 191693 eventi
-  1-5 TeV: 81155 eventi
+  20-100 GeV: 36145320 eventi
+  100-250 GeV: 3069508 eventi
+  250-500 GeV: 612882 eventi
+  0.5-1 TeV: 191730 eventi
+  1-5 TeV: 81131 eventi
   >5 TeV: 6748 eventi
 Info in <TCanvas::Print>: pdf file plot_2019.pdf has been created
 Info in <TCanvas::Print>: png file plot_2019.png has been created
   Salvato: plot_2019.pdf
 
 === Anno 2020 ===
-  20-100 GeV: 36126947 eventi
-  100-250 GeV: 3065158 eventi
-  250-500 GeV: 611875 eventi
-  0.5-1 TeV: 191993 eventi
-  1-5 TeV: 81663 eventi
-  >5 TeV: 6658 eventi
+  20-100 GeV: 36126470 eventi
+  100-250 GeV: 3065296 eventi
+  250-500 GeV: 611799 eventi
+  0.5-1 TeV: 191983 eventi
+  1-5 TeV: 81675 eventi
+  >5 TeV: 6665 eventi
 Info in <TCanvas::Print>: pdf file plot_2020.pdf has been created
 Info in <TCanvas::Print>: png file plot_2020.png has been created
   Salvato: plot_2020.pdf
 
 === Anno 2021 ===
-  20-100 GeV: 35787405 eventi
-  100-250 GeV: 3051046 eventi
-  250-500 GeV: 611563 eventi
-  0.5-1 TeV: 191239 eventi
-  1-5 TeV: 81423 eventi
-  >5 TeV: 6831 eventi
+  20-100 GeV: 35787036 eventi
+  100-250 GeV: 3051303 eventi
+  250-500 GeV: 611670 eventi
+  0.5-1 TeV: 191271 eventi
+  1-5 TeV: 81422 eventi
+  >5 TeV: 6842 eventi
 Info in <TCanvas::Print>: pdf file plot_2021.pdf has been created
 Info in <TCanvas::Print>: png file plot_2021.png has been created
   Salvato: plot_2021.pdf
 
 === Anno 2022 ===
-  20-100 GeV: 35427120 eventi
-  100-250 GeV: 3063227 eventi
-  250-500 GeV: 613958 eventi
-  0.5-1 TeV: 193534 eventi
-  1-5 TeV: 81758 eventi
-  >5 TeV: 6822 eventi
+  20-100 GeV: 35427118 eventi
+  100-250 GeV: 3063459 eventi
+  250-500 GeV: 614062 eventi
+  0.5-1 TeV: 193560 eventi
+  1-5 TeV: 81773 eventi
+  >5 TeV: 6833 eventi
 Info in <TCanvas::Print>: pdf file plot_2022.pdf has been created
 Info in <TCanvas::Print>: png file plot_2022.png has been created
   Salvato: plot_2022.pdf
 
 === Anno 2023 ===
-  20-100 GeV: 35114061 eventi
-  100-250 GeV: 3106455 eventi
-  250-500 GeV: 625176 eventi
-  0.5-1 TeV: 198386 eventi
-  1-5 TeV: 83533 eventi
-  >5 TeV: 7036 eventi
+  20-100 GeV: 35104999 eventi
+  100-250 GeV: 3106024 eventi
+  250-500 GeV: 624857 eventi
+  0.5-1 TeV: 198281 eventi
+  1-5 TeV: 83449 eventi
+  >5 TeV: 7039 eventi
 Info in <TCanvas::Print>: pdf file plot_2023.pdf has been created
 Info in <TCanvas::Print>: png file plot_2023.png has been created
   Salvato: plot_2023.pdf
 
 === Anno 2024 ===
-  20-100 GeV: 35318760 eventi
-  100-250 GeV: 3160786 eventi
-  250-500 GeV: 639820 eventi
-  0.5-1 TeV: 201049 eventi
-  1-5 TeV: 84888 eventi
-  >5 TeV: 7136 eventi
+  20-100 GeV: 35318682 eventi
+  100-250 GeV: 3160602 eventi
+  250-500 GeV: 640029 eventi
+  0.5-1 TeV: 201230 eventi
+  1-5 TeV: 85081 eventi
+  >5 TeV: 7198 eventi
 Info in <TCanvas::Print>: pdf file plot_2024.pdf has been created
 Info in <TCanvas::Print>: png file plot_2024.png has been created
   Salvato: plot_2024.pdf
 
 === Anno 2025 ===
-  20-100 GeV: 25387167 eventi
-  100-250 GeV: 3146333 eventi
-  250-500 GeV: 637086 eventi
-  0.5-1 TeV: 201993 eventi
-  1-5 TeV: 84890 eventi
-  >5 TeV: 7065 eventi
+  20-100 GeV: 34815641 eventi
+  100-250 GeV: 3146489 eventi
+  250-500 GeV: 637211 eventi
+  0.5-1 TeV: 202149 eventi
+  1-5 TeV: 85072 eventi
+  >5 TeV: 7108 eventi
 Info in <TCanvas::Print>: pdf file plot_2025.pdf has been created
 Info in <TCanvas::Print>: png file plot_2025.png has been created
   Salvato: plot_2025.pdf
 
 === Plot totale ===
-Info in <TCanvas::Print>: pdf file plot_total.pdf has been created
-Info in <TCanvas::Print>: png file plot_total.png has been created
+Info in <TCanvas::Print>: pdf file plot_total_20260608.pdf has been created
+Info in <TCanvas::Print>: png file plot_total_20260608.png has been created
 Salvato: plot_total.pdf
 
 Fatto!

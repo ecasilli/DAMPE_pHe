@@ -27,7 +27,7 @@ if __name__ == '__main__':
     #days = 1339.# days of data collection, 44 months.
     #days = 1178.# days of data collection, 39 months.
     alpha = 2.7
-    DataFileOutput='DAMPE_p+He_72M.dat'
+    DataFileOutput='DAMPE_p+He_120M.dat'
     ResultNameLegend='DAMPE_p+He_This Work'
 
 
@@ -41,7 +41,7 @@ if __name__ == '__main__':
 
     #Orb_file= "PHe_skim_Orb39Month_He6_5bin.root"
     #Orb_file= "PHe_skim_Orb39Month_He6.root"
-    Orb_file= "PHe_skim_Orb120Month_He6_48binperdecade.root"
+    Orb_file= "PHe_skim_Orb120Month_He6_48binperdecadeTEST.root"
     BGO_data = "h1SelBGO_orb6"
     frsm = TFile(fsm)
     frsm_h1 = TFile(fsm_h1)
@@ -129,7 +129,8 @@ if __name__ == '__main__':
     #days = 16.
     #days = 2.
 
-    TotTime = days*86400*0.7667 #days*seconds per day*18.4 hours per day (which is the time left when I exclude dead time etc..)
+    #TotTime = days*86400*0.7667 #days*seconds per day*18.4 hours per day (which is the time left when I exclude dead time etc..)
+    TotTime = 242576599.4 # 10 years
     #TotTime = 143747867 #David - 132485.76 (2 giorni * 86400 * 0.7667)
     print "Live Time = ",str(TotTime)," seconds"
     TotTime = TotTime*Amc
