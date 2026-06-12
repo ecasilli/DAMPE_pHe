@@ -172,7 +172,7 @@ if __name__ == '__main__':
     file_DAMPE2024 = 'TXT_FILES/DAMPE_p+He_72M26.dat'
     gr_DAMPE2024, gr_DAMPE2024_sys, gr_DAMPE2024_sys_had = make_flux_graph_DAMPE2024(file_DAMPE2024, kRed+1, 20, 1.3, 2.6)
 
-    file_DAMPE2026_oldskim = 'LOAD_2024/DAMPE_p+He_120M.dat'
+    file_DAMPE2026_oldskim = 'LOAD_2024/DAMPE_p+He_72M_2.dat'
     gr_DAMPE2026_oldskim = make_flux_graph_DAMPE2026_old_anal(file_DAMPE2026_oldskim, kGreen+1, 20, 1.3, 2.6)
 
     #file_DAMPE2026 = 'TXT_FILES/flux_spectrum_pHe_2026_MLionsv3_2e5sigmaLow_6sigmaUp_new_smooth_PLOT.dat'
@@ -275,7 +275,7 @@ if __name__ == '__main__':
     leg.AddEntry(gr_DAMPE2026, "p+He DAMPE (this work - in progress) ", "PE")
     #leg.AddEntry(gr_DAMPE2026_Irene, "p+He DAMPE (Irene's skim) ", "PE")
     #leg.AddEntry(gr_DAMPE2026_noCuts, "p+He DAMPE (w/o cut02 and cut05) ", "PE")
-    leg.AddEntry(gr_DAMPE2026_oldskim, "p+He DAMPE (old anal. with 10 years) ", "PE")
+    leg.AddEntry(gr_DAMPE2026_oldskim, "p+He DAMPE (72M, old anal. - old livetime) ", "PE")
     leg.Draw()
 
     
@@ -304,8 +304,8 @@ if __name__ == '__main__':
 
     cc.Update()
 
-    cc.SaveAs('PLOTS/flux_pHe_update2026_cfrLHAASO_all_comparison_w10years_old_analysis.pdf')
-    cc.SaveAs('PLOTS/flux_pHe_update2026_cfrLHAASO_all_comparison_w10years_old_analysis.png')
+    cc.SaveAs('PLOTS/flux_pHe_update2026_cfrLHAASO_all_comparison_w6years_old_analysis_2.pdf')
+    cc.SaveAs('PLOTS/flux_pHe_update2026_cfrLHAASO_all_comparison_w6years_old_analysis_2.png')
 
     raw_input("Press enter..")
 

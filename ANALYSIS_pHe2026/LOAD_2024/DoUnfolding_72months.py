@@ -131,6 +131,7 @@ if __name__ == '__main__':
 
     #TotTime = days*86400*0.7667 #days*seconds per day*18.4 hours per day (which is the time left when I exclude dead time etc..)
     TotTime = 242576599.4 # 10 years
+    #TotTime = 143806419.9 # 6 years
     #TotTime = 143747867 #David - 132485.76 (2 giorni * 86400 * 0.7667)
     print "Live Time = ",str(TotTime)," seconds"
     TotTime = TotTime*Amc

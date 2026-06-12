@@ -643,7 +643,7 @@ skim->Add("/nfs/argo/dampe/v6r0p13/BGO_SAT_COR/FLIGHT/skim_data_2021Dec_025_050_
 skim->Add("/nfs/argo/dampe/v6r0p13/BGO_SAT_COR/FLIGHT/skim_data_2021Dec_050_100_SATcor.root");
 skim->Add("/nfs/argo/dampe/v6r0p13/BGO_SAT_COR/FLIGHT/skim_data_2021Dec_100_500_SATcor.root");
 skim->Add("/nfs/argo/dampe/v6r0p13/BGO_SAT_COR/FLIGHT/skim_data_2021Dec_500_000_SATcor.root");
-
+/*
 // 2022
 skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT_old_skim_code/skim_flight_002_010_2022_merged.root");
 skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT_old_skim_code/skim_flight_010_025_2022_merged.root");
@@ -675,7 +675,7 @@ skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT_old_skim_code/skim_flight_025_05
 skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT_old_skim_code/skim_flight_050_100_2025_merged.root");
 skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT_old_skim_code/skim_flight_100_500_2025_merged.root");
 skim->Add("/nfs/argo/dampe/SKIM_2026_pHe/FLIGHT_old_skim_code/skim_flight_500_000_2025_merged.root");
-
+*/
 cout<<"Orbital Data Enties:"<<skim -> GetEntries()<<endl;
 
 
@@ -859,7 +859,7 @@ skim->Draw("(BGO_EnergyG)>>+h1Sel_AND",ctotContAND,"");
 */
 cout<<"6sigma finished..."<<endl;
 
-TFile *fout1 = new TFile("PHe_skim_Orb120Month_He6_48binperdecadeTEST.root","RECREATE");
+TFile *fout1 = new TFile("PHe_skim_Orb72Month_He6_48binperdecadeTEST.root","RECREATE");
 
 // for spectrum
 
