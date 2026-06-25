@@ -356,18 +356,30 @@ TCut HeHigh_MCCor6= he_high_mcCor6;
 TCut Cut_PHe_MCCor6 =PLow_MCCor*HeHigh_MCCor6;
 //TCut Cut_PHe6 =PLow*HeHigh6;
 
+TString STKcharge = "((((TMath::Sign(1.,STK_chargeY[0])+1.)/2.*STK_chargeY[0]+(TMath::Sign(1.,STK_chargeX[0])+1.)/2.*STK_chargeX[0])/((TMath::Sign(1.,STK_chargeY[0])+1.)/2.+(TMath::Sign(1.,STK_chargeX[0])+1.)/2.)))";
+
+TString stk_charge_cut = "(" + STKcharge + " < 400.)";
+TCut STKChargeSel = stk_charge_cut;
+
+TString ChargeSelection =
+    "((STK_vertexPrediction < 0.7) && (" + TString(Cut_PHe_MCCor6.GetTitle()) + ")) || "
+    "((STK_vertexPrediction >= 0.7) && (" + STKcharge + " < 400.))";
+
+TCut Cut_PHe_New = ChargeSelection;
+
 // ---------------  TOTAL CUTS
 TCut ctot_06   =bgo_acc*cut06;
 TCut ctot_00   =bgo_acc*cut06*cut00;
 TCut ctot_01   =bgo_acc*cut06*cut00*cut01;
 TCut ctot_05   =bgo_acc*cut06*cut00*cut01*cut05;
 TCut ctot_SpCut=bgo_acc*cut06*cut00*cut01*cut05*SpCut;
-TCut ctot      =bgo_acc*cut06*cut00*cut01*cut05*SpCut*Cut_PHe_MCCor6;
+//TCut ctot      =bgo_acc*cut06*cut00*cut01*cut05*SpCut*Cut_PHe_MCCor6;
+TCut ctot      =bgo_acc*cut06*cut00*cut01*cut05*SpCut*Cut_PHe_New;
 
 //TCut ctot=bgo_valid*bgo_acceptance*cut00*cut01*cut02*cut05*cut06*SpCut*Cut_PHe_MCCor6;
 //TCut ctot=cutNtrack*cut00*cut01*cut02*cut05*cut06*SpCut*Cut_PHe_MCCor6;
 
-TFile *fout = new TFile("ROOT_FILES/PHe_MC_p_He_5PeV_unfolding_6binperdecade_2e5sigmaLow_6sigmaUp_new_noCut02.root","RECREATE");
+TFile *fout = new TFile("ROOT_FILES/PHe_MC_p_He_5PeV_unfolding_6binperdecade_2e5sigmaLow_6sigmaUp_new_noCut02_STKvertSel.root","RECREATE");
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

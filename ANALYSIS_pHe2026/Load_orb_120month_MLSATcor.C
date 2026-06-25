@@ -39,7 +39,7 @@ if (hostname.Contains("cnaf")) {
 Double_t BGO_E, BGO_E_corr, BGO_xtr;
 Double_t BGO_EneLay[14], BGO_cbgomax[14], BGO_cbgostk[14];
 Double_t PSD_CY0, PSD_CY1, PSD_CX0, PSD_CX1;
-Double_t STK_Y, STK_X;
+Double_t STK_Y, STK_X, STK_Y_charge[6], STK_X_charge[6], STK_vertexPrediction;
 Int_t    BGO_HET, STK_ntrack;
 Double_t BGO_E_corr_v1, BGO_EnergyG_SatCorr_ML_ions_v3;
 Double_t BGO_slopeXZ_analy, BGO_interceptXZ_analy;
@@ -87,6 +87,9 @@ skim->SetBranchStatus("BGO_interceptXZ_analy",          1);
 skim->SetBranchStatus("BGO_slopeYZ_analy",              1);
 skim->SetBranchStatus("BGO_interceptYZ_analy",          1);
 skim->SetBranchStatus("STK_ntrack",                     1);
+skim->SetBranchStatus("STK_chargeX",                    1);
+skim->SetBranchStatus("STK_chargeY",                    1);
+skim->SetBranchStatus("STK_vertexPrediction",           1);
 
 // =============================
 // ----- Branch addresses ------
@@ -110,6 +113,9 @@ skim->SetBranchAddress("BGO_interceptXZ_analy",           &BGO_interceptXZ_analy
 skim->SetBranchAddress("BGO_slopeYZ_analy",               &BGO_slopeYZ_analy);
 skim->SetBranchAddress("BGO_interceptYZ_analy",           &BGO_interceptYZ_analy);
 skim->SetBranchAddress("STK_ntrack",                      &STK_ntrack);
+skim->SetBranchAddress("STK_chargeX",                      STK_X_charge);
+skim->SetBranchAddress("STK_chargeY",                      STK_Y_charge);
+skim->SetBranchAddress("STK_vertexPrediction",            &STK_vertexPrediction);
 
 // =============================
 
@@ -125,7 +131,7 @@ for (int j = 1; j < noe+1; j++) {
     Ebin[j] = Ebin[j-1]*TMath::Power(10., arg1);
 }
 
-TFile *fout1 = new TFile("ROOT_FILES/PHe_skim_Orb120Month_6binperdecade_2e5sigmaLow_6sigmaUp_new_noCut02.root", "RECREATE");
+TFile *fout1 = new TFile("ROOT_FILES/PHe_skim_Orb120Month_6binperdecade_2e5sigmaLow_6sigmaUp_new_noCut02_STKvertSel.root", "RECREATE");
 
 TH1D *h1SelBGO_orb    = new TH1D("h1SelBGO_orb",    "Selected(E_bgo) orbital", noe, Ebin);
 h1SelBGO_orb->Sumw2();
@@ -195,6 +201,13 @@ for (Long64_t i = 0; i < nEntries; i++) {
     if (den == 0.) continue;
     Double_t charge = num / den;
 
+    // ---- Calcolo STK charge (simple average sui segnali positivi) ----
+    Double_t num_stk = 0., den_stk = 0.;
+    if (STK_Y_charge[0] > 0.) { num_stk += STK_Y_charge[0]; den_stk += 1.; }
+    if (STK_X_charge[0] > 0.) { num_stk += STK_X_charge[0]; den_stk += 1.; }
+    if (den_stk == 0.) continue;
+    Double_t charge_stk = num_stk / den_stk;
+
     // 25/05/2026
     Double_t HeMPVf= (1.88586+(0.185264*log10(BGO_EnergyG_SatCorr_ML_ions_v3))+(-0.0867115*log10(BGO_EnergyG_SatCorr_ML_ions_v3)**2)+(0.0200701*log10(BGO_EnergyG_SatCorr_ML_ions_v3)**3)+(-0.000810826*log10(BGO_EnergyG_SatCorr_ML_ions_v3)**4) );
     Double_t HeWidthf = (-0.0824082+(0.201315*log10(BGO_EnergyG_SatCorr_ML_ions_v3))+(-0.0989824*log10(BGO_EnergyG_SatCorr_ML_ions_v3)**2)+(0.0218456*log10(BGO_EnergyG_SatCorr_ML_ions_v3)**3)+(-0.00136192*log10(BGO_EnergyG_SatCorr_ML_ions_v3)**4));
@@ -206,10 +219,25 @@ for (Long64_t i = 0; i < nEntries; i++) {
     Double_t PGSigmaf = (5.5475e-08);
     Double_t PFSig= TMath::Sqrt(PWidthf*PWidthf+PGSigmaf*PGSigmaf);
 
+    /*
     // PLow: charge < proton MPV + 2*sigma
     if (!((PMPVf - charge) < (2.5 * PFSig)))  continue;
     // HeHigh: charge - He MPV < 6*sigma
     if (!((charge - HeMPVf) < (6. * HeFSig))) continue;
+    */
+
+    // --- Charge selection dependent on STK vertex prediction ---
+    if (STK_vertexPrediction < 0.7){
+        // PSD charge selection
+
+        // PLow: charge < proton MPV + 2*sigma
+        if (!((PMPVf - charge) < (2.5 * PFSig)))  continue;
+        // HeHigh: charge - He MPV < 6*sigma
+        if (!((charge - HeMPVf) < (6. * HeFSig))) continue;
+    } else {
+        // STK charge selection
+        if (charge_stk > 400.) continue;
+    }
 
     // Fill spettro energetico
     h1SelBGO_orb->Fill(BGO_E_corr_v1);
