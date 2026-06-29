@@ -34,8 +34,8 @@ double MIN_TS = (Test_Stat == "ks" ? 1e-4 : 1.);
 
 const bool SMOOTHING = true;
 
-std::string fout_name = "ROOT_FILES/unfold_results_pHe_2026_Orb120Month_MLionsv3_2e5sigmaLow_6sigmaUp_TH1D_noCut02_STKvertSel_smooth.root";
-std::string fdat_name = "TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_MLionsv3_2e5sigmaLow_6sigmaUp_TH1D_noCut02_STKvertSel_smooth.dat";
+std::string fout_name = "ROOT_FILES/unfold_results_pHe_2026_Orb120Month_MLionsv3_2e5sigmaLow_6sigmaUp_TH1D_noCut02_STKvertSel_smooth_wPHe.root";
+std::string fdat_name = "TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_MLionsv3_2e5sigmaLow_6sigmaUp_TH1D_noCut02_STKvertSel_smooth_wPHe.dat";
 
 // Global variables
 std::vector<double> TRUGUESS;
@@ -308,12 +308,12 @@ std::vector<double> compute_std(const std::vector<std::vector<double>>& data) {
 int unfolding_smooth_pHe() {
 
     // Parse command line arguments
-    std::string response_file = "ROOT_FILES/PHe_MC_p_He_5PeV_unfolding_6binperdecade_2e5sigmaLow_6sigmaUp_new_noCut02_STKvertSel.root";
+    std::string response_file = "ROOT_FILES/PHe_MC_p_He_5PeV_unfolding_6binperdecade_2e5sigmaLow_6sigmaUp_noCut02_STKvertSel_wPHe.root";
     std::string response_histo = "h2Ntrig_wgt_v3";
     std::string data_file = "ROOT_FILES/PHe_skim_Orb120Month_6binperdecade_2e5sigmaLow_6sigmaUp_new_noCut02_STKvertSel.root";
     std::string data_histo = "h1SelBGO_orb_v3";
-    //std::string ngen_file = ""; //uncomment if response-mat to be normalized
-    //std::string ngen_histo = ""; //uncomment if response-mat to be normalized
+    std::string ngen_file = "PHe_MC_FTFP_EPOSLHC_h1Ngen_6binsPerDecade.root"; // response-mat to be normalized
+    std::string ngen_histo = "h1p1"; // response-mat to be normalized
 
 
     // Load normalized response matrix
@@ -365,18 +365,18 @@ int unfolding_smooth_pHe() {
     prior_prob(nx, energy_bins, TRUGUESS);//filling TRUGUESS with power law prop. to E^{-2.6}
 
     //uncomment if response-mat to be normalized
-    /*TFile* fgen = TFile::Open(ngen_file.c_str(), "READ");
+    TFile* fgen = TFile::Open(ngen_file.c_str(), "READ");
     if(!fgen || fgen->IsZombie()) {
         std::cerr << "Error opening ngen file" << std::endl;
         return 1;
     }
 
-    TH1D* hgen = (TH1d*)fgen->Get(ngen_histo.c_str());
+    TH1D* hgen = (TH1D*)fgen->Get(ngen_histo.c_str());
     if(!hgen) {
         std::cerr << "Error getting response histogram" << std::endl;
         return 1;
     }
-    NORM_TRUE.resize(nx);*/
+    //NORM_TRUE.resize(nx);
 
     std::vector<double> eff;
     eff.resize(nx);
@@ -398,11 +398,46 @@ int unfolding_smooth_pHe() {
         TRUGUESS[i] *= Nobs;
         truthguess->SetBinContent(i+1, TRUGUESS[i]);
         //NORM_TRUE[i] = hgen->GetBinContent(i+1); //uncomment if response-mat to be normalized
+        /*
         eff[i] = hetru->GetBinContent(i+1);
         acc[i] = Amc*hetru->GetBinContent(i+1);
         heff->SetBinContent(i+1, eff[i]);
         heff->SetBinContent(i+1, hetru->GetBinError(i+1));
         hacc->SetBinContent(i+1, Amc*hetru->GetBinError(i+1));
+        */
+        double ngen = hgen->GetBinContent(i+1);
+        // eventi ricostruiti nel bin di energia vera
+        double nreco = hetru->GetBinContent(i+1);
+
+        if(ngen>0){
+
+            eff[i] = nreco/ngen;
+
+            // errore binomiale, identico al codice python
+            double efferr = 0.;
+            if(eff[i] <= 1.)
+                efferr = sqrt(eff[i]*(1.-eff[i])/ngen);
+
+            acc[i] = Amc*eff[i];
+
+            heff->SetBinContent(i+1,eff[i]);
+            heff->SetBinError(i+1,efferr);
+
+            hacc->SetBinContent(i+1,acc[i]);
+            hacc->SetBinError(i+1,Amc*efferr);
+        }
+        else{
+
+            eff[i]=0.;
+            acc[i]=0.;
+
+            heff->SetBinContent(i+1,0.);
+            heff->SetBinError(i+1,0.);
+
+            hacc->SetBinContent(i+1,0.);
+            hacc->SetBinError(i+1,0.);
+        }
+        
     }
     //normalize_kernel(m, eff); //uncomment if response-mat to be normalized
     m = m.transpose();
@@ -554,8 +589,8 @@ int unfolding_smooth_pHe() {
     hflux->Write();
     hfluxpow->Write();
     hcts_unf->Write();
-    //heff->Write();
-    //hacc->Write();
+    heff->Write();
+    hacc->Write();
 
     TH1D* hacc1 = (TH1D*)hetru->Clone("hacc1");
     //hacc1->SetDirectory(0);

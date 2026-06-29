@@ -184,8 +184,11 @@ if __name__ == '__main__':
     file_DAMPE2026_all = 'TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_MLionsv3_2e5sigmaLow_6sigmaUp_TH1D_noCut02.dat'
     gr_DAMPE2026_all = make_flux_graph_DAMPE2026(file_DAMPE2026_all, kRed+1, 24, 1.3, 2.6)
 
-    file_DAMPE2026_wSTKvert = 'TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_MLionsv3_2e5sigmaLow_6sigmaUp_TH1D_noCut02_STKvertSel_smooth_PLOT.dat'
+    file_DAMPE2026_wSTKvert = 'TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_MLionsv3_2e5sigmaLow_6sigmaUp_TH1D_noCut02_STKvertSel_smooth_wPHe.dat'
     gr_DAMPE2026_wSTKvert = make_flux_graph_DAMPE2026(file_DAMPE2026_wSTKvert, kMagenta+1, 20, 1.3, 2.6)
+
+    file_DAMPE2026_wSTKvert2 = 'TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_MLionsv3_2e5sigmaLow_6sigmaUp_TH1D_noCut02_STKvertSel_smooth_wPHe_kernel.dat'
+    gr_DAMPE2026_wSTKvert2 = make_flux_graph_DAMPE2026(file_DAMPE2026_wSTKvert2, kMagenta+1, 20, 1.3, 2.6)
 
     #file_DAMPE2026_Irene = 'ROOT_FILES/unfold_result_2016-25_pHe_SampleTarget_fullSimu_IRENE_smooth.root'
     #gr_DAMPE2026_Irene = make_flux_graph_from_ROOT(file_DAMPE2026_Irene, 'flux_pow', kMagenta+1, 21, 1.3, 2.6)
@@ -263,7 +266,8 @@ if __name__ == '__main__':
     #gr_DAMPE2026_Irene.Draw("P SAME")
     #gr_DAMPE2026_noCuts.Draw("P SAME")
     gr_DAMPE2026_oldskim.Draw("P SAME")
-    #gr_DAMPE2026_wSTKvert.Draw("P SAME")
+    gr_DAMPE2026_wSTKvert.Draw("P SAME")
+    gr_DAMPE2026_wSTKvert2.Draw("P SAME")
 
     # ------------------- LEGEND
 
@@ -280,7 +284,7 @@ if __name__ == '__main__':
     #leg.AddEntry(gr_DAMPE2026_Irene, "p+He DAMPE (Irene's skim) ", "PE")
     #leg.AddEntry(gr_DAMPE2026_noCuts, "p+He DAMPE (w/o cut02 and cut05) ", "PE")
     leg.AddEntry(gr_DAMPE2026_oldskim, "p+He DAMPE (old analysis, 10 years) ", "PE")
-    #leg.AddEntry(gr_DAMPE2026_wSTKvert, "p+He DAMPE (w STK vertex) ", "PE")
+    leg.AddEntry(gr_DAMPE2026_wSTKvert, "p+He DAMPE (w STK vertex, wPHe) ", "PE")
     leg.Draw()
 
     
@@ -309,8 +313,8 @@ if __name__ == '__main__':
 
     cc.Update()
 
-    cc.SaveAs('PLOTS/flux_pHe_update2026_cfrLHAASO_all_comparison_oldskim_2.pdf')
-    cc.SaveAs('PLOTS/flux_pHe_update2026_cfrLHAASO_all_comparison_oldskim_2.png')
+    cc.SaveAs('PLOTS/flux_pHe_update2026_cfrLHAASO_all_comparison_oldskim_wPHe2.pdf')
+    cc.SaveAs('PLOTS/flux_pHe_update2026_cfrLHAASO_all_comparison_oldskim_wPHe2.png')
 
     raw_input("Press enter..")
 
