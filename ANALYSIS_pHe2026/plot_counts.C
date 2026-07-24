@@ -98,7 +98,7 @@ void plot_counts() {
     TCanvas *c4 = MakeCanvas("c4", "Rate after unfolding");
 
     // === Caricamento istogrammi ===
-    const char *fAll = "ROOT_FILES/unfold_results_pHe_2026_Orb120Month_except25low_MLionsv3_2e5sigmaLow_6sigmaUp_new.root";
+    const char *fAll = "ROOT_FILES/unfold_results_pHe_2026_Orb120Month_MLionsv3_2e5sigmaLow_6sigmaUp_TH1D_noCut02_smooth_PSDprogr_wPHe_kernel.root";
     //const char *fAll = "ROOT_FILES/unfold_results_pHe_2026_MLionsv3_2e5sigmaLow_6sigmaUp_new_smooth.root";
     const char *f6ys = "ROOT_FILES/unfold_results_pHe_2026_72months_MLionsv3_2e5sigmaLow_6sigmaUp_new_smooth.root";
     const char *f4ys = "ROOT_FILES/unfold_results_pHe_2026_rem48months_MLionsv3_2e5sigmaLow_6sigmaUp_new_smooth.root";
@@ -182,17 +182,17 @@ void plot_counts() {
     //legend->Draw();
 
     // === Salvataggio in *.png e *.pdf ==
-    c1->SaveAs("PLOTS/counts_before_unfolding_pHe_Orb120Month_except25low.pdf");
-    c1->SaveAs("PLOTS/counts_before_unfolding_pHe_Orb120Month_except25low.png");
+    c1->SaveAs("PLOTS/counts_before_unfolding_pHe_Orb120Month_unfold_results_pHe_2026_Orb120Month_smooth_PSDprogr_wPHe_kernel.pdf");
+    c1->SaveAs("PLOTS/counts_before_unfolding_pHe_Orb120Month_unfold_results_pHe_2026_Orb120Month_smooth_PSDprogr_wPHe_kernel.png");
 
-    c2->SaveAs("PLOTS/counts_after_unfolding_pHe_Orb120Month_except25low.pdf");
-    c2->SaveAs("PLOTS/counts_after_unfolding_pHe_Orb120Month_except25low.png");
+    c2->SaveAs("PLOTS/counts_after_unfolding_pHe_Orb120Month_unfold_results_pHe_2026_Orb120Month_smooth_PSDprogr_wPHe_kernel.pdf");
+    c2->SaveAs("PLOTS/counts_after_unfolding_pHe_Orb120Month_unfold_results_pHe_2026_Orb120Month_smooth_PSDprogr_wPHe_kernel.png");
 
-    c3->SaveAs("PLOTS/rate_before_unfolding_pHe_Orb120Month_except25low.pdf");
-    c3->SaveAs("PLOTS/rate_before_unfolding_pHe_Orb120Month_except25low.png");
+    c3->SaveAs("PLOTS/rate_before_unfolding_pHe_Orb120Month_unfold_results_pHe_2026_Orb120Month_smooth_PSDprogr_wPHe_kernel.pdf");
+    c3->SaveAs("PLOTS/rate_before_unfolding_pHe_Orb120Month_unfold_results_pHe_2026_Orb120Month_smooth_PSDprogr_wPHe_kernel.png");
 
-    c4->SaveAs("PLOTS/rate_after_unfolding_pHe_Orb120Month_except25low.pdf");
-    c4->SaveAs("PLOTS/rate_after_unfolding_pHe_Orb120Month_except25low.png");
+    c4->SaveAs("PLOTS/rate_after_unfolding_pHe_Orb120Month_unfold_results_pHe_2026_Orb120Month_smooth_PSDprogr_wPHe_kernel.pdf");
+    c4->SaveAs("PLOTS/rate_after_unfolding_pHe_Orb120Month_unfold_results_pHe_2026_Orb120Month_smooth_PSDprogr_wPHe_kernel.png");
 
 
 }

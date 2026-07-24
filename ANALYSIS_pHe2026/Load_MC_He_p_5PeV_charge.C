@@ -358,8 +358,10 @@ TString PMcFSig= "sqrt("+PMcWidthf+"**2+"+PMcGSigmaf+"**2)";
 TString PFSig= "sqrt("+PWidthf+"**2+"+PGSigmaf+"**2)";
 
 //Questo è il valore di PSD energy corretto da usare per i nuovi istogrammi di carica
-TString HeliumCor ="(("+PSDcharge+"-"+HeMcMPVf+")*("+HeFSig+"/"+HeMcFSig+")+"+HeMPVf+")";
-TString ProtonCor ="(("+PSDcharge+"-"+PMcMPVf+")*("+PFSig+"/"+PMcFSig+")+"+PMPVf+")";
+//TString HeliumCor ="(("+PSDcharge+"-"+HeMcMPVf+")*("+HeFSig+"/"+HeMcFSig+")+"+HeMPVf+")";
+//TString ProtonCor ="(("+PSDcharge+"-"+PMcMPVf+")*("+PFSig+"/"+PMcFSig+")+"+PMPVf+")";
+TString HeliumCor = "(PSD_Global_Charge)";
+TString ProtonCor = "(PSD_Global_Charge)";
 /*
 TString p_low_mcCor= "("+PMcMPVf_Cor+"-"+ProtonCor +")<(2*"+PMcFSigCor+")";
 TString he_high_mcCor6= "("+HeliumCor+"-"+HeMcMPVf_Cor+")<(6*"+HeMcFSigCor+")";
@@ -472,7 +474,7 @@ c[14]->cd(); for(int i=0; i<nsetP; i++){  sk_p[i]->Draw( ProtonCor+">>+h15_p", c
 	
 
 
-TFile *fout = new TFile("ROOT_FILES/PHe_MC_p_He_5PeV_charge_240bins_corrected_20260525.root","RECREATE");
+TFile *fout = new TFile("ROOT_FILES/PHe_MC_p_He_5PeV_PSD_Global_Charge_240bins.root","RECREATE");
 
 fout->cd();
 

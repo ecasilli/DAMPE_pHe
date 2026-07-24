@@ -38,7 +38,7 @@ if (hostname.Contains("cnaf")) {
 // Variabili per SetBranchAddress
 Double_t BGO_E, BGO_E_corr, BGO_xtr;
 Double_t BGO_EneLay[14], BGO_cbgomax[14], BGO_cbgostk[14];
-Double_t PSD_CY0, PSD_CY1, PSD_CX0, PSD_CX1;
+Double_t PSD_CY0, PSD_CY1, PSD_CX0, PSD_CX1, PSD_Global_Charge;
 Double_t STK_Y, STK_X, STK_Y_charge[6], STK_X_charge[6], STK_vertexPrediction;
 Int_t    BGO_HET, STK_ntrack;
 Double_t BGO_E_corr_v1, BGO_EnergyG_SatCorr_ML_ions_v3;
@@ -90,6 +90,7 @@ skim->SetBranchStatus("STK_ntrack",                     1);
 skim->SetBranchStatus("STK_chargeX",                    1);
 skim->SetBranchStatus("STK_chargeY",                    1);
 skim->SetBranchStatus("STK_vertexPrediction",           1);
+skim->SetBranchStatus("PSD_Global_Charge",              1);
 
 // =============================
 // ----- Branch addresses ------
@@ -116,6 +117,8 @@ skim->SetBranchAddress("STK_ntrack",                      &STK_ntrack);
 skim->SetBranchAddress("STK_chargeX",                      STK_X_charge);
 skim->SetBranchAddress("STK_chargeY",                      STK_Y_charge);
 skim->SetBranchAddress("STK_vertexPrediction",            &STK_vertexPrediction);
+skim->SetBranchAddress("PSD_Global_Charge",               &PSD_Global_Charge);
+
 
 // =============================
 
@@ -131,13 +134,19 @@ for (int j = 1; j < noe+1; j++) {
     Ebin[j] = Ebin[j-1]*TMath::Power(10., arg1);
 }
 
-TFile *fout1 = new TFile("ROOT_FILES/PHe_skim_Orb120Month_6binperdecade_2e5sigmaLow_6sigmaUp_new_noCut02_STKvertSel.root", "RECREATE");
+TFile *fout1 = new TFile("ROOT_FILES/PHe_skim_Orb120Month_6binperdecade_2e5sigmaLow_6sigmaUp_new_noCut02_PSDprogr_STKvert.root", "RECREATE");
 
 TH1D *h1SelBGO_orb    = new TH1D("h1SelBGO_orb",    "Selected(E_bgo) orbital", noe, Ebin);
 h1SelBGO_orb->Sumw2();
 TH1D *h1SelBGO_orb_v3 = new TH1D("h1SelBGO_orb_v3", "Selected(E_bgo) orbital", noe, Ebin);
 h1SelBGO_orb_v3->Sumw2();
 
+int count =0;
+int count1 =0;
+int count2=0;
+int count0=0;
+int count0a=0;
+int count2a=0;
 
 // ----- Loop su tutti gli eventi ------
 
@@ -149,6 +158,8 @@ for (Long64_t i = 0; i < nEntries; i++) {
     if (i % 1000000 == 0) cout << "  Processing entry " << i << " / " << nEntries << endl;
 
     skim->GetEntry(i);
+    count0++;
+    if (BGO_EnergyG_SatCorr_ML_ions_v3 > 200.) count0a++;
 
     // ---- Tagli ----
     /*
@@ -173,6 +184,8 @@ for (Long64_t i = 0; i < nEntries; i++) {
     // cut00 = cc204s * Trig_HEP
     if (BGO_HET <= 0)   continue;
     if (BGO_E   <= 20.) continue;
+    count2++;
+    if (BGO_EnergyG_SatCorr_ML_ions_v3 > 200.) count2a++;
 
     // cut01: almeno un segnale su entrambi i piani di PSD
     if ((PSD_CY0 <= 0. && PSD_CY1 <= 0.) ||
@@ -192,6 +205,7 @@ for (Long64_t i = 0; i < nEntries; i++) {
     // SpCut: taglio per elettroni
     if (BGO_xtr <= 12.) continue;
 
+    /*
     // ---- Calcolo PSD charge (simple average sui segnali positivi) ----
     Double_t num = 0., den = 0.;
     if (PSD_CY0 > 0.) { num += PSD_CY0; den += 1.; }
@@ -200,6 +214,8 @@ for (Long64_t i = 0; i < nEntries; i++) {
     if (PSD_CX1 > 0.) { num += PSD_CX1; den += 1.; }
     if (den == 0.) continue;
     Double_t charge = num / den;
+    */
+    Double_t charge = PSD_Global_Charge;
 
     // ---- Calcolo STK charge (simple average sui segnali positivi) ----
     Double_t num_stk = 0., den_stk = 0.;
@@ -225,7 +241,7 @@ for (Long64_t i = 0; i < nEntries; i++) {
     // HeHigh: charge - He MPV < 6*sigma
     if (!((charge - HeMPVf) < (6. * HeFSig))) continue;
     */
-
+    
     // --- Charge selection dependent on STK vertex prediction ---
     if (STK_vertexPrediction < 0.7){
         // PSD charge selection
@@ -242,9 +258,17 @@ for (Long64_t i = 0; i < nEntries; i++) {
     // Fill spettro energetico
     h1SelBGO_orb->Fill(BGO_E_corr_v1);
     h1SelBGO_orb_v3->Fill(BGO_EnergyG_SatCorr_ML_ions_v3);
+    if (BGO_EnergyG_SatCorr_ML_ions_v3 > 200.) count++;
+    if (BGO_EnergyG_SatCorr_ML_ions_v3 > 200000.) count1++;
 }
 
 cout << "Loop finished." << endl;
+cout << "Eventi tot: " << count0 << endl;
+cout << "Eventi tot sopra 200 GeV: " << count0a << endl;
+cout << "Eventi con HET: " << count2 << endl;
+cout << "Eventi con HET sopra 200 GeV: " << count2a << endl;
+cout << "Eventi sopra 200 GeV: " << count << endl;
+cout << "Eventi sopra 200 TeV: " << count1 << endl;
 
 
 // =============================

@@ -38,7 +38,7 @@ if (hostname.Contains("cnaf")) {
 // Variabili per SetBranchAddress
 Double_t BGO_E, BGO_E_corr, BGO_xtr;
 Double_t BGO_EneLay[14], BGO_cbgomax[14], BGO_cbgostk[14];
-Double_t PSD_CY0, PSD_CY1, PSD_CX0, PSD_CX1;
+Double_t PSD_CY0, PSD_CY1, PSD_CX0, PSD_CX1, PSD_Global_Charge;
 Double_t STK_Y, STK_X;
 Int_t    BGO_HET;
 
@@ -56,8 +56,8 @@ Double_t eMax[15] = {39.8107,  63.0957,  100.0,   158.489,  251.189,
 TChain *skim = new TChain("newtree");
 
 // Anni 2016-2024 (tutti "merged")
-for (int y = 2016; y <= 2024; y++) addYear(skim, basePath, y);
-
+for (int y = 2016; y <= 2025; y++) addYear(skim, basePath, y);
+/*
 // 2025: il primo bin ha suffix diverso
 skim->Add(basePath + "/SKIM_2026_pHe/FLIGHT/skim_flight_002_010_2025_partially_merged.root");
 skim->Add(basePath + "/SKIM_2026_pHe/FLIGHT/skim_flight_010_025_2025_merged.root");
@@ -65,7 +65,7 @@ skim->Add(basePath + "/SKIM_2026_pHe/FLIGHT/skim_flight_025_050_2025_merged.root
 skim->Add(basePath + "/SKIM_2026_pHe/FLIGHT/skim_flight_050_100_2025_merged.root");
 skim->Add(basePath + "/SKIM_2026_pHe/FLIGHT/skim_flight_100_500_2025_merged.root");
 skim->Add(basePath + "/SKIM_2026_pHe/FLIGHT/skim_flight_500_000_2025_merged.root");
-
+*/
 cout << "Orbital Data Entries: " << skim->GetEntries() << endl;
 
 // =============================
@@ -197,6 +197,7 @@ skim->SetBranchStatus("PSD_ChargeX1",                   1);
 skim->SetBranchStatus("STKtrack_to_PSD_topY",           1);
 skim->SetBranchStatus("STKtrack_to_PSD_topX",           1);
 skim->SetBranchStatus("BGO_xtr",                        1);
+skim->SetBranchStatus("PSD_Global_Charge",              1);
 
 // =============================
 // ----- Branch addresses ------
@@ -214,6 +215,7 @@ skim->SetBranchAddress("PSD_ChargeX0",                    &PSD_CX0);
 skim->SetBranchAddress("PSD_ChargeX1",                    &PSD_CX1);
 skim->SetBranchAddress("STKtrack_to_PSD_topY",            &STK_Y);
 skim->SetBranchAddress("STKtrack_to_PSD_topX",            &STK_X);
+skim->SetBranchAddress("PSD_Global_Charge",               &PSD_Global_Charge);
 
 // =============================
 // ----- Loop unico su tutti gli eventi ------
@@ -238,7 +240,7 @@ for (Long64_t i = 0; i < nEntries; i++) {
         (PSD_CX0 <= 0. && PSD_CX1 <= 0.)) continue;
 
     // cut02: profilo di shower
-    if (BGO_EneLay[0] + BGO_EneLay[1] >= BGO_EneLay[2] + BGO_EneLay[3]) continue;
+    //if (BGO_EneLay[0] + BGO_EneLay[1] >= BGO_EneLay[2] + BGO_EneLay[3]) continue;
 
     // cut05: consistenza posizione BGO
     if (TMath::Abs(BGO_cbgomax[0] - BGO_cbgostk[0]) >= 30.) continue;
@@ -251,6 +253,7 @@ for (Long64_t i = 0; i < nEntries; i++) {
     // SpCut: taglio per elettroni
     if (BGO_xtr <= 12.) continue;
 
+    /*
     // ---- Calcolo PSD charge (simple average sui segnali positivi) ----
     Double_t num = 0., den = 0.;
     if (PSD_CY0 > 0.) { num += PSD_CY0; den += 1.; }
@@ -259,6 +262,8 @@ for (Long64_t i = 0; i < nEntries; i++) {
     if (PSD_CX1 > 0.) { num += PSD_CX1; den += 1.; }
     if (den == 0.) continue;
     Double_t charge = num / den;
+    */
+    Double_t charge = PSD_Global_Charge;
 
     // ---- Fill nell'istogramma del bin energetico corretto ----
     for (int j = 0; j < 15; j++) {
@@ -285,8 +290,12 @@ for (int j = 0; j < 15; j++) {
 // =============================
 // ----- Salvataggio -----------
 
-TFile *fout1 = new TFile("ROOT_FILES/PHe_charge_Orb120Month_240bins.root", "RECREATE");
+TFile *fout1 = new TFile("ROOT_FILES/PHe_charge_Orb120Month_240bins_progressiveCharge.root", "RECREATE");
 fout1->cd();
+for (int j = 0; j < 15; j++) {
+    hArr[j]->Write();
+}
+c0->Write();
 fout1->Close();
 
 cout << "End script." << endl;

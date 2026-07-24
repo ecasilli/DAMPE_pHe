@@ -233,7 +233,7 @@ def make_flux_graph_EASTOP(color=28, marker=30, size=2.2, alpha=2.6):
 if __name__ == '__main__':
 
     file_DAMPE2024 = 'TXT_FILES/DAMPE_p+He_72M26.dat'
-    gr_DAMPE2024, gr_DAMPE2024_sys, gr_DAMPE2024_sys_had = make_flux_graph_DAMPE2024(file_DAMPE2024, kRed+1, 20, 1.3, 2.6)
+    gr_DAMPE2024, gr_DAMPE2024_sys, gr_DAMPE2024_sys_had = make_flux_graph_DAMPE2024(file_DAMPE2024, kRed+1, 24, 1.3, 2.6)
 
     #file_DAMPE2026 = 'TXT_FILES/flux_spectrum_pHe_2026_MLionsv3_2e5sigmaLow_6sigmaUp_new_smooth_PLOT.dat'
     file_DAMPE2026 = 'TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_except25low_MLionsv3_2e5sigmaLow_6sigmaUp_new_smooth_PLOT.dat'
@@ -242,6 +242,9 @@ if __name__ == '__main__':
     #file_DAMPE2026_all = 'TXT_FILES/flux_spectrum_pHe_2026_MLionsv3_2e5sigmaLow_6sigmaUp_new_smooth.dat'
     file_DAMPE2026_all = 'TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_except25low_MLionsv3_2e5sigmaLow_6sigmaUp_new_smooth.dat'
     gr_DAMPE2026_all = make_flux_graph_DAMPE2026(file_DAMPE2026_all, kRed+1, 24, 1.3, 2.6)
+
+    file_DAMPE2026_PSDprog = 'TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_MLionsv3_2e5sigmaLow_6sigmaUp_TH1D_noCut02_smooth_PSDprogr_wPHe_kernel_PLOT.dat'
+    gr_DAMPE2026_PSDprog = make_flux_graph_DAMPE2026(file_DAMPE2026_PSDprog, kRed+1, 20, 1.3, 2.6)
 
     '''
     file_DAMPE2026_COR = 'TXT_FILES/flux_spectrum_pHe_2026_MLionsv3_2e5sigmaLow_6sigmaUp_new_smooth_CORR_PLOT.dat'
@@ -279,6 +282,7 @@ if __name__ == '__main__':
 
 
     cc = TCanvas("cc", "Flux", 1050, 750)
+    #cc = TCanvas("cc", "Flux", 2100, 1500)
     cc.SetLeftMargin(0.13)
     cc.SetRightMargin(0.04)
     cc.SetTopMargin(0.05)
@@ -327,7 +331,8 @@ if __name__ == '__main__':
 
     gr_DAMPE2024.Draw("P SAME")
     #gr_DAMPE2026_COR.Draw("P SAME")
-    gr_DAMPE2026.Draw("P SAME")
+    #gr_DAMPE2026.Draw("P SAME")
+    gr_DAMPE2026_PSDprog.Draw("P SAME")
     #gr_DAMPE2026_all.Draw("P SAME")
     #gr_DAMPE2026_9y.Draw("P SAME")
     #gr_DAMPE2026_9yall.Draw("P SAME")
@@ -350,7 +355,7 @@ if __name__ == '__main__':
     leg.AddEntry(gr_KASCADE_SIBYLL,"KASCADE SIBYLL-2.1 (2005)","ep")
     leg.AddEntry(gr_DAMPE2024,"DAMPE (PRL 2024)","ep")
     #leg.AddEntry(gr_DAMPE2026,"DAMPE (this work 2026 - in progress)","ep")
-    leg.AddEntry(gr_DAMPE2026,"DAMPE (this work - in progress)","ep")
+    leg.AddEntry(gr_DAMPE2026_PSDprog,"DAMPE (this work - preliminary)","ep")
     
     leg.AddEntry(gr_LHAASO_QGSJET, "LHAASO (QGSJET-II-04, PRL 2026)", "EP")
     leg.AddEntry(gr_LHAASO_EPOSLHC,"LHAASO (EPOS-LHC, PRL 2026)", "EP")
@@ -361,8 +366,9 @@ if __name__ == '__main__':
 
     cc.Update()
 
-    cc.SaveAs('PLOTS/flux_pHe_update2026_cfrLHAASO_indirect_exc25Low.pdf')
-    cc.SaveAs('PLOTS/flux_pHe_update2026_cfrLHAASO_indirect_exc25Low.png')
+    cc.SaveAs('PLOTS/flux_pHe_update2026_cfrLHAASO_indirect_smooth_PSDprogr.pdf')
+    cc.SaveAs('PLOTS/flux_pHe_update2026_cfrLHAASO_indirect_smooth_PSDprogr.png')
+    cc.SaveAs('PLOTS/flux_pHe_update2026_cfrLHAASO_indirect_smooth_PSDprogr.eps')
 
     raw_input("Press enter..")
 

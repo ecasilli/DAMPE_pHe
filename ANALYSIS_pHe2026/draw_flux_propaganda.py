@@ -79,6 +79,43 @@ def make_flux_graph_DAMPE2026(filename, color, marker, size, alpha):
 
     return gr 
 
+def make_flux_graph_pHe(filenameP, filenameHe, color, marker, size, alpha):
+    # Qty   <E>  Elo  Eup   y   ystat_lo  ystat_up  ysyst_lo  ysyst_up  yerrtot_lo 
+    EmeanP       = np.loadtxt(filenameP, skiprows=2, usecols=(1,), unpack=True)
+    Flux_2P      = np.loadtxt(filenameP, skiprows=2, usecols=(4,), unpack=True)
+    Flux_stat_loP= np.loadtxt(filenameP, skiprows=2, usecols=(5,), unpack=True)
+    Flux_stat_upP= np.loadtxt(filenameP, skiprows=2, usecols=(6,), unpack=True)
+
+    FluxP    = (Flux_2P) * EmeanP**alpha
+    Flux_err_loP= (Flux_stat_loP) * EmeanP**alpha
+    Flux_err_upP= (Flux_stat_upP) * EmeanP**alpha
+
+
+    EmeanHe       = np.loadtxt(filenameHe, skiprows=2, usecols=(1,), unpack=True)
+    Flux_2He      = np.loadtxt(filenameHe, skiprows=2, usecols=(4,), unpack=True)
+    Flux_stat_loHe= np.loadtxt(filenameHe, skiprows=2, usecols=(5,), unpack=True)
+    Flux_stat_upHe= np.loadtxt(filenameHe, skiprows=2, usecols=(6,), unpack=True)
+
+    FluxHe    = (Flux_2He) * EmeanHe**alpha
+    Flux_err_loHe= (Flux_stat_loHe) * EmeanHe**alpha
+    Flux_err_uphe= (Flux_stat_upHe) * EmeanHe**alpha
+
+    null = np.zeros(len(EmeanP))
+
+    assert np.allclose(EmeanP, EmeanHe, rtol=1e-3)
+
+    Flux_sum = FluxP + FluxHe
+    Stat_sum_lo = np.sqrt(Flux_err_loP**2 + Flux_stat_loHe**2)
+    Stat_sum_up = np.sqrt(Flux_err_upP**2 + Flux_stat_upHe**2)
+
+    gr = TGraphAsymmErrors(len(EmeanP), EmeanP, Flux_sum, null, null, Stat_sum_lo, Stat_sum_up)
+    gr.SetLineColor(color)
+    gr.SetMarkerColor(color)
+    gr.SetMarkerStyle(marker)
+    gr.SetMarkerSize(size)
+
+    return gr 
+
 def make_flux_graph_DAMPE2026_old_anal(filename, color, marker, size, alpha):
     #   <E>  Elo  Eup   y   ystat_lo  ystat_up  ysyst_lo  ysyst_up  yerrtot_lo  yerrtot_up \n
     Emean    = np.loadtxt(filename, skiprows=0, usecols=(0,), unpack=True)
@@ -170,14 +207,25 @@ def make_flux_graph_from_ROOT(filename, histname, color, marker, size, alpha):
 if __name__ == '__main__':
 
     file_DAMPE2024 = 'TXT_FILES/DAMPE_p+He_72M26.dat'
-    gr_DAMPE2024, gr_DAMPE2024_sys, gr_DAMPE2024_sys_had = make_flux_graph_DAMPE2024(file_DAMPE2024, kRed+1, 20, 1.3, 2.6)
+    gr_DAMPE2024, gr_DAMPE2024_sys, gr_DAMPE2024_sys_had = make_flux_graph_DAMPE2024(file_DAMPE2024, kRed+1, 24, 1.3, 2.6)
 
     file_DAMPE2026_oldskim = 'LOAD_2024/DAMPE_p+He_120M_PLOT.dat'
-    gr_DAMPE2026_oldskim = make_flux_graph_DAMPE2026_old_anal(file_DAMPE2026_oldskim, kGreen+1, 20, 1.3, 2.6)
+    gr_DAMPE2026_oldskim = make_flux_graph_DAMPE2026_old_anal(file_DAMPE2026_oldskim, kGreen+1, 24, 1.3, 2.6)
 
     #file_DAMPE2026 = 'TXT_FILES/flux_spectrum_pHe_2026_MLionsv3_2e5sigmaLow_6sigmaUp_new_smooth_PLOT.dat'
-    file_DAMPE2026 = 'TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_MLionsv3_2e5sigmaLow_6sigmaUp_TH1D_noCut02_smooth_PLOT.dat'
+    #file_DAMPE2026 = 'TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_MLionsv3_2e5sigmaLow_6sigmaUp_TH1D_noCut02_smooth_PLOT.dat'
+    file_DAMPE2026_wSTK = 'TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_MLionsv3_2e5sigmaLow_6sigmaUp_TH1D_noCut02_STKvertSel_smooth_wPHe_kernel_PLOT.dat'
+    gr_DAMPE2026_wSTK = make_flux_graph_DAMPE2026(file_DAMPE2026_wSTK, kGreen+1, 24, 1.3, 2.6)
+
+    file_DAMPE2026 = 'TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_MLionsv3_2e5sigmaLow_6sigmaUp_TH1D_noCut02_smooth_wPHe_kernel_PLOT.dat'
     gr_DAMPE2026 = make_flux_graph_DAMPE2026(file_DAMPE2026, kRed+1, 24, 1.3, 2.6)
+
+    #file_DAMPE2026_PSDprog = 'TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_MLionsv3_2e5sigmaLow_6sigmaUp_TH1D_noCut02_smooth_PSDprogr_wPHe_kernel_PLOT.dat'
+    file_DAMPE2026_PSDprog = 'TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_MLionsv3_2e5sigmaLow_6sigmaUp_TH1D_noCut02_smooth_PSDprogr_STKvert_wPHe_kernel_PLOT.dat'
+    gr_DAMPE2026_PSDprog = make_flux_graph_DAMPE2026(file_DAMPE2026_PSDprog, kRed+1, 20, 1.3, 2.6)
+
+    file_DAMPE2026_72m = 'TXT_FILES/flux_spectrum_pHe_2026_Orb72Month_MLionsv3_2e5sigmaLow_6sigmaUp_TH1D_noCut02_STKvertSel_smooth_wPHe_kernel_PLOT.dat'
+    gr_DAMPE2026_72m = make_flux_graph_DAMPE2026(file_DAMPE2026_72m, kGreen+1, 20, 1.3, 2.6)
 
     #file_DAMPE2026_all = 'TXT_FILES/flux_spectrum_pHe_2026_MLionsv3_2e5sigmaLow_6sigmaUp_new_smooth.dat'
     #file_DAMPE2026_all = 'TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_except25low_MLionsv3_2e5sigmaLow_6sigmaUp_new_smooth.dat'
@@ -189,6 +237,10 @@ if __name__ == '__main__':
 
     file_DAMPE2026_wSTKvert2 = 'TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_MLionsv3_2e5sigmaLow_6sigmaUp_TH1D_noCut02_STKvertSel_smooth_wPHe_kernel.dat'
     gr_DAMPE2026_wSTKvert2 = make_flux_graph_DAMPE2026(file_DAMPE2026_wSTKvert2, kMagenta+1, 20, 1.3, 2.6)
+
+    filename_GenevaP  = 'TXT_FILES/DAMPE_p_2026_pHePaperDraft.txt'
+    filename_GenevaHe = 'TXT_FILES/DAMPE_He_2026_pHePaperDraft.txt'
+    gr_DAMPE2026_pHe_Geneva = make_flux_graph_pHe(filename_GenevaP, filename_GenevaHe, kGreen+1, 21, 1.3, 2.6)
 
     #file_DAMPE2026_Irene = 'ROOT_FILES/unfold_result_2016-25_pHe_SampleTarget_fullSimu_IRENE_smooth.root'
     #gr_DAMPE2026_Irene = make_flux_graph_from_ROOT(file_DAMPE2026_Irene, 'flux_pow', kMagenta+1, 21, 1.3, 2.6)
@@ -250,9 +302,14 @@ if __name__ == '__main__':
     gr_DAMPE2024_sys.Draw("E3 SAME")
     gr_LHAASO_EPOSLHC_sys.Draw("E3 SAME")
     gr_DAMPE2024.Draw("P SAME")
+
+    gr_DAMPE2026_pHe_Geneva.Draw("P SAME")
     
     #gr_DAMPE2026_COR.Draw("P SAME")
-    gr_DAMPE2026.Draw("P SAME")
+    #gr_DAMPE2026_72m.Draw("P SAME")
+    #gr_DAMPE2026.Draw("P SAME")
+    gr_DAMPE2026_PSDprog.Draw("P SAME")
+    #gr_DAMPE2026_wSTK.Draw("P SAME")
     #gr_DAMPE2026_all.Draw("P SAME")
     #gr_DAMPE2026_first6years.Draw("P SAME")
     #gr_DAMPE2026_last4years.Draw("P SAME")
@@ -265,13 +322,13 @@ if __name__ == '__main__':
 
     #gr_DAMPE2026_Irene.Draw("P SAME")
     #gr_DAMPE2026_noCuts.Draw("P SAME")
-    gr_DAMPE2026_oldskim.Draw("P SAME")
-    gr_DAMPE2026_wSTKvert.Draw("P SAME")
-    gr_DAMPE2026_wSTKvert2.Draw("P SAME")
+    #gr_DAMPE2026_oldskim.Draw("P SAME")
+    #gr_DAMPE2026_wSTKvert.Draw("P SAME")
+    #gr_DAMPE2026_wSTKvert2.Draw("P SAME")
 
     # ------------------- LEGEND
 
-    leg = TLegend(0.17, 0.72, 0.42, 0.9)  # x1,y1,x2,y2 in NDC pad1
+    leg = TLegend(0.17, 0.69, 0.42, 0.9)  # x1,y1,x2,y2 in NDC pad1
     leg.SetBorderSize(0)
     leg.SetFillStyle(0)
     leg.SetTextSize(0.023)
@@ -280,11 +337,15 @@ if __name__ == '__main__':
     leg.AddEntry(gr_DAMPE2024, "p+He DAMPE (PRL 2024)", "PE")
     leg.AddEntry(gr_DAMPE2024_sys,"ana. error (PRL 2024)","f")
     leg.AddEntry(gr_DAMPE2024_sys_had,"ana. #oplus had. error (PRL 2024)","f")
-    leg.AddEntry(gr_DAMPE2026, "p+He DAMPE (this work - in progress) ", "PE")
+
+    leg.AddEntry(gr_DAMPE2026_pHe_Geneva, "#Phi_{p} + #Phi_{He} DAMPE (2026) ", "PE")
+    #leg.AddEntry(gr_DAMPE2026, "p+He DAMPE (this work - in progress) ", "PE")
+    leg.AddEntry(gr_DAMPE2026_PSDprog, "p+He DAMPE (this work - preliminary) ", "PE")
+    #leg.AddEntry(gr_DAMPE2026_72m, "p+He DAMPE (72 months) ", "PE")
     #leg.AddEntry(gr_DAMPE2026_Irene, "p+He DAMPE (Irene's skim) ", "PE")
     #leg.AddEntry(gr_DAMPE2026_noCuts, "p+He DAMPE (w/o cut02 and cut05) ", "PE")
-    leg.AddEntry(gr_DAMPE2026_oldskim, "p+He DAMPE (old analysis, 10 years) ", "PE")
-    leg.AddEntry(gr_DAMPE2026_wSTKvert, "p+He DAMPE (w STK vertex, wPHe) ", "PE")
+    #leg.AddEntry(gr_DAMPE2026_oldskim, "p+He DAMPE (old analysis, 10 years) ", "PE")
+    #leg.AddEntry(gr_DAMPE2026_wSTKvert2, "p+He DAMPE (w STK vertex, wPHe-kernel) ", "PE")
     leg.Draw()
 
     
@@ -313,8 +374,8 @@ if __name__ == '__main__':
 
     cc.Update()
 
-    cc.SaveAs('PLOTS/flux_pHe_update2026_cfrLHAASO_all_comparison_oldskim_wPHe2.pdf')
-    cc.SaveAs('PLOTS/flux_pHe_update2026_cfrLHAASO_all_comparison_oldskim_wPHe2.png')
+    cc.SaveAs('PLOTS/flux_pHe_update2026_cfrLHAASO_comparison_wPHe_kernel_wPSDprog_STKvert_wGeneva_3.pdf')
+    cc.SaveAs('PLOTS/flux_pHe_update2026_cfrLHAASO_comparison_wPHe_kernel_wPSDprog_STKvert_wGeneva_3.png')
 
     raw_input("Press enter..")
 

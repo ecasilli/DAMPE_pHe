@@ -308,6 +308,7 @@ TCut cutEt = "MC_EnergyT>20.";
 
 // Simple average
 TString PSDcharge = "( (((TMath::Sign(1.,PSD_ChargeY0)+1.)/2.)*PSD_ChargeY0)+(((TMath::Sign(1.,PSD_ChargeY1)+1.)/2.)*PSD_ChargeY1)+(((TMath::Sign(1.,PSD_ChargeX0)+1.)/2.)*PSD_ChargeX0)+(((TMath::Sign(1.,PSD_ChargeX1)+1.)/2.)*PSD_ChargeX1) ) / ( ((TMath::Sign(1.,PSD_ChargeY0)+1.)/2.)+((TMath::Sign(1.,PSD_ChargeY1)+1.)/2.)+((TMath::Sign(1.,PSD_ChargeX0)+1.)/2.)+((TMath::Sign(1.,PSD_ChargeX1)+1.)/2.) )";
+//TString PSDcharge = "PSD_Global_Charge";
 
 // HELIUM
 TString HeMPVf= "(1.88586+(0.185264*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3))+(-0.0867115*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**2)+(0.0200701*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**3)+(-0.000810826*log10(BGO_EnergyG_QuenchSatCorr_ML_ions_v3)**4) )";
@@ -392,13 +393,13 @@ TCut ctot_00   =bgo_acc*cut06*cut00;
 TCut ctot_01   =bgo_acc*cut06*cut00*cut01;
 TCut ctot_05   =bgo_acc*cut06*cut00*cut01*cut05;
 TCut ctot_SpCut=bgo_acc*cut06*cut00*cut01*cut05*SpCut;
-//TCut ctot      =bgo_acc*cut06*cut00*cut01*cut05*SpCut*Cut_PHe_MCCor6;
-TCut ctot      =bgo_acc*cut06*cut00*cut01*cut05*SpCut*Cut_PHe_New;
+TCut ctot      =bgo_acc*cut06*cut00*cut01*cut05*SpCut*Cut_PHe_MCCor6;
+//TCut ctot      =bgo_acc*cut06*cut00*cut01*cut05*SpCut*Cut_PHe_New;
 
 //TCut ctot=bgo_valid*bgo_acceptance*cut00*cut01*cut02*cut05*cut06*SpCut*Cut_PHe_MCCor6;
 //TCut ctot=cutNtrack*cut00*cut01*cut02*cut05*cut06*SpCut*Cut_PHe_MCCor6;
 
-TFile *fout = new TFile("ROOT_FILES/PHe_MC_p_He_5PeV_unfolding_6binperdecade_2e5sigmaLow_6sigmaUp_noCut02_STKvertSel_wPHe.root","RECREATE");
+TFile *fout = new TFile("ROOT_FILES/PHe_MC_p_He_5PeV_unfolding_6binperdecade_2e5sigmaLow_6sigmaUp_noCut02_wPHe.root","RECREATE");
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

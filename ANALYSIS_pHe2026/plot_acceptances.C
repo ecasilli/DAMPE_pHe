@@ -43,15 +43,16 @@ void plot_acceptances() {
     };
 
     // === Caricamento istogrammi ===
-    const char *base = "ROOT_FILES/unfold_results_pHe_2026_Orb120Month_except25low_MLionsv3_2e5sigmaLow_6sigmaUp_new_noCut02_noCut05";
+    //const char *base = "ROOT_FILES/unfold_results_pHe_2026_Orb120Month_except25low_MLionsv3_2e5sigmaLow_6sigmaUp_new_noCut02_noCut05";
+    const char *base = "ROOT_FILES/unfold_results_pHe_2026_Orb120Month_MLionsv3_2e5sigmaLow_6sigmaUp_TH1D_noCut02_smooth_PSDprogr_wPHe_kernel";
 
-    TH1D *hall      = LoadHist(Form("%s_all.root",  base), "hall");
-    TH1D *hcut00    = LoadHist(Form("%s_cut00.root",  base), "hcut00");
-    TH1D *hcut01    = LoadHist(Form("%s_cut01.root",  base), "hcut01");
+    //TH1D *hall      = LoadHist(Form("%s_all.root",  base), "hall");
+    //TH1D *hcut00    = LoadHist(Form("%s_cut00.root",  base), "hcut00");
+    //TH1D *hcut01    = LoadHist(Form("%s_cut01.root",  base), "hcut01");
     //TH1D *hcut02    = LoadHist(Form("%s_cut02.root",  base), "hcut02");
     //TH1D *hcut05    = LoadHist(Form("%s_cut05.root",  base), "hcut05");
-    TH1D *hcut06    = LoadHist(Form("%s_cut06.root",  base), "hcut06");
-    TH1D *hcutSpCut = LoadHist(Form("%s_SpCut.root",  base), "hcutSpCut");
+    //TH1D *hcut06    = LoadHist(Form("%s_cut06.root",  base), "hcut06");
+    //TH1D *hcutSpCut = LoadHist(Form("%s_SpCut.root",  base), "hcutSpCut");
     TH1D *hcutChSel = LoadHist(Form("%s.root", base), "hcutChSel"); 
 
     // === Stile comune ===
@@ -62,38 +63,38 @@ void plot_acceptances() {
         h->SetStats(0);
     };
 
-    SetStyle(hall,      kBlack);
-    SetStyle(hcut00,    kCyan+1);
+    //SetStyle(hall,      kBlack);
+    //SetStyle(hcut00,    kCyan+1);
     //SetStyle(hcut01,  col2);
     //SetStyle(hcut02,    46);
     //SetStyle(hcut05,    col2);
-    SetStyle(hcut06,    kBlack);
-    SetStyle(hcutSpCut, col4);
+    //SetStyle(hcut06,    kBlack);
+    //SetStyle(hcutSpCut, col4);
     SetStyle(hcutChSel, 9);
 
     // === Titoli ===
-    if (hcut00) {
-        hcut00->SetTitle(" ");
-        hcut00->GetXaxis()->SetTitle("MC true energy (GeV)");
-        hcut00->GetYaxis()->SetTitle("Acceptance (m^{2} sr)");
-        hcut00->GetYaxis()->SetTitleOffset(1.4);
-        hcut00->GetXaxis()->SetTitleSize(0.045);
-        hcut00->GetYaxis()->SetTitleSize(0.045);
-        hcut00->GetXaxis()->SetLabelSize(0.040);
-        hcut00->GetYaxis()->SetLabelSize(0.040);
-        hcut00->GetYaxis()->SetRangeUser(0.,0.30);
+    if (hcutChSel) {
+        hcutChSel->SetTitle(" ");
+        hcutChSel->GetXaxis()->SetTitle("MC true energy (GeV)");
+        hcutChSel->GetYaxis()->SetTitle("Acceptance (m^{2} sr)");
+        hcutChSel->GetYaxis()->SetTitleOffset(1.4);
+        hcutChSel->GetXaxis()->SetTitleSize(0.045);
+        hcutChSel->GetYaxis()->SetTitleSize(0.045);
+        hcutChSel->GetXaxis()->SetLabelSize(0.040);
+        hcutChSel->GetYaxis()->SetLabelSize(0.040);
+        hcutChSel->GetYaxis()->SetRangeUser(0.,0.12);
     }
 
     // === Disegno ===
-    if (hcut00)    hcut00->Draw("HIST");
+    //if (hcut00)    hcut00->Draw("HIST");
     //if (hall)      hall->Draw("HIST same");
     //if (hcut01)    hcut01->Draw("HIST same");
     //if (hcut02)    hcut02->Draw("HIST same");
     //if (hcut05)    hcut05->Draw("HIST same");
-    if (hcut06)    hcut06->Draw("HIST same");
-    if (hcutSpCut) hcutSpCut->Draw("HIST same");
-    if (hcutChSel) hcutChSel->Draw("HIST same");
-
+    //if (hcut06)    hcut06->Draw("HIST same");
+    //if (hcutSpCut) hcutSpCut->Draw("HIST same");
+    if (hcutChSel) hcutChSel->Draw("HIST ");
+/*
     // === Legenda ===
     TLegend *legend = new TLegend(0.18, 0.62, 0.58, 0.88);
     legend->SetTextSize(0.028);
@@ -112,12 +113,12 @@ void plot_acceptances() {
     if (hcutChSel) legend->AddEntry(hcutChSel, "Charge selection",                                    "l");
 
     legend->Draw();
-
+*/
     c1->RedrawAxis();
 
     // === Salvataggio ===
-    c1->SaveAs("PLOTS/partial_acceptances_perCut_noCut02_noCut05_2.pdf");
-    c1->SaveAs("PLOTS/partial_acceptances_perCut_noCut02_noCut05_2.png");
+    c1->SaveAs("PLOTS/partial_acceptances_smooth_PSDprogr_wPHe_kernel.pdf");
+    c1->SaveAs("PLOTS/partial_acceptances_smooth_PSDprogr_wPHe_kernel.png");
 
     ::Info("plot_acceptances", "Plot salvato con successo.");
 }

@@ -401,10 +401,16 @@ Starting loop over 396798711 entries...
   Processing entry 395000000 / 396798711
   Processing entry 396000000 / 396798711
 Loop finished.
-TFile**		ROOT_FILES/PHe_skim_Orb120Month_6binperdecade_2e5sigmaLow_6sigmaUp_new_noCut02_STKvertSel.root	
- TFile*		ROOT_FILES/PHe_skim_Orb120Month_6binperdecade_2e5sigmaLow_6sigmaUp_new_noCut02_STKvertSel.root	
-  OBJ: TH1D	h1SelBGO_orb	Selected(E_bgo) orbital : 0 at: 0x1f40850
-  OBJ: TH1D	h1SelBGO_orb_v3	Selected(E_bgo) orbital : 0 at: 0x1f41160
+Eventi tot: 396798711
+Eventi tot sopra 200 GeV: 13023951
+Eventi con HET: 367593447
+Eventi con HET sopra 200 GeV: 12604412
+Eventi sopra 200 GeV: 4072341
+Eventi sopra 200 TeV: 35
+TFile**		ROOT_FILES/PHe_skim_Orb120Month_6binperdecade_2e5sigmaLow_6sigmaUp_new_noCut02_PSDprogr.root	
+ TFile*		ROOT_FILES/PHe_skim_Orb120Month_6binperdecade_2e5sigmaLow_6sigmaUp_new_noCut02_PSDprogr.root	
+  OBJ: TH1D	h1SelBGO_orb	Selected(E_bgo) orbital : 0 at: 0x1528390
+  OBJ: TH1D	h1SelBGO_orb_v3	Selected(E_bgo) orbital : 0 at: 0x1528ca0
   KEY: TH1D	h1SelBGO_orb;1	Selected(E_bgo) orbital
   KEY: TH1D	h1SelBGO_orb_v3;1	Selected(E_bgo) orbital
 End script.
