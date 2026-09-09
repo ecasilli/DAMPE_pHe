@@ -270,6 +270,19 @@ cout << "Eventi con HET sopra 200 GeV: " << count2a << endl;
 cout << "Eventi sopra 200 GeV: " << count << endl;
 cout << "Eventi sopra 200 TeV: " << count1 << endl;
 
+/*
+NOTE SCRITTE DURANTE COSPAR:
+Paul usa una carica progressiva su STK, escludendo i piani che hanno uno scarto maggiore di 0.4
+considerando la media di ciascun piano, se maggiore di 0.5 (carica STK convertita dagli ADC, se ho ben capito)
+--> anche perché altrimenti non ha senso...
+Per la correzione di smearing STK invece fa una correzione di shift costante.
+
+
+Anche per la carica PSD (sempre progressiva) usa un criterio di scarto che però non è uguale
+ma è tipo una finestra asimettrica (che ne so, -0.25 , +0.65 o qualcosa del genere )
+Farlo "simmetrico" non dovrebbe cambiare
+*/
+
 
 // =============================
 // ----- Salvataggio -----------

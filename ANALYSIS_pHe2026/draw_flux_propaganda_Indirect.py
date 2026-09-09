@@ -79,6 +79,43 @@ def make_flux_graph_DAMPE2026(filename, color, marker, size, alpha):
 
     return gr 
 
+def make_flux_graph_pHe(filenameP, filenameHe, color, marker, size, alpha):
+    # Qty   <E>  Elo  Eup   y   ystat_lo  ystat_up  ysyst_lo  ysyst_up  yerrtot_lo 
+    EmeanP       = np.loadtxt(filenameP, skiprows=2, usecols=(1,), unpack=True)
+    Flux_2P      = np.loadtxt(filenameP, skiprows=2, usecols=(4,), unpack=True)
+    Flux_stat_loP= np.loadtxt(filenameP, skiprows=2, usecols=(5,), unpack=True)
+    Flux_stat_upP= np.loadtxt(filenameP, skiprows=2, usecols=(6,), unpack=True)
+
+    FluxP    = (Flux_2P) * EmeanP**alpha
+    Flux_err_loP= (Flux_stat_loP) * EmeanP**alpha
+    Flux_err_upP= (Flux_stat_upP) * EmeanP**alpha
+
+
+    EmeanHe       = np.loadtxt(filenameHe, skiprows=2, usecols=(1,), unpack=True)
+    Flux_2He      = np.loadtxt(filenameHe, skiprows=2, usecols=(4,), unpack=True)
+    Flux_stat_loHe= np.loadtxt(filenameHe, skiprows=2, usecols=(5,), unpack=True)
+    Flux_stat_upHe= np.loadtxt(filenameHe, skiprows=2, usecols=(6,), unpack=True)
+
+    FluxHe    = (Flux_2He) * EmeanHe**alpha
+    Flux_err_loHe= (Flux_stat_loHe) * EmeanHe**alpha
+    Flux_err_upHe= (Flux_stat_upHe) * EmeanHe**alpha
+
+    null = np.zeros(len(EmeanP))
+
+    assert np.allclose(EmeanP, EmeanHe, rtol=1e-3)
+
+    Flux_sum = FluxP + FluxHe
+    Stat_sum_lo = np.sqrt(Flux_err_loP**2 + Flux_err_loHe**2)
+    Stat_sum_up = np.sqrt(Flux_err_upP**2 + Flux_err_upHe**2)
+
+    gr = TGraphAsymmErrors(len(EmeanP), EmeanP, Flux_sum, null, null, Stat_sum_lo, Stat_sum_up)
+    gr.SetLineColor(color)
+    gr.SetMarkerColor(color)
+    gr.SetMarkerStyle(marker)
+    gr.SetMarkerSize(size)
+
+    return gr 
+
 def make_flux_graph_LHAASO(filename, color, marker, size, alpha):
     logEmin    = np.loadtxt(filename, skiprows=1, usecols=(0,), unpack=True)
     logEmax    = np.loadtxt(filename, skiprows=1, usecols=(1,), unpack=True)
@@ -211,7 +248,7 @@ def make_flux_graph_KASCADE_SIBYLL(filename, color, marker, size, alpha):
 
     return gr
 
-def make_flux_graph_EASTOP(color=28, marker=30, size=2.2, alpha=2.6):
+def make_flux_graph_EASTOP(color=28, marker=25, size=1.3, alpha=2.6):
     Emean = np.array([80e3], dtype='double')
     Flux_in = np.array([1.80e-09], dtype='double')
     Err_in = np.array([0.44e-09], dtype='double')
@@ -246,6 +283,10 @@ if __name__ == '__main__':
     file_DAMPE2026_PSDprog = 'TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_MLionsv3_2e5sigmaLow_6sigmaUp_TH1D_noCut02_smooth_PSDprogr_wPHe_kernel_PLOT.dat'
     gr_DAMPE2026_PSDprog = make_flux_graph_DAMPE2026(file_DAMPE2026_PSDprog, kRed+1, 20, 1.3, 2.6)
 
+    filename_GenevaP  = 'TXT_FILES/DAMPE_p_2026_pHePaperDraft.txt'
+    filename_GenevaHe = 'TXT_FILES/DAMPE_He_2026_pHePaperDraft.txt'
+    gr_DAMPE2026_pHe_Geneva = make_flux_graph_pHe(filename_GenevaP, filename_GenevaHe, kRed+2, 32, 1.3, 2.6)
+
     '''
     file_DAMPE2026_COR = 'TXT_FILES/flux_spectrum_pHe_2026_MLionsv3_2e5sigmaLow_6sigmaUp_new_smooth_CORR_PLOT.dat'
     gr_DAMPE2026_COR = make_flux_graph_DAMPE2026(file_DAMPE2026_COR, kGreen, 24, 1.3, 2.6)
@@ -267,10 +308,10 @@ if __name__ == '__main__':
     gr_LHAASO_SIBYLL, gr_LHAASO_SIBYLL_sys = make_flux_graph_LHAASO(file_LHAASO_SIBYLL, kBlue+1, 26, 1.3, 2.6)
 
     file_ARGO = '../pHe2024/SPECTRUM/Indirect/ARGO2New.txt'
-    gr_ARGO, gr_ARGO_sys_up, gr_ARGO_sys_down = make_flux_graph_ARGO(file_ARGO, 42, 26, 1.4, 2.6)
+    gr_ARGO, gr_ARGO_sys_up, gr_ARGO_sys_down = make_flux_graph_ARGO(file_ARGO, kOrange-8, 26, 1.4, 2.6)
 
     file_HAWC = '../pHe2024/SPECTRUM/Indirect/HAWC2022.txt'
-    gr_HAWC, gr_HAWC_sys_up, gr_HAWC_sys_down = make_flux_graph_HAWC(file_HAWC, kGray+2, 32, 1.4, 2.6)
+    gr_HAWC, gr_HAWC_sys_up, gr_HAWC_sys_down = make_flux_graph_HAWC(file_HAWC, kGray+2, 30, 1.4, 2.6)
 
     file_KASCADE_QGSJet = '../pHe2024/SPECTRUM/Indirect/KASCADE_QGSjet01.txt'
     gr_KASCADE_QGSJet = make_flux_graph_KASCADE_QGSJet(file_KASCADE_QGSJet, kGreen+2, 27, 2.0, 2.6)
@@ -330,6 +371,9 @@ if __name__ == '__main__':
     gr_LHAASO_SIBYLL.Draw("P SAME")
 
     gr_DAMPE2024.Draw("P SAME")
+    
+    gr_DAMPE2026_pHe_Geneva.Draw("P SAME")
+
     #gr_DAMPE2026_COR.Draw("P SAME")
     #gr_DAMPE2026.Draw("P SAME")
     gr_DAMPE2026_PSDprog.Draw("P SAME")
@@ -340,11 +384,11 @@ if __name__ == '__main__':
 
     # ------------------- LEGEND
 
-    leg = TLegend(0.20,0.20,0.44,0.65)  
+    leg = TLegend(0.20,0.19,0.44,0.72)  
     leg.SetBorderSize(0)
     leg.SetFillStyle(0)
     leg.SetTextSize(0.024)
-    leg.SetHeader("p+He indirect measurements")
+    leg.SetHeader("  p+He ")#indirect measurements")
     leg.SetFillColor(0)
 
 
@@ -353,9 +397,13 @@ if __name__ == '__main__':
     leg.AddEntry(gr_HAWC,"HAWC (2022)","ep")
     leg.AddEntry(gr_KASCADE_QGSJet,"KASCADE QGSjet01 (2005)","ep")
     leg.AddEntry(gr_KASCADE_SIBYLL,"KASCADE SIBYLL-2.1 (2005)","ep")
+    
     leg.AddEntry(gr_DAMPE2024,"DAMPE (PRL 2024)","ep")
+    leg.AddEntry(gr_DAMPE2026_pHe_Geneva, "#Phi_{p} + #Phi_{He} DAMPE (2026 - preliminary) ", "PE")
+
     #leg.AddEntry(gr_DAMPE2026,"DAMPE (this work 2026 - in progress)","ep")
     leg.AddEntry(gr_DAMPE2026_PSDprog,"DAMPE (this work - preliminary)","ep")
+    
     
     leg.AddEntry(gr_LHAASO_QGSJET, "LHAASO (QGSJET-II-04, PRL 2026)", "EP")
     leg.AddEntry(gr_LHAASO_EPOSLHC,"LHAASO (EPOS-LHC, PRL 2026)", "EP")
@@ -366,9 +414,9 @@ if __name__ == '__main__':
 
     cc.Update()
 
-    cc.SaveAs('PLOTS/flux_pHe_update2026_cfrLHAASO_indirect_smooth_PSDprogr.pdf')
-    cc.SaveAs('PLOTS/flux_pHe_update2026_cfrLHAASO_indirect_smooth_PSDprogr.png')
-    cc.SaveAs('PLOTS/flux_pHe_update2026_cfrLHAASO_indirect_smooth_PSDprogr.eps')
+    cc.SaveAs('PLOTS/flux_pHe_update2026_COSPAR.pdf')
+    cc.SaveAs('PLOTS/flux_pHe_update2026_COSPAR.png')
+    cc.SaveAs('PLOTS/flux_pHe_update2026_COSPAR.eps')
 
     raw_input("Press enter..")
 

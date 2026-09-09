@@ -98,17 +98,24 @@ def make_flux_graph_pHe(filenameP, filenameHe, color, marker, size, alpha):
 
     FluxHe    = (Flux_2He) * EmeanHe**alpha
     Flux_err_loHe= (Flux_stat_loHe) * EmeanHe**alpha
-    Flux_err_uphe= (Flux_stat_upHe) * EmeanHe**alpha
+    Flux_err_upHe= (Flux_stat_upHe) * EmeanHe**alpha
 
     null = np.zeros(len(EmeanP))
 
     assert np.allclose(EmeanP, EmeanHe, rtol=1e-3)
 
     Flux_sum = FluxP + FluxHe
-    Stat_sum_lo = np.sqrt(Flux_err_loP**2 + Flux_stat_loHe**2)
-    Stat_sum_up = np.sqrt(Flux_err_upP**2 + Flux_stat_upHe**2)
+    Stat_sum_lo = np.sqrt(Flux_err_loP**2 + Flux_err_loHe**2)
+    Stat_sum_up = np.sqrt(Flux_err_upP**2 + Flux_err_upHe**2)
 
-    gr = TGraphAsymmErrors(len(EmeanP), EmeanP, Flux_sum, null, null, Stat_sum_lo, Stat_sum_up)
+    Flux_stat_pHe_lo = np.sqrt( Flux_stat_loP**2 + Flux_stat_loHe**2)
+    Flux_stat_pHe_up = np.sqrt( Flux_stat_upP**2 + Flux_stat_upHe**2)
+    Flux_err_pHe_lo = (Flux_stat_pHe_lo) * EmeanP**alpha
+    Flux_err_pHe_up = (Flux_stat_pHe_up) * EmeanP**alpha
+
+
+    #gr = TGraphAsymmErrors(len(EmeanP), EmeanP, Flux_sum, null, null, Stat_sum_lo, Stat_sum_up)
+    gr = TGraphAsymmErrors(len(EmeanP), EmeanP, Flux_sum, null, null, Flux_err_pHe_lo, Flux_err_pHe_up)
     gr.SetLineColor(color)
     gr.SetMarkerColor(color)
     gr.SetMarkerStyle(marker)
@@ -221,7 +228,7 @@ if __name__ == '__main__':
     gr_DAMPE2026 = make_flux_graph_DAMPE2026(file_DAMPE2026, kRed+1, 24, 1.3, 2.6)
 
     #file_DAMPE2026_PSDprog = 'TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_MLionsv3_2e5sigmaLow_6sigmaUp_TH1D_noCut02_smooth_PSDprogr_wPHe_kernel_PLOT.dat'
-    file_DAMPE2026_PSDprog = 'TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_MLionsv3_2e5sigmaLow_6sigmaUp_TH1D_noCut02_smooth_PSDprogr_STKvert_wPHe_kernel_PLOT.dat'
+    file_DAMPE2026_PSDprog = 'TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_MLionsv3_2e5sigmaLow_6sigmaUp_TH1D_noCut02_smooth_PSDprogr_wPHe_kernel_PLOT.dat'
     gr_DAMPE2026_PSDprog = make_flux_graph_DAMPE2026(file_DAMPE2026_PSDprog, kRed+1, 20, 1.3, 2.6)
 
     file_DAMPE2026_72m = 'TXT_FILES/flux_spectrum_pHe_2026_Orb72Month_MLionsv3_2e5sigmaLow_6sigmaUp_TH1D_noCut02_STKvertSel_smooth_wPHe_kernel_PLOT.dat'
@@ -374,8 +381,8 @@ if __name__ == '__main__':
 
     cc.Update()
 
-    cc.SaveAs('PLOTS/flux_pHe_update2026_cfrLHAASO_comparison_wPHe_kernel_wPSDprog_STKvert_wGeneva_3.pdf')
-    cc.SaveAs('PLOTS/flux_pHe_update2026_cfrLHAASO_comparison_wPHe_kernel_wPSDprog_STKvert_wGeneva_3.png')
+    cc.SaveAs('PLOTS/flux_pHe_update2026_cfrLHAASO_comparison_wPHe_kernel_wPSDprog_wGeneva_4.pdf')
+    cc.SaveAs('PLOTS/flux_pHe_update2026_cfrLHAASO_comparison_wPHe_kernel_wPSDprog_wGeneva_4.png')
 
     raw_input("Press enter..")
 

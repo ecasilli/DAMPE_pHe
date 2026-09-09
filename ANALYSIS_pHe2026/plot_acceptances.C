@@ -82,7 +82,7 @@ void plot_acceptances() {
         hcutChSel->GetYaxis()->SetTitleSize(0.045);
         hcutChSel->GetXaxis()->SetLabelSize(0.040);
         hcutChSel->GetYaxis()->SetLabelSize(0.040);
-        hcutChSel->GetYaxis()->SetRangeUser(0.,0.12);
+        hcutChSel->GetYaxis()->SetRangeUser(0.,0.08);
     }
 
     // === Disegno ===
