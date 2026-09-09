@@ -322,7 +322,16 @@ def main(args=None):
     file_skim_out = root_dir + '/' + oout_text_skim
     print file_skim_out
     tf_skim = TFile(file_skim_out, "RECREATE")
+    if not tf_skim or tf_skim.IsZombie():
+        print "ERROR: cannot open output file:", file_skim_out
+        return
+
+    tf_skim.cd()
     newtree = TTree("newtree", "test")
+
+    print "tf_skim =", tf_skim
+    print "Current directory:", gDirectory.GetName()
+    print "Current file:", gDirectory.GetFile().GetName()
 
     nlayer_psd = 2
     nlayer_bgo = 14
@@ -447,15 +456,46 @@ def main(args=None):
     # -----------------------------
     # Input chains
     # -----------------------------
+    print "ROOT version:", ROOT.gROOT.GetVersion()
+
     dmpch = DmpChain("CollectionTree")
     metach = TChain("RunMetadataTree")
 
+    '''
     files = [f.replace("\n", "") for f in open(inp, 'r').readlines()]
     for ifile, f in enumerate(files):
         DMPSW.IOSvc.Set("InData/Read" if ifile == 0 else "InData/ReadMore", f)
         dmpch.Add(f)
         metach.Add(f)
         print ifile, f
+    '''
+    files = [f.strip() for f in open(inp)]
+    for ifile, f in enumerate(files):
+        print "\n=========================="
+        print "Testing:", f
+
+        tf = TFile.Open(f)
+
+        if tf and not tf.IsZombie():
+            print "ROOT Open: OK"
+            print "IsZombie =", tf.IsZombie()
+            tf.Close()
+        else:
+            print "ROOT Open: FAILED"
+            if tf:
+                tf.Close()
+            continue
+
+        print "Adding to DmpChain..."
+
+        DMPSW.IOSvc.Set(
+            "InData/Read" if ifile == 0 else "InData/ReadMore",
+            f
+        )
+
+        dmpch.Add(f)
+        metach.Add(f)
+
 
     has_quenching = is_mc and has_branch(dmpch, "DmpEvtBgoQuenchRec")
     print "BGO Quenching:", "ON" if has_quenching else "OFF"
@@ -477,6 +517,8 @@ def main(args=None):
     # -----------------------------
     # Histograms
     # -----------------------------
+    tf_skim.cd()
+
     h_terrestrial_lat_vs_long = TH2F("h_terrestrial_lat_vs_long", "h_terrestrial_lat_vs_long", 360, 0, 360, 180, -90, 90)
     cut_string = ['All', 'etot > 20 GeV ', 'BGO Acceptance', 'EratioLay', 'BGOLateral', 'SAA', 'STK-hits', 'PSD-hits']
     ncuts = len(cut_string)
@@ -1562,7 +1604,23 @@ def main(args=None):
 
     print "Wrong ID for MC ", wrong_id
     print "Events not passint the new BGO-STK match ", ntrack_newsel
+
+    #print "\n=== Before tf_skim.Write() ==="
+    #print "Current file:", gDirectory.GetFile().GetName()
+
+    #print "Objects in current directory:"
+    #gDirectory.GetList().Print()
+
+    tf_skim.cd()
+
+    print "\n=== Writing output ==="
+    print "Current file before Write:", gDirectory.GetFile().GetName()
+
     tf_skim.Write()
+    #print "\n=== After tf_skim.Write() ==="
+    #print "Keys in tf_skim:"
+    #tf_skim.GetListOfKeys().Print()
+
     tf_skim.Close()
 
     if opts.data:
