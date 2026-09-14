@@ -14,7 +14,7 @@ TString basePath;
 TString hostname = gSystem->HostName();
  
 if (hostname.Contains("cnaf")) {
-    basePath = "/storage/gpfs_data/dampe/users/SKIM_2026_pHe";
+    basePath = "/storage/gpfs_data/dampe/users/SKIM_2026";
 } else if (hostname.Contains("le.infn.it")) {
     basePath = "/nfs/argo/dampe/SKIM_2026_pHe";
 } else {

@@ -1,0 +1,77 @@
+
+Processing ChargeSelectionGraph.C...
+====================================
+Running ChargeSelectionGraph.C
+Date: 2026-09-11  15:12:01
+====================================
+
+ * * * * * * *    MPV    * * * * * * * 
+
+ FCN=167.478 FROM HESSE     STATUS=NOT POSDEF     35 CALLS         459 TOTAL
+                     EDM=6.82532e-09    STRATEGY= 1      ERR MATRIX NOT POS-DEF
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           9.88625e-01   8.65045e-05   2.35707e-07  -4.42196e+00
+   2  p1           1.66979e-02   6.55988e-05   9.36110e-09  -6.37309e+00
+   3  p2           1.36979e-02   4.28243e-05   5.42955e-09  -9.39679e+00
+   4  p3          -1.14983e-02   2.83585e-05   2.98544e-09  -1.25613e+01
+   5  p4           3.13886e-03   8.71010e-06   1.52552e-09  -4.21059e+00
+ FCN=526.166 FROM HESSE     STATUS=NOT POSDEF     31 CALLS         280 TOTAL
+                     EDM=2.56509e-09    STRATEGY= 1      ERR MATRIX NOT POS-DEF
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.07996e+00   6.70779e-04   2.57482e-07   4.33031e-01
+   2  p1          -1.46468e-01   6.01311e-04   1.13118e-07   5.60505e-01
+   3  p2           1.19006e-01   2.46281e-04   5.02705e-08   6.78042e-01
+   4  p3          -4.03108e-02   9.64593e-05   1.84714e-08   7.19353e-01
+   5  p4           5.93183e-03   1.63377e-05   5.70108e-09   5.32438e-01
+TString PMPVf= "(0.988625+(0.0166979*log10(BGO_EnergyG_SatCorr_ML_ions2))+(0.0136979*log10(BGO_EnergyG_SatCorr_ML_ions2)**2)+(-0.0114983*log10(BGO_EnergyG_SatCorr_ML_ions2)**3)+(0.00313886*log10(BGO_EnergyG_SatCorr_ML_ions2)**4) )";
+TString PMcMPVf= "(1.07996+(-0.146468*log10(BGO_EnergyG_SatCorr_ML_ions2))+(0.119006*log10(BGO_EnergyG_SatCorr_ML_ions2)**2)+(-0.0403108*log10(BGO_EnergyG_SatCorr_ML_ions2)**3)+(0.00593183*log10(BGO_EnergyG_SatCorr_ML_ions2)**4))";
+
+ * * * * * * *    Width    * * * * * * * 
+
+ FCN=401.669 FROM HESSE     STATUS=NOT POSDEF     39 CALLS         362 TOTAL
+                     EDM=4.40768e-11    STRATEGY= 1      ERR MATRIX NOT POS-DEF
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0          -1.52013e-02   1.06220e-04   2.52774e-08   9.71362e-02
+   2  p1           7.53179e-02   8.74313e-05   1.79572e-08   3.19510e-02
+   3  p2          -3.44289e-02   3.95479e-05   1.72038e-09   3.00716e-02
+   4  p3           6.56681e-03   2.65314e-05   9.18017e-10   9.00404e-02
+   5  p4           1.05438e-04   7.82631e-06   2.23235e-09  -5.34798e-01
+ FCN=203.212 FROM HESSE     STATUS=NOT POSDEF     37 CALLS         302 TOTAL
+                     EDM=1.77525e-15    STRATEGY= 1      ERR MATRIX NOT POS-DEF
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           4.40895e-03   4.91584e-04   1.05711e-07   5.33019e-04
+   2  p1           2.76405e-02   4.27409e-04   5.08679e-08   1.31722e-03
+   3  p2          -3.68363e-03   1.66144e-04   2.10022e-08   3.07192e-03
+   4  p3          -1.24546e-03   6.33927e-05   7.47128e-09   8.30251e-03
+   5  p4           8.30814e-04   1.14753e-05   2.35695e-09   2.36048e-02
+TString PWidthf = "(-0.0152013+(0.0753179*log10(BGO_EnergyG_SatCorr_ML_ions2))+(-0.0344289*log10(BGO_EnergyG_SatCorr_ML_ions2)**2)+(0.00656681*log10(BGO_EnergyG_SatCorr_ML_ions2)**3)+(0.000105438*log10(BGO_EnergyG_SatCorr_ML_ions2)**4))";
+TString PMcWidthf = "(0.00440895+(0.0276405*log10(BGO_EnergyG_SatCorr_ML_ions2))+(-0.00368363*log10(BGO_EnergyG_SatCorr_ML_ions2)**2)+(-0.00124546*log10(BGO_EnergyG_SatCorr_ML_ions2)**3)+(0.000830814*log10(BGO_EnergyG_SatCorr_ML_ions2)**4))";
+
+ * * * * * * *    Sigma    * * * * * * * 
+
+ FCN=517291 FROM MIGRAD    STATUS=CONVERGED      14 CALLS          15 TOTAL
+                     EDM=6.8679e-21    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           2.02488e-08   2.39182e-08   1.05356e-04   4.90003e-03
+ FCN=517291 FROM MIGRAD    STATUS=CONVERGED      10 CALLS          11 TOTAL
+                     EDM=1.37358e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           2.02488e-08   2.39182e-08   8.39974e-09  -6.92969e-03
+ FCN=5941.72 FROM MIGRAD    STATUS=CONVERGED      14 CALLS          15 TOTAL
+                     EDM=5.83815e-22    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           2.24763e-04   2.14095e-05   1.13966e-05   1.59605e-06
+ FCN=5941.72 FROM MIGRAD    STATUS=CONVERGED      11 CALLS          12 TOTAL
+                     EDM=5.83815e-22    STRATEGY= 1  ERROR MATRIX UNCERTAINTY  20.0 per cent
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           2.24763e-04   1.59577e-05  -6.46627e-16  -2.25716e-06
+TString PGSigmaf = "(2.02488e-08)";
+TString PMcGSigmaf = "(0.000224763)";

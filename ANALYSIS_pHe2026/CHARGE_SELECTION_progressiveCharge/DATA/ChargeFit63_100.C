@@ -358,7 +358,7 @@ void ChargeFit63_100()
 {
    PrintTimestamp("ChargeFit63_100.C");
  
-	TFile *InputFile = new TFile("../../ROOT_FILES/PHe_charge_Orb120Month_240bins_progressiveCharge.root");
+	TFile *InputFile = new TFile("../../ROOT_FILES/PHe_charge_Orb120Month_240bins_NewProgrCharge_asym_10sett26_nocut05.root");
 //	TFile *OutputFile = new TFile("HistoLanGausFit.root","RECREATE");
 //		TFile *OutputFile = new TFile("HistoLanGausFit.root","UPDATE");
 

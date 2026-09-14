@@ -2,46 +2,46 @@
 Processing ChargeFit100_158.C...
 ====================================
 Running ChargeFit100_158.C
-Date: 2026-07-21  16:31:10
+Date: 2026-09-11  10:31:09
 ====================================
 
  * * * * * * PROTON * * * * * * * 
 
- FCN=8925.16 FROM MIGRAD    STATUS=CONVERGED     190 CALLS         191 TOTAL
-                     EDM=3.68936e-09    STRATEGY= 1  ERROR MATRIX UNCERTAINTY   3.7 per cent
+ FCN=51600.1 FROM MIGRAD    STATUS=CONVERGED     236 CALLS         237 TOTAL
+                     EDM=7.51884e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
   EXT PARAMETER                                   STEP         FIRST   
   NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
-   1  Width        5.04385e-02   5.75483e-05  -1.61265e-06   3.56393e-02
-   2  MP           1.04344e+00   5.97370e-05   1.06055e-07  -7.42341e-01
-   3  Area         7.67670e+04   4.33406e+01  -1.50995e-07   1.79924e+00
-   4  GSigma       2.65746e-02   1.50657e-04   1.08089e-06   1.76927e-02
- FCN=8925.16 FROM MIGRAD    STATUS=CONVERGED      51 CALLS          52 TOTAL
-                     EDM=1.63273e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+   1  Width        5.50228e-02   6.12083e-05   9.21742e-05  -7.70544e-02
+   2  MP           1.03958e+00   6.15091e-05   7.90228e-06   2.29832e+00
+   3  Area         7.86249e+04   4.43438e+01   5.38733e-06   3.49139e-01
+   4  GSigma       1.23264e-02   2.56737e-04   1.88816e-04  -1.61957e-01
+ FCN=51600.1 FROM MIGRAD    STATUS=CONVERGED      50 CALLS          51 TOTAL
+                     EDM=6.06592e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
   EXT PARAMETER                                   STEP         FIRST   
   NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
-   1  Width        5.04385e-02   5.75415e-05   3.81621e-05  -1.12662e-02
-   2  MP           1.04344e+00   5.97150e-05   3.41586e-06   1.14830e-01
-   3  Area         7.67670e+04   4.33327e+01   2.23017e-06   3.31815e-01
-   4  GSigma       2.65746e-02   1.50618e-04   2.91206e-05  -6.62057e-02
-1.04344	5.9715e-05	0.0504385	5.75415e-05	0.0265746	0.000150618
-MPV_p - 2sigma: 0.929422
+   1  Width        5.50228e-02   6.12082e-05   9.21743e-05   1.34505e-01
+   2  MP           1.03958e+00   6.15090e-05   7.90228e-06  -5.24466e-01
+   3  Area         7.86249e+04   4.43438e+01   5.38733e-06  -2.82589e-01
+   4  GSigma       1.23264e-02   2.56737e-04   1.88814e-04  -8.77210e-02
+1.03958	6.1509e-05	0.0550228	6.12082e-05	0.0123264	0.000256737
+MPV_p - 2sigma: 0.926811
 
  * * * * * * HELIUM * * * * * * * 
 
- FCN=4449.07 FROM MIGRAD    STATUS=CONVERGED     244 CALLS         245 TOTAL
-                     EDM=1.48356e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+ FCN=2689.54 FROM MIGRAD    STATUS=CONVERGED     270 CALLS         271 TOTAL
+                     EDM=4.88994e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
   EXT PARAMETER                                   STEP         FIRST   
   NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
-   1  Width        6.03897e-02   1.05613e-04   1.99671e-05   1.67042e-01
-   2  MP           2.05271e+00   9.53144e-05   2.12762e-06   1.90239e+00
-   3  Area         7.91686e+04   4.51945e+01   1.59904e-06   3.21768e-01
-   4  GSigma       6.83419e-02   2.73778e-04   1.65655e-05   1.96579e-01
- FCN=4449.07 FROM MIGRAD    STATUS=CONVERGED      44 CALLS          45 TOTAL
-                     EDM=3.48152e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+   1  Width        8.13739e-02   1.06876e-04   9.23644e-06   4.37437e-01
+   2  MP           2.05298e+00   1.00694e-04   1.63707e-06  -1.87673e+00
+   3  Area         8.74248e+04   4.90310e+01   1.26377e-06  -5.50270e+00
+   4  GSigma       2.97717e-02   5.63229e-04   4.18151e-05   1.00835e-01
+ FCN=2689.54 FROM MIGRAD    STATUS=CONVERGED      47 CALLS          48 TOTAL
+                     EDM=8.39487e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
   EXT PARAMETER                                   STEP         FIRST   
   NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
-   1  Width        6.03897e-02   1.05613e-04   1.99673e-05  -1.30477e-01
-   2  MP           2.05271e+00   9.53144e-05   2.12763e-06   1.09325e-01
-   3  Area         7.91686e+04   4.51945e+01   1.59904e-06   8.86800e-01
-   4  GSigma       6.83419e-02   2.73778e-04   1.65654e-05  -1.36010e-01
-2.05271	9.53144e-05	0.0603897	0.000105613	0.0683419	0.000273778
+   1  Width        8.13739e-02   1.06876e-04   9.23634e-06  -2.01395e-01
+   2  MP           2.05298e+00   1.00694e-04   1.63707e-06  -3.16100e-01
+   3  Area         8.74248e+04   4.90310e+01   1.26377e-06  -1.22351e+00
+   4  GSigma       2.97717e-02   5.63230e-04   4.18191e-05  -2.56210e-02
+2.05298	0.000100694	0.0813739	0.000106876	0.0297717	0.00056323

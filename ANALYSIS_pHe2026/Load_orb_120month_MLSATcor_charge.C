@@ -3,17 +3,43 @@
 #include <stdlib.h>
 #include <fstream>
 #include <string>
+#include <vector>
 
 // =============================
 // ----- Helper function -------
 
 void addYear(TChain *skim, TString basePath, int year) {
-    skim->Add(basePath + TString::Format("/SKIM_2026_pHe/FLIGHT/skim_flight_002_010_%d_merged.root", year));
-    skim->Add(basePath + TString::Format("/SKIM_2026_pHe/FLIGHT/skim_flight_010_025_%d_merged.root", year));
-    skim->Add(basePath + TString::Format("/SKIM_2026_pHe/FLIGHT/skim_flight_025_050_%d_merged.root", year));
-    skim->Add(basePath + TString::Format("/SKIM_2026_pHe/FLIGHT/skim_flight_050_100_%d_merged.root", year));
-    skim->Add(basePath + TString::Format("/SKIM_2026_pHe/FLIGHT/skim_flight_100_500_%d_merged.root", year));
-    skim->Add(basePath + TString::Format("/SKIM_2026_pHe/FLIGHT/skim_flight_500_000_%d_merged.root", year));
+    skim->Add(basePath + TString::Format("/SKIM_2026/FLIGHT/skim_flight_002_010_%d_merged.root", year));
+    skim->Add(basePath + TString::Format("/SKIM_2026/FLIGHT/skim_flight_010_025_%d_merged.root", year));
+    skim->Add(basePath + TString::Format("/SKIM_2026/FLIGHT/skim_flight_025_050_%d_merged.root", year));
+    skim->Add(basePath + TString::Format("/SKIM_2026/FLIGHT/skim_flight_050_100_%d_merged.root", year));
+    skim->Add(basePath + TString::Format("/SKIM_2026/FLIGHT/skim_flight_100_500_%d_merged.root", year));
+    skim->Add(basePath + TString::Format("/SKIM_2026/FLIGHT/skim_flight_500_000_%d_merged.root", year));
+}
+
+Double_t GetPSDProgressiveCharge(const std::vector<Double_t>& q, Double_t dQmin, Double_t dQmax, Int_t &nLayersUsed) {
+    nLayersUsed = 0;
+
+    if (q.empty()) return -999.;
+
+    // Il primo layer valido viene sempre preso
+    Double_t sum = q[0];
+    nLayersUsed = 1;
+
+    for (size_t i=1; i < q.size(); ++i) {
+        Double_t dQ = q[i] - q[i-1];
+
+        if (dQ > dQmin && dQ < dQmax){
+            sum += q[i];
+            nLayersUsed++;
+        } 
+        else {
+            // ci fermiamo alla prima incopatibilità
+            break;
+        }
+    }
+
+    return sum / ((Double_t)nLayersUsed);
 }
 
 void Load_orb_120month_MLSATcor_charge()
@@ -185,11 +211,11 @@ TH1F* hArr[15] = {h01, h02, h03, h04, h05, h06, h07, h08,
 
 skim->SetBranchStatus("*", 0);
 skim->SetBranchStatus("BGO_HET",                        1);
-skim->SetBranchStatus("BGO_EnergyG",                    1);
-skim->SetBranchStatus("BGO_EnergyG_SatCorr_ML_ions_v3", 1);
-skim->SetBranchStatus("BGO_EneLay",                     1);
-skim->SetBranchStatus("BGO_cbgomax",                    1);
-skim->SetBranchStatus("BGO_cbgostk",                    1);
+//skim->SetBranchStatus("BGO_EnergyG",                    1);
+skim->SetBranchStatus("BGO_EnergyG_SatCorr_ML_ions2",   1); // new Energy correction (ML v5)
+//skim->SetBranchStatus("BGO_EneLay",                     1);
+//skim->SetBranchStatus("BGO_cbgomax",                    1);
+//skim->SetBranchStatus("BGO_cbgostk",                    1);
 skim->SetBranchStatus("PSD_ChargeY0",                   1);
 skim->SetBranchStatus("PSD_ChargeY1",                   1);
 skim->SetBranchStatus("PSD_ChargeX0",                   1);
@@ -197,25 +223,30 @@ skim->SetBranchStatus("PSD_ChargeX1",                   1);
 skim->SetBranchStatus("STKtrack_to_PSD_topY",           1);
 skim->SetBranchStatus("STKtrack_to_PSD_topX",           1);
 skim->SetBranchStatus("BGO_xtr",                        1);
-skim->SetBranchStatus("PSD_Global_Charge",              1);
+//skim->SetBranchStatus("PSD_Global_Charge",              1);
+
+skim->SetCacheSize(200 * 1024 * 1024);
+skim->AddBranchToCache("*", kTRUE);
 
 // =============================
 // ----- Branch addresses ------
 
 skim->SetBranchAddress("BGO_HET",                         &BGO_HET);
-skim->SetBranchAddress("BGO_EnergyG",                     &BGO_E);
-skim->SetBranchAddress("BGO_EnergyG_SatCorr_ML_ions_v3",  &BGO_E_corr);
+//skim->SetBranchAddress("BGO_EnergyG",                     &BGO_E);
+skim->SetBranchAddress("BGO_EnergyG_SatCorr_ML_ions2",    &BGO_E_corr); // new Energy correction (ML v5)
 skim->SetBranchAddress("BGO_xtr",                         &BGO_xtr);
-skim->SetBranchAddress("BGO_EneLay",                       BGO_EneLay);  // no & per array
-skim->SetBranchAddress("BGO_cbgomax",                      BGO_cbgomax); // no & per array
-skim->SetBranchAddress("BGO_cbgostk",                      BGO_cbgostk); // no & per array
+//skim->SetBranchAddress("BGO_EneLay",                       BGO_EneLay);  // no & per array
+//skim->SetBranchAddress("BGO_cbgomax",                      BGO_cbgomax); // no & per array
+//skim->SetBranchAddress("BGO_cbgostk",                      BGO_cbgostk); // no & per array
 skim->SetBranchAddress("PSD_ChargeY0",                    &PSD_CY0);
 skim->SetBranchAddress("PSD_ChargeY1",                    &PSD_CY1);
 skim->SetBranchAddress("PSD_ChargeX0",                    &PSD_CX0);
 skim->SetBranchAddress("PSD_ChargeX1",                    &PSD_CX1);
 skim->SetBranchAddress("STKtrack_to_PSD_topY",            &STK_Y);
 skim->SetBranchAddress("STKtrack_to_PSD_topX",            &STK_X);
-skim->SetBranchAddress("PSD_Global_Charge",               &PSD_Global_Charge);
+//skim->SetBranchAddress("PSD_Global_Charge",               &PSD_Global_Charge);
+
+
 
 // =============================
 // ----- Loop unico su tutti gli eventi ------
@@ -233,7 +264,7 @@ for (Long64_t i = 0; i < nEntries; i++) {
 
     // cut00 = cc204s * Trig_HEP
     if (BGO_HET <= 0)   continue;
-    if (BGO_E   <= 20.) continue;
+    if (BGO_E_corr <= 20.) continue;
 
     // cut01: almeno un segnale su entrambi i piani di PSD
     if ((PSD_CY0 <= 0. && PSD_CY1 <= 0.) ||
@@ -243,8 +274,8 @@ for (Long64_t i = 0; i < nEntries; i++) {
     //if (BGO_EneLay[0] + BGO_EneLay[1] >= BGO_EneLay[2] + BGO_EneLay[3]) continue;
 
     // cut05: consistenza posizione BGO
-    if (TMath::Abs(BGO_cbgomax[0] - BGO_cbgostk[0]) >= 30.) continue;
-    if (TMath::Abs(BGO_cbgomax[1] - BGO_cbgostk[1]) >= 30.) continue;
+    //if (TMath::Abs(BGO_cbgomax[0] - BGO_cbgostk[0]) >= 30.) continue;
+    //if (TMath::Abs(BGO_cbgomax[1] - BGO_cbgostk[1]) >= 30.) continue;
 
     // cut06: accettanza STK-PSD
     if (TMath::Abs(STK_Y) >= 400.) continue;
@@ -263,7 +294,23 @@ for (Long64_t i = 0; i < nEntries; i++) {
     if (den == 0.) continue;
     Double_t charge = num / den;
     */
-    Double_t charge = PSD_Global_Charge;
+    //Double_t charge = PSD_Global_Charge;
+
+    // NEW PROGRESSIVE CHARGE: asimmetrica, come nel caso adottato da Paul
+    std::vector<Double_t> psdvec;
+
+    Double_t PSDCharges[4] = { PSD_CY0, PSD_CY1, PSD_CX0, PSD_CX1};
+    for (int ilay=0; ilay < 4; ilay++) {
+        if (PSDCharges[ilay] > 0.2) // NOTA: non ho messo proprio 0 preciso
+            psdvec.push_back(PSDCharges[ilay]);
+    }
+
+    const Double_t dQmin = -0.3;
+    const Double_t dQmax =  0.7;
+    Int_t nPSDlayers = 0;
+
+    Double_t charge = GetPSDProgressiveCharge(psdvec, dQmin, dQmax, nPSDlayers);
+    if (charge < 0.2) continue;
 
     // ---- Fill nell'istogramma del bin energetico corretto ----
     for (int j = 0; j < 15; j++) {
@@ -290,7 +337,7 @@ for (int j = 0; j < 15; j++) {
 // =============================
 // ----- Salvataggio -----------
 
-TFile *fout1 = new TFile("ROOT_FILES/PHe_charge_Orb120Month_240bins_progressiveCharge.root", "RECREATE");
+TFile *fout1 = new TFile("ROOT_FILES/PHe_charge_Orb120Month_240bins_NewProgrCharge_asym_10sett26_nocut05.root", "RECREATE");
 fout1->cd();
 for (int j = 0; j < 15; j++) {
     hArr[j]->Write();

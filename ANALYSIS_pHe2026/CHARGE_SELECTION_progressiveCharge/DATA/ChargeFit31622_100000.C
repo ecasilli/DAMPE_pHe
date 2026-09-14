@@ -358,7 +358,7 @@ void ChargeFit31622_100000()
 {
    PrintTimestamp("ChargeFit31622_100000.C");
  
-	TFile *InputFile = new TFile("../../ROOT_FILES/PHe_charge_Orb120Month_240bins_newcode.root");
+	TFile *InputFile = new TFile("../../ROOT_FILES/PHe_charge_Orb120Month_240bins_NewProgrCharge_asym_10sett26_nocut05.root");
 //	TFile *OutputFile = new TFile("HistoLanGausFit.root","RECREATE");
 //		TFile *OutputFile = new TFile("HistoLanGausFit.root","UPDATE");
 
@@ -383,7 +383,7 @@ void ChargeFit31622_100000()
   // fr[0]=0.3*h1->GetMean();
   // fr[1]=3.0*h1->GetMean();
 	 fr[0]=1.0; 
-	 fr[1]=2.1; 
+	 fr[1]=2.; 
 
 
    pllo[0]=0.01; pllo[1]=0.5; pllo[2]=10; pllo[3]=1.0E-12;
@@ -466,12 +466,12 @@ lp->Draw();
    Double_t frHe[2];
    Double_t svHe[4], plloHe[4], plhiHe[4], fpHe[4], fpeHe[4];
   
-   frHe[0]=2.15;  
+   frHe[0]=1.9;  
    frHe[1]=4.1;  
 
-   plloHe[0]=0.05; plloHe[1]=1.0; plloHe[2]=1.0E02; plloHe[3]=1.0E-03;
-   plhiHe[0]=0.8; plhiHe[1]=4.0; plhiHe[2]=1.0E06; plhiHe[3]=1.0;
-   svHe[0]=0.2; svHe[1]=2.0; svHe[2]=1.0E03; svHe[3]=0.2;
+   plloHe[0]=0.05; plloHe[1]=1.0; plloHe[2]=1.0E0; plloHe[3]=1.0E-03;
+   plhiHe[0]=0.8; plhiHe[1]=4.0; plhiHe[2]=1.0E03; plhiHe[3]=1.0;
+   svHe[0]=0.2; svHe[1]=2.0; svHe[2]=1.0E01; svHe[3]=0.2;
 
    //   par[0]=Width (scale) parameter of Landau density
    //   par[1]=Most Probable (MP, location) parameter of Landau density

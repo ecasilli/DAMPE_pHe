@@ -1,0 +1,112 @@
+
+Processing Load_MC_He_p_5PeV_charge_loop.C...
+Hostname: login.le.infn.it
+Base path: /nfs/argo/dampe/SKIM_2026
+
+PROTON MC
+  sample 0 : 2216951
+  sample 1 : 2093149
+  sample 2 : 821220
+  sample 3 : 560936
+  sample 4 : 75827
+  sample 5 : 20470
+
+HELIUM MC
+  sample 0 : 48387
+  sample 1 : 183716
+  sample 2 : 108083
+  sample 3 : 164309
+  sample 4 : 89056
+  sample 5 : 82543
+  sample 6 : 40648
+
+
+Starting PROTON processing...
+
+==============================================
+PROTON sample 0 : 2216951 events
+==============================================
+  PROTON[0] 0 / 2216951
+  PROTON[0] 1000000 / 2216951
+  PROTON[0] 2000000 / 2216951
+Finished PROTON sample 0
+
+==============================================
+PROTON sample 1 : 2093149 events
+==============================================
+  PROTON[1] 0 / 2093149
+  PROTON[1] 1000000 / 2093149
+  PROTON[1] 2000000 / 2093149
+Finished PROTON sample 1
+
+==============================================
+PROTON sample 2 : 821220 events
+==============================================
+  PROTON[2] 0 / 821220
+Finished PROTON sample 2
+
+==============================================
+PROTON sample 3 : 560936 events
+==============================================
+  PROTON[3] 0 / 560936
+Finished PROTON sample 3
+
+==============================================
+PROTON sample 4 : 75827 events
+==============================================
+  PROTON[4] 0 / 75827
+Finished PROTON sample 4
+
+==============================================
+PROTON sample 5 : 20470 events
+==============================================
+  PROTON[5] 0 / 20470
+Finished PROTON sample 5
+PROTON processing finished.
+
+Starting HELIUM processing...
+
+==============================================
+HELIUM sample 0 : 48387 events
+==============================================
+  HELIUM[0] 0 / 48387
+Finished HELIUM sample 0
+
+==============================================
+HELIUM sample 1 : 183716 events
+==============================================
+  HELIUM[1] 0 / 183716
+Finished HELIUM sample 1
+
+==============================================
+HELIUM sample 2 : 108083 events
+==============================================
+  HELIUM[2] 0 / 108083
+Finished HELIUM sample 2
+
+==============================================
+HELIUM sample 3 : 164309 events
+==============================================
+  HELIUM[3] 0 / 164309
+Finished HELIUM sample 3
+
+==============================================
+HELIUM sample 4 : 89056 events
+==============================================
+  HELIUM[4] 0 / 89056
+Finished HELIUM sample 4
+
+==============================================
+HELIUM sample 5 : 82543 events
+==============================================
+  HELIUM[5] 0 / 82543
+Finished HELIUM sample 5
+
+==============================================
+HELIUM sample 6 : 40648 events
+==============================================
+  HELIUM[6] 0 / 40648
+Finished HELIUM sample 6
+HELIUM processing finished.
+
+End script.

@@ -357,7 +357,7 @@ void PrintTimestamp(const char* scriptName)
 void ChargeFit10000_31622()
 {
  
-	TFile *InputFile = new TFile("../../ROOT_FILES/PHe_charge_Orb120Month_240bins_newcode.root");
+	TFile *InputFile = new TFile("../../ROOT_FILES/PHe_charge_Orb120Month_240bins_NewProgrCharge_asym_10sett26_nocut05.root");
 //	TFile *OutputFile = new TFile("HistoLanGausFit.root","RECREATE");
 //		TFile *OutputFile = new TFile("HistoLanGausFit.root","UPDATE");
 
@@ -382,7 +382,7 @@ void ChargeFit10000_31622()
   // fr[0]=0.3*h1->GetMean();
   // fr[1]=3.0*h1->GetMean();
 	 fr[0]=0.9; 
-	 fr[1]=2.0; 
+	 fr[1]=1.95; 
 
 
    pllo[0]=0.01; pllo[1]=0.5; pllo[2]=10; pllo[3]=1.0E-12;

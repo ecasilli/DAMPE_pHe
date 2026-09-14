@@ -359,7 +359,7 @@ void ChargeFit1584_2511()
  
    PrintTimestamp("ChargeFit1584_2511.C");
  
-	TFile *InputFile = new TFile("../../ROOT_FILES/PHe_charge_Orb120Month_240bins_newcode.root");
+	TFile *InputFile = new TFile("../../ROOT_FILES/PHe_charge_Orb120Month_240bins_NewProgrCharge_asym_10sett26_nocut05.root");
 //	TFile *OutputFile = new TFile("HistoLanGausFit.root","RECREATE");
 //		TFile *OutputFile = new TFile("HistoLanGausFit.root","UPDATE");
 
@@ -383,8 +383,8 @@ void ChargeFit1584_2511()
    Double_t sv[4], pllo[4], plhi[4], fp[4], fpe[4];
   // fr[0]=0.3*h1->GetMean();
   // fr[1]=3.0*h1->GetMean();
-	 fr[0]=0.9; 
-	 fr[1]=1.85; 
+	 fr[0]=0.95; 
+	 fr[1]=1.75; 
 
 
    pllo[0]=0.01; pllo[1]=0.5; pllo[2]=1.0E02; pllo[3]=1.0E-12;
