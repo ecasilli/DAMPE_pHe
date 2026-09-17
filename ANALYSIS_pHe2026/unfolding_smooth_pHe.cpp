@@ -34,8 +34,8 @@ double MIN_TS = (Test_Stat == "ks" ? 1e-4 : 1.);
 
 const bool SMOOTHING = true;
 
-std::string fout_name = "ROOT_FILES/unfold_results_pHe_2026_Orb120Month_MLionsv3_2e5sigmaLow_6sigmaUp_TH1D_noCut02_smooth_PSDprogr_STKvert_wPHe_kernel.root";
-std::string fdat_name = "TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_MLionsv3_2e5sigmaLow_6sigmaUp_TH1D_noCut02_smooth_PSDprogr_STKvert_wPHe_kernel.dat";
+std::string fout_name = "ROOT_FILES/unfold_results_pHe_2026_Orb120Month_2e8sigmaLow_6sigmaUp_PSDprogr_STKcharge_comb_STKvert0e7_nocut06_17sett26_wPHe_kernel_5bins_2.root";
+std::string fdat_name = "TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_2e8sigmaLow_6sigmaUp_PSDprogr_STKcharge_comb_STKvert0e7_nocut06_17sett26_wPHe_kernel_5bins_2.dat";
 
 // Global variables
 std::vector<double> TRUGUESS;
@@ -308,11 +308,11 @@ std::vector<double> compute_std(const std::vector<std::vector<double>>& data) {
 int unfolding_smooth_pHe() {
 
     // Parse command line arguments
-    std::string response_file = "ROOT_FILES/PHe_MC_p_He_5PeV_unfolding_6binperdecade_2e5sigmaLow_6sigmaUp_noCut02_wPHe_PSDprogr_STKvert_fast.root";
-    std::string response_histo = "h2Ntrig_wgt_v3";
-    std::string data_file = "ROOT_FILES/PHe_skim_Orb120Month_6binperdecade_2e5sigmaLow_6sigmaUp_new_noCut02_PSDprogr_STKvert.root";
-    std::string data_histo = "h1SelBGO_orb_v3";
-    std::string ngen_file = "PHe_MC_FTFP_EPOSLHC_h1Ngen_6binsPerDecade.root"; // response-mat to be normalized
+    std::string response_file = "ROOT_FILES/PHe_MC_p_He_5PeV_5binperdecade_2e8sigmaLow_6sigmaUp_PSDprogr_STKcharge_comb_STKvert0e7_nocut06_17sett26.root";
+    std::string response_histo = "h2Ntrig_wgt";
+    std::string data_file = "ROOT_FILES/PHe_skim_Orb120Month_5binperdecade_2e8sigmaLow_6sigmaUp_PSDprogr_STKcharge_comb_STKvert0e7_nocut06_17sett26.root";
+    std::string data_histo = "h1SelBGO_orb";
+    std::string ngen_file = "PHe_MC_FTFP_EPOSLHC_h1Ngen_5binsPerDecade_2.root"; // response-mat to be normalized
     std::string ngen_histo = "h1p1"; // response-mat to be normalized
 
 

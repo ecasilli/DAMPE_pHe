@@ -1,7 +1,7 @@
 
 {
 
-int nbd = 6; // 6 bins per decade
+int nbd = 5; // 6 bins per decade
 int ndec = 6;
 
 float arg1 = 1./float(nbd);
@@ -31,9 +31,9 @@ Double_t nwHe[nsetHe] = {
 Double_t nwP[nsetP] = {
 	(1./1740700000.)*log(10.),      //10-100 GeV//      
     (1./519070000.)*log(10.),       //100GeV-1TeV//
-    (1./201032000.)*log(10.),       //1TeV-10TeV//
+    (1./201432000.)*log(10.),       //1TeV-10TeV//
 	(1./138744900.)*log(10.),       //10TeV-100TeV
-	(1./19441600.)*log(10.),      //100TeV-1PeV
+	(1./19431600.)*log(10.),      //100TeV-1PeV
 	(1./5094200.)*log(5.)      //1PeV-5PeV
 };
 
@@ -55,44 +55,44 @@ h1he5->Sumw2();
 h1he6->Sumw2();
 h1he7->Sumw2();
 
-temp=20380000./6.;
-for(int i1=1;i1<7;i1++){h1he1->SetBinContent(i1,temp/*1.25*/);h1he1->SetBinError(i1,sqrt(temp/*1.25*/));}
+temp=20380000./5.;
+for(int i1=1;i1<6;i1++){h1he1->SetBinContent(i1,temp/*1.25*/);h1he1->SetBinError(i1,sqrt(temp/*1.25*/));}
 cout<<1<<endl;
 
 h1he1->Scale(nwHe[0]);
 
-temp=19556000./6.;
-for(int i1=7;i1<13;i1++){h1he2->SetBinContent(i1,temp/*1.25*/);h1he2->SetBinError(i1,sqrt(temp/*1.25*/));}
+temp=19556000./5.;
+for(int i1=6;i1<11;i1++){h1he2->SetBinContent(i1,temp/*1.25*/);h1he2->SetBinError(i1,sqrt(temp/*1.25*/));}
 cout<<2<<endl;
 
 h1he2->Scale(nwHe[1]);
 
-temp=11346000./6.;
-for(int i1=13;i1<19;i1++){h1he3->SetBinContent(i1,temp/*1.25*/);h1he3->SetBinError(i1,sqrt(temp/*1.25*/));}
+temp=11346000./5.;
+for(int i1=11;i1<16;i1++){h1he3->SetBinContent(i1,temp/*1.25*/);h1he3->SetBinError(i1,sqrt(temp/*1.25*/));}
 cout<<3<<endl;
 
 h1he3->Scale(nwHe[2]);
 
-temp=17694000./6.;
-for(int i1=19;i1<25;i1++){h1he4->SetBinContent(i1,temp/*1.25*/);h1he4->SetBinError(i1,sqrt(temp/*1.25*/));}
+temp=17694000./5.;
+for(int i1=16;i1<21;i1++){h1he4->SetBinContent(i1,temp/*1.25*/);h1he4->SetBinError(i1,sqrt(temp/*1.25*/));}
 cout<<4<<endl;
 
 h1he4->Scale(nwHe[3]);
 
-temp=10305100./4.; //33.55; //34
-for(int i1=25;i1<29;i1++){h1he5->SetBinContent(i1,temp/*1.25*/);h1he5->SetBinError(i1,sqrt(temp/*1.25*/));}
+temp=10305100./3.; //33.55; //34
+for(int i1=21;i1<24;i1++){h1he5->SetBinContent(i1,temp/*1.25*/);h1he5->SetBinError(i1,sqrt(temp/*1.25*/));}
 cout<<5<<endl;
 
 h1he5->Scale(nwHe[4]);
 
 temp=10281395./2.; 
-for(int i1=29;i1<31;i1++){h1he6->SetBinContent(i1,temp/*1.25*/);h1he6->SetBinError(i1,sqrt(temp/*1.25*/));}
+for(int i1=24;i1<26;i1++){h1he6->SetBinContent(i1,temp/*1.25*/);h1he6->SetBinError(i1,sqrt(temp/*1.25*/));}
 cout<<6<<endl;
 
 h1he6->Scale(nwHe[5]);
 
-temp=5064900./4.;
-for(int i1=31;i1<35;i1++){h1he7->SetBinContent(i1,temp/*1.25*/);h1he7->SetBinError(i1,sqrt(temp/*1.25*/));}
+temp=5064900./3.;
+for(int i1=26;i1<29;i1++){h1he7->SetBinContent(i1,temp/*1.25*/);h1he7->SetBinError(i1,sqrt(temp/*1.25*/));}
 cout<<7<<endl;
 
 h1he7->Scale(nwHe[6]);
@@ -114,38 +114,38 @@ h1p4->Sumw2();
 h1p5->Sumw2();
 h1p6->Sumw2();
 
-temp=1740700000./6.;
-for(int i1=1;i1<7;i1++){h1p1->SetBinContent(i1,temp/*1.25*/);h1p1->SetBinError(i1,sqrt(temp/*1.25*/));}
+temp=1740700000./5.;
+for(int i1=1;i1<6;i1++){h1p1->SetBinContent(i1,temp/*1.25*/);h1p1->SetBinError(i1,sqrt(temp/*1.25*/));}
 cout<<1<<endl;
 
 h1p1->Scale(nwP[0]);
 
-temp=519070000./6.;
-for(int i1=7;i1<13;i1++){h1p2->SetBinContent(i1,temp/*1.25*/);h1p2->SetBinError(i1,sqrt(temp/*1.25*/));}
+temp=519070000./5.;
+for(int i1=6;i1<11;i1++){h1p2->SetBinContent(i1,temp/*1.25*/);h1p2->SetBinError(i1,sqrt(temp/*1.25*/));}
 cout<<2<<endl;
 
 h1p2->Scale(nwP[1]);
 
-temp=201032000./6.;
-for(int i1=13;i1<19;i1++){h1p3->SetBinContent(i1,temp/*1.25*/);h1p3->SetBinError(i1,sqrt(temp/*1.25*/));}
+temp=201432000./5.;
+for(int i1=11;i1<16;i1++){h1p3->SetBinContent(i1,temp/*1.25*/);h1p3->SetBinError(i1,sqrt(temp/*1.25*/));}
 cout<<3<<endl;
 
 h1p3->Scale(nwP[2]);
 
-temp=138744900./6.;
-for(int i1=19;i1<25;i1++){h1p4->SetBinContent(i1,temp/*1.25*/);h1p4->SetBinError(i1,sqrt(temp/*1.25*/));}
+temp=138744900./5.;
+for(int i1=16;i1<21;i1++){h1p4->SetBinContent(i1,temp/*1.25*/);h1p4->SetBinError(i1,sqrt(temp/*1.25*/));}
 cout<<4<<endl;
 
 h1p4->Scale(nwP[3]);
 
-temp=19441600./6.; 
-for(int i1=25;i1<31;i1++){h1p5->SetBinContent(i1,temp/*1.25*/);h1p5->SetBinError(i1,sqrt(temp/*1.25*/));}
+temp=19431600./5.; 
+for(int i1=21;i1<26;i1++){h1p5->SetBinContent(i1,temp/*1.25*/);h1p5->SetBinError(i1,sqrt(temp/*1.25*/));}
 cout<<5<<endl;
 
 h1p5->Scale(nwP[4]);
 
-temp=5094200./4.;
-for(int i1=31;i1<35;i1++){h1p6->SetBinContent(i1,temp/*1.25*/);h1p6->SetBinError(i1,sqrt(temp/*1.25*/));}
+temp=5094200./3.;
+for(int i1=26;i1<29;i1++){h1p6->SetBinContent(i1,temp/*1.25*/);h1p6->SetBinError(i1,sqrt(temp/*1.25*/));}
 cout<<6<<endl;
 
 h1p6->Scale(nwP[5]);
@@ -175,7 +175,7 @@ h1NgenP->Draw();
 can.SetLogx();
 can.SetGridx();
 
-TFile *fout = new TFile("PHe_MC_FTFP_EPOSLHC_h1Ngen_6binsPerDecade.root","RECREATE");
+TFile *fout = new TFile("PHe_MC_FTFP_EPOSLHC_h1Ngen_5binsPerDecade_2.root","RECREATE");
 
 
 fout->cd();

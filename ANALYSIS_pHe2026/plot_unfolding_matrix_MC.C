@@ -62,9 +62,9 @@ void plot_unfolding_matrix_MC() {
     TCanvas *c2 = MakeCanvas("c2", "Unfolded matrix");
 
     // === Caricamento istogrammi ===
-    const char *fAll = "ROOT_FILES/unfold_results_pHe_2026_Orb120Month_MLionsv3_2e5sigmaLow_6sigmaUp_TH1D_noCut02_smooth_PSDprogr_wPHe_kernel.root";
+    const char *fAll = "ROOT_FILES/unfold_results_pHe_2026_Orb120Month_2e8sigmaLow_6sigmaUp_PSDprogr_STKcharge_comb_STKvert0e7_17sett26_nocut06_wPHe_kernel.root";
 
-    TH1D *hresponse = LoadHist(fAll, "h2Ntrig_wgt_v3", "hresponse");
+    TH1D *hresponse = LoadHist(fAll, "h2Ntrig_wgt", "hresponse");
     TH1D *hunfolded = LoadHist(fAll, "unfold_matrix",  "hunfolded");
 
     // === Titoli ===
@@ -81,11 +81,11 @@ void plot_unfolding_matrix_MC() {
     
 
     // === Salvataggio in *.png e *.pdf ==
-    c1->SaveAs("PLOTS/response_matrix_pHe_2026_smooth_PSDprogr_wPHe_kernel.pdf");
-    c1->SaveAs("PLOTS/response_matrix_pHe_2026_smooth_PSDprogr_wPHe_kernel.png");
+    c1->SaveAs("PLOTS/response_matrix_pHe_2026_smooth_PSDprogr_STKcharge_comb_STKvert0e7_nocut06_17sett26_wPHe_kernel.pdf");
+    c1->SaveAs("PLOTS/response_matrix_pHe_2026_smooth_PSDprogr_STKcharge_comb_STKvert0e7_nocut06_17sett26_wPHe_kernel.png");
 
-    c2->SaveAs("PLOTS/unfolded_matrix_pHe_2026_smooth_PSDprogr_wPHe_kernel.pdf");
-    c2->SaveAs("PLOTS/unfolded_matrix_pHe_2026_smooth_PSDprogr_wPHe_kernel.png");
+    c2->SaveAs("PLOTS/unfolded_matrix_pHe_2026_smooth_PSDprogr_STKcharge_comb_STKvert0e7_nocut06_17sett26_wPHe_kernel.pdf");
+    c2->SaveAs("PLOTS/unfolded_matrix_pHe_2026_smooth_PSDprogr_STKcharge_comb_STKvert0e7_nocut06_17sett26_wPHe_kernel.png");
 
 
 }

@@ -8,12 +8,12 @@
 // ----- Helper function -------
 
 void addYear(TChain *skim, TString basePath, int year) {
-    skim->Add(basePath + TString::Format("/SKIM_2026_pHe/FLIGHT/skim_flight_002_010_%d_merged.root", year));
-    skim->Add(basePath + TString::Format("/SKIM_2026_pHe/FLIGHT/skim_flight_010_025_%d_merged.root", year));
-    skim->Add(basePath + TString::Format("/SKIM_2026_pHe/FLIGHT/skim_flight_025_050_%d_merged.root", year));
-    skim->Add(basePath + TString::Format("/SKIM_2026_pHe/FLIGHT/skim_flight_050_100_%d_merged.root", year));
-    skim->Add(basePath + TString::Format("/SKIM_2026_pHe/FLIGHT/skim_flight_100_500_%d_merged.root", year));
-    skim->Add(basePath + TString::Format("/SKIM_2026_pHe/FLIGHT/skim_flight_500_000_%d_merged.root", year));
+    skim->Add(basePath + TString::Format("/SKIM_2026/FLIGHT/skim_flight_002_010_%d_merged.root", year));
+    skim->Add(basePath + TString::Format("/SKIM_2026/FLIGHT/skim_flight_010_025_%d_merged.root", year));
+    skim->Add(basePath + TString::Format("/SKIM_2026/FLIGHT/skim_flight_025_050_%d_merged.root", year));
+    skim->Add(basePath + TString::Format("/SKIM_2026/FLIGHT/skim_flight_050_100_%d_merged.root", year));
+    skim->Add(basePath + TString::Format("/SKIM_2026/FLIGHT/skim_flight_100_500_%d_merged.root", year));
+    skim->Add(basePath + TString::Format("/SKIM_2026/FLIGHT/skim_flight_500_000_%d_merged.root", year));
 }
 
 void Load_orb_120month_MLSATcor()
@@ -70,8 +70,8 @@ cout << "Orbital Data Entries: " << skim->GetEntries() << endl;
 skim->SetBranchStatus("*", 0);
 skim->SetBranchStatus("BGO_HET",                        1);
 skim->SetBranchStatus("BGO_EnergyG",                    1);
-skim->SetBranchStatus("BGO_EnergyG_SatCorr_ML_ions",    1);
-skim->SetBranchStatus("BGO_EnergyG_SatCorr_ML_ions_v3", 1);
+//skim->SetBranchStatus("BGO_EnergyG_SatCorr_ML_ions",    1);
+//skim->SetBranchStatus("BGO_EnergyG_SatCorr_ML_ions_v3", 1);
 skim->SetBranchStatus("BGO_EneLay",                     1);
 skim->SetBranchStatus("BGO_cbgomax",                    1);
 skim->SetBranchStatus("BGO_cbgostk",                    1);
@@ -82,42 +82,43 @@ skim->SetBranchStatus("PSD_ChargeX1",                   1);
 skim->SetBranchStatus("STKtrack_to_PSD_topY",           1);
 skim->SetBranchStatus("STKtrack_to_PSD_topX",           1);
 skim->SetBranchStatus("BGO_xtr",                        1);
-skim->SetBranchStatus("BGO_slopeXZ_analy",              1);
-skim->SetBranchStatus("BGO_interceptXZ_analy",          1);
-skim->SetBranchStatus("BGO_slopeYZ_analy",              1);
-skim->SetBranchStatus("BGO_interceptYZ_analy",          1);
-skim->SetBranchStatus("STK_ntrack",                     1);
+//skim->SetBranchStatus("BGO_slopeXZ_analy",              1);
+//skim->SetBranchStatus("BGO_interceptXZ_analy",          1);
+//skim->SetBranchStatus("BGO_slopeYZ_analy",              1);
+//skim->SetBranchStatus("BGO_interceptYZ_analy",          1);
+//skim->SetBranchStatus("STK_ntrack",                     1);
 skim->SetBranchStatus("STK_chargeX",                    1);
 skim->SetBranchStatus("STK_chargeY",                    1);
 skim->SetBranchStatus("STK_vertexPrediction",           1);
-skim->SetBranchStatus("PSD_Global_Charge",              1);
+//skim->SetBranchStatus("PSD_Global_Charge",              1);
 
 // =============================
 // ----- Branch addresses ------
 
 skim->SetBranchAddress("BGO_HET",                         &BGO_HET);
-skim->SetBranchAddress("BGO_EnergyG",                     &BGO_E);
-skim->SetBranchAddress("BGO_EnergyG_SatCorr_ML_ions",     &BGO_E_corr_v1);
-skim->SetBranchAddress("BGO_EnergyG_SatCorr_ML_ions_v3",  &BGO_EnergyG_SatCorr_ML_ions_v3);
+//skim->SetBranchAddress("BGO_EnergyG",                     &BGO_E);
+//skim->SetBranchAddress("BGO_EnergyG_SatCorr_ML_ions",     &BGO_E_corr_v1);
+//skim->SetBranchAddress("BGO_EnergyG_SatCorr_ML_ions_v3",  &BGO_EnergyG_SatCorr_ML_ions_v3);
+skim->SetBranchAddress("BGO_EnergyG_SatCorr_ML_ions2",    &BGO_E_corr);
 skim->SetBranchAddress("BGO_xtr",                         &BGO_xtr);
-skim->SetBranchAddress("BGO_EneLay",                       BGO_EneLay);  // no & per array
-skim->SetBranchAddress("BGO_cbgomax",                      BGO_cbgomax); // no & per array
-skim->SetBranchAddress("BGO_cbgostk",                      BGO_cbgostk); // no & per array
+//skim->SetBranchAddress("BGO_EneLay",                       BGO_EneLay);  // no & per array
+//skim->SetBranchAddress("BGO_cbgomax",                      BGO_cbgomax); // no & per array
+//skim->SetBranchAddress("BGO_cbgostk",                      BGO_cbgostk); // no & per array
 skim->SetBranchAddress("PSD_ChargeY0",                    &PSD_CY0);
 skim->SetBranchAddress("PSD_ChargeY1",                    &PSD_CY1);
 skim->SetBranchAddress("PSD_ChargeX0",                    &PSD_CX0);
 skim->SetBranchAddress("PSD_ChargeX1",                    &PSD_CX1);
 skim->SetBranchAddress("STKtrack_to_PSD_topY",            &STK_Y);
 skim->SetBranchAddress("STKtrack_to_PSD_topX",            &STK_X);
-skim->SetBranchAddress("BGO_slopeXZ_analy",               &BGO_slopeXZ_analy);
-skim->SetBranchAddress("BGO_interceptXZ_analy",           &BGO_interceptXZ_analy);
-skim->SetBranchAddress("BGO_slopeYZ_analy",               &BGO_slopeYZ_analy);
-skim->SetBranchAddress("BGO_interceptYZ_analy",           &BGO_interceptYZ_analy);
+//skim->SetBranchAddress("BGO_slopeXZ_analy",               &BGO_slopeXZ_analy);
+//skim->SetBranchAddress("BGO_interceptXZ_analy",           &BGO_interceptXZ_analy);
+//skim->SetBranchAddress("BGO_slopeYZ_analy",               &BGO_slopeYZ_analy);
+//skim->SetBranchAddress("BGO_interceptYZ_analy",           &BGO_interceptYZ_analy);
 skim->SetBranchAddress("STK_ntrack",                      &STK_ntrack);
 skim->SetBranchAddress("STK_chargeX",                      STK_X_charge);
 skim->SetBranchAddress("STK_chargeY",                      STK_Y_charge);
 skim->SetBranchAddress("STK_vertexPrediction",            &STK_vertexPrediction);
-skim->SetBranchAddress("PSD_Global_Charge",               &PSD_Global_Charge);
+//skim->SetBranchAddress("PSD_Global_Charge",               &PSD_Global_Charge);
 
 
 // =============================
@@ -183,7 +184,7 @@ for (Long64_t i = 0; i < nEntries; i++) {
 
     // cut00 = cc204s * Trig_HEP
     if (BGO_HET <= 0)   continue;
-    if (BGO_E   <= 20.) continue;
+    if (BGO_E_corr <= 20.) continue;
     count2++;
     if (BGO_EnergyG_SatCorr_ML_ions_v3 > 200.) count2a++;
 
@@ -195,8 +196,8 @@ for (Long64_t i = 0; i < nEntries; i++) {
     //if (BGO_EneLay[0] + BGO_EneLay[1] >= BGO_EneLay[2] + BGO_EneLay[3]) continue;
 
     // cut05: consistenza posizione BGO
-    if (TMath::Abs(BGO_cbgomax[0] - BGO_cbgostk[0]) >= 30.) continue;
-    if (TMath::Abs(BGO_cbgomax[1] - BGO_cbgostk[1]) >= 30.) continue;
+    //if (TMath::Abs(BGO_cbgomax[0] - BGO_cbgostk[0]) >= 30.) continue;
+    //if (TMath::Abs(BGO_cbgomax[1] - BGO_cbgostk[1]) >= 30.) continue;
 
     // cut06: accettanza STK-PSD
     if (TMath::Abs(STK_Y) >= 400.) continue;

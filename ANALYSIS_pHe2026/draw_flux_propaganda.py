@@ -228,8 +228,15 @@ if __name__ == '__main__':
     gr_DAMPE2026 = make_flux_graph_DAMPE2026(file_DAMPE2026, kRed+1, 24, 1.3, 2.6)
 
     #file_DAMPE2026_PSDprog = 'TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_MLionsv3_2e5sigmaLow_6sigmaUp_TH1D_noCut02_smooth_PSDprogr_wPHe_kernel_PLOT.dat'
-    file_DAMPE2026_PSDprog = 'TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_MLionsv3_2e5sigmaLow_6sigmaUp_TH1D_noCut02_smooth_PSDprogr_wPHe_kernel_PLOT.dat'
+    file_DAMPE2026_PSDprog = 'TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_2e8sigmaLow_6sigmaUp_PSDprogr_STKcharge_comb_STKvert0e7_nocut06_17sett26_wPHe_kernel_5bins_PLOT.dat'
     gr_DAMPE2026_PSDprog = make_flux_graph_DAMPE2026(file_DAMPE2026_PSDprog, kRed+1, 20, 1.3, 2.6)
+
+    #file_DAMPE2026_PSDprog_STKch = 'TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_2e8sigmaLow_6sigmaUp_PSDprogr_STKcharge_comb_STKvert0e7_17sett26_nocut06_wPHe_kernel_PLOT.dat'
+    file_DAMPE2026_PSDprog_STKch = 'TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_2e8sigmaLow_6sigmaUp_PSDprogr_STKcharge_comb_STKvert0e7_nocut06_17sett26_wPHe_kernel_5bins_2_PLOT.dat'
+    gr_DAMPE2026_PSDprog_STKch = make_flux_graph_DAMPE2026(file_DAMPE2026_PSDprog_STKch, kMagenta+1, 20, 1.3, 2.6)
+
+    file_DAMPE2026_PSDprog_STKch_cut06 = 'TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_2e8sigmaLow_6sigmaUp_PSDprogr_STKcharge_comb_STKvert0e7_nocut06_17sett26_wPHe_kernel_5bins_PLOT.dat'
+    gr_DAMPE2026_PSDprog_STKch_cut06comp = make_flux_graph_DAMPE2026(file_DAMPE2026_PSDprog_STKch_cut06, kBlue+1, 24, 1.3, 2.6)
 
     file_DAMPE2026_72m = 'TXT_FILES/flux_spectrum_pHe_2026_Orb72Month_MLionsv3_2e5sigmaLow_6sigmaUp_TH1D_noCut02_STKvertSel_smooth_wPHe_kernel_PLOT.dat'
     gr_DAMPE2026_72m = make_flux_graph_DAMPE2026(file_DAMPE2026_72m, kGreen+1, 20, 1.3, 2.6)
@@ -288,7 +295,8 @@ if __name__ == '__main__':
     cc.SetTicks(1,1)
     cc.SetLogx()
 
-    frame = cc.DrawFrame(1e1, 1e3, 2e7, 20e3)
+    #frame = cc.DrawFrame(1e1, 1e3, 2e7, 20e3)
+    frame = cc.DrawFrame(1e1, 2e3, 5e6, 18e3)
 
     frame.GetXaxis().SetTitle("Kinetic energy [GeV]")
     frame.GetYaxis().SetTitle("E^{2.6} Flux [m^{-2} s^{-1} sr^{-1} (GeV)^{1.6}]")
@@ -305,17 +313,19 @@ if __name__ == '__main__':
     frame.GetXaxis().CenterTitle()
     frame.GetYaxis().CenterTitle()
     
-    gr_DAMPE2024_sys_had.Draw("E3 SAME")
-    gr_DAMPE2024_sys.Draw("E3 SAME")
-    gr_LHAASO_EPOSLHC_sys.Draw("E3 SAME")
-    gr_DAMPE2024.Draw("P SAME")
+    #gr_DAMPE2024_sys_had.Draw("E3 SAME")
+    #gr_DAMPE2024_sys.Draw("E3 SAME")
+    #gr_LHAASO_EPOSLHC_sys.Draw("E3 SAME")
+    #gr_DAMPE2024.Draw("P SAME")
 
     gr_DAMPE2026_pHe_Geneva.Draw("P SAME")
     
     #gr_DAMPE2026_COR.Draw("P SAME")
     #gr_DAMPE2026_72m.Draw("P SAME")
     #gr_DAMPE2026.Draw("P SAME")
-    gr_DAMPE2026_PSDprog.Draw("P SAME")
+    #gr_DAMPE2026_PSDprog.Draw("P SAME")
+    gr_DAMPE2026_PSDprog_STKch.Draw("P SAME")
+    gr_DAMPE2026_PSDprog_STKch_cut06comp.Draw("P SAME")
     #gr_DAMPE2026_wSTK.Draw("P SAME")
     #gr_DAMPE2026_all.Draw("P SAME")
     #gr_DAMPE2026_first6years.Draw("P SAME")
@@ -323,9 +333,9 @@ if __name__ == '__main__':
     #gr_DAMPE2026_9y.Draw("P SAME")
     #gr_DAMPE2026_9yall.Draw("P SAME")
     
-    gr_LHAASO_QGSJET.Draw("PEZ SAME")
-    gr_LHAASO_EPOSLHC.Draw("P SAME")
-    gr_LHAASO_SIBYLL.Draw("P SAME")
+    #gr_LHAASO_QGSJET.Draw("PEZ SAME")
+    #gr_LHAASO_EPOSLHC.Draw("P SAME")
+    #gr_LHAASO_SIBYLL.Draw("P SAME")
 
     #gr_DAMPE2026_Irene.Draw("P SAME")
     #gr_DAMPE2026_noCuts.Draw("P SAME")
@@ -347,13 +357,14 @@ if __name__ == '__main__':
 
     leg.AddEntry(gr_DAMPE2026_pHe_Geneva, "#Phi_{p} + #Phi_{He} DAMPE (2026) ", "PE")
     #leg.AddEntry(gr_DAMPE2026, "p+He DAMPE (this work - in progress) ", "PE")
-    leg.AddEntry(gr_DAMPE2026_PSDprog, "p+He DAMPE (this work - preliminary) ", "PE")
+    leg.AddEntry(gr_DAMPE2026_PSDprog, "p+He DAMPE (July 26 - preliminary) ", "PE")
+    leg.AddEntry(gr_DAMPE2026_PSDprog_STKch, "p+He DAMPE (this work - preliminary) ", "PE")
     #leg.AddEntry(gr_DAMPE2026_72m, "p+He DAMPE (72 months) ", "PE")
     #leg.AddEntry(gr_DAMPE2026_Irene, "p+He DAMPE (Irene's skim) ", "PE")
     #leg.AddEntry(gr_DAMPE2026_noCuts, "p+He DAMPE (w/o cut02 and cut05) ", "PE")
     #leg.AddEntry(gr_DAMPE2026_oldskim, "p+He DAMPE (old analysis, 10 years) ", "PE")
     #leg.AddEntry(gr_DAMPE2026_wSTKvert2, "p+He DAMPE (w STK vertex, wPHe-kernel) ", "PE")
-    leg.Draw()
+    #leg.Draw()
 
     
     leg1 = TLegend(0.55, 0.72, 0.78, 0.9)  # x1,y1,x2,y2 in NDC pad1
@@ -366,7 +377,7 @@ if __name__ == '__main__':
     leg1.AddEntry(gr_LHAASO_EPOSLHC, "light comp. LHAASO (EPOS-LHC, PRL 2026)", "PE")
     leg1.AddEntry(gr_LHAASO_SIBYLL, "light comp. LHAASO (SIBYLL 2.3d, PRL 2026)", "PE")
     leg1.AddEntry(gr_LHAASO_EPOSLHC_sys, "sys. error LHAASO (EPOS-LHC, PRL 2026)", "f")
-    leg1.Draw()
+    #leg1.Draw()
     '''
 
     leg1 = TLegend(0.55, 0.79, 0.78, 0.9)  # x1,y1,x2,y2 in NDC pad1
@@ -381,8 +392,8 @@ if __name__ == '__main__':
 
     cc.Update()
 
-    cc.SaveAs('PLOTS/flux_pHe_update2026_cfrLHAASO_comparison_wPHe_kernel_wPSDprog_wGeneva_4.pdf')
-    cc.SaveAs('PLOTS/flux_pHe_update2026_cfrLHAASO_comparison_wPHe_kernel_wPSDprog_wGeneva_4.png')
+    cc.SaveAs('PLOTS/flux_pHe_update2026_cfrLHAASO_comparison_wPHe_17sett26_nocut06_onlyGeneva_5bins.pdf')
+    cc.SaveAs('PLOTS/flux_pHe_update2026_cfrLHAASO_comparison_wPHe_17sett26_nocut06_onlyGeneva_5bins.png')
 
     raw_input("Press enter..")
 

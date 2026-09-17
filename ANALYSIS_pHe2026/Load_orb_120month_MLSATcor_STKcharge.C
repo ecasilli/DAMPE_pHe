@@ -84,12 +84,16 @@ Double_t STK_Y, STK_X, STK_chargeY_etaCorr[6], STK_chargeX_etaCorr[6];
 Int_t    BGO_HET;
 
 // Array di supporto per fill rapido
+/*
 Double_t eMin[15] = {25.1189,  39.8107,  63.0957,  100.0,   158.489,
                      251.189,  398.107,  630.957,  1000.0,  1584.89,
                      2511.89,  3981.07,  6309.57,  10000.0, 31622.8};
 Double_t eMax[15] = {39.8107,  63.0957,  100.0,   158.489,  251.189,
                      398.107,  630.957,  1000.0,  1584.89,  2511.89,
                      3981.07,  6309.57,  10000.0, 31622.8,  100000.0};
+*/
+Double_t eMin[4] = {20.0,  100.0,  1000.0,  10000.0};
+Double_t eMax[4] = {100.0, 1000.0, 10000.0, 100000.0};
 
 // =============================
 // --------- Orbital data ------
@@ -102,7 +106,7 @@ cout << "Orbital Data Entries: " << skim->GetEntries() << endl;
 
 // =============================
 // ----- Histograms ------------
-
+/*
     TH1F *h01 = new TH1F("h01", "25 < E_{BGO} < 39", 480, 0., 1000.);
     h01->GetXaxis()->SetTitle("PSD charge");
     h01->GetYaxis()->SetTitle("events");
@@ -211,6 +215,45 @@ cout << "Orbital Data Entries: " << skim->GetEntries() << endl;
 
 TH1F* hArr[15] = {h01, h02, h03, h04, h05, h06, h07, h08,
                   h09, h10, h11, h12, h13, h14, h15};
+*/
+/*
+    TH1F *h01 = new TH1F("h01", "20 < E_{BGO} < 100", 480, 0., 1000.);
+    h01->GetXaxis()->SetTitle("PSD charge");
+    h01->GetYaxis()->SetTitle("events");
+    h01->SetLineColor(kBlack);
+    h01->SetMarkerColor(kBlack);
+    h01->Sumw2();
+ 
+    TH1F *h02 = new TH1F("h02", "100 < E_{BGO} < 1000", 480, 0., 1000.);
+    h02->GetXaxis()->SetTitle("PSD charge");
+    h02->GetYaxis()->SetTitle("events");
+    h02->SetLineColor(kBlack);
+    h02->SetMarkerColor(kBlack);
+    h02->Sumw2();
+ 
+    TH1F *h03 = new TH1F("h03", "1000 < E_{BGO} < 10000", 480, 0., 1000.);
+    h03->GetXaxis()->SetTitle("PSD charge");
+    h03->GetYaxis()->SetTitle("events");
+    h03->SetLineColor(kBlack);
+    h03->SetMarkerColor(kBlack);
+    h03->Sumw2();
+ 
+    TH1F *h04 = new TH1F("h04", "10000 < E_{BGO} < 100000", 480, 0., 1000.);
+    h04->GetXaxis()->SetTitle("PSD charge");
+    h04->GetYaxis()->SetTitle("events");
+    h04->SetLineColor(kBlack);
+    h04->SetMarkerColor(kBlack);
+    h04->Sumw2();
+
+    TH1F* hArr[4] = {h01, h02, h03, h04};
+*/
+    TH1F *hTot = new TH1F("hTot", " ", 480, 0., 1000.);
+    hTot->GetXaxis()->SetTitle("PSD charge");
+    hTot->GetYaxis()->SetTitle("events");
+    hTot->SetLineColor(kBlack);
+    hTot->SetMarkerColor(kBlack);
+    hTot->Sumw2();
+
 
 // =============================
 // ----- Branch selection ------
@@ -303,13 +346,15 @@ for (Long64_t i = 0; i < nEntries; i++) {
     Double_t stkFirstLayer = stkLayer[0];
     Double_t stkCharge = stkFirstLayer;
 
+    hTot->Fill(stkCharge);
+
     // ---- Fill nell'istogramma del bin energetico corretto ----
-    for (int j = 0; j < 15; j++) {
-        if (BGO_E_corr > eMin[j] && BGO_E_corr < eMax[j]) {
-            hArr[j]->Fill(stkCharge);
-            break;
-        }
-    }
+    //for (int j = 0; j < 4; j++) {
+    //    if (BGO_E_corr > eMin[j] && BGO_E_corr < eMax[j]) {
+    //        hArr[j]->Fill(stkCharge);
+    //        break;
+    //    }
+    //}
 }
 
 cout << "Loop finished." << endl;
@@ -317,23 +362,24 @@ cout << "Loop finished." << endl;
 // =============================
 // ----- Canvas ----------------
 
-TCanvas *c0 = new TCanvas("c0", "BGO-PSDglob", 1200, 900);
-c0->Divide(3, 5);
-for (int j = 0; j < 15; j++) {
-    c0->cd(j + 1);
-    gPad->SetTicks();
-    hArr[j]->Draw();
-}
+//TCanvas *c0 = new TCanvas("c0", "BGO-PSDglob", 1200, 900);
+//c0->Divide(3, 5);
+//for (int j = 0; j < 4; j++) {
+//    c0->cd(j + 1);
+//    gPad->SetTicks();
+//    hArr[j]->Draw();
+//}
 
 // =============================
 // ----- Salvataggio -----------
 
-TFile *fout1 = new TFile("ROOT_FILES/PHe_STKcharge_adc_Orb120Month_480bins_14sett26_nocut05.root", "RECREATE");
+TFile *fout1 = new TFile("ROOT_FILES/PHe_STKcharge_adc_Orb120Month_480bins_16sett26_nocut05.root", "RECREATE");
 fout1->cd();
-for (int j = 0; j < 15; j++) {
-    hArr[j]->Write();
-}
-c0->Write();
+hTot->Write();
+//for (int j = 0; j < 4; j++) {
+//    hArr[j]->Write();
+//}
+//c0->Write();
 fout1->Close();
 
 cout << "End script." << endl;

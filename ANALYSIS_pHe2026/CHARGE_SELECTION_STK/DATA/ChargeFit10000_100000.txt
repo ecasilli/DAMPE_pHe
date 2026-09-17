@@ -1,0 +1,43 @@
+
+Processing ChargeFit10000_100000.C...
+
+ * * * * * * PROTON * * * * * * * 
+
+ FCN=24.4851 FROM MIGRAD    STATUS=CONVERGED     213 CALLS         214 TOTAL
+                     EDM=4.63434e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Width        5.38672e+00   4.31856e-01   2.45098e-05   2.12312e-02
+   2  MP           6.08194e+01   2.68745e-01   1.53532e-05   5.60312e-02
+   3  Area         7.34950e+03   1.68111e+02   7.40844e-07  -8.42554e-01
+   4  GSigma       5.99673e+00   8.06480e-01   6.63669e-05   2.21229e-02
+ FCN=24.4851 FROM MIGRAD    STATUS=CONVERGED      49 CALLS          50 TOTAL
+                     EDM=2.65807e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Width        5.38670e+00   4.31868e-01   2.44994e-05  -3.29486e-02
+   2  MP           6.08193e+01   2.68744e-01   1.53507e-05   2.69696e-02
+   3  Area         7.34950e+03   1.68112e+02   7.40844e-07   8.01575e-01
+   4  GSigma       5.99664e+00   8.06512e-01   6.64115e-05   1.72400e-03
+60.8193	0.268744	5.3867	0.431868	5.99664	0.806512
+MPV_p - 2sigma: 44.6978
+
+ * * * * * * HELIUM * * * * * * * 
+
+ FCN=57.6022 FROM MIGRAD    STATUS=CONVERGED     176 CALLS         177 TOTAL
+                     EDM=2.05262e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Width        1.96248e+01   9.42276e-01   3.05465e-05   2.30191e-02
+   2  MP           2.61900e+02   6.61419e-01   1.41945e-05   9.03689e-02
+   3  Area         1.29006e+04   2.36515e+02   7.38186e-07  -3.09849e+00
+   4  GSigma       1.10664e+01   2.22680e+00   1.90317e-04   3.56153e-03
+ FCN=57.6022 FROM MIGRAD    STATUS=CONVERGED      49 CALLS          50 TOTAL
+                     EDM=2.20673e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Width        1.96248e+01   9.42336e-01   3.05435e-05  -1.89456e-02
+   2  MP           2.61900e+02   6.61421e-01   1.41945e-05   3.87895e-02
+   3  Area         1.29007e+04   2.36520e+02   7.38186e-07   9.15409e-02
+   4  GSigma       1.10663e+01   2.22694e+00   1.90402e-04  -1.47548e-03
+261.9	0.661421	19.6248	0.942336	11.0663	2.22694

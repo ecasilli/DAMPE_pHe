@@ -55,7 +55,8 @@ Double_t GetSTKLayerSignal(Double_t qX, Double_t qY, Double_t minSignal=0.){
     return -999.;
 }
 
-void ProcessMCSpecies(TChain **chains, Int_t nsets, TH1F **hArr, const Double_t *norm, const TString &speciesName, const Double_t *eMin, const Double_t *eMax) {
+//void ProcessMCSpecies(TChain **chains, Int_t nsets, TH1F **hArr, const Double_t *norm, const TString &speciesName, const Double_t *eMin, const Double_t *eMax) {
+void ProcessMCSpecies(TChain **chains, Int_t nsets, TH1F *hTot, const Double_t *norm, const TString &speciesName, Double_t eMin, Double_t eMax) {
     
     const Double_t dQmin = -0.3;
     const Double_t dQmax =  0.7;
@@ -153,14 +154,16 @@ void ProcessMCSpecies(TChain **chains, Int_t nsets, TH1F **hArr, const Double_t 
             // Riproduce: weight = normalization * MC_EnergyT^(-1.7)
 
             Double_t weight = norm[iset] * TMath::Power(MC_EnergyT, -1.7);
-
+            /*
             // ---- Fill nell'istogramma del bin energetico corretto ----
-            for (Int_t j = 0; j < 15; ++j) {
+            for (Int_t j = 0; j < 4; ++j) {
                 if (BGO_E_corr > eMin[j] && BGO_E_corr < eMax[j]) {
                     hArr[j]->Fill(stkCharge, weight);
                     break;
                 }
             }
+            */
+            hTot->Fill(stkCharge, weight);
 
 
         } // event loop 
@@ -241,13 +244,17 @@ void Load_MC_He_p_5PeV_STKcharge_loop(){
     cout << endl;
 
     // Array di supporto per fill rapido
-    Double_t eMin[15] = {25.1189,  39.8107,  63.0957,  100.0,   158.489,
+/*    Double_t eMin[15] = {25.1189,  39.8107,  63.0957,  100.0,   158.489,
                          251.189,  398.107,  630.957,  1000.0,  1584.89,
                          2511.89,  3981.07,  6309.57,  10000.0, 31622.8};
     Double_t eMax[15] = {39.8107,  63.0957,  100.0,   158.489,  251.189,
                          398.107,  630.957,  1000.0,  1584.89,  2511.89,
                          3981.07,  6309.57,  10000.0, 31622.8,  100000.0};
-
+*/
+    //Double_t eMin[4] = {20.0,  100.0,  1000.0,  10000.0};
+    //Double_t eMax[4] = {100.0, 1000.0, 10000.0, 100000.0};
+    Double_t eMin = 20.0;
+    Double_t eMax = 1e7;
     // ==========================================
     // MC normalization factors
     // proton: wP  * Etrue^-1.7
@@ -278,11 +285,11 @@ void Load_MC_He_p_5PeV_STKcharge_loop(){
 
     // ===============================================
     // Histograms
-
+    /*
     TH1F *hP[15];
     TH1F *hHe[15];
 
-    for (Int_t i = 0; i < 15; ++i) {
+    for (Int_t i = 0; i < 4; ++i) {
 
         TString nameP  = Form("h%02d_p" , i+1);
         TString nameHe = Form("h%02d_he", i+1);
@@ -306,7 +313,20 @@ void Load_MC_He_p_5PeV_STKcharge_loop(){
 
         hP[i]->Sumw2();
         hHe[i]->Sumw2();
-    }
+    }*/
+    TH1F *hTot_p = new TH1F("hTot_p", " ", 480, 0., 1000.);
+    hTot_p->GetXaxis()->SetTitle("STK charge");
+    hTot_p->GetYaxis()->SetTitle("Weighted counts");
+    hTot_p->SetLineColor(9);
+    hTot_p->SetMarkerColor(9);
+    hTot_p->Sumw2();
+
+    TH1F *hTot_He = new TH1F("hTot_He", " ", 480, 0., 1000.);
+    hTot_He->GetXaxis()->SetTitle("STK charge");
+    hTot_He->GetYaxis()->SetTitle("Weighted counts");
+    hTot_He->SetLineColor(6);
+    hTot_He->SetMarkerColor(6);
+    hTot_He->Sumw2();
 
     // ======================================
     // Process PROTON
@@ -314,7 +334,8 @@ void Load_MC_He_p_5PeV_STKcharge_loop(){
     cout << endl;
     cout << "Starting PROTON processing..." << endl;
 
-    ProcessMCSpecies(sk_p, nsetP, hP, normP, "PROTON", eMin, eMax);
+    //ProcessMCSpecies(sk_p, nsetP, hP, normP, "PROTON", eMin, eMax);
+    ProcessMCSpecies(sk_p, nsetP, hTot_p, normP, "PROTON", eMin, eMax);
 
     cout << "PROTON processing finished." << endl;
 
@@ -324,16 +345,17 @@ void Load_MC_He_p_5PeV_STKcharge_loop(){
     cout << endl;
     cout << "Starting HELIUM processing..." << endl;
 
-    ProcessMCSpecies(sk_he, nsetHe, hHe, normHe, "HELIUM", eMin, eMax);
+    //ProcessMCSpecies(sk_he, nsetHe, hHe, normHe, "HELIUM", eMin, eMax);
+    ProcessMCSpecies(sk_he, nsetHe, hTot_He, normHe, "HELIUM", eMin, eMax);
 
     cout << "HELIUM processing finished." << endl;
 
     // ======================================
     // Canvas
-
+/*
     TCanvas *c[15];
 
-    for (Int_t i = 0; i < 15; ++i) {
+    for (Int_t i = 0; i < 4; ++i) {
 
         TString cname  = Form("c_%02d", i+1);
         TString ctitle = Form("PSD charge %.0f-%.0f GeV", eMin[i], eMax[i]);
@@ -348,21 +370,23 @@ void Load_MC_He_p_5PeV_STKcharge_loop(){
         leg->AddEntry(hP[i] , "Proton", "l");
         leg->AddEntry(hHe[i], "Helium", "l");
         leg->Draw();
-    }
+    }*/
 
     // =======================================
     // Output
 
-    TFile *fout = new TFile("ROOT_FILES/PHe_MC_p_He_5PeV_STKcharge_adc_480bins_14sett26_nocut05.root", "RECREATE");
+    TFile *fout = new TFile("ROOT_FILES/PHe_MC_p_He_5PeV_STKcharge_adc_480bins_16sett26_nocut05.root", "RECREATE");
     fout->cd();
-
-    for (Int_t i = 0; i < 15; ++i) {
+    hTot_p->Write();
+    hTot_He->Write();
+/*
+    for (Int_t i = 0; i < 4; ++i) {
     
         hP[i]->Write();
         hHe[i]->Write();
         c[i]->Write();
     
-    }
+    }*/
     
     fout->Close();
 

@@ -9,7 +9,7 @@ void draw_scatterplot_DATA_PSD_BGO(){
     gStyle->SetPadTopMargin(0.04);
     gStyle->SetPadBottomMargin(0.09);
 
-    TFile aa("ROOT_FILES/scatterplot_PHe_PSD_BGO_Orb120Month.root");
+    TFile aa("ROOT_FILES/scatterplot_PHe_PSD_BGO_Orb120Month_15sett26_nocut05.root");
     TH1F *hDATA = (TH1F*)aa.Get("h2psdbgo"); hDATA->SetStats(0);
     hDATA->GetXaxis()->SetTitleOffset(1.2);
     hDATA->GetYaxis()->SetTitle("PSD charge");
@@ -22,9 +22,13 @@ void draw_scatterplot_DATA_PSD_BGO(){
 
     /////////////////////////////////////////////////////////////////////////////////
     
-    TString HeMPVf= "(1.88586+(0.185264*log10(x))+(-0.0867115*log10(x)**2)+(0.0200701*log10(x)**3)+(-0.000810826*log10(x)**4) )";
-    TString HeWidthf = "(-0.0824082+(0.201315*log10(x))+(-0.0989824*log10(x)**2)+(0.0218456*log10(x)**3)+(-0.00136192*log10(x)**4))";
-    TString HeGSigmaf = "(0.0396516)";
+    //TString HeMPVf= "(1.88586+(0.185264*log10(x))+(-0.0867115*log10(x)**2)+(0.0200701*log10(x)**3)+(-0.000810826*log10(x)**4) )";
+    //TString HeWidthf = "(-0.0824082+(0.201315*log10(x))+(-0.0989824*log10(x)**2)+(0.0218456*log10(x)**3)+(-0.00136192*log10(x)**4))";
+    //TString HeGSigmaf = "(0.0396516)";
+    TString HeMPVf= "(1.92403+(0.1541*log10(x))+(-0.082833*log10(x)**2)+(0.0208528*log10(x)**3)+(-0.0011579*log10(x)**4) )";
+    TString HeWidthf = "(-0.0105333+(0.129859*log10(x))+(-0.0713011*log10(x)**2)+(0.0169532*log10(x)**3)+(-0.00117928*log10(x)**4))";
+    TString HeGSigmaf = "(0.0227879)";
+
 
 	TString HeFSig= "sqrt("+HeWidthf+"**2+"+HeGSigmaf+"**2)";
 
@@ -32,9 +36,12 @@ void draw_scatterplot_DATA_PSD_BGO(){
 
 	TF1 *ch_high= new TF1("ch_high",HeMPVf+"+"+"6*"+HeFSig, 20.,900000.); ch_high->SetLineColor(1); ch_high->SetLineStyle(2); ch_high->SetLineWidth(3); ch_high->Draw("same");
 
-    TString PMPVf= "(0.993603+(-0.00402039*log10(x))+(0.0408375*log10(x)**2)+(-0.0227868*log10(x)**3)+(0.00494042*log10(x)**4) )";
-    TString PWidthf = "(-0.0611545+(0.140328*log10(x))+(-0.0683705*log10(x)**2)+(0.0143596*log10(x)**3)+(-0.000527989*log10(x)**4))";
-    TString PGSigmaf = "(5.5475e-08)";
+    //TString PMPVf= "(0.993603+(-0.00402039*log10(x))+(0.0408375*log10(x)**2)+(-0.0227868*log10(x)**3)+(0.00494042*log10(x)**4) )";
+    //TString PWidthf = "(-0.0611545+(0.140328*log10(x))+(-0.0683705*log10(x)**2)+(0.0143596*log10(x)**3)+(-0.000527989*log10(x)**4))";
+    //TString PGSigmaf = "(5.5475e-08)";
+    TString PMPVf= "(0.988625+(0.0166979*log10(x))+(0.0136979*log10(x)**2)+(-0.0114983*log10(x)**3)+(0.00313886*log10(x)**4) )";
+    TString PWidthf = "(-0.0152013+(0.0753179*log10(x))+(-0.0344289*log10(x)**2)+(0.00656681*log10(x)**3)+(0.000105438*log10(x)**4))";
+    TString PGSigmaf = "(2.02488e-08)";
 	
 	TString PFSig= "sqrt("+PWidthf+"**2+"+PGSigmaf+"**2)";
 
@@ -42,6 +49,23 @@ void draw_scatterplot_DATA_PSD_BGO(){
 
 	TF1 *ch_low= new TF1("ch_low",PMPVf+"-"+"2.9*"+PFSig, 20.,900000.); ch_low->SetLineColor(1); ch_low->SetLineStyle(2); ch_low->SetLineWidth(3); ch_low->Draw("same");
 
-	cc->SaveAs("PLOTS/scatterplot_PHe_PSD_BGO_Orb120Month_2e5sigmaLow_6sigmaUp_new3.pdf");
+	//========================
+    // Legenda in alto a sinistra
+    //========================
+    TLegend *leg = new TLegend(0.12, 0.67, 0.39, 0.9);
+    leg->SetBorderSize(1);
+    leg->SetFillColor(kWhite);
+    leg->SetFillStyle(1001);
+    leg->SetTextFont(42);
+    leg->SetTextSize(0.035);
+
+    leg->AddEntry(ch_high, "Helium MPV + 6 #sigma", "l");
+    leg->AddEntry(mpv_he,  "Helium MPV",          "l");
+    leg->AddEntry(mpv_p,   "Proton MPV",          "l");
+    leg->AddEntry(ch_low,  "Proton MPV - 2.9 #sigma", "l");
+
+    leg->Draw();
+
+    cc->SaveAs("PLOTS/scatterplot_PHe_PSDprogressive_BGO_Orb120Month_16sett26_4.pdf");
 
 }
