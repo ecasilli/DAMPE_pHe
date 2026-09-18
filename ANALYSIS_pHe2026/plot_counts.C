@@ -102,34 +102,35 @@ void plot_counts() {
     //const char *fAll = "ROOT_FILES/unfold_results_pHe_2026_Orb120Month_MLionsv3_2e5sigmaLow_6sigmaUp_TH1D_noCut02_smooth_PSDprogr_wPHe_kernel.root";
     //const char *fAll = "ROOT_FILES/unfold_results_pHe_2026_MLionsv3_2e5sigmaLow_6sigmaUp_new_smooth.root";
     //const char *f6ys = "ROOT_FILES/unfold_results_pHe_2026_72months_MLionsv3_2e5sigmaLow_6sigmaUp_new_smooth.root";
+    const char *f6ys = "ROOT_FILES/unfold_results_pHe_2026_Orb120Month_MLionsv3_2e5sigmaLow_6sigmaUp_TH1D_noCut02_smooth_PSDprogr_STKvert_wPHe_kernel.root";
     //const char *f4ys = "ROOT_FILES/unfold_results_pHe_2026_rem48months_MLionsv3_2e5sigmaLow_6sigmaUp_new_smooth.root";
 
     TH1D *hAllbef = LoadHist(fAll, "h1SelBGO_orb", "hAllbef");
     TH1D *hAllaft = LoadHist(fAll, "unfold_cts",      "hAllaft");
-    //TH1D *h6ysbef = LoadHist(f6ys, "h1SelBGO_orb_v3", "h6ysbef");
-    //TH1D *h6ysaft = LoadHist(f6ys, "unfold_cts",      "h6ysaft");
+    TH1D *h6ysbef = LoadHist(f6ys, "h1SelBGO_orb_v3", "h6ysbef");
+    TH1D *h6ysaft = LoadHist(f6ys, "unfold_cts",      "h6ysaft");
     //TH1D *h4ysbef = LoadHist(f4ys, "h1SelBGO_orb_v3", "h4ysbef");
     //TH1D *h4ysaft = LoadHist(f4ys, "unfold_cts",      "h4ysaft");
     
     SetStyle(hAllbef, kBlack,    20, 0.7);
-    SetStyle(hAllaft, kBlack,    20, 0.7);/*
+    SetStyle(hAllaft, kBlack,    20, 0.7);
     SetStyle(h6ysbef, kOrange+1, 20, 0.7);
-    SetStyle(h6ysaft, kOrange+1, 20, 0.7);
+    SetStyle(h6ysaft, kOrange+1, 20, 0.7);/*
     SetStyle(h4ysbef, kGreen+1,  20, 0.7);
     SetStyle(h4ysaft, kGreen+1,  20, 0.7);*/
 
     // === Istogrammi di rate (counts / livetime) ===
     TH1D *hAllbef_rate = MakeRate(hAllbef, lt_All, "hAllbef_rate");
-    TH1D *hAllaft_rate = MakeRate(hAllaft, lt_All, "hAllaft_rate");/*
+    TH1D *hAllaft_rate = MakeRate(hAllaft, lt_All, "hAllaft_rate");
     TH1D *h6ysbef_rate = MakeRate(h6ysbef, lt_6ys, "h6ysbef_rate");
-    TH1D *h6ysaft_rate = MakeRate(h6ysaft, lt_6ys, "h6ysaft_rate");
+    TH1D *h6ysaft_rate = MakeRate(h6ysaft, lt_6ys, "h6ysaft_rate");/*
     TH1D *h4ysbef_rate = MakeRate(h4ysbef, lt_4ys, "h4ysbef_rate");
     TH1D *h4ysaft_rate = MakeRate(h4ysaft, lt_4ys, "h4ysaft_rate");*/
 
     SetStyle(hAllbef_rate, kBlack,    20, 0.7);
-    SetStyle(hAllaft_rate, kBlack,    20, 0.7);/*
+    SetStyle(hAllaft_rate, kBlack,    20, 0.7);
     SetStyle(h6ysbef_rate, kOrange+1, 20, 0.7);
-    SetStyle(h6ysaft_rate, kOrange+1, 20, 0.7);
+    SetStyle(h6ysaft_rate, kOrange+1, 20, 0.7);/*
     SetStyle(h4ysbef_rate, kGreen+1,  20, 0.7);
     SetStyle(h4ysaft_rate, kGreen+1,  20, 0.7);*/
 
@@ -141,7 +142,7 @@ void plot_counts() {
     SetTitle(hAllaft_rate, "Primary energy (GeV)", "Rate after unfolding (s^{-1})");
     hAllbef_rate->GetYaxis()->SetRangeUser(1.5e-9, 0.7);
     hAllaft_rate->GetYaxis()->SetRangeUser(7e-11, 0.7);
-/*
+
     // === Legenda ===
     TLegend *legend = new TLegend(0.64, 0.63, 0.88, 0.86);
     legend->SetTextSize(0.028);
@@ -150,50 +151,52 @@ void plot_counts() {
     legend->SetFillStyle(1001);
     legend->SetFillColor(0);
 
-    if (hAllbef) legend->AddEntry(hAllbef, "10 years (2016-2025)", "pe");
-    if (h6ysbef) legend->AddEntry(h6ysbef, "6 years (2016-2021)", "pe");
-    if (h4ysbef) legend->AddEntry(h4ysbef, "4 years (2022-2025)", "pe");
-*/
+    //if (hAllbef) legend->AddEntry(hAllbef, "10 years (2016-2025)", "pe");
+    //if (h6ysbef) legend->AddEntry(h6ysbef, "6 years (2016-2021)", "pe");
+    if (hAllbef) legend->AddEntry(hAllbef, "This work - preliminary", "pe");
+    if (h6ysbef) legend->AddEntry(h6ysbef, "July 2026 - preliminary", "pe");
+    //if (h4ysbef) legend->AddEntry(h4ysbef, "4 years (2022-2025)", "pe");
+
     // === Disegno — canvas 1 (counts before) ===
     c1->cd();
     if (hAllbef) hAllbef->Draw("E");
-    //if (h6ysbef) h6ysbef->Draw("E same");
+    if (h6ysbef) h6ysbef->Draw("E same");
     //if (h4ysbef) h4ysbef->Draw("E same");
     //legend->Draw();
 
     // === Disegno — canvas 2 (counts after) ===
     c2->cd();
     if (hAllaft) hAllaft->Draw("E");
-    //if (h6ysaft) h6ysaft->Draw("E same");
+    if (h6ysaft) h6ysaft->Draw("E same");
     //if (h4ysaft) h4ysaft->Draw("E same");
     //legend->Draw();
 
     // === Disegno — canvas 3 (rate before) ===
     c3->cd();
     if (hAllbef_rate) hAllbef_rate->Draw("E");
-    //if (h6ysbef_rate) h6ysbef_rate->Draw("E same");
+    if (h6ysbef_rate) h6ysbef_rate->Draw("E same");
     //if (h4ysbef_rate) h4ysbef_rate->Draw("E same");
     //legend->Draw();
 
     // === Disegno — canvas 4 (rate after) ===
     c4->cd();
     if (hAllaft_rate) hAllaft_rate->Draw("E");
-    //if (h6ysaft_rate) h6ysaft_rate->Draw("E same");
+    if (h6ysaft_rate) h6ysaft_rate->Draw("E same");
     //if (h4ysaft_rate) h4ysaft_rate->Draw("E same");
     //legend->Draw();
 
     // === Salvataggio in *.png e *.pdf ==
-    c1->SaveAs("PLOTS/counts_before_unfolding_pHe_Orb120Month_unfold_results_PSDprogr_STKcharge_comb_STKvert0e7_17sett26_wPHe_kernel.pdf");
-    c1->SaveAs("PLOTS/counts_before_unfolding_pHe_Orb120Month_unfold_results_PSDprogr_STKcharge_comb_STKvert0e7_17sett26_wPHe_kernel.png");
+    c1->SaveAs("PLOTS/counts_before_unfolding_pHe_Orb120Month_PSD_STK_comb_vert0e7_17sett26_wPHe_kernel_prevComp.pdf");
+    c1->SaveAs("PLOTS/counts_before_unfolding_pHe_Orb120Month_PSD_STK_comb_vert0e7_17sett26_wPHe_kernel_prevComp.png");
 
-    c2->SaveAs("PLOTS/counts_after_unfolding_pHe_Orb120Month_unfold_results_PSDprogr_STKcharge_comb_STKvert0e7_17sett26_wPHe_kernel.pdf");
-    c2->SaveAs("PLOTS/counts_after_unfolding_pHe_Orb120Month_unfold_results_PSDprogr_STKcharge_comb_STKvert0e7_17sett26_wPHe_kernel.png");
+    c2->SaveAs("PLOTS/counts_after_unfolding_pHe_Orb120Month_PSD_STK_comb_vert0e7_17sett26_wPHe_kernel_prevComp.pdf");
+    c2->SaveAs("PLOTS/counts_after_unfolding_pHe_Orb120Month_PSD_STK_comb_vert0e7_17sett26_wPHe_kernel_prevComp.png");
 
-    c3->SaveAs("PLOTS/rate_before_unfolding_pHe_Orb120Month_unfold_results_PSDprogr_STKcharge_comb_STKvert0e7_17sett26_wPHe_kernel.pdf");
-    c3->SaveAs("PLOTS/rate_before_unfolding_pHe_Orb120Month_unfold_results_PSDprogr_STKcharge_comb_STKvert0e7_17sett26_wPHe_kernel.png");
+    c3->SaveAs("PLOTS/rate_before_unfolding_pHe_Orb120Month_PSD_STK_comb_vert0e7_17sett26_wPHe_kernel_prevComp.pdf");
+    c3->SaveAs("PLOTS/rate_before_unfolding_pHe_Orb120Month_PSD_STK_comb_vert0e7_17sett26_wPHe_kernel_prevComp.png");
 
-    c4->SaveAs("PLOTS/rate_after_unfolding_pHe_Orb120Month_unfold_results_PSDprogr_STKcharge_comb_STKvert0e7_17sett26_wPHe_kernel.pdf");
-    c4->SaveAs("PLOTS/rate_after_unfolding_pHe_Orb120Month_unfold_results_PSDprogr_STKcharge_comb_STKvert0e7_17sett26_wPHe_kernel.png");
+    c4->SaveAs("PLOTS/rate_after_unfolding_pHe_Orb120Month_PSD_STK_comb_vert0e7_17sett26_wPHe_kernel_prevComp.pdf");
+    c4->SaveAs("PLOTS/rate_after_unfolding_pHe_Orb120Month_PSD_STK_comb_vert0e7_17sett26_wPHe_kernel_prevComp.png");
 
 
 }

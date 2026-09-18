@@ -232,7 +232,7 @@ if __name__ == '__main__':
     gr_DAMPE2026_PSDprog = make_flux_graph_DAMPE2026(file_DAMPE2026_PSDprog, kRed+1, 20, 1.3, 2.6)
 
     #file_DAMPE2026_PSDprog_STKch = 'TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_2e8sigmaLow_6sigmaUp_PSDprogr_STKcharge_comb_STKvert0e7_17sett26_nocut06_wPHe_kernel_PLOT.dat'
-    file_DAMPE2026_PSDprog_STKch = 'TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_2e8sigmaLow_6sigmaUp_PSDprogr_STKcharge_comb_STKvert0e7_nocut06_17sett26_wPHe_kernel_5bins_2_PLOT.dat'
+    file_DAMPE2026_PSDprog_STKch = 'TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_2e8sigmaLow_6sigmaUp_PSDprogr_STKcharge_comb_vert0e7_18sett26_wPHe_kernel_5bin_PLOT.dat'
     gr_DAMPE2026_PSDprog_STKch = make_flux_graph_DAMPE2026(file_DAMPE2026_PSDprog_STKch, kMagenta+1, 20, 1.3, 2.6)
 
     file_DAMPE2026_PSDprog_STKch_cut06 = 'TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_2e8sigmaLow_6sigmaUp_PSDprogr_STKcharge_comb_STKvert0e7_nocut06_17sett26_wPHe_kernel_5bins_PLOT.dat'
@@ -325,7 +325,7 @@ if __name__ == '__main__':
     #gr_DAMPE2026.Draw("P SAME")
     #gr_DAMPE2026_PSDprog.Draw("P SAME")
     gr_DAMPE2026_PSDprog_STKch.Draw("P SAME")
-    gr_DAMPE2026_PSDprog_STKch_cut06comp.Draw("P SAME")
+    #gr_DAMPE2026_PSDprog_STKch_cut06comp.Draw("P SAME")
     #gr_DAMPE2026_wSTK.Draw("P SAME")
     #gr_DAMPE2026_all.Draw("P SAME")
     #gr_DAMPE2026_first6years.Draw("P SAME")
@@ -392,8 +392,8 @@ if __name__ == '__main__':
 
     cc.Update()
 
-    cc.SaveAs('PLOTS/flux_pHe_update2026_cfrLHAASO_comparison_wPHe_17sett26_nocut06_onlyGeneva_5bins.pdf')
-    cc.SaveAs('PLOTS/flux_pHe_update2026_cfrLHAASO_comparison_wPHe_17sett26_nocut06_onlyGeneva_5bins.png')
+    cc.SaveAs('PLOTS/flux_pHe_update2026_wPHe_18sett26_onlyGeneva_5bins.pdf')
+    cc.SaveAs('PLOTS/flux_pHe_update2026_wPHe_18sett26_onlyGeneva_5bins.png')
 
     raw_input("Press enter..")
 

@@ -14,7 +14,7 @@ void draw_scatterplot_DATA_PSD_BGO(){
     hDATA->GetXaxis()->SetTitleOffset(1.2);
     hDATA->GetYaxis()->SetTitle("PSD charge");
     hDATA->GetYaxis()->SetTitleOffset(1.1);
-    hDATA->GetYaxis()->SetRangeUser(0.8,5.4);
+    hDATA->GetYaxis()->SetRangeUser(0.2,5.4);
     hDATA->GetXaxis()->SetRangeUser(20.,900000.);
     TCanvas *cc = new TCanvas("cc","cc",1);//780,780); 
     cc->SetLogx(); cc->SetLogz();
@@ -39,7 +39,7 @@ void draw_scatterplot_DATA_PSD_BGO(){
     //TString PMPVf= "(0.993603+(-0.00402039*log10(x))+(0.0408375*log10(x)**2)+(-0.0227868*log10(x)**3)+(0.00494042*log10(x)**4) )";
     //TString PWidthf = "(-0.0611545+(0.140328*log10(x))+(-0.0683705*log10(x)**2)+(0.0143596*log10(x)**3)+(-0.000527989*log10(x)**4))";
     //TString PGSigmaf = "(5.5475e-08)";
-    TString PMPVf= "(0.988625+(0.0166979*log10(x))+(0.0136979*log10(x)**2)+(-0.0114983*log10(x)**3)+(0.00313886*log10(x)**4) )";
+    TString PMPVf= "(0.921742+(0.146142*log10(x))+(-0.0779683*log10(x)**2)+(0.0165976*log10(x)**3)+(0*log10(x)**4) )";
     TString PWidthf = "(-0.0152013+(0.0753179*log10(x))+(-0.0344289*log10(x)**2)+(0.00656681*log10(x)**3)+(0.000105438*log10(x)**4))";
     TString PGSigmaf = "(2.02488e-08)";
 	
@@ -47,7 +47,7 @@ void draw_scatterplot_DATA_PSD_BGO(){
 
 	TF1 *mpv_p = new TF1("mpv_p", PMPVf, 20.,900000.); mpv_p->SetLineColor(9); mpv_p->SetLineWidth(3); mpv_p->Draw("same");
 
-	TF1 *ch_low= new TF1("ch_low",PMPVf+"-"+"2.9*"+PFSig, 20.,900000.); ch_low->SetLineColor(1); ch_low->SetLineStyle(2); ch_low->SetLineWidth(3); ch_low->Draw("same");
+	TF1 *ch_low= new TF1("ch_low",PMPVf+"-"+"2.6*"+PFSig, 20.,900000.); ch_low->SetLineColor(1); ch_low->SetLineStyle(2); ch_low->SetLineWidth(3); ch_low->Draw("same");
 
 	//========================
     // Legenda in alto a sinistra
@@ -62,10 +62,10 @@ void draw_scatterplot_DATA_PSD_BGO(){
     leg->AddEntry(ch_high, "Helium MPV + 6 #sigma", "l");
     leg->AddEntry(mpv_he,  "Helium MPV",          "l");
     leg->AddEntry(mpv_p,   "Proton MPV",          "l");
-    leg->AddEntry(ch_low,  "Proton MPV - 2.9 #sigma", "l");
+    leg->AddEntry(ch_low,  "Proton MPV - 2.6 #sigma", "l");
 
     leg->Draw();
 
-    cc->SaveAs("PLOTS/scatterplot_PHe_PSDprogressive_BGO_Orb120Month_16sett26_4.pdf");
+    cc->SaveAs("PLOTS/scatterplot_PHe_PSDprogressive_BGO_Orb120Month_18sett26_test.pdf");
 
 }

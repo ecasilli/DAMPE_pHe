@@ -34,8 +34,8 @@ double MIN_TS = (Test_Stat == "ks" ? 1e-4 : 1.);
 
 const bool SMOOTHING = true;
 
-std::string fout_name = "ROOT_FILES/unfold_results_pHe_2026_Orb120Month_2e8sigmaLow_6sigmaUp_PSDprogr_STKcharge_comb_STKvert0e7_nocut06_17sett26_wPHe_kernel_5bins_2.root";
-std::string fdat_name = "TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_2e8sigmaLow_6sigmaUp_PSDprogr_STKcharge_comb_STKvert0e7_nocut06_17sett26_wPHe_kernel_5bins_2.dat";
+std::string fout_name = "ROOT_FILES/unfold_results_pHe_2026_Orb120Month_2e8sigmaLow_6sigmaUp_PSDprogr_STKcharge_comb_vert0e7_18sett26_wPHe_kernel_5bin.root";
+std::string fdat_name = "TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_2e8sigmaLow_6sigmaUp_PSDprogr_STKcharge_comb_vert0e7_18sett26_wPHe_kernel_5bin.dat";
 
 // Global variables
 std::vector<double> TRUGUESS;
@@ -312,8 +312,8 @@ int unfolding_smooth_pHe() {
     std::string response_histo = "h2Ntrig_wgt";
     std::string data_file = "ROOT_FILES/PHe_skim_Orb120Month_5binperdecade_2e8sigmaLow_6sigmaUp_PSDprogr_STKcharge_comb_STKvert0e7_nocut06_17sett26.root";
     std::string data_histo = "h1SelBGO_orb";
-    std::string ngen_file = "PHe_MC_FTFP_EPOSLHC_h1Ngen_5binsPerDecade_2.root"; // response-mat to be normalized
-    std::string ngen_histo = "h1p1"; // response-mat to be normalized
+    std::string ngen_file = "PHe_MC_FTFP_EPOSLHC_h1Ngen_5binsPerDecade.root"; // response-mat to be normalized
+    std::string ngen_histo = "h1Ngen"; // response-mat to be normalized
 
 
     // Load normalized response matrix
