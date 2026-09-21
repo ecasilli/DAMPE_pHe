@@ -81,20 +81,23 @@ def make_flux_graph_DAMPE2026(filename, color, marker, size, alpha):
 
 def make_flux_graph_pHe(filenameP, filenameHe, color, marker, size, alpha):
     # Qty   <E>  Elo  Eup   y   ystat_lo  ystat_up  ysyst_lo  ysyst_up  yerrtot_lo 
-    EmeanP       = np.loadtxt(filenameP, skiprows=2, usecols=(1,), unpack=True)
-    Flux_2P      = np.loadtxt(filenameP, skiprows=2, usecols=(4,), unpack=True)
-    Flux_stat_loP= np.loadtxt(filenameP, skiprows=2, usecols=(5,), unpack=True)
-    Flux_stat_upP= np.loadtxt(filenameP, skiprows=2, usecols=(6,), unpack=True)
+    # NEW: emin    emax      ene      flux      stat         ana         had        pow
+    EmeanP       = np.loadtxt(filenameP, skiprows=1, usecols=(2,), unpack=True)
+    Flux_2P      = np.loadtxt(filenameP, skiprows=1, usecols=(3,), unpack=True)
+    Flux_stat_loP= np.loadtxt(filenameP, skiprows=1, usecols=(4,), unpack=True)
+    Flux_stat_upP= np.loadtxt(filenameP, skiprows=1, usecols=(4,), unpack=True)
 
     FluxP    = (Flux_2P) * EmeanP**alpha
     Flux_err_loP= (Flux_stat_loP) * EmeanP**alpha
     Flux_err_upP= (Flux_stat_upP) * EmeanP**alpha
 
 
-    EmeanHe       = np.loadtxt(filenameHe, skiprows=2, usecols=(1,), unpack=True)
-    Flux_2He      = np.loadtxt(filenameHe, skiprows=2, usecols=(4,), unpack=True)
-    Flux_stat_loHe= np.loadtxt(filenameHe, skiprows=2, usecols=(5,), unpack=True)
-    Flux_stat_upHe= np.loadtxt(filenameHe, skiprows=2, usecols=(6,), unpack=True)
+    # NEW: #E_min (Gev) E_max (GeV)  E_c (GeV)    Flux         Stat_err     Sys_err_ana  Sys_err_had  Sys_err_tot
+    #      #doerrorbands
+    EmeanHe       = np.loadtxt(filenameHe, skiprows=2, usecols=(2,), unpack=True)
+    Flux_2He      = np.loadtxt(filenameHe, skiprows=2, usecols=(3,), unpack=True)
+    Flux_stat_loHe= np.loadtxt(filenameHe, skiprows=2, usecols=(4,), unpack=True)
+    Flux_stat_upHe= np.loadtxt(filenameHe, skiprows=2, usecols=(4,), unpack=True)
 
     FluxHe    = (Flux_2He) * EmeanHe**alpha
     Flux_err_loHe= (Flux_stat_loHe) * EmeanHe**alpha
@@ -233,7 +236,7 @@ if __name__ == '__main__':
 
     #file_DAMPE2026_PSDprog_STKch = 'TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_2e8sigmaLow_6sigmaUp_PSDprogr_STKcharge_comb_STKvert0e7_17sett26_nocut06_wPHe_kernel_PLOT.dat'
     file_DAMPE2026_PSDprog_STKch = 'TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_2e8sigmaLow_6sigmaUp_PSDprogr_STKcharge_comb_vert0e7_18sett26_wPHe_kernel_5bin_PLOT.dat'
-    gr_DAMPE2026_PSDprog_STKch = make_flux_graph_DAMPE2026(file_DAMPE2026_PSDprog_STKch, kMagenta+1, 20, 1.3, 2.6)
+    gr_DAMPE2026_PSDprog_STKch = make_flux_graph_DAMPE2026(file_DAMPE2026_PSDprog_STKch, kRed+1, 20, 1.3, 2.6)
 
     file_DAMPE2026_PSDprog_STKch_cut06 = 'TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_2e8sigmaLow_6sigmaUp_PSDprogr_STKcharge_comb_STKvert0e7_nocut06_17sett26_wPHe_kernel_5bins_PLOT.dat'
     gr_DAMPE2026_PSDprog_STKch_cut06comp = make_flux_graph_DAMPE2026(file_DAMPE2026_PSDprog_STKch_cut06, kBlue+1, 24, 1.3, 2.6)
@@ -252,8 +255,8 @@ if __name__ == '__main__':
     file_DAMPE2026_wSTKvert2 = 'TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_MLionsv3_2e5sigmaLow_6sigmaUp_TH1D_noCut02_STKvertSel_smooth_wPHe_kernel.dat'
     gr_DAMPE2026_wSTKvert2 = make_flux_graph_DAMPE2026(file_DAMPE2026_wSTKvert2, kMagenta+1, 20, 1.3, 2.6)
 
-    filename_GenevaP  = 'TXT_FILES/DAMPE_p_2026_pHePaperDraft.txt'
-    filename_GenevaHe = 'TXT_FILES/DAMPE_He_2026_pHePaperDraft.txt'
+    filename_GenevaP  = 'TXT_FILES/PROTON_SEP2026_ANDRII_flux_noescale_ekin_p_2026.txt'
+    filename_GenevaHe = 'TXT_FILES/HELIUM_SEP2026_PAUL_Helium_Paul_Geant4.txt'
     gr_DAMPE2026_pHe_Geneva = make_flux_graph_pHe(filename_GenevaP, filename_GenevaHe, kGreen+1, 21, 1.3, 2.6)
 
     #file_DAMPE2026_Irene = 'ROOT_FILES/unfold_result_2016-25_pHe_SampleTarget_fullSimu_IRENE_smooth.root'
@@ -392,8 +395,8 @@ if __name__ == '__main__':
 
     cc.Update()
 
-    cc.SaveAs('PLOTS/flux_pHe_update2026_wPHe_18sett26_onlyGeneva_5bins.pdf')
-    cc.SaveAs('PLOTS/flux_pHe_update2026_wPHe_18sett26_onlyGeneva_5bins.png')
+    cc.SaveAs('PLOTS/flux_pHe_update2026_wPHe_21sett26_onlyGeneva_5bins.pdf')
+    cc.SaveAs('PLOTS/flux_pHe_update2026_wPHe_21sett26_onlyGeneva_5bins.png')
 
     raw_input("Press enter..")
 

@@ -1,6 +1,6 @@
  
 import sys
-from ROOT import gStyle, TGraph, TGraphErrors, TGraphAsymmErrors, TLatex, TLegend, TCanvas, gPad, kBlack, kGray, kRed, kBlue, kGreen, kAzure, kOrange, kMagenta
+from ROOT import gStyle, TGraph, TGraphErrors, TGraphAsymmErrors, TLatex, TLegend, TLine, TBox, TCanvas, gPad, kBlack, kGray, kRed, kBlue, kGreen, kAzure, kOrange, kMagenta, TPad, TGaxis
 import array as ary
 import numpy as np
 import math
@@ -64,20 +64,22 @@ def make_flux_graph_DAMPE2026(filename, color, marker, size, alpha):
 
 def make_flux_graph_pHe(filenameP, filenameHe, color, marker, size, alpha):
     # Qty   <E>  Elo  Eup   y   ystat_lo  ystat_up  ysyst_lo  ysyst_up  yerrtot_lo 
-    EmeanP       = np.loadtxt(filenameP, skiprows=2, usecols=(1,), unpack=True)
-    Flux_2P      = np.loadtxt(filenameP, skiprows=2, usecols=(4,), unpack=True)
-    Flux_stat_loP= np.loadtxt(filenameP, skiprows=2, usecols=(5,), unpack=True)
-    Flux_stat_upP= np.loadtxt(filenameP, skiprows=2, usecols=(6,), unpack=True)
+    # NEW: emin    emax      ene      flux      stat         ana         had        pow
+    EmeanP       = np.loadtxt(filenameP, skiprows=1, usecols=(2,), unpack=True)
+    Flux_2P      = np.loadtxt(filenameP, skiprows=1, usecols=(3,), unpack=True)
+    Flux_stat_loP= np.loadtxt(filenameP, skiprows=1, usecols=(4,), unpack=True)
+    Flux_stat_upP= np.loadtxt(filenameP, skiprows=1, usecols=(4,), unpack=True)
 
     FluxP    = (Flux_2P) * EmeanP**alpha
     Flux_err_loP= (Flux_stat_loP) * EmeanP**alpha
     Flux_err_upP= (Flux_stat_upP) * EmeanP**alpha
 
-
-    EmeanHe       = np.loadtxt(filenameHe, skiprows=2, usecols=(1,), unpack=True)
-    Flux_2He      = np.loadtxt(filenameHe, skiprows=2, usecols=(4,), unpack=True)
-    Flux_stat_loHe= np.loadtxt(filenameHe, skiprows=2, usecols=(5,), unpack=True)
-    Flux_stat_upHe= np.loadtxt(filenameHe, skiprows=2, usecols=(6,), unpack=True)
+    # NEW: #E_min (Gev) E_max (GeV)  E_c (GeV)    Flux         Stat_err     Sys_err_ana  Sys_err_had  Sys_err_tot
+    #      #doerrorbands
+    EmeanHe       = np.loadtxt(filenameHe, skiprows=2, usecols=(2,), unpack=True)
+    Flux_2He      = np.loadtxt(filenameHe, skiprows=2, usecols=(3,), unpack=True)
+    Flux_stat_loHe= np.loadtxt(filenameHe, skiprows=2, usecols=(4,), unpack=True)
+    Flux_stat_upHe= np.loadtxt(filenameHe, skiprows=2, usecols=(4,), unpack=True)
 
     FluxHe    = (Flux_2He) * EmeanHe**alpha
     Flux_err_loHe= (Flux_stat_loHe) * EmeanHe**alpha
@@ -146,8 +148,8 @@ if __name__ == '__main__':
     file_DAMPE2026 = 'TXT_FILES/DAMPE_p+He_120M_paperDraft.dat'
     gr_DAMPE2026 = make_flux_graph_DAMPE2026(file_DAMPE2026, kRed+1, 20, 1.33, 2.6)
 
-    filename_GenevaP  = 'TXT_FILES/DAMPE_p_2026_pHePaperDraft.txt'
-    filename_GenevaHe = 'TXT_FILES/DAMPE_He_2026_pHePaperDraft.txt'
+    filename_GenevaP  = 'TXT_FILES/PROTON_SEP2026_ANDRII_flux_noescale_ekin_p_2026.txt'
+    filename_GenevaHe = 'TXT_FILES/HELIUM_SEP2026_PAUL_Helium_Paul_Geant4.txt'
     gr_DAMPE2026_pHe_Geneva = make_flux_graph_pHe(filename_GenevaP, filename_GenevaHe, kGreen+1, 21, 1.3, 2.6)
 
     file_LHAASO_EPOSLHC = 'TXT_FILES/light_component_LHAASO_EPOSLHC.dat'
@@ -159,7 +161,7 @@ if __name__ == '__main__':
     file_LHAASO_SIBYLL = 'TXT_FILES/light_component_LHAASO_SIBYLL.dat'
     gr_LHAASO_SIBYLL, gr_LHAASO_SIBYLL_sys = make_flux_graph_LHAASO(file_LHAASO_SIBYLL, kBlue+1, 26, 1.3, 2.6)
 
-    cc = TCanvas("", "", 1200, 800)
+    cc = TCanvas("cc", "Flux", 1200, 800)
 
     cc.SetTopMargin(0.02)
     cc.SetRightMargin(0.04)
@@ -237,7 +239,8 @@ if __name__ == '__main__':
 
     cc.Update()
 
-    cc.SaveAs('PLOTS/flux_pHe_update2026_wPHe_5bins.pdf')
+    cc.SaveAs('PLOTS/flux_pHe_update2026_wPHe_5bins_21sett26.pdf')
+    cc.SaveAs('PLOTS/flux_pHe_update2026_wPHe_5bins_21sett26.png')
 
     raw_input("Press enter..")
 
