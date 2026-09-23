@@ -393,7 +393,7 @@ if __name__ == '__main__':
     leg = TLegend(0.20,0.19,0.43,0.66)
     leg.SetBorderSize(0)
     leg.SetFillStyle(0)
-    leg.SetTextSize(0.023)
+    leg.SetTextSize(0.032)
     #leg.SetHeader("p+He ");
     #leg.SetNColumns(2)
 
@@ -425,14 +425,16 @@ if __name__ == '__main__':
     leg.AddEntry(gr_LHAASO_QGSJET,"LHAASO (QGSJET-II-04), (EPOS-LHC)","P")
     leg.Draw()
 
-    marker_kascade = draw_legend_marker(gr_KASCADE_SIBYLL, 0.525, 0.268)
-    marker_lhaaso  = draw_legend_marker(gr_LHAASO_EPOSLHC, 0.525, 0.217)
+    marker_kascade = draw_legend_marker(gr_KASCADE_SIBYLL, 0.615, 0.268)
+    marker_lhaaso  = draw_legend_marker(gr_LHAASO_EPOSLHC, 0.615, 0.217)
 
 
     cc.Update()
 
-    cc.SaveAs('PLOTS/flux_pHe_update2026_wPHe_23sett26_1.pdf')
-    cc.SaveAs('PLOTS/flux_pHe_update2026_wPHe_23sett26_1.png')
+    cc.SaveAs('PLOTS/flux_pHe_update2026_wPHe_22sett26.pdf')
+    cc.SaveAs('PLOTS/flux_pHe_update2026_wPHe_22sett26.png')
+
+    cc.SaveAs('ROOT_FILES/flux_pHe_update2026_wPHe_22sett26.root')
 
     raw_input("Press enter..")
 
