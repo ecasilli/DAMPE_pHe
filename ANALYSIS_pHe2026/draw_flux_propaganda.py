@@ -126,6 +126,24 @@ def make_flux_graph_pHe(filenameP, filenameHe, color, marker, size, alpha):
 
     return gr 
 
+def make_flux_graph_pHe_sum(filename, color, marker, size, alpha):
+    Emean    = np.loadtxt(filename, skiprows=1, usecols=(2,), unpack=True)
+    Flux_2   = np.loadtxt(filename, skiprows=1, usecols=(3,), unpack=True)
+    Flux_stat= np.loadtxt(filename, skiprows=1, usecols=(4,), unpack=True)
+
+    Flux    = (Flux_2) * Emean**alpha
+    Flux_err= (Flux_stat) * Emean**alpha
+
+    null = np.zeros(len(Emean))
+
+    gr = TGraphAsymmErrors(len(Emean), Emean, Flux, null, null, Flux_err, Flux_err)
+    gr.SetLineColor(color)
+    gr.SetMarkerColor(color)
+    gr.SetMarkerStyle(marker)
+    gr.SetMarkerSize(size)
+
+    return gr 
+
 def make_flux_graph_DAMPE2026_old_anal(filename, color, marker, size, alpha):
     #   <E>  Elo  Eup   y   ystat_lo  ystat_up  ysyst_lo  ysyst_up  yerrtot_lo  yerrtot_up \n
     Emean    = np.loadtxt(filename, skiprows=0, usecols=(0,), unpack=True)
@@ -235,7 +253,8 @@ if __name__ == '__main__':
     gr_DAMPE2026_PSDprog = make_flux_graph_DAMPE2026(file_DAMPE2026_PSDprog, kRed+1, 20, 1.3, 2.6)
 
     #file_DAMPE2026_PSDprog_STKch = 'TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_2e8sigmaLow_6sigmaUp_PSDprogr_STKcharge_comb_STKvert0e7_17sett26_nocut06_wPHe_kernel_PLOT.dat'
-    file_DAMPE2026_PSDprog_STKch = 'TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_2e8sigmaLow_6sigmaUp_PSDprogr_STKcharge_comb_vert0e7_18sett26_wPHe_kernel_5bin_PLOT.dat'
+    #file_DAMPE2026_PSDprog_STKch = 'TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_2e8sigmaLow_6sigmaUp_PSDprogr_STKcharge_comb_vert0e7_18sett26_wPHe_kernel_5bin_PLOT.dat'
+    file_DAMPE2026_PSDprog_STKch = 'TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_3sigmaLow_6e5sigmaUp_PSDprogr_STKcharge450_comb_vert0e7_24sett26_wPHe_kernel_5bin_PLOT.dat'
     gr_DAMPE2026_PSDprog_STKch = make_flux_graph_DAMPE2026(file_DAMPE2026_PSDprog_STKch, kRed+1, 20, 1.3, 2.6)
 
     file_DAMPE2026_PSDprog_STKch_cut06 = 'TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_2e8sigmaLow_6sigmaUp_PSDprogr_STKcharge_comb_STKvert0e7_nocut06_17sett26_wPHe_kernel_5bins_PLOT.dat'
@@ -258,6 +277,9 @@ if __name__ == '__main__':
     filename_GenevaP  = 'TXT_FILES/PROTON_SEP2026_ANDRII_flux_noescale_ekin_p_2026.txt'
     filename_GenevaHe = 'TXT_FILES/HELIUM_SEP2026_PAUL_Helium_Paul_Geant4.txt'
     gr_DAMPE2026_pHe_Geneva = make_flux_graph_pHe(filename_GenevaP, filename_GenevaHe, kGreen+1, 21, 1.3, 2.6)
+
+    filename_Geneva_sum = 'GENEVA_pHe_FILES/Proton_plus_Helium_20260922.txt'
+    gr_DAMPE2026_pHe_Geneva_sum = make_flux_graph_pHe_sum(filename_Geneva_sum, kGreen+2, 21, 1.3, 2.6)
 
     #file_DAMPE2026_Irene = 'ROOT_FILES/unfold_result_2016-25_pHe_SampleTarget_fullSimu_IRENE_smooth.root'
     #gr_DAMPE2026_Irene = make_flux_graph_from_ROOT(file_DAMPE2026_Irene, 'flux_pow', kMagenta+1, 21, 1.3, 2.6)
@@ -321,7 +343,7 @@ if __name__ == '__main__':
     #gr_LHAASO_EPOSLHC_sys.Draw("E3 SAME")
     #gr_DAMPE2024.Draw("P SAME")
 
-    gr_DAMPE2026_pHe_Geneva.Draw("P SAME")
+    gr_DAMPE2026_pHe_Geneva_sum.Draw("P SAME")
     
     #gr_DAMPE2026_COR.Draw("P SAME")
     #gr_DAMPE2026_72m.Draw("P SAME")
@@ -395,8 +417,8 @@ if __name__ == '__main__':
 
     cc.Update()
 
-    cc.SaveAs('PLOTS/flux_pHe_update2026_wPHe_21sett26_onlyGeneva_5bins.pdf')
-    cc.SaveAs('PLOTS/flux_pHe_update2026_wPHe_21sett26_onlyGeneva_5bins.png')
+    cc.SaveAs('PLOTS/flux_pHe_update2026_wPHe_24sett26_onlyGeneva_5bins_3sigmaLow_6e5sigmaUp_450adc.pdf')
+    cc.SaveAs('PLOTS/flux_pHe_update2026_wPHe_24sett26_onlyGeneva_5bins_3sigmaLow_6e5sigmaUp_450adc.png')
 
     raw_input("Press enter..")
 

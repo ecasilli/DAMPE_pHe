@@ -465,7 +465,7 @@ lp->Draw();
    Double_t frHe[2];
    Double_t svHe[4], plloHe[4], plhiHe[4], fpHe[4], fpeHe[4];
   
-   frHe[0]=1.9;  
+   frHe[0]=1.88;  
    frHe[1]=2.8;  
 
    plloHe[0]=0.05; plloHe[1]=1.0; plloHe[2]=1.0E03; plloHe[3]=1.0E-04;

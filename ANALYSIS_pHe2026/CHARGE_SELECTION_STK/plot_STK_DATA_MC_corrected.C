@@ -118,7 +118,7 @@ void DrawDataMCShape(TH1F *hData, TH1F *hMCP, TH1F *hMCHe, const TString &title,
     lineLow->SetLineStyle(2);
     lineLow->Draw("SAME");
 
-    TLine *lineHigh = new TLine(420., yMin, 420., yMax);
+    TLine *lineHigh = new TLine(450., yMin, 450., yMax);
     lineHigh->SetLineColor(kGreen + 2);
     lineHigh->SetLineWidth(2);
     lineHigh->SetLineStyle(2);
@@ -216,9 +216,9 @@ void plot_STK_DATA_MC_corrected()
     }
 
     // SAVE
-    c->SaveAs("PLOTS/STK_DATA_MC_corrected_shape_comparison_2.pdf");
+    c->SaveAs("PLOTS/STK_DATA_MC_corrected_shape_comparison_3.pdf");
 
-    TFile *fout = new TFile( "STK_DATA_MC_corrected_shape_comparison.root", "RECREATE");
+    TFile *fout = new TFile( "STK_DATA_MC_corrected_shape_comparison_3.root", "RECREATE");
 
     if (fout && !fout->IsZombie()) {
         fout->cd();

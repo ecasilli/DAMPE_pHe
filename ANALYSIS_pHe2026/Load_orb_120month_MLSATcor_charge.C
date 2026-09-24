@@ -188,14 +188,14 @@ cout << "Orbital Data Entries: " << skim->GetEntries() << endl;
     h13->SetMarkerColor(kBlack);
     h13->Sumw2();
  
-    TH1F *h14 = new TH1F("h14", "10000 < E_{BGO} < 31622", 240, 0., 5.);
+    TH1F *h14 = new TH1F("h14", "10000 < E_{BGO} < 31622", 240, 1.5, 6.5);
     h14->GetXaxis()->SetTitle("PSD charge");
     h14->GetYaxis()->SetTitle("events");
     h14->SetLineColor(kBlack);
     h14->SetMarkerColor(kBlack);
     h14->Sumw2();
  
-    TH1F *h15 = new TH1F("h15", "31622 < E_{BGO} < 100000", 240, 0., 5.);
+    TH1F *h15 = new TH1F("h15", "31622 < E_{BGO} < 100000", 240, 1.5, 6.5);
     h15->GetXaxis()->SetTitle("PSD charge");
     h15->GetYaxis()->SetTitle("events");
     h15->SetLineColor(kBlack);
@@ -337,7 +337,7 @@ for (int j = 0; j < 15; j++) {
 // =============================
 // ----- Salvataggio -----------
 
-TFile *fout1 = new TFile("ROOT_FILES/PHe_charge_Orb120Month_240bins_NewProgrCharge_asym_10sett26_nocut05.root", "RECREATE");
+TFile *fout1 = new TFile("ROOT_FILES/PHe_charge_Orb120Month_240bins_NewProgrCharge_asym_24sett26_nocut05.root", "RECREATE");
 fout1->cd();
 for (int j = 0; j < 15; j++) {
     hArr[j]->Write();

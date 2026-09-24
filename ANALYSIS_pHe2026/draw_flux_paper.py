@@ -298,7 +298,8 @@ if __name__ == '__main__':
     file_DAMPE2024 = 'TXT_FILES/DAMPE_p+He_72M26.dat'
     gr_DAMPE2024, gr_DAMPE2024_sys, gr_DAMPE2024_sys_had = make_flux_graph_DAMPE2024(file_DAMPE2024, kRed+1, 24, 1.3, 2.6)
 
-    file_DAMPE2026 = 'TXT_FILES/DAMPE_p+He_120M_paperDraft.dat'
+    #file_DAMPE2026 = 'TXT_FILES/DAMPE_p+He_120M_paperDraft.dat'
+    file_DAMPE2026 = 'TXT_FILES/DAMPE_p+He_120M_paperDraft_24sett26_3sigmaLow_6e5sigmaUp_450adc.dat'
     gr_DAMPE2026 = make_flux_graph_DAMPE2026(file_DAMPE2026, kRed+1, 20, 1.4, 2.6)
 
     filename_GenevaP  = 'TXT_FILES/PROTON_SEP2026_ANDRII_flux_noescale_ekin_p_2026.txt'
@@ -431,10 +432,10 @@ if __name__ == '__main__':
 
     cc.Update()
 
-    cc.SaveAs('PLOTS/flux_pHe_update2026_wPHe_22sett26.pdf')
-    cc.SaveAs('PLOTS/flux_pHe_update2026_wPHe_22sett26.png')
+    cc.SaveAs('PLOTS/flux_pHe_update2026_wPHe_24sett26_3sigmaLow_6e5sigmaUp_450adc.pdf')
+    cc.SaveAs('PLOTS/flux_pHe_update2026_wPHe_24sett26_3sigmaLow_6e5sigmaUp_450adc.png')
 
-    cc.SaveAs('ROOT_FILES/flux_pHe_update2026_wPHe_22sett26.root')
+    cc.SaveAs('ROOT_FILES/flux_pHe_update2026_wPHe_24sett26_3sigmaLow_6e5sigmaUp_450adc.root')
 
     raw_input("Press enter..")
 

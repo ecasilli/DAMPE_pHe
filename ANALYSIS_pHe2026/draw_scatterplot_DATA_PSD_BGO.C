@@ -25,7 +25,7 @@ void draw_scatterplot_DATA_PSD_BGO(){
     //TString HeMPVf= "(1.88586+(0.185264*log10(x))+(-0.0867115*log10(x)**2)+(0.0200701*log10(x)**3)+(-0.000810826*log10(x)**4) )";
     //TString HeWidthf = "(-0.0824082+(0.201315*log10(x))+(-0.0989824*log10(x)**2)+(0.0218456*log10(x)**3)+(-0.00136192*log10(x)**4))";
     //TString HeGSigmaf = "(0.0396516)";
-    TString HeMPVf= "(1.92403+(0.1541*log10(x))+(-0.082833*log10(x)**2)+(0.0208528*log10(x)**3)+(-0.0011579*log10(x)**4) )";
+    TString HeMPVf= "(1.97763+(0.0402723*log10(x))+(0.00636717*log10(x)**2)+(-0.00967592*log10(x)**3)+(0.00268719*log10(x)**4) )";
     TString HeWidthf = "(-0.0105333+(0.129859*log10(x))+(-0.0713011*log10(x)**2)+(0.0169532*log10(x)**3)+(-0.00117928*log10(x)**4))";
     TString HeGSigmaf = "(0.0227879)";
 
@@ -34,12 +34,12 @@ void draw_scatterplot_DATA_PSD_BGO(){
 
 	TF1 *mpv_he = new TF1("mpv_he", HeMPVf, 20.,900000.); mpv_he->SetLineColor(6); mpv_he->SetLineWidth(3); mpv_he->Draw("same");
 
-	TF1 *ch_high= new TF1("ch_high",HeMPVf+"+"+"6*"+HeFSig, 20.,900000.); ch_high->SetLineColor(1); ch_high->SetLineStyle(2); ch_high->SetLineWidth(3); ch_high->Draw("same");
+	TF1 *ch_high= new TF1("ch_high",HeMPVf+"+"+"6.5*"+HeFSig, 20.,900000.); ch_high->SetLineColor(1); ch_high->SetLineStyle(2); ch_high->SetLineWidth(3); ch_high->Draw("same");
 
     //TString PMPVf= "(0.993603+(-0.00402039*log10(x))+(0.0408375*log10(x)**2)+(-0.0227868*log10(x)**3)+(0.00494042*log10(x)**4) )";
     //TString PWidthf = "(-0.0611545+(0.140328*log10(x))+(-0.0683705*log10(x)**2)+(0.0143596*log10(x)**3)+(-0.000527989*log10(x)**4))";
     //TString PGSigmaf = "(5.5475e-08)";
-    TString PMPVf= "(0.921742+(0.146142*log10(x))+(-0.0779683*log10(x)**2)+(0.0165976*log10(x)**3)+(0*log10(x)**4) )";
+    TString PMPVf= "(0.988625+(0.0166979*log10(x))+(0.0136979*log10(x)**2)+(-0.0114983*log10(x)**3)+(0.00313886*log10(x)**4) )";
     TString PWidthf = "(-0.0152013+(0.0753179*log10(x))+(-0.0344289*log10(x)**2)+(0.00656681*log10(x)**3)+(0.000105438*log10(x)**4))";
     TString PGSigmaf = "(2.02488e-08)";
 	
@@ -47,7 +47,7 @@ void draw_scatterplot_DATA_PSD_BGO(){
 
 	TF1 *mpv_p = new TF1("mpv_p", PMPVf, 20.,900000.); mpv_p->SetLineColor(9); mpv_p->SetLineWidth(3); mpv_p->Draw("same");
 
-	TF1 *ch_low= new TF1("ch_low",PMPVf+"-"+"2.6*"+PFSig, 20.,900000.); ch_low->SetLineColor(1); ch_low->SetLineStyle(2); ch_low->SetLineWidth(3); ch_low->Draw("same");
+	TF1 *ch_low= new TF1("ch_low",PMPVf+"-"+"3.0*"+PFSig, 20.,900000.); ch_low->SetLineColor(1); ch_low->SetLineStyle(2); ch_low->SetLineWidth(3); ch_low->Draw("same");
 
 	//========================
     // Legenda in alto a sinistra
@@ -59,13 +59,13 @@ void draw_scatterplot_DATA_PSD_BGO(){
     leg->SetTextFont(42);
     leg->SetTextSize(0.035);
 
-    leg->AddEntry(ch_high, "Helium MPV + 6 #sigma", "l");
+    leg->AddEntry(ch_high, "Helium MPV + 6.5 #sigma", "l");
     leg->AddEntry(mpv_he,  "Helium MPV",          "l");
     leg->AddEntry(mpv_p,   "Proton MPV",          "l");
-    leg->AddEntry(ch_low,  "Proton MPV - 2.6 #sigma", "l");
+    leg->AddEntry(ch_low,  "Proton MPV - 3.0 #sigma", "l");
 
     leg->Draw();
 
-    cc->SaveAs("PLOTS/scatterplot_PHe_PSDprogressive_BGO_Orb120Month_18sett26_test.pdf");
+    cc->SaveAs("PLOTS/scatterplot_PHe_PSDprogressive_BGO_Orb120Month_24sett26_3.pdf");
 
 }

@@ -86,10 +86,9 @@ void GetPSDChargeLimits(Double_t BGOenergy, Double_t &qLow, Double_t &qHigh) {
     const Double_t pGSigma = 2.02488e-08;
 
     // HELIUM DATA
-    const Double_t heMPVpars[5] = { 1.92403, 0.1541, -0.082833, 0.0208528, -0.0011579 };
+    const Double_t heMPVpars[5] = { 1.97763, 0.0402723, 0.00636717, -0.00967592, 0.00268719 };
     const Double_t heWidthPars[5] = { -0.0105333, 0.129859, -0.0713011, 0.0169532, -0.00117928};
     const Double_t heGSigma = 0.0227879;
-
     // Evaluate fits
     const Double_t pMPV = EvalPol4(x, pMPVpars);
     const Double_t pWidth = EvalPol4(x, pWidthPars);
@@ -100,8 +99,8 @@ void GetPSDChargeLimits(Double_t BGOenergy, Double_t &qLow, Double_t &qHigh) {
     const Double_t heSigma = TMath::Sqrt( heWidth * heWidth + heGSigma * heGSigma );
 
     // Final PSD band
-    qLow = pMPV - 2.8 * pSigma;
-    qHigh = heMPV + 6.0 * heSigma;
+    qLow = pMPV - 3.0 * pSigma;
+    qHigh = heMPV + 6.5 * heSigma;
 }
 
 void Load_orb_120month_MLSATcor_PSD_STK_comb() 
@@ -196,7 +195,7 @@ for (int j = 1; j < noe+1; j++) {
     Ebin[j] = Ebin[j-1]*TMath::Power(10., arg1);
 }
 
-TFile *fout1 = new TFile("ROOT_FILES/PHe_skim_Orb120Month_5binperdecade_2e8sigmaLow_6sigmaUp_PSDprogr_STKcharge_comb_STKvert0e7_nocut06_17sett26.root", "RECREATE");
+TFile *fout1 = new TFile("ROOT_FILES/PHe_skim_Orb120Month_5binperdecade_3sigmaLow_6e5sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_24sett26.root", "RECREATE");
 
 TH1D *h1SelBGO_orb    = new TH1D("h1SelBGO_orb",    "Selected(E_bgo) orbital", noe, Ebin);
 h1SelBGO_orb->Sumw2();
@@ -212,7 +211,7 @@ const Double_t vertexCut = 0.7;
 
 // STK charge selection
 const Double_t stkMin = 25.;
-const Double_t stkMax = 420.;
+const Double_t stkMax = 450.;
 
 // ----- Loop su tutti gli eventi ------
 

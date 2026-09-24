@@ -92,7 +92,7 @@ const SmearingPars protonSmearing = {
 
 const SmearingPars heliumSmearing = {
     // MPV DATA
-    { 1.92403, 0.1541,  -0.082833,  0.0208528, -0.0011579 },
+    { 1.97763, 0.0402723, 0.00636717, -0.00967592, 0.00268719 },
     // MPV MC
     //{ 2.4225, -0.653307, 0.418625, -0.108939,   0.0118722 },
     { 2.17123,-0.236375, 0.16997,  -0.0457528,  0.00609007 },
@@ -414,7 +414,7 @@ void Load_MC_He_p_5PeV_charge_loop_smearingCorr(){
     // =======================================
     // Output
 
-    TFile *fout = new TFile("ROOT_FILES/PHe_MC_p_He_5PeV_charge_240bins_NewProgrCharge_asym_14sett26_nocut05_CORRECTED.root", "RECREATE");
+    TFile *fout = new TFile("ROOT_FILES/PHe_MC_p_He_5PeV_charge_240bins_NewProgrCharge_asym_24sett26_nocut05_CORRECTED.root", "RECREATE");
     fout->cd();
 
     for (Int_t i = 0; i < 15; ++i) {

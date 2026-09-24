@@ -96,7 +96,7 @@ const PSDSmearingPars pPSDpars = {
 
 const PSDSmearingPars HePSDpars = {
     // MPV DATA
-    { 1.92403, 0.1541,  -0.082833,  0.0208528, -0.0011579 },
+    { 1.97763, 0.0402723, 0.00636717, -0.00967592, 0.00268719 },
     // WIDTH DATA
     { -0.0105333, 0.129859, -0.0713011, 0.0169532, -0.00117928 },
     // sigma Gauss DATA
@@ -136,10 +136,13 @@ const Double_t pWidthCorr[5] = { 0.00440895, 0.0276405,-0.00368363, -0.00124546,
 const Double_t pGSigmaCorr = 0.000224763;
 
 // HELIUM MC corrected MPV
-const Double_t heMPVcorr[5] = {2.08278, -0.10484, 0.0723122,-0.0183575, 0.00239775};
+//const Double_t heMPVcorr[5] = {2.08278, -0.10484, 0.0723122,-0.0183575, 0.00239775};
+const Double_t heMPVcorr[5] = {2.09943, -0.177259, 0.141829, -0.0437065, 0.00563705};
 // HELIUM MC corrected WIDTH
-const Double_t heWidthCorr[5] = { -0.0530575, 0.161719, -0.0782506, 0.0159716, -0.000868304};
-const Double_t heGSigmaCorr = 0.0368612;
+//const Double_t heWidthCorr[5] = { -0.0530575, 0.161719, -0.0782506, 0.0159716, -0.000868304};
+//const Double_t heGSigmaCorr = 0.0368612;
+const Double_t heWidthCorr[5] = { 0.0410602, 0.018532, -0.0020576, -0.000574209, 0.000384744};
+const Double_t heGSigmaCorr = 0.0307387;
 
 void GetPSDMCSelectionLimits(Double_t BGOenergy, Double_t &qLow, Double_t &qHigh) {
     // proton
@@ -152,8 +155,8 @@ void GetPSDMCSelectionLimits(Double_t BGOenergy, Double_t &qLow, Double_t &qHigh
     const Double_t heWidth = EvalPol4LogE(BGOenergy, heWidthCorr);
     const Double_t heSigma = TMath::Sqrt(heWidth * heWidth + heGSigmaCorr * heGSigmaCorr);
 
-    qLow  = pMPV - 2.8 * pSigma;
-    qHigh = heMPV + 6.0 * heSigma;
+    qLow  = pMPV - 3.0 * pSigma;
+    qHigh = heMPV + 6.5 * heSigma;
 }
 
 Double_t CorrectSTKProton(Double_t q) {
@@ -215,7 +218,7 @@ void ProcessMCSpecies(TChain **chains,
 
     const Double_t vertexCut = 0.7;
     const Double_t stkMin = 25.;
-    const Double_t stkMax = 420.;
+    const Double_t stkMax = 450.;
 
     // helium geometrical normalization
     const Double_t GeoCorr = (2. * TMath::Pi() * TMath::Pi()) / (2. * TMath::Pi() * TMath::Pi() * 1.38 * 1.38);
@@ -523,7 +526,7 @@ void Load_MC_He_p_5PeV_spectrum_PSD_STK_comb(){
     // =======================================
     // Output
 
-    TFile *fout = new TFile("ROOT_FILES/PHe_MC_p_He_5PeV_5binperdecade_2e8sigmaLow_6sigmaUp_PSDprogr_STKcharge_comb_STKvert0e7_nocut06_17sett26.root", "RECREATE");
+    TFile *fout = new TFile("ROOT_FILES/PHe_MC_p_He_5PeV_5binperdecade_3sigmaLow_6e5sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_24sett26.root", "RECREATE");
     fout->cd();
 
     // ===============================================

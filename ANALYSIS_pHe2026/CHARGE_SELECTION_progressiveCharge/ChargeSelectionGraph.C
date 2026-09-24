@@ -88,11 +88,11 @@ void ChargeSelectionGraph()
 {
 	PrintTimestamp("ChargeSelectionGraph.C");
 	std::string timestamp = GetTimestamp();
-	std::string ParticleTag = "H";
-	//std::string ParticleTag = "He";
+	//std::string ParticleTag = "H";
+	std::string ParticleTag = "He";
 
 	std::ifstream in;	
-	in.open("LangausResults_p.txt");
+	in.open("LangausResults_He_corr.txt");
 	//in.open("LangausResults_corrected_v2.txt");
 
 		gROOT->Reset();
@@ -160,13 +160,13 @@ void ChargeSelectionGraph()
 
 cout << "\n * * * * * * *    MPV    * * * * * * * \n" << endl;
 
-		TF1 *ChargeFitFuncH  = new TF1("ChargeFitFuncH","[0]+[1]*log10(x)+[2]*log10(x)**2+[3]*log10(x)**3",25.0,100000.0);
+		TF1 *ChargeFitFuncH  = new TF1("ChargeFitFuncH","[0]+[1]*log10(x)+[2]*log10(x)**2+[3]*log10(x)**3+[4]*log10(x)**4",25.0,100000.0);
 
 		//ChargeFitFuncH->SetParameters(2.236, -0.6383, 0.622, -0.2396, 0.03738);	
 		ChargeFitFuncH->SetLineColor(kBlue+1);
 		TCanvas *C1 = new TCanvas("C1","C1",1000,800);
 		
-		TGraphErrors *ChargeSelectionMPVH = new TGraphErrors(14, BGOEnergy, MPVH, E_BGOEnergy, E_MPVH);
+		TGraphErrors *ChargeSelectionMPVH = new TGraphErrors(8, BGOEnergy, MPVH, E_BGOEnergy, E_MPVH);
 		
 		C1->SetLogx();
 		C1->SetTickx();
@@ -229,7 +229,7 @@ leg->Draw();
 
 cout << "\n * * * * * * *    Width    * * * * * * * \n" << endl;
 
-		TF1 *ChargeFitFuncWidthH  = new TF1("ChargeFitFuncWidthH","[0]+[1]*log10(x)+[2]*log10(x)**2+[3]*log10(x)**3",25.0,100000.0);
+		TF1 *ChargeFitFuncWidthH  = new TF1("ChargeFitFuncWidthH","[0]+[1]*log10(x)+[2]*log10(x)**2+[3]*log10(x)**3+[4]*log10(x)**4",25.0,100000.0);
 		//ChargeFitFuncWidthH->SetParameters(-1.25302, 2.11415, -1.07456, 0.225429, -0.0132164);
 		ChargeFitFuncWidthH->SetLineColor(kBlue+1);
 		
@@ -263,18 +263,19 @@ cout << "\n * * * * * * *    Width    * * * * * * * \n" << endl;
 		C6->SetTickx();
 		C6->SetTicky();
 */
+
 		TGraphErrors *WidthHMC_forFit = (TGraphErrors*)WidthHMC->Clone("WidthHMC_forFit");
 		WidthHMC_forFit->RemovePoint(0);  // rimuove il 3° punto (indice 0-based)
 		WidthHMC_forFit->RemovePoint(1);
-		//WidthHMC_forFit->RemovePoint(2);  // rimuove il 3° punto (indice 0-based)
-		//WidthHMC_forFit->RemovePoint(3);
+		WidthHMC_forFit->RemovePoint(2);  // rimuove il 3° punto (indice 0-based)
+		WidthHMC_forFit->RemovePoint(3);
 		WidthHMC_forFit->RemovePoint(4);
-		//WidthHMC_forFit->RemovePoint(5);
+		WidthHMC_forFit->RemovePoint(5);
 		//WidthHMC_forFit->RemovePoint(6);
 		//WidthHMC_forFit->RemovePoint(12);
 		//WidthHMC_forFit->RemovePoint(13);
-		WidthHMC_forFit->RemovePoint(14);
-		
+		//WidthHMC_forFit->RemovePoint(14);
+	
 		//gStyle->SetOptFit(011);
 		WidthHMC->SetMarkerStyle(20);
 		WidthHMC->SetMarkerSize(1.2);
@@ -282,9 +283,9 @@ cout << "\n * * * * * * *    Width    * * * * * * * \n" << endl;
 		WidthHMC->SetLineColor(kRed+1);
 		WidthHMC->SetTitle(Form(" ;BGO Energy (GeV); Width %s ", ParticleTag.c_str()));
 		WidthHMC->SetFillStyle(0);  
-		WidthHMC->Fit("ChargeFitFuncWidthHMC","R"); 		
+		//WidthHMC->Fit("ChargeFitFuncWidthHMC","R"); 		
 		//WidthHMC->Draw("AP");
-		//WidthHMC_forFit->Fit("ChargeFitFuncWidthHMC", "R");
+		WidthHMC_forFit->Fit("ChargeFitFuncWidthHMC", "R");
 		WidthHMC->Draw("AP");
 
 		cout << "TString PWidthf = \"(" << ChargeFitFuncWidthH->GetParameter(0) << "+(" << ChargeFitFuncWidthH->GetParameter(1) << "*log10(BGO_EnergyG_SatCorr_ML_ions2))" << "+(" << ChargeFitFuncWidthH->GetParameter(2) << "*log10(BGO_EnergyG_SatCorr_ML_ions2)**2)" << "+(" << ChargeFitFuncWidthH->GetParameter(3) << "*log10(BGO_EnergyG_SatCorr_ML_ions2)**3)+(" << ChargeFitFuncWidthH->GetParameter(4) << "*log10(BGO_EnergyG_SatCorr_ML_ions2)**4)" << ")\";" << endl;
@@ -338,7 +339,7 @@ cout << "\n * * * * * * *    Sigma    * * * * * * * \n" << endl;
 		GausSigmaH->Fit("FitFuncGausH","R");GausSigmaH->Fit("FitFuncGausH","R");
 		GausSigmaH->Draw("AP");
 //		TF1 *FitFuncGausHMC  = new TF1("FitFuncGausHMC","[0]",25.,4000.0);
-		TF1 *FitFuncGausHMC  = new TF1("FitFuncGausHMC","[0]",25.,300.0);
+		TF1 *FitFuncGausHMC  = new TF1("FitFuncGausHMC","[0]",25.,170.0);
 
 		//FitFuncGausHMC->SetParameters(0.5,1.0e-50);
 		FitFuncGausHMC->SetLineColor(kRed+1);
@@ -391,19 +392,19 @@ C5->SaveAs(Form("PLOTS/WidthPlot_%s_%s.pdf", ParticleTag.c_str(), timestamp.c_st
 C7->SaveAs(Form("PLOTS/SigmaPlot_%s_%s.pdf", ParticleTag.c_str(), timestamp.c_str()));
 */
 /*
-C1->SaveAs(Form("PLOTS/MPVPlot_%s.pdf", ParticleTag.c_str()));
-C5->SaveAs(Form("PLOTS/WidthPlot_%s.pdf", ParticleTag.c_str()));
-C7->SaveAs(Form("PLOTS/SigmaPlot_%s.pdf", ParticleTag.c_str()));
+C1->SaveAs(Form("PLOTS/MPVPlot_%s_3.pdf", ParticleTag.c_str()));
+C5->SaveAs(Form("PLOTS/WidthPlot_%s_3.pdf", ParticleTag.c_str()));
+C7->SaveAs(Form("PLOTS/SigmaPlot_%s_3.pdf", ParticleTag.c_str()));
 */
 /*
-C1->SaveAs(Form("PLOTS/MPVPlot_%s_%s_corr.pdf", ParticleTag.c_str(), timestamp.c_str()));
-C5->SaveAs(Form("PLOTS/WidthPlot_%s_%s_corr.pdf", ParticleTag.c_str(), timestamp.c_str()));
-C7->SaveAs(Form("PLOTS/SigmaPlot_%s_%s_corr.pdf", ParticleTag.c_str(), timestamp.c_str()));
+C1->SaveAs(Form("PLOTS/MPVPlot_%s_%s_corr_3.pdf", ParticleTag.c_str(), timestamp.c_str()));
+C5->SaveAs(Form("PLOTS/WidthPlot_%s_%s_corr_3.pdf", ParticleTag.c_str(), timestamp.c_str()));
+C7->SaveAs(Form("PLOTS/SigmaPlot_%s_%s_corr_3.pdf", ParticleTag.c_str(), timestamp.c_str()));
 */
-/*
-C1->SaveAs(Form("PLOTS/MPVPlot_%s_corr_2.pdf", ParticleTag.c_str()));
-C5->SaveAs(Form("PLOTS/WidthPlot_%s_corr_2.pdf", ParticleTag.c_str()));
-C7->SaveAs(Form("PLOTS/SigmaPlot_%s_corr_2.pdf", ParticleTag.c_str()));
-*/
+
+C1->SaveAs(Form("PLOTS/MPVPlot_%s_corr_3.pdf", ParticleTag.c_str()));
+C5->SaveAs(Form("PLOTS/WidthPlot_%s_corr_3.pdf", ParticleTag.c_str()));
+C7->SaveAs(Form("PLOTS/SigmaPlot_%s_corr_3.pdf", ParticleTag.c_str()));
+
 }
 

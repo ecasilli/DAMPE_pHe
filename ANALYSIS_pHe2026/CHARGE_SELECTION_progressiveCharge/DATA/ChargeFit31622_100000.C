@@ -383,7 +383,7 @@ void ChargeFit31622_100000()
   // fr[0]=0.3*h1->GetMean();
   // fr[1]=3.0*h1->GetMean();
 	 fr[0]=1.0; 
-	 fr[1]=2.; 
+	 fr[1]=2.0; 
 
 
    pllo[0]=0.01; pllo[1]=0.5; pllo[2]=10; pllo[3]=1.0E-12;
@@ -434,7 +434,7 @@ void ChargeFit31622_100000()
                               c[i]->SetTicky();                              
                               sprintf(h_proton,"h[%i]",i);
                               TH1F *hc1 = (TH1F*)h[i]->Clone("h_proton");
-                              hc1->Rebin(3);
+                              hc1->Rebin(2);
 			      hc1->Sumw2();
                               hc1->SetMarkerColor(9);
                               hc1->Draw("");
@@ -467,7 +467,7 @@ lp->Draw();
    Double_t svHe[4], plloHe[4], plhiHe[4], fpHe[4], fpeHe[4];
   
    frHe[0]=1.9;  
-   frHe[1]=4.1;  
+   frHe[1]=3.56;  
 
    plloHe[0]=0.05; plloHe[1]=1.0; plloHe[2]=1.0E0; plloHe[3]=1.0E-03;
    plhiHe[0]=0.8; plhiHe[1]=4.0; plhiHe[2]=1.0E03; plhiHe[3]=1.0;
@@ -507,7 +507,7 @@ lp->Draw();
                               
 	  		      sprintf(h_helium,"h[%i]",j);
                               TH1F *hc = (TH1F*)h[j]->Clone("h_helium");
-                              hc->Rebin(3);
+                              hc->Rebin(2);
 			      hc->Sumw2();
                               TF1 *fitsnrHe = langaufit(hc,frHe,svHe,plloHe,plhiHe,fpHe,fpeHe,&chisqrHe,&ndfHe);
                               hc->SetMarkerColor(9);
