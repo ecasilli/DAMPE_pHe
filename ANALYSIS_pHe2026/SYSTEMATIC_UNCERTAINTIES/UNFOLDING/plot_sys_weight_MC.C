@@ -48,11 +48,11 @@ void plot_sys_weight_MC()
     const string prefix = "TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_PSDprogr_3sLow_6sUp_STKch450_comb_vert0e7_";
 
     vector<FluxData> data = {
-        {"E2e5_10iter_smooth.dat", "E2e5", kBlue},
-        {"E2e6_10iter_smooth.dat", "E2e6", kGreen+2},
-        {"E2e7_10iter_smooth.dat", "E2e7 (ref.)", kBlack},
-        {"E2e8_10iter_smooth.dat", "E2e8", kRed},
-        {"E2e9_10iter_smooth.dat", "E2e9", kOrange+1}
+        {"E2e5_priorE2e7_10iter_smooth.dat", "E2e5", kBlue},
+        {"E2e6_priorE2e7_10iter_smooth.dat", "E2e6", kGreen+2},
+        {"E2e7_priorE2e7_10iter_smooth.dat", "E2e7 (ref.)", kBlack},
+        {"E2e8_priorE2e7_10iter_smooth.dat", "E2e8", kRed},
+        {"E2e9_priorE2e7_10iter_smooth.dat", "E2e9", kOrange+1}
     };
 
     // ------------------------------------------
@@ -230,6 +230,49 @@ void plot_sys_weight_MC()
         ratioGraphs.push_back(grRatio);
     }
 
+
+    cout << "\n========== CHECK ENVELOPE ==========\n";
+
+    for (int i = 0; i < n; i++) {
+
+        double maxFromGraph = 0.0;
+        string maxLabel = "";
+
+        cout << "\nE = " << ref.E[i] << " GeV\n";
+
+        for (size_t j = 0; j < data.size(); j++) {
+
+            if ((int)j == refIndex) continue;
+
+            double x, y;
+
+            ratioGraphs[j]->GetPoint(i, x, y);
+
+            cout << "  " << data[j].label
+                 << " : " << y << " %"
+                 << "  (E graph = " << x << ")\n";
+
+            if (abs(y) > maxFromGraph) {
+                maxFromGraph = abs(y);
+                maxLabel = data[j].label;
+            }
+        }
+
+        cout << "  MAX FROM GRAPH = "
+             << maxFromGraph << " % ("
+             << maxLabel << ")\n";
+
+        cout << "  ENVELOPE = "
+             << envelope[i] << " %\n";
+
+        if (abs(maxFromGraph - envelope[i]) > 1e-8) {
+            cerr << "  ATTENZIONE: DISCREPANZA!\n";
+        }
+    }
+
+    cout << "\n====================================\n";
+
+
     // ------------------------------------------
     // CANVAS
     // ------------------------------------------
@@ -276,7 +319,7 @@ void plot_sys_weight_MC()
 
     auto legend = new TLegend( 0.24, 0.52, 0.46, 0.86 );
 
-    legend->SetHeader("p + He ", "C");
+    legend->SetHeader("p + He (prior E^{2.7})", "C");
     legend->SetTextSize(0.035);
     //legend->SetBorderSize(0);
 
@@ -327,12 +370,12 @@ void plot_sys_weight_MC()
 
     gSystem->mkdir("PLOTS", true);
 
-    c->SaveAs("PLOTS/pHe_MC_weight_comparison_2.png");
-    c->SaveAs("PLOTS/pHe_MC_weight_comparison_2.pdf");
-    c->SaveAs("PLOTS/pHe_MC_weight_comparison_2.eps");
+    c->SaveAs("PLOTS/pHe_MC_weight_comparison.png");
+    c->SaveAs("PLOTS/pHe_MC_weight_comparison.pdf");
+    c->SaveAs("PLOTS/pHe_MC_weight_comparison.eps");
 
     ofstream output(
-        "TXT_FILES/pHe_MC_weight_envelope_2.dat"
+        "TXT_FILES/pHe_MC_weight_envelope.dat"
     );
 
     output << "# E_GeV max_deviation_percent\n";
