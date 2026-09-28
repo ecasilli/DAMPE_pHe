@@ -9,7 +9,7 @@ ROOT.gStyle.SetOptStat(0)
 # ==========================================================
 
 #file_pHe = "TXT_FILES/DAMPE_p+He_120M_paperDraft.dat"
-file_pHe = "TXT_FILES/DAMPE_p+He_120M_paperDraft_24sett26_3sigmaLow_6e5sigmaUp_450adc.dat"
+file_pHe = "TXT_FILES/DAMPE_p+He_120M_paperDraft_24sett26_3sigmaLow_6sigmaUp_450adc.dat"
 file_paul_He = "GENEVA_pHe_FILES/Helium_files_20260922/Counts-and-background.txt"
 file_andrii_p = "GENEVA_pHe_FILES/COUNTS_PROTON_SEP2026_flux_noescale_ekin_p_2026.root"
 
@@ -611,7 +611,7 @@ def make_graph(name,counts_pHe,counts_He,counts_p,counts_sum,errors_pHe,errors_H
 # ==========================================================
 
 c_tot = make_graph(
-    "counts_comparison_total_residuals_percent_24sett26_3sigmaLow_6e5sigmaUp_450adc",
+    "counts_comparison_total_residuals_percent_24sett26_3sigmaLow_6sigmaUp_450adc",
 
     y_pHe,
     y_paul_He,
@@ -634,7 +634,7 @@ c_tot = make_graph(
 # ==========================================================
 
 c_bg = make_graph(
-    "counts_comparison_bgsub_residuals_percent_24sett26_3sigmaLow_6e5sigmaUp_450adc",
+    "counts_comparison_bgsub_residuals_percent_24sett26_3sigmaLow_6sigmaUp_450adc",
 
     y_pHe,
     y_paul_He_bg,
@@ -656,7 +656,7 @@ c_bg = make_graph(
 # 9. SALVATAGGIO DEI GRAFICI IN UN FILE ROOT
 # ==========================================================
 
-fout = ROOT.TFile("ROOT_FILES/counts_comparison_residuals_24sett26_3sigmaLow_6e5sigmaUp_450adc.root", "RECREATE")
+fout = ROOT.TFile("ROOT_FILES/counts_comparison_residuals_24sett26_3sigmaLow_6sigmaUp_450adc.root", "RECREATE")
 
 c_tot.Write()
 c_bg.Write()

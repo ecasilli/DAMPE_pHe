@@ -135,7 +135,7 @@ Double_t BGO_slopeYZ_analy, BGO_interceptYZ_analy;
 TChain *skim = new TChain("newtree");
 
 // Anni 2016-2024 (tutti "merged")
-for (int y = 2016; y <= 2025; y++) addYear(skim, basePath, y);
+for (int y = 2017; y <= 2025; y++) addYear(skim, basePath, y);
 cout << "Orbital Data Entries: " << skim->GetEntries() << endl;
 
 // =============================
@@ -196,7 +196,7 @@ for (int j = 1; j < noe+1; j++) {
 
 // =============================
 // OUTPUT FILES
-TFile *fout1 = new TFile("HETeff_skim_Orb120Month_2e8sigmaLow_6sigmaUp_PSDprogr_STKcharge_comb_STKvert0e7.root", "RECREATE");
+TFile *fout1 = new TFile("HETeff_skim_Orb108Month_2e8sigmaLow_6sigmaUp_PSDprogr_STKcharge_comb_STKvert0e7.root", "RECREATE");
 
 
 // =============================
