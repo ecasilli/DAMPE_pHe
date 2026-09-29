@@ -550,7 +550,7 @@ def make_graph(name,counts_pHe,counts_He,counts_p,counts_sum,errors_pHe,errors_H
     # Asse X
     # ------------------------------------------------------
 
-    frame_bottom.GetXaxis().SetTitle("Energy [GeV]")
+    frame_bottom.GetXaxis().SetTitle("Deposited energy [GeV]")
     frame_bottom.GetXaxis().SetTitleSize(0.12)
     frame_bottom.GetXaxis().SetLabelSize(0.10)
     frame_bottom.GetXaxis().SetTitleOffset(1.1)

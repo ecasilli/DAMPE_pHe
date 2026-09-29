@@ -100,7 +100,7 @@ void GetPSDChargeLimits(Double_t BGOenergy, Double_t &qLow, Double_t &qHigh) {
 
     // Final PSD band
     qLow = pMPV - 3.0 * pSigma;
-    qHigh = heMPV + 6.5 * heSigma;
+    qHigh = heMPV + 6.0 * heSigma;
 }
 
 void Load_orb_120month_MLSATcor_PSD_STK_comb() 
@@ -195,7 +195,7 @@ for (int j = 1; j < noe+1; j++) {
     Ebin[j] = Ebin[j-1]*TMath::Power(10., arg1);
 }
 
-TFile *fout1 = new TFile("ROOT_FILES/PHe_skim_Orb120Month_5binperdecade_3sigmaLow_6e5sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_24sett26.root", "RECREATE");
+TFile *fout1 = new TFile("ROOT_FILES/PHe_skim_Orb120Month_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_24sett26.root", "RECREATE");
 
 TH1D *h1SelBGO_orb    = new TH1D("h1SelBGO_orb",    "Selected(E_bgo) orbital", noe, Ebin);
 h1SelBGO_orb->Sumw2();

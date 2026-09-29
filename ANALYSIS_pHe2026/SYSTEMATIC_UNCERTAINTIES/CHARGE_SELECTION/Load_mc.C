@@ -1,9 +1,11 @@
+
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
 #include <fstream>
 #include <string>
 #include <vector>
+#include <iostream>
 
 #include "TChain.h"
 #include "TFile.h"
@@ -14,6 +16,9 @@
 #include "TSystem.h"
 #include "TLegend.h"
 #include "TH2D.h"
+#include "TNamed.h"
+
+#include "ChargeSystematicsConfig.h"
 
 using namespace std;
 
@@ -156,7 +161,7 @@ void GetPSDMCSelectionLimits(Double_t BGOenergy, Double_t &qLow, Double_t &qHigh
     const Double_t heSigma = TMath::Sqrt(heWidth * heWidth + heGSigmaCorr * heGSigmaCorr);
 
     qLow  = pMPV - 3.0 * pSigma;
-    qHigh = heMPV + 6. * heSigma;
+    qHigh = heMPV + 6.0 * heSigma;
 }
 
 Double_t CorrectSTKProton(Double_t q) {
@@ -208,9 +213,12 @@ void ProcessMCSpecies(TChain **chains,
                       //TH2D *hCut06,
                       TH2D *hSpCut,
                       TH2D *hFinal,
+                      TH2D *hFinalPSD,
+                      TH2D *hFinalSTK,
                       const Double_t *Ebin,
                       const Double_t *truthBinNorm,
-                      Int_t nBins) {
+                      Int_t nBins,
+                      const ChargeSysConfig &cfg) {
     
     const Double_t minPSDSignal = 0.2;
     const Double_t dQmin =-0.3;
@@ -219,6 +227,8 @@ void ProcessMCSpecies(TChain **chains,
     const Double_t vertexCut = 0.7;
     const Double_t stkMin = 25.;
     const Double_t stkMax = 450.;
+    Double_t stkLow = stkMin, stkHigh = stkMax;
+    VaryChargeWindow(stkLow, stkHigh, cfg.stkWidthFraction);
 
     // helium geometrical normalization
     const Double_t GeoCorr = (2. * TMath::Pi() * TMath::Pi()) / (2. * TMath::Pi() * TMath::Pi() * 1.38 * 1.38);
@@ -353,18 +363,25 @@ void ProcessMCSpecies(TChain **chains,
                 if (psdCharge < 0.)
                     continue;
 
-                const Double_t psdChargeCorrP = ApplyPSDSmearingCorrection(psdCharge, BGO_E_corr, pPSDpars);
-                const Double_t psdChargeCorrHe = ApplyPSDSmearingCorrection(psdCharge, BGO_E_corr, HePSDpars);
+                const Double_t psdChargeCorrP = VaryCorrectionStrength(
+                    psdCharge, ApplyPSDSmearingCorrection(psdCharge, BGO_E_corr, pPSDpars),
+                    cfg.psdCorrectionStrength);
+                const Double_t psdChargeCorrHe = VaryCorrectionStrength(
+                    psdCharge, ApplyPSDSmearingCorrection(psdCharge, BGO_E_corr, HePSDpars),
+                    cfg.psdCorrectionStrength);
 
                 Double_t qLow;
                 Double_t qHigh;
 
                 GetPSDMCSelectionLimits(BGO_E_corr, qLow, qHigh);
-                // MPV_p - 2.8 sigma_p
+                // Same baseline MC window for every smearing variation.
+                // For charge-cut studies, modify the window independently.
+                VaryChargeWindow(qLow, qHigh, cfg.psdWidthFraction);
+                // Lower edge: corrected proton charge; nominal 3 sigma.
                 if (psdChargeCorrP < qLow)
                     continue;
 
-                // MPV_He + 6 sigma_He
+                // Upper edge: corrected helium charge; nominal 6 sigma.
                 if (psdChargeCorrHe > qHigh)
                     continue;
             }
@@ -382,10 +399,13 @@ void ProcessMCSpecies(TChain **chains,
                     stkChargeCorr = CorrectSTKProton(stkCharge);
                 }
 
-                if (stkChargeCorr < stkMin)
+                stkChargeCorr = VaryCorrectionStrength(
+                    stkCharge, stkChargeCorr, cfg.stkCorrectionStrength);
+
+                if (stkChargeCorr < stkLow)
                     continue;
 
-                if (stkChargeCorr > stkMax)
+                if (stkChargeCorr > stkHigh)
                     continue;
             }
 
@@ -395,6 +415,10 @@ void ProcessMCSpecies(TChain **chains,
             // y = reconstructed BGO energy
 
             hFinal->Fill(MC_EnergyT, BGO_E_corr, weight);
+            if (STK_vertexPrediction < vertexCut)
+                hFinalPSD->Fill(MC_EnergyT, BGO_E_corr, weight);
+            else
+                hFinalSTK->Fill(MC_EnergyT, BGO_E_corr, weight);
 
         } // event loop 
 
@@ -403,7 +427,13 @@ void ProcessMCSpecies(TChain **chains,
     } // MC loop
 }
 
-void Load_MC_He_p_5PeV_spectrum_PSD_STK_comb(){
+void Load_mc(const char* scenario="nominal"){
+    const ChargeSysConfig cfg = MakeChargeSysConfig(scenario);
+    cout << "Charge-systematics scenario: " << cfg.tag
+         << " (PSD width " << cfg.psdWidthFraction
+         << ", STK width " << cfg.stkWidthFraction
+         << ", PSD correction strength " << cfg.psdCorrectionStrength
+         << ", STK correction strength " << cfg.stkCorrectionStrength << ")\n";
 
     TString basePath;
     TString hostname = gSystem->HostName();
@@ -526,13 +556,23 @@ void Load_MC_He_p_5PeV_spectrum_PSD_STK_comb(){
     // =======================================
     // Output
 
-    TFile *fout = new TFile("ROOT_FILES/PHe_MC_p_He_5PeV_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_24sett26.root", "RECREATE");
+    gSystem->mkdir("ROOT_FILES", kTRUE);
+    const TString outputName = TString::Format("ROOT_FILES/PHe_MC_p_He_5PeV_5binperdecade_3sLow_6sUp_PSDprogr_STKch450_comb_vert0e7_%s.root", cfg.tag.c_str());
+    TFile *fout = new TFile(outputName, "RECREATE");
+    if (fout->IsZombie()) {
+        cerr << "Cannot create output: " << outputName << endl;
+        return;
+    }
     fout->cd();
 
     // ===============================================
     // Histograms
     TH2D *h2Ntrig_wgt = new TH2D("h2Ntrig_wgt", "Selected MC; MC true energy [GeV]; BGO reconstructed energy [GeV]",noe, Ebin, noe, Ebin);
     h2Ntrig_wgt->Sumw2();
+    TH2D *h2Ntrig_wgt_PSD = new TH2D("h2Ntrig_wgt_PSD", "PSD branch;MC true energy [GeV];BGO reconstructed energy [GeV]", noe,Ebin,noe,Ebin);
+    TH2D *h2Ntrig_wgt_STK = new TH2D("h2Ntrig_wgt_STK", "STK branch;MC true energy [GeV];BGO reconstructed energy [GeV]", noe,Ebin,noe,Ebin);
+    h2Ntrig_wgt_PSD->Sumw2();
+    h2Ntrig_wgt_STK->Sumw2();
 
     TH2D *h2Ntrig_wgt_all = new TH2D("h2Ntrig_wgt_all", "Selected MC; MC true energy [GeV]; BGO reconstructed energy [GeV]",noe, Ebin, noe, Ebin);
     h2Ntrig_wgt_all->Sumw2();
@@ -562,10 +602,13 @@ void Load_MC_He_p_5PeV_spectrum_PSD_STK_comb(){
         //h2Ntrig_wgt_cut06,
         h2Ntrig_wgt_SpCut,
         h2Ntrig_wgt,
+        h2Ntrig_wgt_PSD,
+        h2Ntrig_wgt_STK,
 
         Ebin,
         truthBinNorm,
-        noe
+        noe,
+        cfg
     );
 
     cout << "PROTON processing finished." << endl;
@@ -587,10 +630,13 @@ void Load_MC_He_p_5PeV_spectrum_PSD_STK_comb(){
         //h2Ntrig_wgt_cut06,
         h2Ntrig_wgt_SpCut,
         h2Ntrig_wgt,
+        h2Ntrig_wgt_PSD,
+        h2Ntrig_wgt_STK,
 
         Ebin,
         truthBinNorm,
-        noe
+        noe,
+        cfg
     );
 
     cout << "HELIUM processing finished." << endl;
@@ -601,11 +647,14 @@ void Load_MC_He_p_5PeV_spectrum_PSD_STK_comb(){
     fout->cd();
 
     h2Ntrig_wgt->Write();
+    h2Ntrig_wgt_PSD->Write();
+    h2Ntrig_wgt_STK->Write();
     h2Ntrig_wgt_all->Write();
     h2Ntrig_wgt_cut00->Write();
     h2Ntrig_wgt_cut01->Write();
     //h2Ntrig_wgt_cut06->Write();
     h2Ntrig_wgt_SpCut->Write();
+    TNamed("ChargeScenario", cfg.tag.c_str()).Write();
 
     fout->Close();
 

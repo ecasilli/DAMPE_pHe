@@ -4,6 +4,10 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <cmath>
+#include <algorithm>
+
+#include "TH1D.h"
 
 #include "TChain.h"
 #include "TFile.h"
@@ -198,6 +202,199 @@ Int_t FindEnergyBin(Double_t E, const Double_t *Ebin, Int_t nBins) {
     return -1;
 }
 
+
+// =============================================================
+//  Abundances p/He from DAMPE composition model (Irene's code)
+//  It takes into account a triple SBPL fit + CR knee 
+// =============================================================
+Bool_t LoadSBPLComposition(const TString &fileName,
+                           const Double_t *Ebin, Int_t nBins,
+                           std::vector<Double_t> &fracP,
+                           std::vector<Double_t> &fracHe) {
+
+    TFile *fComp = TFile::Open(fileName, "READ");
+    if (!fComp || fComp->IsZombie()) {
+        cout << "ERROR: impossibile aprire file composizione: " << fileName << endl;
+        if (fComp) { fComp->Close(); delete fComp; }
+        return kFALSE;
+    }
+
+    TH1D *hP = dynamic_cast<TH1D*>(fComp->Get("h_ab_SBPL_p"));
+    TH1D *hHe= dynamic_cast<TH1D*>(fComp->Get("h_ab_SBPL_He"));
+
+    if (!hP || !hHe) {
+        cout << "ERROR: mancano h_ab_SBPL_p e/o h_ab_SBPL_He in "
+             << fileName << endl;
+        fComp->Close();
+        delete fComp;
+        return kFALSE;
+    }
+
+    if (hP->GetNbinsX() != nBins || hHe->GetNbinsX() != nBins) {
+        cout << "ERROR: binning abbondanze incompatibile con l'analisi: "
+             << "p=" << hP->GetNbinsX()
+             << ", He=" << hHe->GetNbinsX()
+             << ", MC=" << nBins << endl;
+        fComp->Close();
+        delete fComp;
+        return kFALSE;
+    }
+
+    fracP.assign(nBins, 0.);
+    fracHe.assign(nBins, 0.);
+
+    const Double_t edgeTolerance = 1.e-4;
+    const Double_t sumTolerance = 1.e-3;
+
+    for (Int_t j=0; j<nBins; ++j) {
+
+        const Double_t loP = hP->GetXaxis()->GetBinLowEdge(j+1);
+        const Double_t hiP = hP->GetXaxis()->GetBinUpEdge(j+1);
+        const Double_t loHe = hHe->GetXaxis()->GetBinLowEdge(j+1);
+        const Double_t hiHe = hHe->GetXaxis()->GetBinUpEdge(j+1);
+
+        // Constrollo che istogrammi e MC usino le stesse unita' o bin.
+        if (std::fabs(loP/Ebin[j] - 1.) > edgeTolerance ||
+            std::fabs(hiP/Ebin[j+1] - 1.) > edgeTolerance ||
+            std::fabs(loHe/Ebin[j] - 1.) > edgeTolerance ||
+            std::fabs(hiHe/Ebin[j+1] - 1.) > edgeTolerance) {
+            cout << "ERROR: bordi energia incompatibili al bin " << j+1
+                 << ". Verificare che siano in GeV e a 5 bin/decade." << endl;
+            fComp->Close();
+            delete fComp;
+            return kFALSE;
+        }
+
+        const Double_t fp = hP->GetBinContent(j+1);
+        const Double_t fhe = hHe->GetBinContent(j+1);
+
+        if (!std::isfinite(fp) || !std::isfinite(fhe) ||
+            fp < 0. || fp > 1. ||
+            fhe < 0. || fhe > 1. ||
+            std::fabs(fp + fhe - 1.) > sumTolerance) {
+
+            cout << "ERROR: abbondanze non valide al bin " << j+1
+                 << ": f_p=" << fp << ", f_He=" << fhe
+                 << " (atteso f_p + f_He = 1)" << endl;
+            fComp->Close();
+            delete fComp;
+            return kFALSE;
+        }
+
+        fracP[j] = fp;
+        fracHe[j] = fhe;
+    }
+
+    cout << "SBPL composition taken from: " << fileName << endl;
+    cout << "Bin MC/abundances: " << nBins << endl;
+
+    fComp->Close();
+    delete fComp;
+    return kTRUE;
+}
+
+
+// ============================================================================
+// Reweight relativo alla composizione gia' inclusa negli eventi generati.
+// In ciascun bin: g_s = G_s / (G_p + G_He),  r_s = f_s(SBPL) / g_s.
+// Ne segue r_p*G_p + r_He*G_He = G_p + G_He: h1Ngen resta invariato.
+// ============================================================================
+Bool_t LoadRelativeMixWeights(const TString &generatorFile,
+                              const Double_t *Ebin, Int_t nBins,
+                              const std::vector<Double_t> &fracP,
+                              const std::vector<Double_t> &fracHe,
+                              std::vector<Double_t> &genFracP,
+                              std::vector<Double_t> &genFracHe,
+                              std::vector<Double_t> &weightP,
+                              std::vector<Double_t> &weightHe) {
+
+    TFile *fin = TFile::Open(generatorFile, "READ");
+    if (!fin || fin->IsZombie()) {
+        cerr << "ERROR: impossibile aprire " << generatorFile << endl;
+        if (fin) { fin->Close(); delete fin; }
+        return kFALSE;
+    }
+
+    TH1 *hGenP  = dynamic_cast<TH1*>(fin->Get("h1NgenP"));
+    TH1 *hGenHe = dynamic_cast<TH1*>(fin->Get("h1NgenHe"));
+    TH1 *hGen   = dynamic_cast<TH1*>(fin->Get("h1Ngen"));
+
+    if (!hGenP || !hGenHe || !hGen ||
+        hGenP->GetNbinsX() != nBins || hGenHe->GetNbinsX() != nBins ||
+        hGen->GetNbinsX() != nBins ||
+        static_cast<Int_t>(fracP.size()) != nBins ||
+        static_cast<Int_t>(fracHe.size()) != nBins) {
+        cerr << "ERROR: istogrammi di generazione mancanti o binning incompatibile." << endl;
+        fin->Close(); delete fin;
+        return kFALSE;
+    }
+
+    genFracP.assign(nBins, 0.);
+    genFracHe.assign(nBins, 0.);
+    weightP.assign(nBins, 0.);
+    weightHe.assign(nBins, 0.);
+
+    cout << "# Etrue_GeV  gP  gHe  fP_SBPL  fHe_SBPL  wP=fP/gP  wHe=fHe/gHe" << endl;
+
+    for (Int_t j = 0; j < nBins; ++j) {
+        const Int_t ib = j + 1;
+        const TH1 *histos[] = {hGenP, hGenHe, hGen};
+        for (const TH1 *hist : histos) {
+            const Double_t low  = hist->GetXaxis()->GetBinLowEdge(ib);
+            const Double_t high = hist->GetXaxis()->GetBinUpEdge(ib);
+            if (std::fabs(low/Ebin[j] - 1.) > 1.e-4 ||
+                std::fabs(high/Ebin[j+1] - 1.) > 1.e-4) {
+                cerr << "ERROR: bordi energia non coincidenti nel bin " << ib << endl;
+                fin->Close(); delete fin;
+                return kFALSE;
+            }
+        }
+
+        const Double_t Gp  = hGenP->GetBinContent(ib);
+        const Double_t Ghe = hGenHe->GetBinContent(ib);
+        const Double_t Gtot = Gp + Ghe;
+        const Double_t Gsaved = hGen->GetBinContent(ib);
+
+        if (!std::isfinite(Gp) || !std::isfinite(Ghe) || Gp < 0. || Ghe < 0. ||
+            std::fabs(Gsaved - Gtot) > 1.e-6 * std::max(1., Gtot)) {
+            cerr << "ERROR: generazione incoerente al bin " << ib << endl;
+            fin->Close(); delete fin;
+            return kFALSE;
+        }
+        if (Gtot == 0.) {
+            // Nessun MC generato (possibile nell'ultimo bin oltre 5 PeV).
+            cout << "bin " << ib << " : G_p+G_He=0, nessun peso applicabile" << endl;
+            continue;
+        }
+        if (Gp <= 0. || Ghe <= 0.) {
+            cerr << "ERROR: specie senza MC al bin " << ib
+                 << "; impossibile ricostruire entrambe le componenti." << endl;
+            fin->Close(); delete fin;
+            return kFALSE;
+        }
+
+        genFracP[j]  = Gp / Gtot;
+        genFracHe[j] = Ghe / Gtot;
+        weightP[j]  = fracP[j]  / genFracP[j];
+        weightHe[j] = fracHe[j] / genFracHe[j];
+
+        const Double_t check = weightP[j]*Gp + weightHe[j]*Ghe;
+        if (std::fabs(check / Gtot - 1.) > 1.e-10) {
+            cerr << "ERROR: chiusura pesi nel bin " << ib << endl;
+            fin->Close(); delete fin;
+            return kFALSE;
+        }
+        const Double_t Ecenter = std::sqrt(Ebin[j] * Ebin[j+1]);
+        cout << Ecenter << "  " << genFracP[j] << "  " << genFracHe[j]
+             << "  " << fracP[j] << "  " << fracHe[j]
+             << "  " << weightP[j] << "  " << weightHe[j] << endl;
+    }
+
+    fin->Close();
+    delete fin;
+    return kTRUE;
+}
+
 void ProcessMCSpecies(TChain **chains,
                       Int_t nsets,
                       const Double_t *sampleNorm,
@@ -210,6 +407,7 @@ void ProcessMCSpecies(TChain **chains,
                       TH2D *hFinal,
                       const Double_t *Ebin,
                       const Double_t *truthBinNorm,
+                      const Double_t *relativeMixWeight,
                       Int_t nBins) {
     
     const Double_t minPSDSignal = 0.2;
@@ -304,6 +502,10 @@ void ProcessMCSpecies(TChain **chains,
 
             if (isHelium)
                 weight *= GeoCorr;
+
+            // Reweight RELATIVO alla frazione di generazione g_s(Etrue).
+            // Evita il dimezzamento spurio della risposta normalizzata da h1Ngen.
+            weight *= relativeMixWeight[jTrue];
 
             if (MC_EnergyT <= 20.) continue;
 
@@ -403,7 +605,7 @@ void ProcessMCSpecies(TChain **chains,
     } // MC loop
 }
 
-void Load_MC_He_p_5PeV_spectrum_PSD_STK_comb(){
+void Load_MC_He_p_DAMPE_composition(){
 
     TString basePath;
     TString hostname = gSystem->HostName();
@@ -489,6 +691,30 @@ void Load_MC_He_p_5PeV_spectrum_PSD_STK_comb(){
     }
 
     // ==========================================
+    // SBPL p/He abundances, fit flussi + extrapolazione con ginocchio.
+    const TString compositionFile =
+        "ROOT_FILES/DAMPE_composition_pHe_10GeV_10PeV_5Bin.root";
+
+    std::vector<Double_t> fracP;
+    std::vector<Double_t> fracHe;
+
+    if (!LoadSBPLComposition(compositionFile, Ebin, noe, fracP, fracHe))
+        return;
+
+    // Il file gia' prodotto dalla macro p0_5PeV_5bins() contiene
+    // h1NgenP, h1NgenHe e h1Ngen = h1NgenP + h1NgenHe.
+    const TString generatorFile =
+        "../../PHe_MC_FTFP_EPOSLHC_h1Ngen_5binsPerDecade.root";
+
+    std::vector<Double_t> genFracP, genFracHe;
+    std::vector<Double_t> relativeWeightP, relativeWeightHe;
+    if (!LoadRelativeMixWeights(generatorFile, Ebin, noe,
+                                fracP, fracHe,
+                                genFracP, genFracHe,
+                                relativeWeightP, relativeWeightHe))
+        return;
+
+    // ==========================================
     // MC normalization factors
     // proton: wP  * Etrue^-1.7
     // helium: wHe * Etrue^-1.7 * GeoCorr
@@ -526,7 +752,12 @@ void Load_MC_He_p_5PeV_spectrum_PSD_STK_comb(){
     // =======================================
     // Output
 
-    TFile *fout = new TFile("ROOT_FILES/PHe_MC_p_He_5PeV_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_24sett26.root", "RECREATE");
+    TFile *fout = new TFile("ROOT_FILES/PHe_MC_p_He_5PeV_5binperdecade_3sLow_6Up_PSDprogr_STKch450_comb_vert0e7_SBPLmix_ratioGen.root", "RECREATE");
+    if (fout->IsZombie()) {
+        cout << "ERROR: impossibile creare il file ROOT di output." << endl;
+        delete fout;
+        return;
+    }
     fout->cd();
 
     // ===============================================
@@ -544,6 +775,30 @@ void Load_MC_He_p_5PeV_spectrum_PSD_STK_comb(){
     //h2Ntrig_wgt_cut06->Sumw2();
     TH2D *h2Ntrig_wgt_SpCut = new TH2D("h2Ntrig_wgt_SpCut", "Selected MC; MC true energy [GeV]; BGO reconstructed energy [GeV]",noe, Ebin, noe, Ebin);
     h2Ntrig_wgt_SpCut->Sumw2();
+
+    // Salviamo nel risultato anche le frazioni effettivamente applicate.
+    TH1D *hMixP  = new TH1D("h_ab_SBPL_p_used",
+                            "SBPL proton abundance used;MC true energy [GeV];f_{p}",
+                            noe, Ebin);
+    TH1D *hMixHe = new TH1D("h_ab_SBPL_He_used",
+                            "SBPL helium abundance used;MC true energy [GeV];f_{He}",
+                            noe, Ebin);
+    for (Int_t j = 0; j < noe; ++j) {
+        hMixP->SetBinContent(j + 1, fracP[j]);
+        hMixHe->SetBinContent(j + 1, fracHe[j]);
+    }
+
+    // Salva anche le frazioni nominali e i moltiplicatori realmente utilizzati.
+    TH1D *hG_p = new TH1D("h_gen_frac_p", "Generated p fraction;MC true energy [GeV];g_{p}", noe, Ebin);
+    TH1D *hG_he = new TH1D("h_gen_frac_He", "Generated He fraction;MC true energy [GeV];g_{He}", noe, Ebin);
+    TH1D *hW_p = new TH1D("h_mix_relative_weight_p", "Relative SBPL p weight;MC true energy [GeV];f_{p}/g_{p}", noe, Ebin);
+    TH1D *hW_he = new TH1D("h_mix_relative_weight_He", "Relative SBPL He weight;MC true energy [GeV];f_{He}/g_{He}", noe, Ebin);
+    for (Int_t j = 0; j < noe; ++j) {
+        hG_p->SetBinContent(j+1, genFracP[j]);
+        hG_he->SetBinContent(j+1, genFracHe[j]);
+        hW_p->SetBinContent(j+1, relativeWeightP[j]);
+        hW_he->SetBinContent(j+1, relativeWeightHe[j]);
+    }
 
     // ======================================
     // Process PROTON
@@ -565,6 +820,7 @@ void Load_MC_He_p_5PeV_spectrum_PSD_STK_comb(){
 
         Ebin,
         truthBinNorm,
+        relativeWeightP.data(),
         noe
     );
 
@@ -590,6 +846,7 @@ void Load_MC_He_p_5PeV_spectrum_PSD_STK_comb(){
 
         Ebin,
         truthBinNorm,
+        relativeWeightHe.data(),
         noe
     );
 
@@ -606,6 +863,12 @@ void Load_MC_He_p_5PeV_spectrum_PSD_STK_comb(){
     h2Ntrig_wgt_cut01->Write();
     //h2Ntrig_wgt_cut06->Write();
     h2Ntrig_wgt_SpCut->Write();
+    hMixP->Write();
+    hMixHe->Write();
+    hG_p->Write();
+    hG_he->Write();
+    hW_p->Write();
+    hW_he->Write();
 
     fout->Close();
 
