@@ -24,18 +24,18 @@ const double livetime = 242576599.4;//10 years
 //const double livetime = 242576599-(2183*86400*0.7667); // remaining 48 months
 const double TotTime = livetime * Amc;
 const double alpha = 2.6; // exponential to show flux_pow
-const double egamma = 2.7; // exponential of prior power law
-const int NATTEMPTS = 3; // max n. of unfolding iterations
+const double egamma = 2.9; // exponential of prior power law
+const int NATTEMPTS = 10; // max n. of unfolding iterations
 int STARTING_DATA_BIN = 1;
 const double STARTING_DATA_VAL = 30;//Min E value with N obs events > 0
 
 const std::string Test_Stat = "chi2"; // "ks" (Kolmogorov-Smirnov) or "chi2" (Reduced Chi2)
 double MIN_TS = (Test_Stat == "ks" ? 1e-4 : 1.);
 
-const bool SMOOTHING = false;
+const bool SMOOTHING = true;
 
-std::string fout_name = "ROOT_FILES/unfold_results_pHe_2026_Orb120Month_PSDprogr_3sLow_6sUp_STKch450_comb_vert0e7_E2e7_3iter.root";
-std::string fdat_name = "TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_PSDprogr_3sLow_6sUp_STKch450_comb_vert0e7_E2e7_3iter.dat";
+std::string fout_name = "ROOT_FILES/unfold_results_pHe_2026_Orb120Month_PSDprogr_3sLow_6sUp_STKch450_comb_vert0e7_E2e7_priorE2e9_10iter_smooth.root";
+std::string fdat_name = "TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_PSDprogr_3sLow_6sUp_STKch450_comb_vert0e7_E2e7_priorE2e9_10iter_smooth.dat";
 
 // Global variables
 std::vector<double> TRUGUESS;

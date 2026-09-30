@@ -212,6 +212,8 @@ void ProcessMCSpecies(TChain **chains,
                       TH2D *hCut01,
                       //TH2D *hCut06,
                       TH2D *hSpCut,
+                      TH2D *hPrePSD,
+                      TH2D *hPreSTK,
                       TH2D *hFinal,
                       TH2D *hFinalPSD,
                       TH2D *hFinalSTK,
@@ -360,6 +362,7 @@ void ProcessMCSpecies(TChain **chains,
             // VERTEX-DEPENDENT CHARGE SELECTION
             if (STK_vertexPrediction < vertexCut) {         // PSD branch
 
+                hPrePSD->Fill(MC_EnergyT, BGO_E_corr, weight);
                 if (psdCharge < 0.)
                     continue;
 
@@ -387,6 +390,7 @@ void ProcessMCSpecies(TChain **chains,
             }
             else {                                          // STK branch
 
+                hPreSTK->Fill(MC_EnergyT, BGO_E_corr, weight);
                 if (stkCharge <= 0.)
                     continue;
 
@@ -585,6 +589,11 @@ void Load_mc(const char* scenario="nominal"){
     TH2D *h2Ntrig_wgt_SpCut = new TH2D("h2Ntrig_wgt_SpCut", "Selected MC; MC true energy [GeV]; BGO reconstructed energy [GeV]",noe, Ebin, noe, Ebin);
     h2Ntrig_wgt_SpCut->Sumw2();
 
+    TH2D *h2PreCharge_PSD = new TH2D("h2PreCharge_PSD", "Before PSD charge selection;MC true energy [GeV];BGO reconstructed energy [GeV]", noe, Ebin, noe, Ebin);
+    TH2D *h2PreCharge_STK = new TH2D("h2PreCharge_STK", "Before STK charge selection;MC true energy [GeV];BGO reconstructed energy [GeV]", noe, Ebin, noe, Ebin);
+    h2PreCharge_PSD->Sumw2();
+    h2PreCharge_STK->Sumw2();
+
     // ======================================
     // Process PROTON
 
@@ -601,6 +610,8 @@ void Load_mc(const char* scenario="nominal"){
         h2Ntrig_wgt_cut01,
         //h2Ntrig_wgt_cut06,
         h2Ntrig_wgt_SpCut,
+	h2PreCharge_PSD,
+	h2PreCharge_STK,
         h2Ntrig_wgt,
         h2Ntrig_wgt_PSD,
         h2Ntrig_wgt_STK,
@@ -629,6 +640,8 @@ void Load_mc(const char* scenario="nominal"){
         h2Ntrig_wgt_cut01,
         //h2Ntrig_wgt_cut06,
         h2Ntrig_wgt_SpCut,
+	h2PreCharge_PSD,
+	h2PreCharge_STK,
         h2Ntrig_wgt,
         h2Ntrig_wgt_PSD,
         h2Ntrig_wgt_STK,
@@ -654,6 +667,8 @@ void Load_mc(const char* scenario="nominal"){
     h2Ntrig_wgt_cut01->Write();
     //h2Ntrig_wgt_cut06->Write();
     h2Ntrig_wgt_SpCut->Write();
+    h2PreCharge_PSD->Write();
+    h2PreCharge_STK->Write();
     TNamed("ChargeScenario", cfg.tag.c_str()).Write();
 
     fout->Close();

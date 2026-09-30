@@ -28,7 +28,7 @@ struct FluxData {
     vector<double> err;
 };
 
-void plot_sys_iterations()
+void plot_sys_prior()
 {
     gStyle->SetOptStat(0);
 
@@ -40,17 +40,15 @@ void plot_sys_iterations()
         "TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_PSDprogr_3sLow_6sUp_STKch450_comb_vert0e7_E2e7_";
 
     vector<FluxData> data = {
-        {"3iter.dat",         "3 iter.",            kBlue},
-        {"3iter.dat",         "3 iter. smooth",     kGreen+2},
-        {"5iter_smooth.dat",  "5 iter. smooth",     kOrange+1},
-        //{"10iter.dat",        "10 iter.",           kGreen+2},
-        {"10iter_smooth.dat", "10 iter. smooth",    kBlack},
-        {"20iter_smooth.dat", "20 iter. smooth",    kRed},
-        //{"25iter_smooth.dat", "25 iter. smooth",    kOrange+1}
+        {"priorE2e5_10iter_smooth.dat", "prior E^{-2.5}", kBlue},
+        {"priorE2e6_10iter_smooth.dat", "prior E^{-2.6}", kGreen+2},
+        {"priorE2e7_10iter_smooth.dat", "prior E^{-2.7}", kBlack},
+        {"priorE2e8_10iter_smooth.dat", "prior E^{-2.8}", kOrange+1},
+        {"priorE2e9_10iter_smooth.dat", "prior E^{-2.9}", kRed}
     };
 
     // Riferimento: 10 iterazioni con smoothing
-    const int refIndex = 3;
+    const int refIndex = 2;
 
     // --------------------------------------------------
     // LETTURA FILE
@@ -291,10 +289,10 @@ void plot_sys_iterations()
 
     gSystem->mkdir("PLOTS", true);
 
-    c->SaveAs("PLOTS/pHe_iterations_comparison_3.pdf");
-    c->SaveAs("PLOTS/pHe_iterations_comparison_3.png");
+    c->SaveAs("PLOTS/pHe_prior_comparison.pdf");
+    c->SaveAs("PLOTS/pHe_prior_comparison.png");
 
-    ofstream output("TXT_FILES/pHe_iterations_envelope_3.dat");
+    ofstream output("TXT_FILES/pHe_prior_envelope.dat");
 
     output << "# E_GeV max_deviation_percent\n";
 

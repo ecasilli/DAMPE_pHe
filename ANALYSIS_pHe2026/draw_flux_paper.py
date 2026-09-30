@@ -62,6 +62,44 @@ def make_flux_graph_DAMPE2026(filename, color, marker, size, alpha):
 
     return gr 
 
+def make_flux_graph_DAMPE2026_sys(filename, color, marker, size, alpha):
+    Emean    = np.loadtxt(filename, skiprows=3, usecols=(2,), unpack=True)
+    Flux_2   = np.loadtxt(filename, skiprows=3, usecols=(3,), unpack=True)
+    Flux_stat= np.loadtxt(filename, skiprows=3, usecols=(4,), unpack=True)
+    Sys_ana  = np.loadtxt(filename, skiprows=3, usecols=(10,), unpack=True)
+    Sys_had  = np.loadtxt(filename, skiprows=3, usecols=(11,), unpack=True)
+    Sys_tot  = np.loadtxt(filename, skiprows=3, usecols=(12,), unpack=True)
+
+    Flux = Flux_2 * Emean**alpha
+    Flux_err = Flux_stat * Emean**alpha
+    syst_ana = Sys_ana * Flux
+    syst_tot = Sys_tot * Flux
+    null = np.zeros(len(Emean))
+
+    gr = TGraphAsymmErrors(len(Emean), Emean, Flux, null, null, Flux_err, Flux_err)
+    gr.SetLineColor(color)
+    gr.SetMarkerColor(color)
+    gr.SetMarkerStyle(marker)
+    gr.SetMarkerSize(size)
+
+    gr_sys_ana = TGraphErrors(len(Emean), Emean, Flux, null, syst_ana)
+    gr_sys_ana.SetLineColor(0)
+    gr_sys_ana.SetMarkerColor(color)
+    gr_sys_ana.SetMarkerStyle(marker)
+    gr_sys_ana.SetMarkerSize(size)
+    gr_sys_ana.SetFillColor(17)
+    gr_sys_ana.SetFillStyle(1001)
+
+    gr_sys_tot = TGraphErrors(len(Emean), Emean, Flux, null, syst_tot)
+    gr_sys_tot.SetLineColor(0)
+    gr_sys_tot.SetMarkerColor(color)
+    gr_sys_tot.SetMarkerStyle(marker)
+    gr_sys_tot.SetMarkerSize(size)
+    gr_sys_tot.SetFillColor(18)
+    gr_sys_tot.SetFillStyle(1001)
+
+    return gr, gr_sys_ana, gr_sys_tot
+
 def make_flux_graph_pHe(filenameP, filenameHe, color, marker, size, alpha):
     # Qty   <E>  Elo  Eup   y   ystat_lo  ystat_up  ysyst_lo  ysyst_up  yerrtot_lo 
     # NEW: emin    emax      ene      flux      stat         ana         had        pow
@@ -302,6 +340,9 @@ if __name__ == '__main__':
     file_DAMPE2026 = 'TXT_FILES/DAMPE_p+He_120M_paperDraft_24sett26_3sigmaLow_6sigmaUp_450adc.dat'
     gr_DAMPE2026 = make_flux_graph_DAMPE2026(file_DAMPE2026, kRed+1, 20, 1.4, 2.6)
 
+    file_DAMPE2026_sys = 'SYSTEMATIC_UNCERTAINTIES/sys_summary.txt'
+    gr_DAMPE2026_2, gr_DAMPE2026_sys_ana, gr_DAMPE2026_sys_tot = make_flux_graph_DAMPE2026_sys(file_DAMPE2026_sys, kRed+1, 20, 1.4, 2.6)
+
     filename_GenevaP  = 'TXT_FILES/PROTON_SEP2026_ANDRII_flux_noescale_ekin_p_2026.txt'
     filename_GenevaHe = 'TXT_FILES/HELIUM_SEP2026_PAUL_Helium_Paul_Geant4.txt'
     gr_DAMPE2026_pHe_Geneva = make_flux_graph_pHe(filename_GenevaP, filename_GenevaHe, kGreen+2, 21, 1.3, 2.6)
@@ -357,9 +398,13 @@ if __name__ == '__main__':
     frame.GetXaxis().CenterTitle()
     frame.GetYaxis().CenterTitle()
     
-    gr_DAMPE2024_sys_had.Draw("E3 SAME")
-    gr_DAMPE2024_sys.Draw("E3 SAME")
+    #gr_DAMPE2024_sys_had.Draw("E3 SAME")
+    #gr_DAMPE2024_sys.Draw("E3 SAME")
     #gr_LHAASO_EPOSLHC_sys.Draw("E3 SAME")
+    gr_DAMPE2026_sys_tot.Draw("E3 SAME")
+    gr_DAMPE2026_sys_ana.Draw("E3 SAME")
+    gr_DAMPE2026_2.Draw("P SAME")
+
     gr_DAMPE2024.Draw("P SAME")
 
     gr_DAMPE2026_pHe_Geneva_sum.Draw("P SAME")
@@ -398,14 +443,18 @@ if __name__ == '__main__':
     #leg.SetHeader("p+He ");
     #leg.SetNColumns(2)
 
-    leg.AddEntry(gr_DAMPE2024, "DAMPE (2024)", "P")
-    leg.AddEntry(gr_DAMPE2024_sys,"ana. error (2024)","f")
-    leg.AddEntry(gr_DAMPE2024_sys_had,"ana. #oplus had. error (2024)","f")
+    leg.AddEntry(gr_DAMPE2026, "DAMPE", "P")
+    leg.AddEntry(gr_DAMPE2026_sys_ana,"ana. error","f")
+    leg.AddEntry(gr_DAMPE2026_sys_tot,"ana. #oplus had. error","f")
+
+    #leg.AddEntry(gr_DAMPE2024, "DAMPE (2024)", "P")
+    #leg.AddEntry(gr_DAMPE2024_sys,"ana. error (2024)","f")
+    #leg.AddEntry(gr_DAMPE2024_sys_had,"ana. #oplus had. error (2024)","f")
 
     leg.AddEntry(gr_DAMPE2026_pHe_Geneva_sum, "DAMPE #Phi_{p} + #Phi_{He}", "P")
-    leg.AddEntry(gr_DAMPE2026, "DAMPE ", "P")
+    #leg.AddEntry(gr_DAMPE2026, "DAMPE ", "P")
     #leg.Draw()
-
+    leg.AddEntry(gr_DAMPE2024, "DAMPE (2024)", "P")
     
     #leg1 = TLegend(0.5, 0.7, 0.73, 0.87)  
     #leg1.SetBorderSize(0)
@@ -432,10 +481,10 @@ if __name__ == '__main__':
 
     cc.Update()
 
-    cc.SaveAs('PLOTS/flux_pHe_update2026_wPHe_24sett26_3sigmaLow_6sigmaUp_450adc.pdf')
-    cc.SaveAs('PLOTS/flux_pHe_update2026_wPHe_24sett26_3sigmaLow_6sigmaUp_450adc.png')
+    cc.SaveAs('PLOTS/flux_pHe_update2026_wPHe_3sigmaLow_6sigmaUp_450adc_wSys.pdf')
+    cc.SaveAs('PLOTS/flux_pHe_update2026_wPHe_3sigmaLow_6sigmaUp_450adc_wSys.png')
 
-    cc.SaveAs('ROOT_FILES/flux_pHe_update2026_wPHe_24sett26_3sigmaLow_6sigmaUp_450adc.root')
+    cc.SaveAs('ROOT_FILES/flux_pHe_update2026_wPHe_3sigmaLow_6sigmaUp_450adc_wSys.root')
 
     raw_input("Press enter..")
 

@@ -1,7 +1,8 @@
 
-Processing Load_data.C+("both_loose05")...
+Processing Load_data.C+("nominal")...
+Info in <TUnixSystem::ACLiC>: creating shared library /afs/le.infn.it/user/c/casilli/DAMPE_pHe/ANALYSIS_pHe2026/SYSTEMATIC_UNCERTAINTIES/CHARGE_SELECTION/./Load_data_C.so
 Orbital Data Entries: 417599700
-Scenario: both_loose05 | STK [14.375, 460.625]
+Scenario: nominal | STK [25, 450]
   Processing entry 0 / 417599700
   Processing entry 1000000 / 417599700
   Processing entry 2000000 / 417599700
@@ -420,4 +421,4 @@ Scenario: both_loose05 | STK [14.375, 460.625]
   Processing entry 415000000 / 417599700
   Processing entry 416000000 / 417599700
   Processing entry 417000000 / 417599700
-Wrote ROOT_FILES/PHe_skim_Orb120Month_5binperdecade_3sLow_6sUp_PSDprogr_STKch450_comb_vert0e7_both_loose05.root
+Wrote ROOT_FILES/PHe_skim_Orb120Month_5binperdecade_3sLow_6sUp_PSDprogr_STKch450_comb_vert0e7_nominal.root

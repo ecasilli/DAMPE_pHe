@@ -142,6 +142,10 @@ void Load_data(const char* scenario="nominal") {
     TH1D *h1SelSTK_orb = new TH1D("h1SelSTK_orb", "Selected via STK;E_{BGO} [GeV];Events", noe, Ebin);
     h1SelPSD_orb->Sumw2();
     h1SelSTK_orb->Sumw2();
+    TH1D *h1PrePSD_orb = new TH1D("h1PrePSD_orb", "Before PSD charge selection;E_{BGO};Events", noe, Ebin);
+    TH1D *h1PreSTK_orb = new TH1D("h1PreSTK_orb", "Before STK charge selection;E_{BGO};Events", noe, Ebin);
+    h1PrePSD_orb->Sumw2();
+    h1PreSTK_orb->Sumw2();
 
     const Double_t minPSDSignal = 0.2;
     const Double_t dQmin=-0.3, dQmax=0.7;
@@ -169,6 +173,7 @@ void Load_data(const char* scenario="nominal") {
         const Double_t stkCharge=GetSTKLayerSignal(STK_chargeX_etaCorr[0],STK_chargeY_etaCorr[0]);
 
         if (STK_vertexPrediction < vertexCut) {
+            h1PrePSD_orb->Fill(BGO_E_corr);
             if (psdCharge < 0.) continue;
             Double_t psdLow, psdHigh;
             GetPSDChargeLimits(BGO_E_corr, psdLow, psdHigh);
@@ -176,6 +181,7 @@ void Load_data(const char* scenario="nominal") {
             if (psdCharge < psdLow || psdCharge > psdHigh) continue;
             h1SelPSD_orb->Fill(BGO_E_corr);
         } else {
+            h1PreSTK_orb->Fill(BGO_E_corr);
             if (stkCharge < stkLow || stkCharge > stkHigh) continue;
             h1SelSTK_orb->Fill(BGO_E_corr);
         }
@@ -186,6 +192,8 @@ void Load_data(const char* scenario="nominal") {
     h1SelBGO_orb->Write();
     h1SelPSD_orb->Write();
     h1SelSTK_orb->Write();
+    h1PrePSD_orb->Write();
+    h1PreSTK_orb->Write();
     TNamed("ChargeScenario", cfg.tag.c_str()).Write();
     fout.Close();
     cout << "Wrote " << outputName << endl;
