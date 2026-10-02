@@ -420,9 +420,9 @@ void DrawPlot(const std::vector<Bin> &bins,
         gTot->SetPointError(i, b.E - b.Emin, b.Emax - b.E, y * relTot, y * relTot);
     }
 
-    gTot->SetFillColorAlpha(18, 0.30);
+    gTot->SetFillColorAlpha(18, 0.90);
     gTot->SetLineColor(18);
-    gAna->SetFillColorAlpha(17, 0.45);
+    gAna->SetFillColorAlpha(17, 0.95);
     gAna->SetLineColor(17);
 
     gData->SetMarkerStyle(20);
@@ -516,7 +516,7 @@ void DrawPlot(const std::vector<Bin> &bins,
     c->Modified();
     c->Update();
 
-    TString outname = Form("fit_pHe_SBPL_%dnuisance%s", gCtx.m, drawPL ? "_wPL" : "");
+    TString outname = Form("fit_pHe_SBPL_%dnuisance_2%s", gCtx.m, drawPL ? "_wPL" : "");
     c->SaveAs(outname + ".pdf");
     c->SaveAs(outname + ".png");
 }
