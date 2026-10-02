@@ -1,5 +1,5 @@
 #proton paper data from Andrii										
-#Qty	Emean	Elo	Eup	y	ystat_lo	y_stat_up	y_syst_lo	y_syst_up	yerrotot_lo	yerrtot_up
+# Qty	<E>	Elo	Eup	y	ystat_lo	ystat_up	ysyst_lo	ysyst_up	yerrtot_lo	yerrtot_up
 p	49.8588	39.8136	63.1	2.81E-01	4.48E-04	4.48E-04	1.20E-02	1.20E-02	1.39E-02	1.39E-02
 p	79.0206	63.1	100.0063	8.05E-02	1.29E-04	1.29E-04	3.44E-03	3.44E-03	3.98E-03	3.98E-03
 p	125.2386	100.0063	158.4987	2.27E-02	2.95E-05	2.95E-05	9.73E-04	9.73E-04	1.12E-03	1.12E-03

@@ -1,5 +1,5 @@
 #Helium paper data from Paul										
-#Qty	Emean	Elo	Eup	y	ystat_lo	y_stat_up	y_syst_lo	y_syst_up	yerrotot_lo	yerrtot_up
+# Qty	<E>	Elo	Eup	y	ystat_lo	ystat_up	ysyst_lo	ysyst_up	yerrtot_lo	yerrtot_up
 He	4.98E+01	3.98E+01	6.31E+01	1.72E-01	1.87E-05	1.87E-05	7.50E-03	7.50E-03	2.36E-02	2.36E-02
 He	7.90E+01	6.31E+01	1.00E+02	5.35E-02	7.78E-06	7.78E-06	2.35E-03	2.35E-03	7.34E-03	7.34E-03
 He	1.25E+02	1.00E+02	1.58E+02	1.60E-02	3.20E-06	3.20E-06	7.12E-04	7.12E-04	2.20E-03	2.20E-03
