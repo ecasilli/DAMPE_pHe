@@ -24,18 +24,18 @@ const double livetime = 242576599.4;//10 years
 //const double livetime = 242576599-(2183*86400*0.7667); // remaining 48 months
 const double TotTime = livetime * Amc;
 const double alpha = 2.6; // exponential to show flux_pow
-const double egamma = 2.9; // exponential of prior power law
-const int NATTEMPTS = 10; // max n. of unfolding iterations
+const double egamma = 2.7; // exponential of prior power law
+const int NATTEMPTS = 4; // max n. of unfolding iterations
 int STARTING_DATA_BIN = 1;
 const double STARTING_DATA_VAL = 30;//Min E value with N obs events > 0
 
 const std::string Test_Stat = "chi2"; // "ks" (Kolmogorov-Smirnov) or "chi2" (Reduced Chi2)
 double MIN_TS = (Test_Stat == "ks" ? 1e-4 : 1.);
 
-const bool SMOOTHING = true;
+const bool SMOOTHING = false;
 
-std::string fout_name = "ROOT_FILES/unfold_results_pHe_2026_Orb120Month_PSDprogr_3sLow_6sUp_STKch450_comb_vert0e7_E2e7_priorE2e9_10iter_smooth.root";
-std::string fdat_name = "TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_PSDprogr_3sLow_6sUp_STKch450_comb_vert0e7_E2e7_priorE2e9_10iter_smooth.dat";
+std::string fout_name = "ROOT_FILES/unfold_results_pHe_2026_Orb120Month_PSDprogr_3sLow_6sUp_STKch450_comb_vert0e7_10TeV_EPOSLHC_E2e7_4iter.root";
+std::string fdat_name = "TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_PSDprogr_3sLow_6sUp_STKch450_comb_vert0e7_10TeV_EPOSLHC_E2e7_4iter.dat";
 
 // Global variables
 std::vector<double> TRUGUESS;
@@ -308,11 +308,11 @@ std::vector<double> compute_std(const std::vector<std::vector<double>>& data) {
 int unfolding_smooth_pHe() {
 
     // Parse command line arguments
-    std::string response_file = "ROOT_FILES/PHe_MC_p_He_5PeV_5binperdecade_PSDprogr_3sLow_6sUp_STKch450_comb_vert0e7_E2e7.root";
+    std::string response_file = "ROOT_FILES/PHe_MC_p_He_5PeV_5binperdecade_3sLow_6sUp_PSDprogr_STKch450_comb_vert0e7_10TeV_EPOSLHC_E2e7.root";
     std::string response_histo = "h2Ntrig_wgt";
     std::string data_file = "../../ROOT_FILES/PHe_skim_Orb120Month_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_24sett26.root";
     std::string data_histo = "h1SelBGO_orb";
-    std::string ngen_file = "../../PHe_MC_FTFP_EPOSLHC_h1Ngen_5binsPerDecade.root"; // response-mat to be normalized
+    std::string ngen_file = "../../PHe_MC_FTFP_10TeV_EPOSLHC_h1Ngen_5binsPerDecade.root"; // response-mat to be normalized
     std::string ngen_histo = "h1Ngen"; // response-mat to be normalized
 
 

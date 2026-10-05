@@ -56,7 +56,7 @@ void SetHistStyle(TH1D *h, Color_t color, Style_t style = 1, Width_t width = 2)
     h->SetFillStyle(0);
 }
 
-void plot_pHe_systematics(const char *filename = "sys_summary.txt")
+void plot_pHe_systematics(const char *filename = "sys_summary_10TeV_EPOSLHC.txt")
 {
     // ------------------------------------------------------------
     // 1. Lettura del file
@@ -314,10 +314,10 @@ void plot_pHe_systematics(const char *filename = "sys_summary.txt")
     // ------------------------------------------------------------
     // 10. Output
     // ------------------------------------------------------------
-    c->SaveAs("pHe_relative_uncertainties_summary.png");
-    c->SaveAs("pHe_relative_uncertainties_summary.pdf");
+    c->SaveAs("pHe_relative_uncertainties_summary_10TeV_EPOSLHC.png");
+    c->SaveAs("pHe_relative_uncertainties_summary_10TeV_EPOSLHC.pdf");
 
     std::cout << "\nSalvati:" << std::endl;
-    std::cout << "  pHe_relative_uncertainties_summary.png" << std::endl;
-    std::cout << "  pHe_relative_uncertainties_summary.pdf" << std::endl;
+    std::cout << "  pHe_relative_uncertainties_summary_10TeV_EPOSLHC.png" << std::endl;
+    std::cout << "  pHe_relative_uncertainties_summary_10TeV_EPOSLHC.pdf" << std::endl;
 }

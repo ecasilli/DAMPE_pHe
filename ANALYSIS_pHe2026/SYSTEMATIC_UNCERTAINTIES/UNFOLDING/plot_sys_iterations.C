@@ -37,11 +37,11 @@ void plot_sys_iterations()
     const int removeLast = 5;
 
     const string prefix =
-        "TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_PSDprogr_3sLow_6sUp_STKch450_comb_vert0e7_E2e7_";
+        "TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_PSDprogr_3sLow_6sUp_STKch450_comb_vert0e7_10TeV_EPOSLHC_E2e7_";
 
     vector<FluxData> data = {
         {"3iter.dat",         "3 iter.",            kBlue},
-        {"3iter.dat",         "3 iter. smooth",     kGreen+2},
+        {"3iter_smooth.dat",  "3 iter. smooth",     kGreen+2},
         {"5iter_smooth.dat",  "5 iter. smooth",     kOrange+1},
         //{"10iter.dat",        "10 iter.",           kGreen+2},
         {"10iter_smooth.dat", "10 iter. smooth",    kBlack},
@@ -291,10 +291,10 @@ void plot_sys_iterations()
 
     gSystem->mkdir("PLOTS", true);
 
-    c->SaveAs("PLOTS/pHe_iterations_comparison_3.pdf");
-    c->SaveAs("PLOTS/pHe_iterations_comparison_3.png");
+    c->SaveAs("PLOTS/pHe_iterations_comparison_10TeV_EPOSLHC.pdf");
+    c->SaveAs("PLOTS/pHe_iterations_comparison_10TeV_EPOSLHC.png");
 
-    ofstream output("TXT_FILES/pHe_iterations_envelope_3.dat");
+    ofstream output("TXT_FILES/pHe_iterations_envelope_10TeV_EPOSLHC.dat");
 
     output << "# E_GeV max_deviation_percent\n";
 

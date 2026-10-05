@@ -20,8 +20,8 @@
 //          2 tra 10 e 100 TeV; 1 tra 100 TeV e 10 PeV.
 void HET_pHe_rebin_and_plot_DATA_MC()
 {
-    const char *dataName = "HETeff_skim_Orb108Month_2e8sigmaLow_6sigmaUp_PSDprogr_STKcharge_comb_STKvert0e7.root";
-    const char *mcName   = "HETeff_MC_pHe_2e8sigmaLow_6sigmaUp_PSDprogr_STKcharge_comb_STKvert0e7.root";
+    const char *dataName = "HETeff_skim_Orb108Month_3sLow_6sUp_PSDprogr_STKch450_comb_vert0e7.root";
+    const char *mcName   = "HET_eff_MC_pHe_3sLow_6sUp_PSDprogr_STKch450_comb_vert0e7_10TeV_EPOSLHC.root";
 
     TFile *fData = TFile::Open(dataName, "READ");
     TFile *fMC   = TFile::Open(mcName, "READ");
@@ -233,10 +233,10 @@ void HET_pHe_rebin_and_plot_DATA_MC()
     y2.SetTextSize(0.076); y2.DrawLatexNDC(0.035,0.45,"DATA / MC");
     c->cd(); c->Update();
 
-    c->SaveAs("HET_pHe_rebin_DATA_MC.png");
-    c->SaveAs("HET_pHe_rebin_DATA_MC.pdf");
-    //c->SaveAs("HET_pHe_rebin_DATA_MC.eps");
-    TFile *out=TFile::Open("HET_pHe_rebin_DATA_MC.root","RECREATE");
+    c->SaveAs("HET_pHe_rebin_DATA_MC_10TeV_EPOSLHC.png");
+    c->SaveAs("HET_pHe_rebin_DATA_MC_10TeV_EPOSLHC.pdf");
+    c->SaveAs("HET_pHe_rebin_DATA_MC_10TeV_EPOSLHC.eps");
+    TFile *out=TFile::Open("HET_pHe_rebin_DATA_MC_10TeV_EPOSLHC.root","RECREATE");
     if (out && !out->IsZombie()) {
         out->cd();
         for (TH1D *h : {dTot,dPass,mTot,mPass}) h->Write();
@@ -246,6 +246,6 @@ void HET_pHe_rebin_and_plot_DATA_MC()
     }
     fData->Close(); fMC->Close();
     std::cout << "Binning nuovo: " << nNew
-              << " bin. Output: HET_pHe_rebin_DATA_MC.*" << std::endl;
+              << " bin. Output: HET_pHe_rebin_DATA_MC_10TeV_EPOSLHC.*" << std::endl;
 }
 

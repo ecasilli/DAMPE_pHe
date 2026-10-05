@@ -37,14 +37,14 @@ void plot_sys_prior()
     const int removeLast = 5;
 
     const string prefix =
-        "TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_PSDprogr_3sLow_6sUp_STKch450_comb_vert0e7_E2e7_";
+        "TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_PSDprogr_3sLow_6sUp_STKch450_comb_vert0e7_10TeV_EPOSLHC_E2e7_";
 
     vector<FluxData> data = {
-        {"priorE2e5_10iter_smooth.dat", "prior E^{-2.5}", kBlue},
-        {"priorE2e6_10iter_smooth.dat", "prior E^{-2.6}", kGreen+2},
-        {"priorE2e7_10iter_smooth.dat", "prior E^{-2.7}", kBlack},
-        {"priorE2e8_10iter_smooth.dat", "prior E^{-2.8}", kOrange+1},
-        {"priorE2e9_10iter_smooth.dat", "prior E^{-2.9}", kRed}
+        {"priorE2e5_10iter_smooth.dat", "prior E^{ -2.5}", kBlue},
+        {"priorE2e6_10iter_smooth.dat", "prior E^{ -2.6}", kGreen+2},
+        {"priorE2e7_10iter_smooth.dat", "prior E^{ -2.7}", kBlack},
+        {"priorE2e8_10iter_smooth.dat", "prior E^{ -2.8}", kOrange+1},
+        {"priorE2e9_10iter_smooth.dat", "prior E^{ -2.9}", kRed}
     };
 
     // Riferimento: 10 iterazioni con smoothing
@@ -289,10 +289,10 @@ void plot_sys_prior()
 
     gSystem->mkdir("PLOTS", true);
 
-    c->SaveAs("PLOTS/pHe_prior_comparison.pdf");
-    c->SaveAs("PLOTS/pHe_prior_comparison.png");
+    c->SaveAs("PLOTS/pHe_prior_comparison_10TeV_EPOSLHC_sameW_diffP.pdf");
+    c->SaveAs("PLOTS/pHe_prior_comparison_10TeV_EPOSLHC_sameW_diffP.png");
 
-    ofstream output("TXT_FILES/pHe_prior_envelope.dat");
+    ofstream output("TXT_FILES/pHe_prior_envelope_10TeV_EPOSLHC_sameW_diffP.dat");
 
     output << "# E_GeV max_deviation_percent\n";
 

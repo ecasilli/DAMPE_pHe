@@ -84,7 +84,7 @@ def make_flux_graph_DAMPE2026_sys(filename, color, marker, size, alpha):
     gr.SetLineWidth(2)
 
     gr_sys_ana = TGraphErrors(len(Emean), Emean, Flux, null, syst_ana)
-    gr_sys_ana.SetLineColor(0)
+    gr_sys_ana.SetLineColor(17)
     gr_sys_ana.SetMarkerColor(color)
     gr_sys_ana.SetMarkerStyle(marker)
     gr_sys_ana.SetMarkerSize(size)
@@ -92,7 +92,7 @@ def make_flux_graph_DAMPE2026_sys(filename, color, marker, size, alpha):
     gr_sys_ana.SetFillStyle(1001)
 
     gr_sys_tot = TGraphErrors(len(Emean), Emean, Flux, null, syst_tot)
-    gr_sys_tot.SetLineColor(0)
+    gr_sys_tot.SetLineColor(17)
     gr_sys_tot.SetMarkerColor(color)
     gr_sys_tot.SetMarkerStyle(marker)
     gr_sys_tot.SetMarkerSize(size)
@@ -339,10 +339,10 @@ if __name__ == '__main__':
     gr_DAMPE2024, gr_DAMPE2024_sys, gr_DAMPE2024_sys_had = make_flux_graph_DAMPE2024(file_DAMPE2024, kRed+1, 24, 1.3, 2.6)
 
     #file_DAMPE2026 = 'TXT_FILES/DAMPE_p+He_120M_paperDraft.dat'
-    file_DAMPE2026 = 'TXT_FILES/DAMPE_p+He_120M_paperDraft_24sett26_3sigmaLow_6sigmaUp_450adc.dat'
+    file_DAMPE2026 = 'TXT_FILES/DAMPE_p+He_120M_paperDraft_24sett26_3sigmaLow_6sigmaUp_450adc_10TeV_EPOSLHC.dat'
     gr_DAMPE2026 = make_flux_graph_DAMPE2026(file_DAMPE2026, kRed+1, 20, 1.4, 2.6)
 
-    file_DAMPE2026_sys = 'SYSTEMATIC_UNCERTAINTIES/sys_summary.txt'
+    file_DAMPE2026_sys = 'SYSTEMATIC_UNCERTAINTIES/sys_summary_10TeV_EPOSLHC.txt'
     gr_DAMPE2026_2, gr_DAMPE2026_sys_ana, gr_DAMPE2026_sys_tot = make_flux_graph_DAMPE2026_sys(file_DAMPE2026_sys, kRed+1, 20, 1.4, 2.6)
 
     filename_GenevaP  = 'TXT_FILES/PROTON_SEP2026_ANDRII_flux_noescale_ekin_p_2026.txt'
@@ -384,7 +384,7 @@ if __name__ == '__main__':
     cc.SetLogx()
     cc.SetLogy()
 
-    frame = cc.DrawFrame(1e1, 1.5e3, 5e7, 20e3)
+    frame = cc.DrawFrame(1e1, 2.1e3, 5e7, 20e3)
 
     frame.GetXaxis().SetTitle("Kinetic energy (GeV)")
     frame.GetYaxis().SetTitle("Flux #times E^{2.6} (m^{-2} sr^{-1} s^{-1} GeV^{1.6})")
@@ -406,10 +406,6 @@ if __name__ == '__main__':
     gr_DAMPE2026_sys_tot.Draw("E3 SAME")
     gr_DAMPE2026_sys_ana.Draw("E3 SAME")
     #gr_DAMPE2026_2.Draw("P SAME")
-
-    #gr_DAMPE2024.Draw("P SAME")
-
-    #gr_DAMPE2026_pHe_Geneva_sum.Draw("P SAME")
     
     gr_LHAASO_QGSJET.Draw("P SAME")
     gr_LHAASO_EPOSLHC.Draw("P SAME")
@@ -426,12 +422,15 @@ if __name__ == '__main__':
     gr_KASCADE_QGSJet.Draw("P SAME")
     gr_KASCADE_SIBYLL.Draw("P SAME")
 
+    gr_DAMPE2024.Draw("P SAME")
+    gr_DAMPE2026_pHe_Geneva_sum.Draw("P SAME")
+
     gr_DAMPE2026_2.Draw("P SAME")
 
     label = TLatex()
     label.SetNDC()
     label.SetTextFont(62)  
-    label.SetTextSize(0.045)
+    label.SetTextSize(0.046)
     label.SetTextAlign(31)  
     label.DrawLatex(0.88, 0.88, "p+He")
 
@@ -439,25 +438,33 @@ if __name__ == '__main__':
 
     #leg = TLegend(0.17, 0.69, 0.42, 0.9)  
     #leg = TLegend(0.20,0.19,0.43,0.66)
-    leg = TLegend(0.20,0.24,0.43,0.66)
+    #leg = TLegend(0.20,0.24,0.43,0.66)
+    x1 = 0.18
+    x2 = 0.67
+    y1 = 0.24 #0.34
+    y2 = 0.60
+
+    leg = TLegend(x1, y1, x2, y2)
+
     leg.SetBorderSize(0)
     leg.SetFillStyle(0)
     leg.SetTextSize(0.032)
     #leg.SetHeader("p+He ");
     #leg.SetNColumns(2)
+    leg.SetMargin(0.045)
 
     leg.AddEntry(gr_DAMPE2026, "DAMPE", "P")
-    leg.AddEntry(gr_DAMPE2026_sys_ana,"ana. error","f")
-    leg.AddEntry(gr_DAMPE2026_sys_tot,"ana. #oplus had. error","f")
+    #leg.AddEntry(gr_DAMPE2026_sys_ana,"ana. error","f")
+    #leg.AddEntry(gr_DAMPE2026_sys_tot,"ana. #oplus had. error","f")
 
     #leg.AddEntry(gr_DAMPE2024, "DAMPE (2024)", "P")
     #leg.AddEntry(gr_DAMPE2024_sys,"ana. error (2024)","f")
     #leg.AddEntry(gr_DAMPE2024_sys_had,"ana. #oplus had. error (2024)","f")
 
-    #leg.AddEntry(gr_DAMPE2026_pHe_Geneva_sum, "DAMPE #Phi_{p} + #Phi_{He}", "P")
+    leg.AddEntry(gr_DAMPE2026_pHe_Geneva_sum, "DAMPE #Phi_{p} + #Phi_{He}", "P")
     #leg.AddEntry(gr_DAMPE2026, "DAMPE ", "P")
     #leg.Draw()
-    #leg.AddEntry(gr_DAMPE2024, "DAMPE (2024)", "P")
+    leg.AddEntry(gr_DAMPE2024, "DAMPE (2024)", "P")
     
     #leg1 = TLegend(0.5, 0.7, 0.73, 0.87)  
     #leg1.SetBorderSize(0)
@@ -478,16 +485,36 @@ if __name__ == '__main__':
     leg.AddEntry(gr_LHAASO_QGSJET,"LHAASO (QGSJET-II-04), (EPOS-LHC)","P")
     leg.Draw()
 
-    marker_kascade = draw_legend_marker(gr_KASCADE_SIBYLL, 0.615, 0.327) #0.268)
-    marker_lhaaso  = draw_legend_marker(gr_LHAASO_EPOSLHC, 0.615, 0.267) #0.217)
+    n_entries = 7 #5
+    dy_leg = (y2 - y1) / n_entries
+
+    def legend_row_y(row):
+        """
+        row = 0 -> prima riga (DAMPE)
+        row = 1 -> ARGO
+        ...
+        """
+        return y2 - (row + 0.5) * dy_leg
+
+    y_kascade = legend_row_y(5) #(3)
+    y_lhaaso  = legend_row_y(6) #(4)
+    
+    x_kascade_right = 0.55
+    x_lhaaso_right  = 0.55
+
+    marker_kascade_right = draw_legend_marker(gr_KASCADE_SIBYLL, x_kascade_right, y_kascade)
+    marker_lhaaso_right  = draw_legend_marker(gr_LHAASO_EPOSLHC, x_lhaaso_right, y_lhaaso)
+
+    #marker_kascade = draw_legend_marker(gr_KASCADE_SIBYLL, 0.615, 0.327) #0.268)
+    #marker_lhaaso  = draw_legend_marker(gr_LHAASO_EPOSLHC, 0.615, 0.267) #0.217)
 
 
     cc.Update()
 
-    cc.SaveAs('PLOTS/flux_pHe_update2026_wPHe_3sigmaLow_6sigmaUp_450adc_wSys_onlyNew.pdf')
-    cc.SaveAs('PLOTS/flux_pHe_update2026_wPHe_3sigmaLow_6sigmaUp_450adc_wSys_onlyNew.png')
+    cc.SaveAs('PLOTS/flux_pHe_update2026_wPHe_3sigmaLow_6sigmaUp_450adc_wSys_10TeV_EPOSLHC.pdf')
+    cc.SaveAs('PLOTS/flux_pHe_update2026_wPHe_3sigmaLow_6sigmaUp_450adc_wSys_10TeV_EPOSLHC.png')
 
-    cc.SaveAs('ROOT_FILES/flux_pHe_update2026_wPHe_3sigmaLow_6sigmaUp_450adc_wSys_onlyNew.root')
+    cc.SaveAs('ROOT_FILES/flux_pHe_update2026_wPHe_3sigmaLow_6sigmaUp_450adc_wSys_10TeV_EPOSLHC.root')
 
     raw_input("Press enter..")
 

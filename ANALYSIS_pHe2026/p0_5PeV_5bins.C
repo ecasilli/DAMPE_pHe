@@ -303,14 +303,23 @@ void p0_5PeV_5bins()
             1.e4,
             201432000.
         },
-
-        {
+        // FTFP_BERT
+/*        {
             "P_10TeV_100TeV",
             dirP +
             "Proton_10TeV_100TeV_FTFP_merged.root",
             1.e4,
             1.e5,
             138744900.
+        },*/
+        // EPOSLHC_FTFP_BERT
+        {
+            "P_10TeV_100TeV",
+            dirP +
+            "Proton_10TeV_100TeV_EPOSLHC_FTFP_merged.root",
+            1.e4,
+            1.e5,
+            107980000.
         },
 
         {
@@ -407,7 +416,7 @@ void p0_5PeV_5bins()
     // OUTPUT
     // ========================================================
 
-    TFile *fout = new TFile("PHe_MC_FTFP_EPOSLHC_h1Ngen_5binsPerDecade.root", "RECREATE");
+    TFile *fout = new TFile("PHe_MC_FTFP_10TeV_EPOSLHC_h1Ngen_5binsPerDecade.root", "RECREATE");
     fout->cd();
 
     // Totali

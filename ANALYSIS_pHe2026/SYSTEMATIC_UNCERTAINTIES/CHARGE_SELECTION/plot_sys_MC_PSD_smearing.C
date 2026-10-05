@@ -93,7 +93,7 @@ void plot_sys_MC_PSD_smearing()
     // I nomi tight/loose qui sotto sono un esempio, NON vengono generati
     // automaticamente con questi nomi dalle macro charge_data/charge_mc.
     const string prefix =
-        "TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_3sLow_6sUp_PSDprogr_STKch450_comb_vert0e7_";
+        "TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_3sLow_6sUp_PSDprogr_STKch450_comb_vert0e7_10TeV_EPOSLHC_";
 
     vector<FluxDataPSD> data = {
         {prefix + "nominal.dat", "Nominal", kBlack, 20, {}, {}, {}},
@@ -252,11 +252,11 @@ void plot_sys_MC_PSD_smearing()
 
     gSystem->mkdir("PLOTS", true);
     gSystem->mkdir("TXT_FILES", true);
-    c->SaveAs("PLOTS/pHe_MC_PSD_smearing_comparison.pdf");
-    c->SaveAs("PLOTS/pHe_MC_PSD_smearing_comparison.png");
+    c->SaveAs("PLOTS/pHe_MC_PSD_smearing_comparison_10TeV_EPOSLHC.pdf");
+    c->SaveAs("PLOTS/pHe_MC_PSD_smearing_comparison_10TeV_EPOSLHC.png");
 
-    ofstream envelopeFile("TXT_FILES/pHe_MC_PSD_smearing_envelope.dat");
-    ofstream differencesFile("TXT_FILES/pHe_MC_PSD_smearing_differences.dat");
+    ofstream envelopeFile("TXT_FILES/pHe_MC_PSD_smearing_envelope_10TeV_EPOSLHC.dat");
+    ofstream differencesFile("TXT_FILES/pHe_MC_PSD_smearing_differences_10TeV_EPOSLHC.dat");
     if (!envelopeFile || !differencesFile) {
         cerr << "ERROR: impossibile scrivere gli output .dat" << endl;
         return;

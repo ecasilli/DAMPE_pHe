@@ -464,7 +464,8 @@ void Load_mc(const char* scenario="nominal"){
     filesP.push_back(basePath + "/PROTON/Proton_10GeV_100GeV_FTFP_merged.root");
     filesP.push_back(basePath + "/PROTON/Proton_100GeV_1TeV_FTFP_merged.root");
     filesP.push_back(basePath + "/PROTON/Proton_1TeV_10TeV_FTFP_merged.root");
-    filesP.push_back(basePath + "/PROTON/Proton_10TeV_100TeV_FTFP_merged.root");
+    //filesP.push_back(basePath + "/PROTON/Proton_10TeV_100TeV_FTFP_merged.root");
+    filesP.push_back(basePath + "/PROTON/Proton_10TeV_100TeV_EPOSLHC_FTFP_merged.root");
     filesP.push_back(basePath + "/PROTON/Proton_100TeV_1PeV_EPOSLHC_FTFP_merged.root");
     filesP.push_back(basePath + "/PROTON/Proton_1PeV_5PeV_EPOSLHC_FTFP_merged.root");
 
@@ -531,7 +532,8 @@ void Load_mc(const char* scenario="nominal"){
         TMath::Log(10.) / 1740700000.,
         TMath::Log(10.) / 519070000.,
         TMath::Log(10.) / 201432000.,
-        TMath::Log(10.) / 138744900.,
+        //TMath::Log(10.) / 138744900.,
+        TMath::Log(10.) / 107980000.,
         TMath::Log(10.) / 19431600.,
         TMath::Log(5.)  / 5094200.
     };
@@ -561,7 +563,7 @@ void Load_mc(const char* scenario="nominal"){
     // Output
 
     gSystem->mkdir("ROOT_FILES", kTRUE);
-    const TString outputName = TString::Format("ROOT_FILES/PHe_MC_p_He_5PeV_5binperdecade_3sLow_6sUp_PSDprogr_STKch450_comb_vert0e7_%s.root", cfg.tag.c_str());
+    const TString outputName = TString::Format("ROOT_FILES/PHe_MC_p_He_5PeV_5binperdecade_3sLow_6sUp_PSDprogr_STKch450_comb_vert0e7_10TeV_EPOSLHC_%s.root", cfg.tag.c_str());
     TFile *fout = new TFile(outputName, "RECREATE");
     if (fout->IsZombie()) {
         cerr << "Cannot create output: " << outputName << endl;

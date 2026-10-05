@@ -45,14 +45,14 @@ void plot_sys_weight_MC()
     const int removeLast = 5;
     const int refIndex = 2;  // E2e7 nominale
 
-    const string prefix = "TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_PSDprogr_3sLow_6sUp_STKch450_comb_vert0e7_";
+    const string prefix = "TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_PSDprogr_3sLow_6sUp_STKch450_comb_vert0e7_10TeV_EPOSLHC_";
 
     vector<FluxData> data = {
-        {"E2e5_priorE2e7_10iter_smooth.dat", "E2e5", kBlue},
-        {"E2e6_priorE2e7_10iter_smooth.dat", "E2e6", kGreen+2},
-        {"E2e7_priorE2e7_10iter_smooth.dat", "E2e7 (ref.)", kBlack},
-        {"E2e8_priorE2e7_10iter_smooth.dat", "E2e8", kRed},
-        {"E2e9_priorE2e7_10iter_smooth.dat", "E2e9", kOrange+1}
+        {"E2e5_priorE2e5_10iter_smooth.dat", "E^{ -2e5}", kBlue},
+        {"E2e6_priorE2e6_10iter_smooth.dat", "E^{ -2e6}", kGreen+2},
+        {"E2e7_priorE2e7_10iter_smooth.dat", "E^{ -2e7} (ref.)", kBlack},
+        {"E2e8_priorE2e8_10iter_smooth.dat", "E^{ -2e8}", kRed},
+        {"E2e9_priorE2e9_10iter_smooth.dat", "E^{ -2e9}", kOrange+1}
     };
 
     // ------------------------------------------
@@ -319,7 +319,7 @@ void plot_sys_weight_MC()
 
     auto legend = new TLegend( 0.24, 0.52, 0.46, 0.86 );
 
-    legend->SetHeader("p + He (prior E^{2.7})", "C");
+    legend->SetHeader("p + He ", "C");
     legend->SetTextSize(0.035);
     //legend->SetBorderSize(0);
 
@@ -370,12 +370,12 @@ void plot_sys_weight_MC()
 
     gSystem->mkdir("PLOTS", true);
 
-    c->SaveAs("PLOTS/pHe_MC_weight_comparison.png");
-    c->SaveAs("PLOTS/pHe_MC_weight_comparison.pdf");
-    c->SaveAs("PLOTS/pHe_MC_weight_comparison.eps");
+    c->SaveAs("PLOTS/pHe_MC_weight_comparison_10TeV_EPOSLHC_diffP.png");
+    c->SaveAs("PLOTS/pHe_MC_weight_comparison_10TeV_EPOSLHC_diffP.pdf");
+    c->SaveAs("PLOTS/pHe_MC_weight_comparison_10TeV_EPOSLHC_diffP.eps");
 
     ofstream output(
-        "TXT_FILES/pHe_MC_weight_envelope.dat"
+        "TXT_FILES/pHe_MC_weight_envelope_10TeV_EPOSLHC_diffP.dat"
     );
 
     output << "# E_GeV max_deviation_percent\n";

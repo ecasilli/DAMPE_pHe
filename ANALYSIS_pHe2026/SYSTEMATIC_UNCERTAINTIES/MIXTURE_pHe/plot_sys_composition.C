@@ -99,8 +99,8 @@ void plot_sys_composition()
     // Il nome _SBPLmix_ratioGen_ sotto e' indicativo: va sostituito con
     // quello realmente prodotto dal tuo script di unfolding.
     // ============================================================
-    const string originalFile = "../../TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_vert0e7_24sett26_wPHe_kernel_5bin.dat";
-    const string fitFile = "TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_3sLow_6Up_PSDprogr_STKch450_comb_vert0e7_SBPLmix_ratioGen.dat";
+    const string originalFile = "../../TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_vert0e7_10TeV_EPOSLHC.dat";
+    const string fitFile = "TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_3sLow_6Up_PSDprogr_STKch450_comb_vert0e7_10TeV_EPOSLHC_SBPLmix_ratioGen.dat";
 
     const int removeFirst = 3;
     const int removeLast = 5;
@@ -251,10 +251,10 @@ void plot_sys_composition()
 
     gSystem->mkdir("PLOTS", true);
     gSystem->mkdir("TXT_FILES", true);
-    c->SaveAs("PLOTS/pHe_composition_SBPLmix_ratioGen_comparison.pdf");
-    c->SaveAs("PLOTS/pHe_composition_SBPLmix_ratioGen_comparison.png");
+    c->SaveAs("PLOTS/pHe_composition_SBPLmix_ratioGen_comparison_10TeV_EPOSLHC.pdf");
+    c->SaveAs("PLOTS/pHe_composition_SBPLmix_ratioGen_comparison_10TeV_EPOSLHC.png");
 
-    ofstream out("TXT_FILES/pHe_composition_SBPLmix_ratioGen_difference.dat");
+    ofstream out("TXT_FILES/pHe_composition_SBPLmix_ratioGen_difference_10TeV_EPOSLHC.dat");
     if (!out.is_open()) {
         cerr << "ERRORE: non riesco a creare il file delle differenze." << endl;
         return;
@@ -269,7 +269,7 @@ void plot_sys_composition()
 
     cout << "Confronto completato: " << n << " bin utilizzati." << endl;
     cout << "Massima differenza assoluta: " << maxAbsDelta << " %" << endl;
-    cout << "Output: PLOTS/pHe_composition_SBPLmix_ratioGen_comparison.{pdf,png}" << endl;
-    cout << "        TXT_FILES/pHe_composition_SBPLmix_ratioGen_difference.dat" << endl;
+    cout << "Output: PLOTS/pHe_composition_SBPLmix_ratioGen_comparison_10TeV_EPOSLHC.{pdf,png}" << endl;
+    cout << "        TXT_FILES/pHe_composition_SBPLmix_ratioGen_difference_10TeV_EPOSLHC.dat" << endl;
 }
 

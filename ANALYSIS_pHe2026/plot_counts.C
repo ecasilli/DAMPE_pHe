@@ -98,12 +98,14 @@ void plot_counts() {
     TCanvas *c4 = MakeCanvas("c4", "Rate after unfolding");
 
     // === Caricamento istogrammi ===
-    const char *fAll = "ROOT_FILES/unfold_results_pHe_2026_Orb120Month_2e8sigmaLow_6sigmaUp_PSDprogr_STKcharge_comb_STKvert0e7_17sett26_wPHe_kernel.root";
+    //const char *fAll = "ROOT_FILES/unfold_results_pHe_2026_Orb120Month_2e8sigmaLow_6sigmaUp_PSDprogr_STKcharge_comb_STKvert0e7_17sett26_wPHe_kernel.root";
     //const char *fAll = "ROOT_FILES/unfold_results_pHe_2026_Orb120Month_MLionsv3_2e5sigmaLow_6sigmaUp_TH1D_noCut02_smooth_PSDprogr_wPHe_kernel.root";
     //const char *fAll = "ROOT_FILES/unfold_results_pHe_2026_MLionsv3_2e5sigmaLow_6sigmaUp_new_smooth.root";
     //const char *f6ys = "ROOT_FILES/unfold_results_pHe_2026_72months_MLionsv3_2e5sigmaLow_6sigmaUp_new_smooth.root";
     const char *f6ys = "ROOT_FILES/unfold_results_pHe_2026_Orb120Month_MLionsv3_2e5sigmaLow_6sigmaUp_TH1D_noCut02_smooth_PSDprogr_STKvert_wPHe_kernel.root";
     //const char *f4ys = "ROOT_FILES/unfold_results_pHe_2026_rem48months_MLionsv3_2e5sigmaLow_6sigmaUp_new_smooth.root";
+
+    const char *fAll = "ROOT_FILES/unfold_results_pHe_2026_Orb120Month_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_vert0e7_10TeV_EPOSLHC.root";
 
     TH1D *hAllbef = LoadHist(fAll, "h1SelBGO_orb", "hAllbef");
     TH1D *hAllaft = LoadHist(fAll, "unfold_cts",      "hAllaft");
@@ -136,10 +138,10 @@ void plot_counts() {
 
     // === Titoli ===
     SetTitle(hAllbef, "BGO deposited energy (GeV)", "Counts");
-    SetTitle(hAllaft, "Primary energy (GeV)", "Counts after unfolding");
+    SetTitle(hAllaft, "Kinetic energy (GeV)", "Counts after unfolding");
 
     SetTitle(hAllbef_rate, "BGO deposited energy (GeV)", "Rate (s^{-1})");
-    SetTitle(hAllaft_rate, "Primary energy (GeV)", "Rate after unfolding (s^{-1})");
+    SetTitle(hAllaft_rate, "Kinetic energy (GeV)", "Rate after unfolding (s^{-1})");
     hAllbef_rate->GetYaxis()->SetRangeUser(1.5e-9, 0.7);
     hAllaft_rate->GetYaxis()->SetRangeUser(7e-11, 0.7);
 
@@ -160,43 +162,43 @@ void plot_counts() {
     // === Disegno — canvas 1 (counts before) ===
     c1->cd();
     if (hAllbef) hAllbef->Draw("E");
-    if (h6ysbef) h6ysbef->Draw("E same");
+    //if (h6ysbef) h6ysbef->Draw("E same");
     //if (h4ysbef) h4ysbef->Draw("E same");
     //legend->Draw();
 
     // === Disegno — canvas 2 (counts after) ===
     c2->cd();
     if (hAllaft) hAllaft->Draw("E");
-    if (h6ysaft) h6ysaft->Draw("E same");
+    //if (h6ysaft) h6ysaft->Draw("E same");
     //if (h4ysaft) h4ysaft->Draw("E same");
     //legend->Draw();
 
     // === Disegno — canvas 3 (rate before) ===
     c3->cd();
     if (hAllbef_rate) hAllbef_rate->Draw("E");
-    if (h6ysbef_rate) h6ysbef_rate->Draw("E same");
+    //if (h6ysbef_rate) h6ysbef_rate->Draw("E same");
     //if (h4ysbef_rate) h4ysbef_rate->Draw("E same");
     //legend->Draw();
 
     // === Disegno — canvas 4 (rate after) ===
     c4->cd();
     if (hAllaft_rate) hAllaft_rate->Draw("E");
-    if (h6ysaft_rate) h6ysaft_rate->Draw("E same");
+    //if (h6ysaft_rate) h6ysaft_rate->Draw("E same");
     //if (h4ysaft_rate) h4ysaft_rate->Draw("E same");
     //legend->Draw();
 
     // === Salvataggio in *.png e *.pdf ==
-    c1->SaveAs("PLOTS/counts_before_unfolding_pHe_Orb120Month_PSD_STK_comb_vert0e7_17sett26_wPHe_kernel_prevComp.pdf");
-    c1->SaveAs("PLOTS/counts_before_unfolding_pHe_Orb120Month_PSD_STK_comb_vert0e7_17sett26_wPHe_kernel_prevComp.png");
+    c1->SaveAs("PLOTS/counts_before_unfolding_pHe_Orb120Month_3sigmaLow_6sigmaUp_450adc_10TeV_EPOSLHC.pdf");
+    c1->SaveAs("PLOTS/counts_before_unfolding_pHe_Orb120Month_3sigmaLow_6sigmaUp_450adc_10TeV_EPOSLHC.png");
 
-    c2->SaveAs("PLOTS/counts_after_unfolding_pHe_Orb120Month_PSD_STK_comb_vert0e7_17sett26_wPHe_kernel_prevComp.pdf");
-    c2->SaveAs("PLOTS/counts_after_unfolding_pHe_Orb120Month_PSD_STK_comb_vert0e7_17sett26_wPHe_kernel_prevComp.png");
+    c2->SaveAs("PLOTS/counts_after_unfolding_pHe_Orb120Month_3sigmaLow_6sigmaUp_450adc_10TeV_EPOSLHC.pdf");
+    c2->SaveAs("PLOTS/counts_after_unfolding_pHe_Orb120Month_3sigmaLow_6sigmaUp_450adc_10TeV_EPOSLHC.png");
 
-    c3->SaveAs("PLOTS/rate_before_unfolding_pHe_Orb120Month_PSD_STK_comb_vert0e7_17sett26_wPHe_kernel_prevComp.pdf");
-    c3->SaveAs("PLOTS/rate_before_unfolding_pHe_Orb120Month_PSD_STK_comb_vert0e7_17sett26_wPHe_kernel_prevComp.png");
+    c3->SaveAs("PLOTS/rate_before_unfolding_pHe_Orb120Month_3sigmaLow_6sigmaUp_450adc_10TeV_EPOSLHC.pdf");
+    c3->SaveAs("PLOTS/rate_before_unfolding_pHe_Orb120Month_3sigmaLow_6sigmaUp_450adc_10TeV_EPOSLHC.png");
 
-    c4->SaveAs("PLOTS/rate_after_unfolding_pHe_Orb120Month_PSD_STK_comb_vert0e7_17sett26_wPHe_kernel_prevComp.pdf");
-    c4->SaveAs("PLOTS/rate_after_unfolding_pHe_Orb120Month_PSD_STK_comb_vert0e7_17sett26_wPHe_kernel_prevComp.png");
+    c4->SaveAs("PLOTS/rate_after_unfolding_pHe_Orb120Month_3sigmaLow_6sigmaUp_450adc_10TeV_EPOSLHC.pdf");
+    c4->SaveAs("PLOTS/rate_after_unfolding_pHe_Orb120Month_3sigmaLow_6sigmaUp_450adc_10TeV_EPOSLHC.png");
 
 
 }

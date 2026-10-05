@@ -298,9 +298,9 @@ void ProcessMCSpecies(TChain **chains,
 
             // ================================================================
             // EVENT WEIGHT
-            // Riproduce: weight = normalization * MC_EnergyT^(-1.5)
+            // Riproduce: weight = normalization * MC_EnergyT^(-1.9)
 
-            Double_t weight = sampleNorm[iset] * truthBinNorm[jTrue] * TMath::Power( MC_EnergyT, -1.5);
+            Double_t weight = sampleNorm[iset] * truthBinNorm[jTrue] * TMath::Power( MC_EnergyT, -1.9);
 
             if (isHelium)
                 weight *= GeoCorr;
@@ -430,7 +430,8 @@ void Load_MC_He_p_5PeV_spectrum_PSD_STK_comb(){
     filesP.push_back(basePath + "/PROTON/Proton_10GeV_100GeV_FTFP_merged.root");
     filesP.push_back(basePath + "/PROTON/Proton_100GeV_1TeV_FTFP_merged.root");
     filesP.push_back(basePath + "/PROTON/Proton_1TeV_10TeV_FTFP_merged.root");
-    filesP.push_back(basePath + "/PROTON/Proton_10TeV_100TeV_FTFP_merged.root");
+    //filesP.push_back(basePath + "/PROTON/Proton_10TeV_100TeV_FTFP_merged.root");
+    filesP.push_back(basePath + "/PROTON/Proton_10TeV_100TeV_EPOSLHC_FTFP_merged.root");
     filesP.push_back(basePath + "/PROTON/Proton_100TeV_1PeV_EPOSLHC_FTFP_merged.root");
     filesP.push_back(basePath + "/PROTON/Proton_1PeV_5PeV_EPOSLHC_FTFP_merged.root");
 
@@ -490,14 +491,15 @@ void Load_MC_He_p_5PeV_spectrum_PSD_STK_comb(){
 
     // ==========================================
     // MC normalization factors
-    // proton: wP  * Etrue^-1.5
-    // helium: wHe * Etrue^-1.5 * GeoCorr
+    // proton: wP  * Etrue^-1.9
+    // helium: wHe * Etrue^-1.9 * GeoCorr
     
     Double_t normP[nsetP] = {
         TMath::Log(10.) / 1740700000.,
         TMath::Log(10.) / 519070000.,
         TMath::Log(10.) / 201432000.,
-        TMath::Log(10.) / 138744900.,
+        //TMath::Log(10.) / 138744900.,
+        TMath::Log(10.) / 107980000.,
         TMath::Log(10.) / 19431600.,
         TMath::Log(5.)  / 5094200.
     };
@@ -520,13 +522,13 @@ void Load_MC_He_p_5PeV_spectrum_PSD_STK_comb(){
         const Double_t E0 = Ebin[j];
         const Double_t E1 = Ebin[j+1];
 
-        truthBinNorm[j] = 1.5 * TMath::Log(E1 / E0) / (TMath::Power(E0, -1.5) - TMath::Power(E1,-1.5));
+        truthBinNorm[j] = 1.9 * TMath::Log(E1 / E0) / (TMath::Power(E0, -1.9) - TMath::Power(E1,-1.9));
     }
 
     // =======================================
     // Output
 
-    TFile *fout = new TFile("ROOT_FILES/PHe_MC_p_He_5PeV_5binperdecade_PSDprogr_3sLow_6sUp_STKch450_comb_vert0e7_E2e5.root", "RECREATE");
+    TFile *fout = new TFile("ROOT_FILES/PHe_MC_p_He_5PeV_5binperdecade_3sLow_6sUp_PSDprogr_STKch450_comb_vert0e7_10TeV_EPOSLHC_E2e9.root", "RECREATE");
     fout->cd();
 
     // ===============================================

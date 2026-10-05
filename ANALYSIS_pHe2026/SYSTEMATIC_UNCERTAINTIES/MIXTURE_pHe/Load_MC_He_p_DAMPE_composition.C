@@ -632,7 +632,8 @@ void Load_MC_He_p_DAMPE_composition(){
     filesP.push_back(basePath + "/PROTON/Proton_10GeV_100GeV_FTFP_merged.root");
     filesP.push_back(basePath + "/PROTON/Proton_100GeV_1TeV_FTFP_merged.root");
     filesP.push_back(basePath + "/PROTON/Proton_1TeV_10TeV_FTFP_merged.root");
-    filesP.push_back(basePath + "/PROTON/Proton_10TeV_100TeV_FTFP_merged.root");
+    //filesP.push_back(basePath + "/PROTON/Proton_10TeV_100TeV_FTFP_merged.root");
+    filesP.push_back(basePath + "/PROTON/Proton_10TeV_100TeV_EPOSLHC_FTFP_merged.root");
     filesP.push_back(basePath + "/PROTON/Proton_100TeV_1PeV_EPOSLHC_FTFP_merged.root");
     filesP.push_back(basePath + "/PROTON/Proton_1PeV_5PeV_EPOSLHC_FTFP_merged.root");
 
@@ -704,7 +705,7 @@ void Load_MC_He_p_DAMPE_composition(){
     // Il file gia' prodotto dalla macro p0_5PeV_5bins() contiene
     // h1NgenP, h1NgenHe e h1Ngen = h1NgenP + h1NgenHe.
     const TString generatorFile =
-        "../../PHe_MC_FTFP_EPOSLHC_h1Ngen_5binsPerDecade.root";
+        "../../PHe_MC_FTFP_10TeV_EPOSLHC_h1Ngen_5binsPerDecade.root";
 
     std::vector<Double_t> genFracP, genFracHe;
     std::vector<Double_t> relativeWeightP, relativeWeightHe;
@@ -723,7 +724,8 @@ void Load_MC_He_p_DAMPE_composition(){
         TMath::Log(10.) / 1740700000.,
         TMath::Log(10.) / 519070000.,
         TMath::Log(10.) / 201432000.,
-        TMath::Log(10.) / 138744900.,
+        //TMath::Log(10.) / 138744900.,
+        TMath::Log(10.) / 107980000.,
         TMath::Log(10.) / 19431600.,
         TMath::Log(5.)  / 5094200.
     };
@@ -752,7 +754,7 @@ void Load_MC_He_p_DAMPE_composition(){
     // =======================================
     // Output
 
-    TFile *fout = new TFile("ROOT_FILES/PHe_MC_p_He_5PeV_5binperdecade_3sLow_6Up_PSDprogr_STKch450_comb_vert0e7_SBPLmix_ratioGen.root", "RECREATE");
+    TFile *fout = new TFile("ROOT_FILES/PHe_MC_p_He_5PeV_5binperdecade_3sLow_6Up_PSDprogr_STKch450_comb_vert0e7_10TeV_EPOSLHC_SBPLmix_ratioGen.root", "RECREATE");
     if (fout->IsZombie()) {
         cout << "ERROR: impossibile creare il file ROOT di output." << endl;
         delete fout;

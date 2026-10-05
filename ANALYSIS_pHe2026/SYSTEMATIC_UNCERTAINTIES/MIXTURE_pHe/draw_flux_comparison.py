@@ -174,7 +174,13 @@ if __name__ == '__main__':
     gr_DAMPE2026 = make_flux_graph_DAMPE2026(file_DAMPE2026, kRed+1, 20, 1.3, 2.6)
 
     file_DAMPE2026_SBPL = 'TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_3sLow_6Up_PSDprogr_STKch450_comb_vert0e7_SBPLmix_ratioGen_PLOT.dat'
-    gr_DAMPE2026_SBPL = make_flux_graph_DAMPE2026(file_DAMPE2026_SBPL, kBlue+1, 24, 1.3, 2.6)
+    gr_DAMPE2026_SBPL = make_flux_graph_DAMPE2026(file_DAMPE2026_SBPL, kRed+1, 24, 1.3, 2.6)
+
+    file_DAMPE2026_SBPL_EPOSLHC = 'TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_3sLow_6Up_PSDprogr_STKch450_comb_vert0e7_10TeV_EPOSLHC_SBPLmix_ratioGen_PLOT.dat'
+    gr_DAMPE2026_SBPL_EPOSLHC = make_flux_graph_DAMPE2026(file_DAMPE2026_SBPL_EPOSLHC, kBlue+1, 20, 1.3, 2.6)
+
+    file_DAMPE2026_EPOSLHC = '../../TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_vert0e7_10TeV_EPOSLHC_PLOT.dat'
+    gr_DAMPE2026_EPOSLHC = make_flux_graph_DAMPE2026(file_DAMPE2026_EPOSLHC, kBlue+1, 24, 1.3, 2.6)
 
     filename_Geneva_sum = '../../GENEVA_pHe_FILES/Proton_plus_Helium_20260922.txt'
     gr_DAMPE2026_pHe_Geneva_sum = make_flux_graph_pHe_sum(filename_Geneva_sum, kGreen+2, 21, 1.3, 2.6)
@@ -211,10 +217,12 @@ if __name__ == '__main__':
     
     gr_DAMPE2026.Draw("P SAME")
     gr_DAMPE2026_SBPL.Draw("P SAME")
+    gr_DAMPE2026_EPOSLHC.Draw("P SAME")
+    gr_DAMPE2026_SBPL_EPOSLHC.Draw("P SAME")
 
     # ------------------- LEGEND
 
-    leg = TLegend(0.17, 0.69, 0.42, 0.9)  # x1,y1,x2,y2 in NDC pad1
+    leg = TLegend(0.17, 0.67, 0.42, 0.91)  # x1,y1,x2,y2 in NDC pad1
     leg.SetBorderSize(0)
     leg.SetFillStyle(0)
     leg.SetTextSize(0.023)
@@ -222,13 +230,15 @@ if __name__ == '__main__':
     leg.AddEntry(gr_DAMPE2026_pHe_Geneva_sum, "#Phi_{p} + #Phi_{He} DAMPE (2026) ", "PE")
     leg.AddEntry(gr_DAMPE2026, "p+He DAMPE flux 50-50 ", "PE")
     leg.AddEntry(gr_DAMPE2026_SBPL, "p+He DAMPE SBPL composition model ", "PE")
+    leg.AddEntry(gr_DAMPE2026_EPOSLHC, "p+He DAMPE 50-50 (10-100TeV EPOSLHC_FTFP) ", "PE")
+    leg.AddEntry(gr_DAMPE2026_SBPL_EPOSLHC, "p+He DAMPE SBPL composition model (10-100TeV EPOSLHC_FTFP) ", "PE")
     leg.Draw()
 
 
     cc.Update()
 
-    cc.SaveAs('PLOTS/flux_pHe_mix_Geneva_comparison.pdf')
-    cc.SaveAs('PLOTS/flux_pHe_mix_Geneva_comparison.png')
+    cc.SaveAs('PLOTS/flux_pHe_mix_Geneva_comparison_10TeV_EPOSLHC.pdf')
+    cc.SaveAs('PLOTS/flux_pHe_mix_Geneva_comparison_10TeV_EPOSLHC.png')
 
     raw_input("Press enter..")
 

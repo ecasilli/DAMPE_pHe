@@ -96,7 +96,7 @@ void GetPSDChargeLimits(Double_t BGOenergy, Double_t &qLow, Double_t &qHigh) {
     const Double_t heSigma = TMath::Sqrt( heWidth * heWidth + heGSigma * heGSigma );
 
     // Final PSD band
-    qLow = pMPV - 2.8 * pSigma;
+    qLow = pMPV - 3.0 * pSigma;
     qHigh = heMPV + 6.0 * heSigma;
 }
 
@@ -196,7 +196,7 @@ for (int j = 1; j < noe+1; j++) {
 
 // =============================
 // OUTPUT FILES
-TFile *fout1 = new TFile("HETeff_skim_Orb108Month_2e8sigmaLow_6sigmaUp_PSDprogr_STKcharge_comb_STKvert0e7.root", "RECREATE");
+TFile *fout1 = new TFile("HETeff_skim_Orb108Month_3sLow_6sUp_PSDprogr_STKch450_comb_vert0e7.root", "RECREATE");
 
 
 // =============================
@@ -225,7 +225,7 @@ const Double_t vertexCut = 0.7;
 
 // STK charge selection
 const Double_t stkMin = 25.;
-const Double_t stkMax = 420.;
+const Double_t stkMax = 450.;
 
 // ----- Loop su tutti gli eventi ------
 

@@ -398,6 +398,8 @@ void DrawPlot(const std::vector<Bin> &bins,
               const FitResult &pl, const FitResult &sbpl,
               bool drawPL)
 {
+    const double plotPower = 2.7;
+
     const int n = int(bins.size());
     auto *gData = new TGraphErrors(n);
     auto *gAna  = new TGraphAsymmErrors(n);
@@ -405,7 +407,7 @@ void DrawPlot(const std::vector<Bin> &bins,
 
     for (int i = 0; i < n; ++i) {
         const auto &b = bins[i];
-        const double weight = std::pow(b.E, 2.6);
+        const double weight = std::pow(b.E, plotPower);
         const double y = b.flux * weight;
         const double eyStat = b.stat * weight;
         const double relTot = std::hypot(b.sysAna, b.sysHad);
@@ -421,9 +423,9 @@ void DrawPlot(const std::vector<Bin> &bins,
     }
 
     gTot->SetFillColorAlpha(18, 0.90);
-    gTot->SetLineColor(18);
+    gTot->SetLineColor(17);
     gAna->SetFillColorAlpha(17, 0.95);
-    gAna->SetLineColor(17);
+    gAna->SetLineColor(16);
 
     gData->SetMarkerStyle(20);
     gData->SetMarkerSize(1.3);
@@ -439,7 +441,7 @@ void DrawPlot(const std::vector<Bin> &bins,
     const double l1 = std::log(gCtx.fitEmax);
     for (int i = 0; i < nCurve; ++i) {
         const double E = std::exp(l0 + (l1 - l0) * double(i) / double(nCurve - 1));
-        const double weight = std::pow(E, 2.6);
+        const double weight = std::pow(E, plotPower);
 
         const double ySBPL = SBPL(E, sbpl.p[0], sbpl.p[1], sbpl.p[2], sbpl.p[3], gCtx.sFixed) * weight;
         const double yPL   = PL(E, pl.p[0], pl.p[1]) * weight;
@@ -463,10 +465,17 @@ void DrawPlot(const std::vector<Bin> &bins,
     c->SetTicks(1,1);
     c->SetLogx();
 
-    auto *frame = c->DrawFrame(3e1, 5e3, 1.5e6, 17.5e3);
+    TH1F *frame = nullptr;
+    if (plotPower == 2.7)
+        frame = c->DrawFrame(3e1, 12e3, 1.5e6, 41e3);
+    else
+        frame = c->DrawFrame(3e1, 5e3, 1.5e6, 17.5e3);
     frame->SetTitle("");
     frame->GetXaxis()->SetTitle("Kinetic energy (GeV)");
-    frame->GetYaxis()->SetTitle("Flux #times E^{2.6} (m^{-2} sr^{-1} s^{-1} GeV^{1.6})");
+    if (plotPower == 2.7)
+        frame->GetYaxis()->SetTitle("Flux #times E^{2.7} (m^{-2} sr^{-1} s^{-1} GeV^{1.7})");
+    else
+        frame->GetYaxis()->SetTitle("Flux #times E^{2.6} (m^{-2} sr^{-1} s^{-1} GeV^{1.6})");
 
     frame->GetXaxis()->SetLabelSize(0.045);
     frame->GetXaxis()->SetTitleSize(0.050);
@@ -516,7 +525,7 @@ void DrawPlot(const std::vector<Bin> &bins,
     c->Modified();
     c->Update();
 
-    TString outname = Form("fit_pHe_SBPL_%dnuisance_2%s", gCtx.m, drawPL ? "_wPL" : "");
+    TString outname = Form("fit_pHe_SBPL_10TeV_EPOSLHC_%dnuisance%s_E2e7", gCtx.m, drawPL ? "_wPL" : "");
     c->SaveAs(outname + ".pdf");
     c->SaveAs(outname + ".png");
 }
@@ -526,12 +535,12 @@ void DrawPlot(const std::vector<Bin> &bins,
 // =============================================================================
 // Main entry point
 // =============================================================================
-void fit_pHe_SBPL(const char *filename = "pHe_flux_fit_01ott26.dat",
+void fit_pHe_SBPL(const char *filename = "pHe_flux_fit_10TeV_EPOSLHC.dat",
                   int N_NUIS = 2,
                   double FIT_EMIN = 2.5e4,
                   double FIT_EMAX = 1.0e6,
                   double S_FIXED = 5.0,
-                  bool DRAW_PL_TOO = false)
+                  bool DRAW_PL_TOO = true)
 {
     using namespace PHeFit;
 
