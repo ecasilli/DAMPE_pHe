@@ -21,6 +21,7 @@ from datetime import datetime
 # ML tools allocation
 from dampeapi import DampeApi
 from dampe_bgo_sat_api import DampeBgoApi
+from crosssectionapi import CrosssectionApi  # cross-section weights (MC only)
 
 from ROOT import *
 
@@ -142,10 +143,12 @@ def fill_energy_cut(idx, etot, etot_truth, good_event, is_mc,
 
 def initialize_or_rebind_apis(iev, is_mc, bgorec, stkclusters,
                               stkladders, runmetadata, pevspace_api,
-                              bgo_api):
+                              bgo_api, xsapi=None, mctrjctries=None, mcprimaries_xs=None): #): --> # cross-section weights 
     if is_mc and iev == 0:
         pevspace_api.Initialize(False, bgorec, stkclusters, stkladders, config="ions")
         bgo_api.Initialize(bgorec)
+        if xsapi is not None:
+            xsapi.Initialize(mctrjctries, mcprimaries_xs)
         #if has_quenching and bgoquenchrec:
             #bgo_api_quench.Initialize(bgoquenchrec)
     elif (not is_mc) and iev == 0:
@@ -302,6 +305,7 @@ def main(args=None):
 
     pevspace_api = DampeApi()
     bgo_api = DampeBgoApi()
+    xsapi = CrosssectionApi() if is_mc else None   # <-- MC only, cross-section weights
     #bgo_api_quench = DampeBgoApi()
 
     gSystem.Load("libDmpEvent.so")
@@ -443,6 +447,8 @@ def main(args=None):
 
     fMC_EnergyT = fMC_theta = fMC_phi = None
     fMC_stopZ = fMC_stopX = fMC_stopY = None
+    fMC_weight_p_G4 = fMC_weight_p_FLUKA = None
+    fMC_weight_he_G4 = fMC_weight_he_FLUKA = None
     if is_mc:
         fMC_EnergyT = make_branch(newtree, 'MC_EnergyT', 'd', None, -999.)
         fMC_theta = make_branch(newtree, 'MC_theta', 'd', None, -999.)
@@ -450,6 +456,10 @@ def main(args=None):
         fMC_stopZ = make_branch(newtree, 'MC_stopZ', 'd', None, -99999.)
         fMC_stopX = make_branch(newtree, 'MC_stopX', 'd', None, -99999.)
         fMC_stopY = make_branch(newtree, 'MC_stopY', 'd', None, -99999.)
+        fMC_weight_p_G4      = make_branch(newtree, 'MC_weight_p_GEANT4', 'd', None, -999.)
+        fMC_weight_p_FLUKA   = make_branch(newtree, 'MC_weight_p_FLUKA', 'd', None, -999.)
+        fMC_weight_he_G4     = make_branch(newtree, 'MC_weight_he_GEANT4', 'd', None, -999.)
+        fMC_weight_he_FLUKA  = make_branch(newtree, 'MC_weight_he_FLUKA', 'd', None, -999.)
 
     fNUDrawADC = make_branch(newtree, 'NUDrawADC', 'd', 4, -999.)
 
@@ -499,6 +509,23 @@ def main(args=None):
 
     has_quenching = is_mc and has_branch(dmpch, "DmpEvtBgoQuenchRec")
     print "BGO Quenching:", "ON" if has_quenching else "OFF"
+
+    # -----------------------------
+    # Cross-section API bindings (MC only)
+    # -----------------------------
+    # NOTE: CrosssectionApi expects a TClonesArray + a DmpEvtSimuPrimaries
+    # object bound via SetBranchAddress, distinct from the pev.pEvtSimuPrimaries()
+    # accessor used elsewhere in this script for the same underlying branch.
+    # If you ever see MC_weight_* branches disagree with what pev.pEvtSimuPrimaries()
+    # reports for the same event, this double binding is the first place to look
+    # (re-enable a bounded/offline comparison, not a per-event print, to debug it).
+    mctrjctries = None
+    mcprimaries_xs = None
+    if is_mc:
+        mctrjctries = TClonesArray("DmpSimuTrajectory")
+        mcprimaries_xs = DmpEvtSimuPrimaries()
+        dmpch.SetBranchAddress("DmpTruthTrajectoriesCollection", mctrjctries)
+        dmpch.SetBranchAddress("DmpEvtSimuPrimaries", mcprimaries_xs)
 
     pFilter = None
     if not is_mc:
@@ -710,7 +737,8 @@ def main(args=None):
 
         initialize_or_rebind_apis(
             iev, is_mc, bgorec, stkclusters, stkladders,
-            runmetadata, pevspace_api, bgo_api
+            runmetadata, pevspace_api, bgo_api,
+            xsapi=xsapi, mctrjctries=mctrjctries, mcprimaries_xs=mcprimaries_xs
         )
 
         pevspace_api.Predict(bgodirection=True, stkvertex=True, stktrack=True)
@@ -787,6 +815,11 @@ def main(args=None):
                     event_weights[bname][tag] = spectral_weight_fast(
                         etot_truth, gamma, energy_binnings[bname][1], norm_tables_for_bname[tag]
                     )
+            # --- pesi di cross-section (GEANT4 / FLUKA, p / He) ---
+            fMC_weight_p_G4[0]     = xsapi.GetWeightG4Proton()
+            fMC_weight_p_FLUKA[0]  = xsapi.GetWeightFLUKAProton()
+            fMC_weight_he_G4[0]    = xsapi.GetWeightG4Helium()
+            fMC_weight_he_FLUKA[0] = xsapi.GetWeightFLUKAHelium()
 
         if is_data:
             longitude = pev.pEvtAttitude().lon_geo
