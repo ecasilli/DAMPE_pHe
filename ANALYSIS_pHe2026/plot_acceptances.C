@@ -79,8 +79,9 @@ void plot_acceptances() {
         hcutChSel->GetXaxis()->SetTitle("MC true energy (GeV)");
         hcutChSel->GetYaxis()->SetTitle("Acceptance (m^{2} sr)");
         hcutChSel->GetYaxis()->SetTitleOffset(1.4);
-        hcutChSel->GetXaxis()->SetTitleSize(0.045);
-        hcutChSel->GetYaxis()->SetTitleSize(0.045);
+        hcutChSel->GetXaxis()->SetTitleOffset(1.2);
+        hcutChSel->GetXaxis()->SetTitleSize(0.04);
+        hcutChSel->GetYaxis()->SetTitleSize(0.04);
         hcutChSel->GetXaxis()->SetLabelSize(0.040);
         hcutChSel->GetYaxis()->SetLabelSize(0.040);
         hcutChSel->GetYaxis()->SetRangeUser(0.,0.24);
@@ -98,10 +99,10 @@ void plot_acceptances() {
     if (hcutChSel) hcutChSel->Draw("HIST same");
 
     // === Legenda ===
-    TLegend *legend = new TLegend(0.55, 0.67, 0.85, 0.88);
+    TLegend *legend = new TLegend(0.55, 0.65, 0.85, 0.85);
     legend->SetTextSize(0.028);
-    legend->SetLineColor(0);
-    //legend->SetLineWidth(1);
+    legend->SetLineColor(1);
+    legend->SetLineWidth(2);
     //legend->SetBorderSize(1);
     legend->SetFillStyle(1001);
     legend->SetFillColor(0);
@@ -116,6 +117,13 @@ void plot_acceptances() {
     if (hcutChSel) legend->AddEntry(hcutChSel, "Charge selection",                                    "l");
 
     legend->Draw();
+
+    TLatex *label = new TLatex();
+    label->SetNDC();
+    label->SetTextFont(62);
+    label->SetTextSize(0.046);
+    label->SetTextAlign(31);
+    label->DrawLatex(0.24, 0.78, "p+He");
 
     c1->RedrawAxis();
 

@@ -69,15 +69,23 @@ void plot_unfolding_matrix_MC() {
 
     // === Titoli ===
     SetTitle(hresponse, "MC true energy (GeV)", "BGO deposited energy (GeV)");
-    SetTitle(hunfolded, "MC true energy (GeV)", "BGO deposited energy (GeV)");
+    SetTitle(hunfolded, "MC true energy (GeV)", "Reconstructed energy (GeV)");
+
+    TLatex *label = new TLatex();
+    label->SetNDC();
+    label->SetTextFont(62);
+    label->SetTextSize(0.046);
+    label->SetTextAlign(31);
 
     // === Disegno — canvas 1 (counts before) ===
     c1->cd();
     if (hresponse) hresponse->Draw("COLZ");
+    label->DrawLatex(0.25, 0.8, "p+He");
 
     // === Disegno — canvas 2 (counts after) ===
     c2->cd();
     if (hunfolded) hunfolded->Draw("COLZ");
+    label->DrawLatex(0.25, 0.8, "p+He");
     
 
     // === Salvataggio in *.png e *.pdf ==

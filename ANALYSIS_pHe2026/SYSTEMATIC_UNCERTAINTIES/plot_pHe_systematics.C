@@ -43,6 +43,7 @@ struct SystBin {
     double Sys_ChargeSel;
     double Sys_unfolding;
     double Sys_pHe_mix;
+    double Sys_satcorr;
     double Sys_ana;
     double Sys_had;
     double Sys_tot;
@@ -56,7 +57,7 @@ void SetHistStyle(TH1D *h, Color_t color, Style_t style = 1, Width_t width = 2)
     h->SetFillStyle(0);
 }
 
-void plot_pHe_systematics(const char *filename = "sys_summary_10TeV_EPOSLHC.txt")
+void plot_pHe_systematics(const char *filename = "sys_summary_10TeV_EPOSLHC_wSatCorr.txt")
 {
     // ------------------------------------------------------------
     // 1. Lettura del file
@@ -100,6 +101,7 @@ void plot_pHe_systematics(const char *filename = "sys_summary_10TeV_EPOSLHC.txt"
                   >> b.Sys_ChargeSel
                   >> b.Sys_unfolding
                   >> b.Sys_pHe_mix
+                  >> b.Sys_satcorr
                   >> b.Sys_ana
                   >> b.Sys_had
                   >> b.Sys_tot)) {
@@ -141,6 +143,7 @@ void plot_pHe_systematics(const char *filename = "sys_summary_10TeV_EPOSLHC.txt"
     TH1D *hCharge    = new TH1D("hCharge",    "", nBins, edges.data());
     TH1D *hUnfold    = new TH1D("hUnfold",    "", nBins, edges.data());
     TH1D *hPHeMix    = new TH1D("hPHeMix",    "", nBins, edges.data());
+    TH1D *hSatCorr   = new TH1D("hSatCorr",   "", nBins, edges.data());
     TH1D *hStat      = new TH1D("hStat",      "", nBins, edges.data());
     TH1D *hAna       = new TH1D("hAna",       "", nBins, edges.data());
     TH1D *hHad       = new TH1D("hHad",       "", nBins, edges.data());
@@ -160,6 +163,7 @@ void plot_pHe_systematics(const char *filename = "sys_summary_10TeV_EPOSLHC.txt"
         hCharge ->SetBinContent(ibin, b.Sys_ChargeSel);
         hUnfold ->SetBinContent(ibin, b.Sys_unfolding);
         hPHeMix ->SetBinContent(ibin, b.Sys_pHe_mix);
+        hSatCorr->SetBinContent(ibin, b.Sys_satcorr);
         hAna    ->SetBinContent(ibin, b.Sys_ana);
         hHad    ->SetBinContent(ibin, b.Sys_had);
         hTot    ->SetBinContent(ibin, b.Sys_tot);
@@ -178,6 +182,7 @@ void plot_pHe_systematics(const char *filename = "sys_summary_10TeV_EPOSLHC.txt"
             + b.Sys_ChargeSel * b.Sys_ChargeSel
             + b.Sys_unfolding * b.Sys_unfolding
             + b.Sys_pHe_mix   * b.Sys_pHe_mix
+            + b.Sys_satcorr   * b.Sys_satcorr
         );
 
         const double totCheck = std::sqrt( b.Sys_ana * b.Sys_ana + b.Sys_had * b.Sys_had );
@@ -198,6 +203,7 @@ void plot_pHe_systematics(const char *filename = "sys_summary_10TeV_EPOSLHC.txt"
     SetHistStyle(hCharge, kGreen,    1, 2);
     SetHistStyle(hUnfold, kOrange,   1, 2);
     SetHistStyle(hPHeMix, kCyan+1,   1, 2);
+    SetHistStyle(hSatCorr,kOrange+2, 1, 2);
 
     SetHistStyle(hStat,   kRed,      1, 2);
 
@@ -215,17 +221,17 @@ void plot_pHe_systematics(const char *filename = "sys_summary_10TeV_EPOSLHC.txt"
     // ------------------------------------------------------------
     gStyle->SetOptStat(0);
 
-    TCanvas *c = new TCanvas("c_pHe_systematics","p+He relative uncertainties",800,700);
+    TCanvas *c = new TCanvas("c_pHe_systematics","p+He relative uncertainties",580,580);
 
     c->SetLogx();
     c->SetLogy();
 
-    c->SetLeftMargin(0.13);
+    c->SetLeftMargin(0.12);
     c->SetRightMargin(0.04);
-    c->SetBottomMargin(0.13);
-    c->SetTopMargin(0.06);
+    c->SetBottomMargin(0.12);
+    c->SetTopMargin(0.02);
 
-    c->SetTicks(1, 1);
+    //c->SetTicks(1, 1);
 
     // ------------------------------------------------------------
     // 6. Assi
@@ -237,13 +243,16 @@ void plot_pHe_systematics(const char *filename = "sys_summary_10TeV_EPOSLHC.txt"
     hTot->GetXaxis()->SetTitle("Kinetic energy (GeV)");
     hTot->GetYaxis()->SetTitle("Relative uncertainty");
 
-    hTot->GetXaxis()->SetTitleSize(0.040);
-    hTot->GetYaxis()->SetTitleSize(0.040);
+    hTot->GetXaxis()->CenterTitle();
+    hTot->GetYaxis()->CenterTitle();
 
-    hTot->GetXaxis()->SetLabelSize(0.040);
-    hTot->GetYaxis()->SetLabelSize(0.040);
+    hTot->GetXaxis()->SetTitleSize(0.045);
+    hTot->GetYaxis()->SetTitleSize(0.045);
 
-    hTot->GetXaxis()->SetTitleOffset(1.20);
+    hTot->GetXaxis()->SetLabelSize(0.035);
+    hTot->GetYaxis()->SetLabelSize(0.035);
+
+    hTot->GetXaxis()->SetTitleOffset(1.30);
     hTot->GetYaxis()->SetTitleOffset(1.30);
 
     hTot->GetXaxis()->SetMoreLogLabels(false);
@@ -252,6 +261,8 @@ void plot_pHe_systematics(const char *filename = "sys_summary_10TeV_EPOSLHC.txt"
     // Modifica questi due numeri se vuoi cambiare il range verticale.
     hTot->SetMinimum(1.0e-3);
     hTot->SetMaximum(2.0);
+
+    hTot->GetXaxis()->SetRangeUser(40.,1e6);
 
     // ------------------------------------------------------------
     // 7. Disegno
@@ -262,6 +273,7 @@ void plot_pHe_systematics(const char *filename = "sys_summary_10TeV_EPOSLHC.txt"
     hSTK    ->Draw("HIST SAME");
     hCharge ->Draw("HIST SAME");
     hUnfold ->Draw("HIST SAME");
+    hSatCorr->Draw("HIST SAME");
     hPHeMix ->Draw("HIST SAME");
 
     hStat ->Draw("HIST SAME");
@@ -275,11 +287,11 @@ void plot_pHe_systematics(const char *filename = "sys_summary_10TeV_EPOSLHC.txt"
     // ------------------------------------------------------------
     // 8. Legenda a due colonne, nello stile della figura allegata
     // ------------------------------------------------------------
-    TLegend *leg = new TLegend(0.17, 0.71, 0.91, 0.92);
+    TLegend *leg = new TLegend(0.17, 0.74, 0.91, 0.97);
 
     leg->SetBorderSize(0);
     leg->SetFillStyle(0);
-    leg->SetTextSize(0.030);
+    leg->SetTextSize(0.029);
     leg->SetNColumns(2);
     leg->SetColumnSeparation(0.05);
 
@@ -294,6 +306,9 @@ void plot_pHe_systematics(const char *filename = "sys_summary_10TeV_EPOSLHC.txt"
 
     leg->AddEntry(hUnfold, "Unfolding",                     "l");
     leg->AddEntry(hTot,    "Total systematics ana. #oplus had.", "l");
+
+    leg->AddEntry(hSatCorr, "Saturation ",         "l");
+    leg->AddEntry((TObject*)0, "", "");  // Casella vuota nella colonna destra.
 
     leg->AddEntry(hPHeMix, "p+He mixture",                  "l");
 
@@ -314,10 +329,10 @@ void plot_pHe_systematics(const char *filename = "sys_summary_10TeV_EPOSLHC.txt"
     // ------------------------------------------------------------
     // 10. Output
     // ------------------------------------------------------------
-    c->SaveAs("pHe_relative_uncertainties_summary_10TeV_EPOSLHC.png");
-    c->SaveAs("pHe_relative_uncertainties_summary_10TeV_EPOSLHC.pdf");
+    c->SaveAs("pHe_relative_uncertainties_summary_10TeV_EPOSLHC_wSatCorr.png");
+    c->SaveAs("pHe_relative_uncertainties_summary_10TeV_EPOSLHC_wSatCorr.pdf");
 
     std::cout << "\nSalvati:" << std::endl;
-    std::cout << "  pHe_relative_uncertainties_summary_10TeV_EPOSLHC.png" << std::endl;
-    std::cout << "  pHe_relative_uncertainties_summary_10TeV_EPOSLHC.pdf" << std::endl;
+    std::cout << "  pHe_relative_uncertainties_summary_10TeV_EPOSLHC_wSatCorr.png" << std::endl;
+    std::cout << "  pHe_relative_uncertainties_summary_10TeV_EPOSLHC_wSatCorr.pdf" << std::endl;
 }

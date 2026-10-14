@@ -70,9 +70,15 @@ struct FitResult {
     int ndf = -1;
     std::vector<double> p;
     std::vector<double> e;
+
+    // Diagnostica della matrice di covarianza
+    int covStatus = -1;
+    double edm = 0.0;
+    std::vector<double> rhoEb;
 };
 
 Context gCtx;
+int gNLowStat = 4;
 
 // -----------------------------------------------------------------------------
 // Models
@@ -138,6 +144,19 @@ double Chi2SBPL(const double *p)
     return chi2;
 }
 
+double Chi2PLowStat(const double *p)
+{
+    double chi2 = 0.0;
+
+    for (int i=0; i < gNLowStat; ++i) {
+        const auto &b = gCtx.fitBins[i];
+        const double pred = PL(b.E, p[0], p[1]);
+        const double pull = (pred - b.flux)/b.stat;
+        chi2 += pull * pull;
+    }
+    return chi2;
+}
+
 // -----------------------------------------------------------------------------
 // Input
 // -----------------------------------------------------------------------------
@@ -157,10 +176,10 @@ std::vector<Bin> LoadData(const char *filename)
 
         std::istringstream ss(line);
         Bin b;
-        double sysHET, sysSTK, sysCharge, sysUnfold, sysMix;
+        double sysHET, sysSTK, sysCharge, sysUnfold, sysMix, sysSat;
 
         if (!(ss >> b.Emin >> b.Emax >> b.E >> b.flux >> b.stat
-                 >> sysHET >> sysSTK >> sysCharge >> sysUnfold >> sysMix
+                 >> sysHET >> sysSTK >> sysCharge >> sysUnfold >> sysMix >> sysSat 
                  >> b.sysAna >> b.sysHad >> b.sysTot)) {
             continue;
         }
@@ -202,6 +221,11 @@ bool BuildContext(const std::vector<Bin> &allBins,
     for (int j = 0; j <= m; ++j) {
         gCtx.regionEdges[j] = std::exp(l0 + (l1 - l0) * double(j) / double(m));
     }
+    // TEST: confine tra i due nuisance a 250 TeV
+    //if (m == 2) {
+        //gCtx.regionEdges[1] = 2.5e5;
+    //    gCtx.regionEdges[1] = 1.0e5;
+    //}
 
     for (const auto &b : allBins) {
         // We apply the fit-range cut to the central energy, as in the quoted method.
@@ -291,8 +315,11 @@ FitResult FitPL()
     min->SetLimitedVariable(0, "Phi0", phi00, std::max(phi00 * 1e-3, 1e-10), 1e-8, 1e-1);
     min->SetLimitedVariable(1, "gamma", gamma0, 1e-3, 1.5, 4.0);
 
+    //for (int j = 0; j < gCtx.m; ++j)
+    //    min->SetLimitedVariable(2 + j, Form("w%d", j), 1.0, 1e-3, 0.3, 1.7);
+    // only statistical errors:
     for (int j = 0; j < gCtx.m; ++j)
-        min->SetLimitedVariable(2 + j, Form("w%d", j), 1.0, 1e-3, 0.3, 1.7);
+        min->SetFixedVariable(2 + j, Form("w%d", j), 1.0);
 
     const bool ok = min->Minimize();
     min->Hesse();
@@ -301,7 +328,8 @@ FitResult FitPL()
     r.ok = ok;
     r.status = min->Status();
     r.chi2 = min->MinValue();
-    r.ndf = int(gCtx.fitBins.size()) - npar;
+    //r.ndf = int(gCtx.fitBins.size()) - npar;
+    r.ndf = int(gCtx.fitBins.size()) - 2; // only stat
     r.p.assign(min->X(), min->X() + npar);
     r.e.assign(min->Errors(), min->Errors() + npar);
     return r;
@@ -323,9 +351,13 @@ FitResult RunSBPLOnce(const FitResult &pl, double ebSeed, double dgSeed)
                             gCtx.fitEmin, gCtx.fitEmax);
     min->SetLimitedVariable(3, "DeltaGamma", dgSeed, 1e-3, -1.5, 1.5);
 
+    //for (int j = 0; j < gCtx.m; ++j) {
+    //    const double wSeed = (int(pl.p.size()) > 2 + j) ? pl.p[2 + j] : 1.0;
+    //    min->SetLimitedVariable(4 + j, Form("w%d", j), wSeed, 1e-3, 0.3, 1.7);
+    //}
+    // only statistical errors:
     for (int j = 0; j < gCtx.m; ++j) {
-        const double wSeed = (int(pl.p.size()) > 2 + j) ? pl.p[2 + j] : 1.0;
-        min->SetLimitedVariable(4 + j, Form("w%d", j), wSeed, 1e-3, 0.3, 1.7);
+        min->SetFixedVariable(4 + j, Form("w%d", j), 1.0);
     }
 
     const bool ok = min->Minimize();
@@ -335,9 +367,35 @@ FitResult RunSBPLOnce(const FitResult &pl, double ebSeed, double dgSeed)
     r.ok = ok;
     r.status = min->Status();
     r.chi2 = min->MinValue();
-    r.ndf = int(gCtx.fitBins.size()) - npar;
+    //r.ndf = int(gCtx.fitBins.size()) - npar;
+    r.ndf = int(gCtx.fitBins.size()) - 4; // only stat
     r.p.assign(min->X(), min->X() + npar);
     r.e.assign(min->Errors(), min->Errors() + npar);
+
+    // Stato della matrice di covarianza
+    r.covStatus = min->CovMatrixStatus();
+    r.edm = min->Edm();
+
+    // Correlazioni tra Eb e gli altri parametri
+    r.rhoEb.resize(
+        npar,
+        std::numeric_limits<double>::quiet_NaN()
+    );
+
+    const double varEb = min->CovMatrix(2, 2);
+
+    if (varEb > 0.0) {
+        for (int k = 0; k < npar; ++k) {
+            const double varK = min->CovMatrix(k, k);
+
+            if (varK > 0.0) {
+                r.rhoEb[k] =
+                    min->CovMatrix(2, k) /
+                    std::sqrt(varEb * varK);
+            }
+        }
+    }
+
     return r;
 }
 
@@ -367,6 +425,169 @@ FitResult FitSBPL(const FitResult &pl)
     return best;
 }
 
+void CheckEbMinos(const FitResult &best)
+{
+    const int npar = 4 + gCtx.m;
+
+    if (!best.ok || int(best.p.size()) != npar) {
+        std::cout << "Invalid SBPL fit for MINOS\n";
+        return;
+    }
+
+    ROOT::Math::Functor f(&Chi2SBPL, npar);
+
+    auto min = MakeMinimizer();
+    if (!min) return;
+
+    min->SetFunction(f);
+    // Ripartiamo dalla soluzione SBPL migliore
+    min->SetLimitedVariable(0, "Phi0", best.p[0], std::max(best.p[0]*1e-3, 1e-10), 1e-8, 1e-1);
+    min->SetLimitedVariable(1, "gamma", best.p[1], 1e-3, 1.5, 4.0);
+    min->SetLimitedVariable(2, "Eb", best.p[2], std::max(best.p[2]*1e-3, 1.0), gCtx.fitEmin, gCtx.fitEmax);
+    min->SetLimitedVariable(3, "DeltaGamma", best.p[3], 1e-3, -1.5, 1.5);
+
+    //for (int j = 0; j < gCtx.m; ++j) {
+    //    min->SetLimitedVariable(4+j, Form("w%d", j), best.p[4+j], 1e-3, 0.3, 1.7);
+    //}
+    for (int j = 0; j < gCtx.m; ++j) {
+        min->SetFixedVariable(4 + j, Form("w%d", j), 1.0);
+    }
+
+    // Rifacciamo il fit partendo dal minimo migliore
+    const bool ok = min->Minimize();
+    min->Hesse();
+
+    const double chi2Refit = min->MinValue();
+
+    std::cout << "\n========== EB MINOS ==========\n";
+    std::cout << "Refit chi2 = " << chi2Refit << "\n";
+    std::cout << "Original chi2 = " << best.chi2 << "\n";
+
+    if (!ok ||
+        !std::isfinite(chi2Refit) ||
+        std::abs(chi2Refit - best.chi2) > 1e-4) {
+        std::cout << "WARNING: refit does not reproduce " << "the original minimum.\n";
+        return;
+    }
+
+    // Correlazione globale di Eb con gli altri parametri
+    std::cout << "GlobalCC(Eb) = "
+              << min->GlobalCC(2) << "\n";
+
+    // Errori asimmetrici MINOS
+    double errLow = 0.0;
+    double errUp  = 0.0;
+
+    const bool minosOK =
+        min->GetMinosError(2, errLow, errUp);
+
+    std::cout << "MINOS ok = " << minosOK << "\n";
+
+    if (minosOK) {
+        std::cout << "Eb MINOS = " << min->X()[2]/1e3 << " -" << -errLow/1e3 << " +" << errUp/1e3 << " TeV\n";
+    } else {
+        std::cout << "MINOS failed or reached a limit." << std::endl;
+    }
+}
+
+void ProfileEb(const FitResult &best)
+{
+    const int npar = 4 + gCtx.m;
+    ROOT::Math::Functor f(&Chi2SBPL, npar);
+
+    const int nPoints = 81;
+
+    const double Emin = gCtx.fitEmin * 1.001;
+    const double Emax = gCtx.fitEmax * 0.999;
+
+    auto *g = new TGraph();
+    std::ofstream out("profile_Eb_SBPL_StatOnly.dat");
+
+    out << "# Eb_TeV  DeltaChi2\n";
+
+    int nGood = 0;
+
+    for (int i = 0; i < nPoints; ++i) {
+
+        double fraction = double(i) / (nPoints - 1);
+        double Eb = std::exp(std::log(Emin) + fraction * (std::log(Emax) - std::log(Emin)));
+        auto min = MakeMinimizer();
+        if (!min) return;
+
+        min->SetFunction(f);
+
+        // Normalizzazione
+        min->SetLimitedVariable(0, "Phi0", best.p[0], std::max(best.p[0]*1e-3, 1e-10), 1e-8, 1e-1);
+        // Indice spettrale
+        min->SetLimitedVariable(1, "gamma", best.p[1], 1e-3, 1.5, 4.0);
+        // Eb fissato durante questo fit
+        min->SetFixedVariable(2, "Eb", Eb);
+        // DeltaGamma libero
+        min->SetLimitedVariable(3, "DeltaGamma", best.p[3], 1e-3, -1.5, 1.5);
+        // Nuisance liberi
+        //for (int j = 0; j < gCtx.m; ++j) {
+        //    min->SetLimitedVariable(4+j, Form("w%d", j), best.p[4+j], 1e-3, 0.3, 1.7);
+        //}
+        for (int j = 0; j < gCtx.m; ++j) {
+            min->SetFixedVariable(4 + j, Form("w%d", j), 1.0);
+        }
+
+        const bool ok = min->Minimize();
+
+        if (!ok || min->Status() != 0 ||
+            !std::isfinite(min->MinValue())) {
+            std::cout << "Profile failed at Eb = " << Eb/1e3 << " TeV\n";
+            continue;
+        }
+
+        double dChi2 = min->MinValue() - best.chi2;
+
+        if (dChi2 < -1e-4) {
+            std::cout << "WARNING: better minimum at Eb = " << Eb/1e3 << " TeV\n";
+        }
+
+        if (dChi2 < 0 && dChi2 > -1e-4)
+            dChi2 = 0.0;
+
+        g->SetPoint(nGood++, Eb/1e3, dChi2);
+        out << Eb/1e3 << " " << dChi2 << "\n";
+    }
+
+    out.close();
+    std::cout << "\nProfile points: " << nGood << "/" << nPoints << "\n";
+
+    if (nGood < 2) return;
+
+    auto *c = new TCanvas("c_profile_Eb", "Eb profile", 850, 600);
+
+    c->SetLogx();
+    c->SetGridy();
+
+    g->SetTitle(";E_{b} (TeV);#Delta#chi^{2}");
+    g->SetLineColor(kBlue+1);
+    g->SetLineWidth(3);
+    g->Draw("AL");
+    g->GetYaxis()->SetRangeUser(0, 6);
+
+    // Delta chi2 = 1
+    auto *l1 = new TLine(Emin/1e3, 1, Emax/1e3, 1);
+    l1->SetLineColor(kRed);
+    l1->SetLineStyle(2);
+    l1->Draw("SAME");
+
+    // Delta chi2 = 4
+    auto *l2 = new TLine(Emin/1e3, 4, Emax/1e3, 4);
+    l2->SetLineColor(kGray+2);
+    l2->SetLineStyle(3);
+    l2->Draw("SAME");
+
+    c->Modified();
+    c->Update();
+
+    c->SaveAs("profile_Eb_SBPL_StatOnly.pdf");
+    c->SaveAs("profile_Eb_SBPL_StatOnly.png");
+}
+
 void PrintFit(const char *name, const FitResult &r, bool sbpl)
 {
     std::cout << "\n========== " << name << " ==========" << std::endl;
@@ -382,12 +603,20 @@ void PrintFit(const char *name, const FitResult &r, bool sbpl)
         //std::cout << "gamma_high = gamma - DeltaGamma = " << r.p[1] - r.p[3] << std::endl;
         std::cout << "s = " << gCtx.sFixed << " (fixed)" << std::endl;
         for (int j = 0; j < gCtx.m; ++j)
-            std::cout << "w" << j << " = " << r.p[4 + j]
-                      << " +/- " << r.e[4 + j] << std::endl;
+            std::cout << "w" << j << " = " << r.p[4 + j] << " +/- " << r.e[4 + j] << std::endl;
+        std::cout << "\n--- SBPL DIAGNOSTICS ---" << std::endl;
+        std::cout << "CovMatrixStatus = " << r.covStatus << std::endl;
+        std::cout << "EDM = " << r.edm << std::endl;
+        std::cout << "rho(Eb, Phi0) = " << r.rhoEb[0] << std::endl;
+        std::cout << "rho(Eb, gamma) = " << r.rhoEb[1] << std::endl;
+        std::cout << "rho(Eb, DeltaGamma) = " << r.rhoEb[3] << std::endl;
+        for (int j = 0; j < gCtx.m; ++j) {
+            std::cout << "rho(Eb, w" << j << ") = "
+                      << r.rhoEb[4 + j] << std::endl;
+        }
     } else {
         for (int j = 0; j < gCtx.m; ++j)
-            std::cout << "w" << j << " = " << r.p[2 + j]
-                      << " +/- " << r.e[2 + j] << std::endl;
+            std::cout << "w" << j << " = " << r.p[2 + j] << " +/- " << r.e[2 + j] << std::endl;
     }
 }
 
@@ -396,14 +625,17 @@ void PrintFit(const char *name, const FitResult &r, bool sbpl)
 // -----------------------------------------------------------------------------
 void DrawPlot(const std::vector<Bin> &bins,
               const FitResult &pl, const FitResult &sbpl,
-              bool drawPL)
+              bool drawPL, bool drawSBPL,
+              const char *outTag = "")
 {
-    const double plotPower = 2.7;
+    const double plotPower = 2.6;
 
     const int n = int(bins.size());
     auto *gData = new TGraphErrors(n);
-    auto *gAna  = new TGraphAsymmErrors(n);
-    auto *gTot  = new TGraphAsymmErrors(n);
+    auto *gAna  = new TGraphAsymmErrors(n+2);
+    auto *gTot  = new TGraphAsymmErrors(n+2);
+    //auto *upper = new TGraph(n+2);
+    //auto *lower = new TGraph(n+2);
 
     for (int i = 0; i < n; ++i) {
         const auto &b = bins[i];
@@ -415,16 +647,65 @@ void DrawPlot(const std::vector<Bin> &bins,
         gData->SetPoint(i, b.E, y);
         gData->SetPointError(i, 0.0, eyStat);
 
-        gAna->SetPoint(i, b.E, y);
-        gAna->SetPointError(i, b.E - b.Emin, b.Emax - b.E, y * b.sysAna, y * b.sysAna);
+        const int j = i + 1;
 
-        gTot->SetPoint(i, b.E, y);
-        gTot->SetPointError(i, b.E - b.Emin, b.Emax - b.E, y * relTot, y * relTot);
+        gAna->SetPoint(j, b.E, y);
+        gAna->SetPointError(j, b.E - b.Emin, b.Emax - b.E, y * b.sysAna, y * b.sysAna);
+
+        gTot->SetPoint(j, b.E, y);
+        gTot->SetPointError(j, b.E - b.Emin, b.Emax - b.E, y * relTot, y * relTot);
+
+        //upper->SetPoint(i, b.E, y + y*relTot);
+        //lower->SetPoint(i, b.E, y - y*relTot);
     }
+
+    auto extendBand = [&](TGraphAsymmErrors *g) {
+        double x, y;
+
+        // Primo bin: estendi fino a Emin
+        g->GetPoint(1, x, y);
+        double eyLow  = g->GetErrorYlow(1);
+        double eyHigh = g->GetErrorYhigh(1);
+
+        g->SetPoint(0, bins.front().Emin, y);
+        g->SetPointError(0, 0, 0, eyLow, eyHigh);
+
+        // Ultimo bin: estendi fino a Emax
+        g->GetPoint(n, x, y);
+        eyLow  = g->GetErrorYlow(n);
+        eyHigh = g->GetErrorYhigh(n);
+
+        g->SetPoint(n+1, bins.back().Emax, y);
+        g->SetPointError(n+1, 0, 0, eyLow, eyHigh);
+    };
+
+    extendBand(gTot);
+    extendBand(gAna);
+
+    auto *upper = new TGraph();
+    auto *lower = new TGraph();
+
+    for (int i = 0; i < gTot->GetN(); ++i) {
+        double x, y;
+        gTot->GetPoint(i, x, y);
+
+        const double yup = y + gTot->GetErrorYhigh(i);
+        const double ylow = y - gTot->GetErrorYlow(i);
+
+        upper->SetPoint(i, x, yup);
+        lower->SetPoint(i, x, ylow);
+    }
+
+    upper->SetLineColor(17);
+    upper->SetLineWidth(1);
+
+    lower->SetLineColor(17);
+    lower->SetLineWidth(1);
+
 
     gTot->SetFillColorAlpha(18, 0.90);
     gTot->SetLineColor(17);
-    gAna->SetFillColorAlpha(17, 0.95);
+    gAna->SetFillColorAlpha(16, 0.95);
     gAna->SetLineColor(16);
 
     gData->SetMarkerStyle(20);
@@ -432,6 +713,11 @@ void DrawPlot(const std::vector<Bin> &bins,
     gData->SetLineColor(kRed+1);
     gData->SetLineWidth(3);
     gData->SetMarkerColor(kRed+1);
+
+    upper->SetLineColor(17);
+    upper->SetLineWidth(1);
+    lower->SetLineColor(17);
+    lower->SetLineWidth(1);
 
     const int nCurve = 500;
     auto *gSBPL = new TGraph(nCurve);
@@ -457,11 +743,12 @@ void DrawPlot(const std::vector<Bin> &bins,
     gPL->SetLineStyle(2);
     gPL->SetLineColor(kRed + 1);
 
-    auto *c = new TCanvas("c_pHe_paperMethod", "p+He SBPL paper method", 950, 500);
+    //auto *c = new TCanvas("c_pHe_paperMethod", "p+He SBPL paper method", 950, 500);
+    auto *c = new TCanvas(Form("c_pHe_paperMethod%s", outTag), "p+He SBPL paper method", 950, 480);
     c->SetTopMargin(0.03);
     c->SetRightMargin(0.04);
-    c->SetBottomMargin(0.13);
-    c->SetLeftMargin(0.13);
+    c->SetBottomMargin(0.14);
+    c->SetLeftMargin(0.12);
     c->SetTicks(1,1);
     c->SetLogx();
 
@@ -469,7 +756,7 @@ void DrawPlot(const std::vector<Bin> &bins,
     if (plotPower == 2.7)
         frame = c->DrawFrame(3e1, 12e3, 1.5e6, 41e3);
     else
-        frame = c->DrawFrame(3e1, 5e3, 1.5e6, 17.5e3);
+        frame = c->DrawFrame(2.5e1, 5.5e3, 1.5e6, 19e3);
     frame->SetTitle("");
     frame->GetXaxis()->SetTitle("Kinetic energy (GeV)");
     if (plotPower == 2.7)
@@ -477,29 +764,31 @@ void DrawPlot(const std::vector<Bin> &bins,
     else
         frame->GetYaxis()->SetTitle("Flux #times E^{2.6} (m^{-2} sr^{-1} s^{-1} GeV^{1.6})");
 
-    frame->GetXaxis()->SetLabelSize(0.045);
-    frame->GetXaxis()->SetTitleSize(0.050);
+    frame->GetXaxis()->SetLabelSize(0.05);
+    frame->GetXaxis()->SetTitleSize(0.055);
     frame->GetXaxis()->SetTitleOffset(1.20);
-    frame->GetYaxis()->SetLabelSize(0.045);
-    frame->GetYaxis()->SetTitleSize(0.050);
-    frame->GetYaxis()->SetTitleOffset(1.20);
+    frame->GetYaxis()->SetLabelSize(0.05);
+    frame->GetYaxis()->SetTitleSize(0.055);
+    frame->GetYaxis()->SetTitleOffset(1.15);
     frame->GetXaxis()->CenterTitle();
     frame->GetYaxis()->CenterTitle();
 
     gTot->Draw("E3 SAME");
     gAna->Draw("E3 SAME");
+    upper->Draw("L SAME");
+    lower->Draw("L SAME");
     gData->Draw("P SAME");
-    gSBPL->Draw("L SAME");
+    if (drawSBPL) gSBPL->Draw("L SAME");
     if (drawPL) gPL->Draw("L SAME");
 
-    auto *leg = new TLegend(0.16, 0.68, 0.42, 0.93);
+    auto *leg = new TLegend(0.16, 0.67, 0.42, 0.93);
     leg->SetBorderSize(0);
     leg->SetFillStyle(0);
-    leg->SetTextSize(0.040);
+    leg->SetTextSize(0.05);
     leg->AddEntry(gData, "DAMPE", "P");
     leg->AddEntry(gAna, "syst. uncert. (analysis only)", "f");
     leg->AddEntry(gTot, "syst. uncert. (analysis + had. model)", "f");
-    leg->AddEntry(gSBPL, "SBPL", "l");
+    if (drawSBPL) leg->AddEntry(gSBPL, "SBPL", "l");
     if (drawPL) leg->AddEntry(gPL, "PL", "l");
     leg->Draw();
 
@@ -525,17 +814,19 @@ void DrawPlot(const std::vector<Bin> &bins,
     c->Modified();
     c->Update();
 
-    TString outname = Form("fit_pHe_SBPL_10TeV_EPOSLHC_%dnuisance%s_E2e7", gCtx.m, drawPL ? "_wPL" : "");
+    //TString outname = Form("fit_pHe_SBPL_10TeV_EPOSLHC_%dnuisance%s", gCtx.m, drawPL ? "_wPL" : "");
+    TString outname = Form("fit_pHe_SBPL_10TeV_EPOSLHC_%dnuisance%s%s_statOnly", gCtx.m, drawPL ? "_wPL" : "", outTag);
     c->SaveAs(outname + ".pdf");
     c->SaveAs(outname + ".png");
 }
+
 
 } // namespace PHeFit
 
 // =============================================================================
 // Main entry point
 // =============================================================================
-void fit_pHe_SBPL(const char *filename = "pHe_flux_fit_10TeV_EPOSLHC.dat",
+void fit_pHe_SBPL(const char *filename = "pHe_flux_fit_10TeV_EPOSLHC_wSatCorr.dat",
                   int N_NUIS = 2,
                   double FIT_EMIN = 2.5e4,
                   double FIT_EMAX = 1.0e6,
@@ -552,8 +843,37 @@ void fit_pHe_SBPL(const char *filename = "pHe_flux_fit_10TeV_EPOSLHC.dat",
     const FitResult pl = FitPL();
     const FitResult sbpl = FitSBPL(pl);
 
+    //std::cout << "\n========== FIT BIN REGIONS ==========\n";
+    //std::cout << "E (TeV)" << "\tRegion 158" << "\tRegion 250\n";
+
+    std::cout << "\n======= NUISANCE REGIONS =======:\n";
+    for (size_t i = 0; i < gCtx.fitBins.size(); ++i) {
+        std::cout << gCtx.fitBins[i].E / 1e3
+                  << " TeV -> region "
+                  << gCtx.regionOfBin[i]
+                  << std::endl;
+    }
+
+    const double edge158 = std::sqrt(2.5e4 * 1.0e6);
+    const double edge250 = 2.5e5;
+
+    for (const auto &b : gCtx.fitBins) {
+
+        int r158 = (b.E < edge158) ? 0 : 1;
+        int r250 = (b.E < edge250) ? 0 : 1;
+
+        std::cout << b.E / 1e3 << "\t\t" << r158 << "\t\t" << r250;
+
+        if (r158 != r250)
+            std::cout << "  <-- CHANGED REGION";
+        std::cout << std::endl;
+    }
+
     PrintFit("PL", pl, false);
     PrintFit("SBPL", sbpl, true);
+
+    CheckEbMinos(sbpl);
+    ProfileEb(sbpl);
 
     // With s fixed, SBPL has two additional shape parameters relative to PL:
     // Eb and DeltaGamma. This is the DAMPE-style Delta-chi2 comparison with Delta dof = 2.
@@ -587,6 +907,8 @@ void fit_pHe_SBPL(const char *filename = "pHe_flux_fit_10TeV_EPOSLHC.dat",
                   << std::endl;
     }
 
-    DrawPlot(bins, pl, sbpl, DRAW_PL_TOO);
+    DrawPlot(bins, pl, sbpl, false, true, "");
+
+
 }
 

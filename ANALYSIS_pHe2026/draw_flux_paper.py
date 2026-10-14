@@ -62,44 +62,63 @@ def make_flux_graph_DAMPE2026(filename, color, marker, size, alpha):
 
     return gr 
 
+
 def make_flux_graph_DAMPE2026_sys(filename, color, marker, size, alpha):
-    Emean    = np.loadtxt(filename, skiprows=3, usecols=(2,), unpack=True)
-    Flux_2   = np.loadtxt(filename, skiprows=3, usecols=(3,), unpack=True)
-    Flux_stat= np.loadtxt(filename, skiprows=3, usecols=(4,), unpack=True)
-    Sys_ana  = np.loadtxt(filename, skiprows=3, usecols=(10,), unpack=True)
-    Sys_had  = np.loadtxt(filename, skiprows=3, usecols=(11,), unpack=True)
-    Sys_tot  = np.loadtxt(filename, skiprows=3, usecols=(12,), unpack=True)
+    Emin      = np.loadtxt(filename, skiprows=3, usecols=(0,))
+    Emax      = np.loadtxt(filename, skiprows=3, usecols=(1,))
+    Emean     = np.loadtxt(filename, skiprows=3, usecols=(2,))
+    Flux_2    = np.loadtxt(filename, skiprows=3, usecols=(3,))
+    Flux_stat = np.loadtxt(filename, skiprows=3, usecols=(4,))
+    Sys_ana   = np.loadtxt(filename, skiprows=3, usecols=(11,))
+    Sys_tot   = np.loadtxt(filename, skiprows=3, usecols=(13,))
+
+    data = np.column_stack((Emin, Emax, Emean, Flux_2, Flux_stat, Sys_ana, Sys_tot))
+    data = data[np.argsort(data[:, 2])]
+
+    Emin, Emax, Emean, Flux_2, Flux_stat, Sys_ana, Sys_tot = [np.ascontiguousarray(data[:, i], dtype=np.float64) for i in range(data.shape[1])]
 
     Flux = Flux_2 * Emean**alpha
     Flux_err = Flux_stat * Emean**alpha
     syst_ana = Sys_ana * Flux
     syst_tot = Sys_tot * Flux
-    null = np.zeros(len(Emean))
 
-    gr = TGraphAsymmErrors(len(Emean), Emean, Flux, null, null, Flux_err, Flux_err)
+    n = len(Emean)
+    null = np.zeros(n, dtype=np.float64)
+
+    gr = TGraphAsymmErrors(n, Emean, Flux,null, null, Flux_err, Flux_err)
     gr.SetLineColor(color)
     gr.SetMarkerColor(color)
     gr.SetMarkerStyle(marker)
     gr.SetMarkerSize(size)
     gr.SetLineWidth(2)
 
-    gr_sys_ana = TGraphErrors(len(Emean), Emean, Flux, null, syst_ana)
-    gr_sys_ana.SetLineColor(17)
-    gr_sys_ana.SetMarkerColor(color)
-    gr_sys_ana.SetMarkerStyle(marker)
-    gr_sys_ana.SetMarkerSize(size)
-    gr_sys_ana.SetFillColor(17)
-    gr_sys_ana.SetFillStyle(1001)
+    x_band = np.concatenate(([Emin[0]], Emean, [Emax[-1]]))
+    y_band = np.concatenate(([Flux[0]], Flux, [Flux[-1]]))
+    null_band = np.zeros(n + 2, dtype=np.float64)
 
-    gr_sys_tot = TGraphErrors(len(Emean), Emean, Flux, null, syst_tot)
-    gr_sys_tot.SetLineColor(17)
-    gr_sys_tot.SetMarkerColor(color)
-    gr_sys_tot.SetMarkerStyle(marker)
-    gr_sys_tot.SetMarkerSize(size)
-    gr_sys_tot.SetFillColor(18)
-    gr_sys_tot.SetFillStyle(1001)
+    def make_band(syst, fill_color, line_color):
 
-    return gr, gr_sys_ana, gr_sys_tot
+        err_band = np.concatenate(([syst[0]], syst, [syst[-1]]))
+
+        band = TGraphAsymmErrors(n + 2, x_band, y_band, null_band, null_band, err_band, err_band)
+        band.SetFillColor(fill_color)
+        band.SetFillStyle(1001)
+        band.SetLineColor(line_color)
+
+        upper = TGraph(n + 2, x_band, y_band + err_band)
+        lower = TGraph(n + 2, x_band, y_band - err_band)
+
+        for edge in (upper, lower):
+            edge.SetLineColor(line_color)
+            edge.SetLineWidth(1)
+
+        return band, upper, lower
+
+    gr_sys_ana, upper_ana, lower_ana = make_band(syst_ana, 16, 16)
+    gr_sys_tot, upper_tot, lower_tot = make_band(syst_tot, 18, 17)
+
+    return (gr, gr_sys_ana, gr_sys_tot, upper_ana, lower_ana, upper_tot, lower_tot)
+
 
 def make_flux_graph_pHe(filenameP, filenameHe, color, marker, size, alpha):
     # Qty   <E>  Elo  Eup   y   ystat_lo  ystat_up  ysyst_lo  ysyst_up  yerrtot_lo 
@@ -342,8 +361,9 @@ if __name__ == '__main__':
     file_DAMPE2026 = 'TXT_FILES/DAMPE_p+He_120M_paperDraft_24sett26_3sigmaLow_6sigmaUp_450adc_10TeV_EPOSLHC.dat'
     gr_DAMPE2026 = make_flux_graph_DAMPE2026(file_DAMPE2026, kRed+1, 20, 1.4, 2.6)
 
-    file_DAMPE2026_sys = 'SYSTEMATIC_UNCERTAINTIES/sys_summary_10TeV_EPOSLHC.txt'
-    gr_DAMPE2026_2, gr_DAMPE2026_sys_ana, gr_DAMPE2026_sys_tot = make_flux_graph_DAMPE2026_sys(file_DAMPE2026_sys, kRed+1, 20, 1.4, 2.6)
+    file_DAMPE2026_sys = 'SYSTEMATIC_UNCERTAINTIES/sys_summary_10TeV_EPOSLHC_wSatCorr.txt'
+    #gr_DAMPE2026_2, gr_DAMPE2026_sys_ana, gr_DAMPE2026_sys_tot = make_flux_graph_DAMPE2026_sys(file_DAMPE2026_sys, kRed+1, 20, 1.4, 2.6)
+    (gr_DAMPE2026_2, gr_DAMPE2026_sys_ana, gr_DAMPE2026_sys_tot, upper_ana, lower_ana, upper_tot, lower_tot) = make_flux_graph_DAMPE2026_sys(file_DAMPE2026_sys, kRed+1, 20, 1.4, 2.6)
 
     filename_GenevaP  = 'TXT_FILES/PROTON_SEP2026_ANDRII_flux_noescale_ekin_p_2026.txt'
     filename_GenevaHe = 'TXT_FILES/HELIUM_SEP2026_PAUL_Helium_Paul_Geant4.txt'
@@ -384,7 +404,8 @@ if __name__ == '__main__':
     cc.SetLogx()
     cc.SetLogy()
 
-    frame = cc.DrawFrame(1e1, 2.1e3, 5e7, 20e3)
+    frame = cc.DrawFrame(1e1, 2.1e3, 2e7, 20e3)
+    #frame = cc.DrawFrame(1e1, 0.2e3, 5e7, 15e3)
 
     frame.GetXaxis().SetTitle("Kinetic energy (GeV)")
     frame.GetYaxis().SetTitle("Flux #times E^{2.6} (m^{-2} sr^{-1} s^{-1} GeV^{1.6})")
@@ -406,6 +427,14 @@ if __name__ == '__main__':
     gr_DAMPE2026_sys_tot.Draw("E3 SAME")
     gr_DAMPE2026_sys_ana.Draw("E3 SAME")
     #gr_DAMPE2026_2.Draw("P SAME")
+
+    # Contorni della banda totale
+    upper_tot.Draw("L SAME")
+    lower_tot.Draw("L SAME")
+
+    # Contorni della banda di analisi
+    upper_ana.Draw("L SAME")
+    lower_ana.Draw("L SAME")
     
     gr_LHAASO_QGSJET.Draw("P SAME")
     gr_LHAASO_EPOSLHC.Draw("P SAME")
@@ -422,8 +451,8 @@ if __name__ == '__main__':
     gr_KASCADE_QGSJet.Draw("P SAME")
     gr_KASCADE_SIBYLL.Draw("P SAME")
 
-    gr_DAMPE2024.Draw("P SAME")
-    gr_DAMPE2026_pHe_Geneva_sum.Draw("P SAME")
+    #gr_DAMPE2024.Draw("P SAME")
+    #gr_DAMPE2026_pHe_Geneva_sum.Draw("P SAME")
 
     gr_DAMPE2026_2.Draw("P SAME")
 
@@ -441,7 +470,7 @@ if __name__ == '__main__':
     #leg = TLegend(0.20,0.24,0.43,0.66)
     x1 = 0.18
     x2 = 0.67
-    y1 = 0.24 #0.34
+    y1 = 0.34 #0.24
     y2 = 0.60
 
     leg = TLegend(x1, y1, x2, y2)
@@ -461,10 +490,10 @@ if __name__ == '__main__':
     #leg.AddEntry(gr_DAMPE2024_sys,"ana. error (2024)","f")
     #leg.AddEntry(gr_DAMPE2024_sys_had,"ana. #oplus had. error (2024)","f")
 
-    leg.AddEntry(gr_DAMPE2026_pHe_Geneva_sum, "DAMPE #Phi_{p} + #Phi_{He}", "P")
+    #leg.AddEntry(gr_DAMPE2026_pHe_Geneva_sum, "DAMPE #Phi_{p} + #Phi_{He}", "P")
     #leg.AddEntry(gr_DAMPE2026, "DAMPE ", "P")
     #leg.Draw()
-    leg.AddEntry(gr_DAMPE2024, "DAMPE (2024)", "P")
+    #leg.AddEntry(gr_DAMPE2024, "DAMPE (2024)", "P")
     
     #leg1 = TLegend(0.5, 0.7, 0.73, 0.87)  
     #leg1.SetBorderSize(0)
@@ -485,7 +514,7 @@ if __name__ == '__main__':
     leg.AddEntry(gr_LHAASO_QGSJET,"LHAASO (QGSJET-II-04), (EPOS-LHC)","P")
     leg.Draw()
 
-    n_entries = 7 #5
+    n_entries = 5 #7
     dy_leg = (y2 - y1) / n_entries
 
     def legend_row_y(row):
@@ -496,8 +525,8 @@ if __name__ == '__main__':
         """
         return y2 - (row + 0.5) * dy_leg
 
-    y_kascade = legend_row_y(5) #(3)
-    y_lhaaso  = legend_row_y(6) #(4)
+    y_kascade = legend_row_y(3) #(5)
+    y_lhaaso  = legend_row_y(4) #(6)
     
     x_kascade_right = 0.55
     x_lhaaso_right  = 0.55
@@ -511,10 +540,10 @@ if __name__ == '__main__':
 
     cc.Update()
 
-    cc.SaveAs('PLOTS/flux_pHe_update2026_wPHe_3sigmaLow_6sigmaUp_450adc_wSys_10TeV_EPOSLHC.pdf')
-    cc.SaveAs('PLOTS/flux_pHe_update2026_wPHe_3sigmaLow_6sigmaUp_450adc_wSys_10TeV_EPOSLHC.png')
+    cc.SaveAs('PLOTS/flux_pHe_update2026_wPHe_3sLow_6sUp_450adc_wSys_10TeV_EPOSLHC_paper_DAMPE_wSatCorrSys.pdf')
+    cc.SaveAs('PLOTS/flux_pHe_update2026_wPHe_3sLow_6sUp_450adc_wSys_10TeV_EPOSLHC_paper_DAMPE_wSatCorrSys.png')
 
-    cc.SaveAs('ROOT_FILES/flux_pHe_update2026_wPHe_3sigmaLow_6sigmaUp_450adc_wSys_10TeV_EPOSLHC.root')
+    cc.SaveAs('ROOT_FILES/flux_pHe_update2026_wPHe_3sLow_6sUp_450adc_wSys_10TeV_EPOSLHC_paper_DAMPE_wSatCorrSys.root')
 
     raw_input("Press enter..")
 
