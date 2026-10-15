@@ -1,0 +1,5 @@
+Ei(GeV)	Ef	MPVHMC	E_MPVHMC	SigLHMC	    	ESigLHMC	SigGHMC	    	ESigGHMC	MPVH	E_MPVH	    	SigLH	    	ESigLH	    	SigGH	    	ESigGH
+20.0    100.0    
+100.0   1000.0   
+1000.0  10000.0  
+10000.0 100000.0 
