@@ -447,7 +447,7 @@ void HET_efficiency_pHe_MC(){
     // =============================
     // ENERGY BINNING
 
-    const int nbd = 8;
+    const int nbd = 3;
     const int ndec = 6;
     Double_t arg1 = 1./Double_t(nbd);
     const int noe = nbd*ndec;
@@ -487,7 +487,7 @@ void HET_efficiency_pHe_MC(){
     // =======================================
     // Output
 
-    TFile *fout = new TFile("HET_eff_MC_pHe_3sLow_6sUp_PSDprogr_STKch450_comb_vert0e7_10TeV_EPOSLHC.root", "RECREATE");
+    TFile *fout = new TFile("HET_eff_MC_pHe_3sLow_6sUp_PSDprogr_STKch450_comb_vert0e7_10TeV_EPOSLHC_3bins.root", "RECREATE");
     fout->cd();
 
     // ===============================================

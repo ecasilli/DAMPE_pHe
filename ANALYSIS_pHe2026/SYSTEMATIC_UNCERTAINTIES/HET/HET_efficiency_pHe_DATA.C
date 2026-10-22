@@ -136,6 +136,12 @@ TChain *skim = new TChain("newtree");
 
 // Anni 2016-2024 (tutti "merged")
 for (int y = 2017; y <= 2025; y++) addYear(skim, basePath, y);
+skim->Add(basePath + "/SKIM_2026/FLIGHT/skim_flight_002_010_2016_mar_dec.root");
+skim->Add(basePath + "/SKIM_2026/FLIGHT/skim_flight_010_025_2016_mar_dec.root");
+skim->Add(basePath + "/SKIM_2026/FLIGHT/skim_flight_025_050_2016_mar_dec.root");
+skim->Add(basePath + "/SKIM_2026/FLIGHT/skim_flight_050_100_2016_mar_dec.root");
+skim->Add(basePath + "/SKIM_2026/FLIGHT/skim_flight_100_500_2016_mar_dec.root");
+skim->Add(basePath + "/SKIM_2026/FLIGHT/skim_flight_500_000_2016_mar_dec.root");
 cout << "Orbital Data Entries: " << skim->GetEntries() << endl;
 
 // =============================
@@ -182,7 +188,7 @@ skim->SetBranchAddress("STK_vertexPrediction",         &STK_vertexPrediction);
 // =============================
 // ENERGY BINNING
 
-const int nbd = 8;
+const int nbd = 3;
 const int ndec = 6;
 Double_t arg1 = 1./Double_t(nbd);
 const int noe = nbd*ndec;
@@ -196,7 +202,7 @@ for (int j = 1; j < noe+1; j++) {
 
 // =============================
 // OUTPUT FILES
-TFile *fout1 = new TFile("HETeff_skim_Orb108Month_3sLow_6sUp_PSDprogr_STKch450_comb_vert0e7.root", "RECREATE");
+TFile *fout1 = new TFile("HETeff_skim_Orb118Month_3sLow_6sUp_PSDprogr_STKch450_comb_vert0e7_3bins.root", "RECREATE");
 
 
 // =============================

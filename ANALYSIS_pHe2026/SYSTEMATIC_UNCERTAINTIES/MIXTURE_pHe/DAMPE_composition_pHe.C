@@ -62,7 +62,7 @@ struct graphAsymErr{
 constexpr double prior_pow{2.6}; 
 void compute_rel_abundances(int N_el, double epow, std::vector<TF1 *>element_fits, std::string func_name, TString fname);
 Double_t log_pol(Double_t *x, Double_t *par);
-void chek_sum_abund(int Nel, int ntot_Ebins, double rel_abund_int[Nel][30]);
+void chek_sum_abund(int Nel, int ntot_Ebins, double rel_abund_int[Nel][18]);
 int element_to_int(std::string el);
 std::string int_to_element(int numb);
 Color_t get_hcolor(int el);
@@ -77,7 +77,7 @@ double compute_xlw(double e1, double e2, double pow);
 int DAMPE_model(){
     double epow{2.6};
     // Create output file
-    string output_file_name = "ROOT_FILES/DAMPE_composition_pHe_10GeV_10PeV_5Bin.root";
+    string output_file_name = "ROOT_FILES/DAMPE_composition_pHe_10GeV_10PeV_3Bin.root";
     TFile fout(output_file_name.c_str(), "RECREATE");
     fout.Close();
 
@@ -222,8 +222,8 @@ void compute_rel_abundances(int N_el, double epow, std::vector<TF1 *>element_fit
    TFile fout(fname, "update");
    const int n_decades_p1 = 4;
    const int n_decades_p2 = 2;
-   const int bins_per_decade_p1 = 5;
-   const int bins_per_decade_p2 = 5;
+   const int bins_per_decade_p1 = 3;
+   const int bins_per_decade_p2 = 3;
    const int ntot_Ebins = (bins_per_decade_p1 * n_decades_p1) + (bins_per_decade_p2 * n_decades_p2);
    const double log_bin_width_p1 = 1. / bins_per_decade_p1;
    const double log_bin_width_p2 = 1. / bins_per_decade_p2;
@@ -366,7 +366,7 @@ Double_t log_pol(Double_t *x, Double_t *par){
    return fit_res;
 }
 
-void chek_sum_abund(int Nel, int ntot_Ebins, double rel_abund_int[Nel][30]){
+void chek_sum_abund(int Nel, int ntot_Ebins, double rel_abund_int[Nel][18]){
    double sum_in_bin;
    bool is_check_passed = true;
    for(int bin = 6; bin < ntot_Ebins; bin++){

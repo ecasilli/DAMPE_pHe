@@ -21,7 +21,8 @@
 void HET_pHe_rebin_and_plot_DATA_MC()
 {
     const char *dataName = "HETeff_skim_Orb108Month_3sLow_6sUp_PSDprogr_STKch450_comb_vert0e7.root";
-    const char *mcName   = "HET_eff_MC_pHe_3sLow_6sUp_PSDprogr_STKch450_comb_vert0e7_10TeV_EPOSLHC.root";
+    //const char *mcName   = "HET_eff_MC_pHe_3sLow_6sUp_PSDprogr_STKch450_comb_vert0e7_10TeV_EPOSLHC.root";
+    const char *mcName  = "HET_eff_MC_pHe_fixedMix_p70_He30_8binBGO_8binTrue.root";
 
     TFile *fData = TFile::Open(dataName, "READ");
     TFile *fMC   = TFile::Open(mcName, "READ");
@@ -169,8 +170,8 @@ void HET_pHe_rebin_and_plot_DATA_MC()
     const double yEffMax = 1.06;
 
     // Lower plot: DATA / MC ratio
-    const double yRatioMin = 0.78;
-    const double yRatioMax = 1.22;
+    const double yRatioMin = 0.82;
+    const double yRatioMax = 1.18;
 
     gStyle->SetOptStat(0);
     gStyle->SetPadTickX(1);
@@ -182,7 +183,7 @@ void HET_pHe_rebin_and_plot_DATA_MC()
     gR->SetLineColor(kBlack);  gR->SetMarkerColor(kBlack);
     gR->SetMarkerStyle(21);    gR->SetMarkerSize(1.0); gR->SetLineWidth(2);
 
-    const double xmin=17., xmax=1.e5;
+    const double xmin=40., xmax=1.e5;
     TCanvas *c=new TCanvas("c_HET_pHe_rebin","HET efficiency p+He",1000,950);
     TPad *pad1=new TPad("pad1_pHe","efficiencies",0.,0.30,1.,1.);
     pad1->SetLeftMargin(0.10); pad1->SetRightMargin(0.03);
@@ -202,7 +203,7 @@ void HET_pHe_rebin_and_plot_DATA_MC()
     leg->SetLineColor(kBlack); leg->SetFillColor(0);
     leg->SetTextSize(0.037); leg->SetHeader("#scale[1.1]{p + He}","C");
     leg->AddEntry(gD,"Flight data","lep");
-    leg->AddEntry(gM,"MC","lep"); leg->Draw();
+    leg->AddEntry(gM,"MC (70-30)","lep"); leg->Draw();
 
     c->cd();
     TPad *pad2=new TPad("pad2_pHe","DATA / MC",0.,0.,1.,0.30);
@@ -225,7 +226,7 @@ void HET_pHe_rebin_and_plot_DATA_MC()
     TLine unity(xmin,1.,xmax,1.);
     unity.SetLineColor(kGray+2); unity.SetLineStyle(2);
     unity.SetLineWidth(3); unity.DrawClone("SAME");
-    TLine diff(xmin,0.95,xmax,0.95);
+    TLine diff(xmin,0.97,xmax,0.97);
     diff.SetLineColor(kRed); diff.SetLineStyle(2);
     diff.SetLineWidth(3); diff.DrawClone("SAME");
     gR->Draw("P SAME");
@@ -233,10 +234,10 @@ void HET_pHe_rebin_and_plot_DATA_MC()
     y2.SetTextSize(0.076); y2.DrawLatexNDC(0.035,0.45,"DATA / MC");
     c->cd(); c->Update();
 
-    c->SaveAs("HET_pHe_rebin_DATA_MC_10TeV_EPOSLHC.png");
-    c->SaveAs("HET_pHe_rebin_DATA_MC_10TeV_EPOSLHC.pdf");
-    c->SaveAs("HET_pHe_rebin_DATA_MC_10TeV_EPOSLHC.eps");
-    TFile *out=TFile::Open("HET_pHe_rebin_DATA_MC_10TeV_EPOSLHC.root","RECREATE");
+    c->SaveAs("HET_pHe_rebin_DATA_MC_70-30_10TeV_EPOSLHC.png");
+    c->SaveAs("HET_pHe_rebin_DATA_MC_70-30_10TeV_EPOSLHC.pdf");
+    //c->SaveAs("HET_pHe_rebin_DATA_MC_70-30_10TeV_EPOSLHC.eps");
+    TFile *out=TFile::Open("HET_pHe_rebin_DATA_MC_70-30_10TeV_EPOSLHC.root","RECREATE");
     if (out && !out->IsZombie()) {
         out->cd();
         for (TH1D *h : {dTot,dPass,mTot,mPass}) h->Write();
@@ -246,6 +247,6 @@ void HET_pHe_rebin_and_plot_DATA_MC()
     }
     fData->Close(); fMC->Close();
     std::cout << "Binning nuovo: " << nNew
-              << " bin. Output: HET_pHe_rebin_DATA_MC_10TeV_EPOSLHC.*" << std::endl;
+              << " bin. Output: HET_pHe_rebin_DATA_MC_70-30_10TeV_EPOSLHC.*" << std::endl;
 }
 
