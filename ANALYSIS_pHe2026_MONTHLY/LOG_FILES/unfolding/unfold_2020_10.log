@@ -1,0 +1,45 @@
+
+Processing unfolding_smooth_pHe_monthly.cpp(2020,10,"ROOT_FILES/PHe_skim_2020_10_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root","TXT_FILES/effective_livetime.txt",10000)...
+
+=== Unfolding 2020_10 ===
+Data: ROOT_FILES/PHe_skim_2020_10_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Effective livetime [s]: 2034763.62105
+Exposure T_eff * Amc: 76489509.9056
+Toy MC samples: 10000
+Output ROOT: ROOT_FILES/unfold_results_pHe_2020_10_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_vert0e7_10TeV_EPOSLHC.root
+Output ASCII: TXT_FILES/flux_spectrum_pHe_2020_10_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_vert0e7_10TeV_EPOSLHC.dat
+Tot Nobs = 1529681
+prior_sum 2511.88643135
+Ebins[10] 1000
+1) chi2 = 6544.40690357
+2) chi2 = 3833.84912702
+3) chi2 = 2548.43428013
+4) chi2 = 2834.26334278
+5) chi2 = 3362.42646986
+6) chi2 = 3400.93641319
+7) chi2 = 3378.47381389
+8) chi2 = 3355.74218892
+9) chi2 = 3335.67015149
+Running toy MC 1/10000
+Running toy MC 501/10000
+Running toy MC 1001/10000
+Running toy MC 1501/10000
+Running toy MC 2001/10000
+Running toy MC 2501/10000
+Running toy MC 3001/10000
+Running toy MC 3501/10000
+Running toy MC 4001/10000
+Running toy MC 4501/10000
+Running toy MC 5001/10000
+Running toy MC 5501/10000
+Running toy MC 6001/10000
+Running toy MC 6501/10000
+Running toy MC 7001/10000
+Running toy MC 7501/10000
+Running toy MC 8001/10000
+Running toy MC 8501/10000
+Running toy MC 9001/10000
+Running toy MC 9501/10000
+Running toy MC 10000/10000
+Results saved to ROOT_FILES/unfold_results_pHe_2020_10_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_vert0e7_10TeV_EPOSLHC.root
+(int) 0

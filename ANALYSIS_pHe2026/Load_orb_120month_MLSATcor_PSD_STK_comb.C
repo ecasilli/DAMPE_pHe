@@ -138,7 +138,8 @@ Double_t BGO_slopeYZ_analy, BGO_interceptYZ_analy;
 TChain *skim = new TChain("newtree");
 
 // Anni 2016-2024 (tutti "merged")
-for (int y = 2016; y <= 2025; y++) addYear(skim, basePath, y);
+//for (int y = 2016; y <= 2025; y++) addYear(skim, basePath, y);
+addYear(skim, basePath, 2025);
 cout << "Orbital Data Entries: " << skim->GetEntries() << endl;
 
 // =============================
@@ -195,7 +196,8 @@ for (int j = 1; j < noe+1; j++) {
     Ebin[j] = Ebin[j-1]*TMath::Power(10., arg1);
 }
 
-TFile *fout1 = new TFile("ROOT_FILES/PHe_skim_Orb120Month_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_24sett26.root", "RECREATE");
+//TFile *fout1 = new TFile("ROOT_FILES/PHe_skim_Orb120Month_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_24sett26.root", "RECREATE");
+TFile *fout1 = new TFile("ROOT_FILES/PHe_skim_2025_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_23ott26.root", "RECREATE");
 
 TH1D *h1SelBGO_orb    = new TH1D("h1SelBGO_orb",    "Selected(E_bgo) orbital", noe, Ebin);
 h1SelBGO_orb->Sumw2();

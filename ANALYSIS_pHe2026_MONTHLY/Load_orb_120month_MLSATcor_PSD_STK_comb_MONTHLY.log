@@ -1,0 +1,1209 @@
+
+Processing Load_orb_120month_MLSATcor_PSD_STK_comb_MONTHLY.C...
+
+======================================
+Analisi: 2016-01
+Input files: 6 | Entries: 3554588
+  Processing entry 0 / 3554588
+  Processing entry 1000000 / 3554588
+  Processing entry 2000000 / 3554588
+  Processing entry 3000000 / 3554588
+Saved: ROOT_FILES/PHe_skim_2016_01_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1553798
+
+======================================
+Analisi: 2016-02
+Input files: 6 | Entries: 3253788
+  Processing entry 0 / 3253788
+  Processing entry 1000000 / 3253788
+  Processing entry 2000000 / 3253788
+  Processing entry 3000000 / 3253788
+Saved: ROOT_FILES/PHe_skim_2016_02_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1421644
+
+======================================
+Analisi: 2016-03
+Input files: 6 | Entries: 3562599
+  Processing entry 0 / 3562599
+  Processing entry 1000000 / 3562599
+  Processing entry 2000000 / 3562599
+  Processing entry 3000000 / 3562599
+Saved: ROOT_FILES/PHe_skim_2016_03_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1544723
+
+======================================
+Analisi: 2016-04
+Input files: 6 | Entries: 3444315
+  Processing entry 0 / 3444315
+  Processing entry 1000000 / 3444315
+  Processing entry 2000000 / 3444315
+  Processing entry 3000000 / 3444315
+Saved: ROOT_FILES/PHe_skim_2016_04_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1493056
+
+======================================
+Analisi: 2016-05
+Input files: 6 | Entries: 3564541
+  Processing entry 0 / 3564541
+  Processing entry 1000000 / 3564541
+  Processing entry 2000000 / 3564541
+  Processing entry 3000000 / 3564541
+Saved: ROOT_FILES/PHe_skim_2016_05_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1543683
+
+======================================
+Analisi: 2016-06
+Input files: 6 | Entries: 3451936
+  Processing entry 0 / 3451936
+  Processing entry 1000000 / 3451936
+  Processing entry 2000000 / 3451936
+  Processing entry 3000000 / 3451936
+Saved: ROOT_FILES/PHe_skim_2016_06_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1493471
+
+======================================
+Analisi: 2016-07
+Input files: 6 | Entries: 3570596
+  Processing entry 0 / 3570596
+  Processing entry 1000000 / 3570596
+  Processing entry 2000000 / 3570596
+  Processing entry 3000000 / 3570596
+Saved: ROOT_FILES/PHe_skim_2016_07_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1547882
+
+======================================
+Analisi: 2016-08
+Input files: 6 | Entries: 3575917
+  Processing entry 0 / 3575917
+  Processing entry 1000000 / 3575917
+  Processing entry 2000000 / 3575917
+  Processing entry 3000000 / 3575917
+Saved: ROOT_FILES/PHe_skim_2016_08_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1544512
+
+======================================
+Analisi: 2016-09
+Input files: 6 | Entries: 3406315
+  Processing entry 0 / 3406315
+  Processing entry 1000000 / 3406315
+  Processing entry 2000000 / 3406315
+  Processing entry 3000000 / 3406315
+Saved: ROOT_FILES/PHe_skim_2016_09_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1475804
+
+======================================
+Analisi: 2016-10
+Input files: 6 | Entries: 3580713
+  Processing entry 0 / 3580713
+  Processing entry 1000000 / 3580713
+  Processing entry 2000000 / 3580713
+  Processing entry 3000000 / 3580713
+Saved: ROOT_FILES/PHe_skim_2016_10_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1544039
+
+======================================
+Analisi: 2016-11
+Input files: 6 | Entries: 3466365
+  Processing entry 0 / 3466365
+  Processing entry 1000000 / 3466365
+  Processing entry 2000000 / 3466365
+  Processing entry 3000000 / 3466365
+Saved: ROOT_FILES/PHe_skim_2016_11_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1493053
+
+======================================
+Analisi: 2016-12
+Input files: 6 | Entries: 3589320
+  Processing entry 0 / 3589320
+  Processing entry 1000000 / 3589320
+  Processing entry 2000000 / 3589320
+  Processing entry 3000000 / 3589320
+Saved: ROOT_FILES/PHe_skim_2016_12_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1544094
+
+======================================
+Analisi: 2017-01
+Input files: 6 | Entries: 3593882
+  Processing entry 0 / 3593882
+  Processing entry 1000000 / 3593882
+  Processing entry 2000000 / 3593882
+  Processing entry 3000000 / 3593882
+Saved: ROOT_FILES/PHe_skim_2017_01_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1544632
+
+======================================
+Analisi: 2017-02
+Input files: 6 | Entries: 3239916
+  Processing entry 0 / 3239916
+  Processing entry 1000000 / 3239916
+  Processing entry 2000000 / 3239916
+  Processing entry 3000000 / 3239916
+Saved: ROOT_FILES/PHe_skim_2017_02_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1392096
+
+======================================
+Analisi: 2017-03
+Input files: 6 | Entries: 3589660
+  Processing entry 0 / 3589660
+  Processing entry 1000000 / 3589660
+  Processing entry 2000000 / 3589660
+  Processing entry 3000000 / 3589660
+Saved: ROOT_FILES/PHe_skim_2017_03_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1540770
+
+======================================
+Analisi: 2017-04
+Input files: 6 | Entries: 3475344
+  Processing entry 0 / 3475344
+  Processing entry 1000000 / 3475344
+  Processing entry 2000000 / 3475344
+  Processing entry 3000000 / 3475344
+Saved: ROOT_FILES/PHe_skim_2017_04_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1494304
+
+======================================
+Analisi: 2017-05
+Input files: 6 | Entries: 3594528
+  Processing entry 0 / 3594528
+  Processing entry 1000000 / 3594528
+  Processing entry 2000000 / 3594528
+  Processing entry 3000000 / 3594528
+Saved: ROOT_FILES/PHe_skim_2017_05_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1544799
+
+======================================
+Analisi: 2017-06
+Input files: 6 | Entries: 3475956
+  Processing entry 0 / 3475956
+  Processing entry 1000000 / 3475956
+  Processing entry 2000000 / 3475956
+  Processing entry 3000000 / 3475956
+Saved: ROOT_FILES/PHe_skim_2017_06_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1491130
+
+======================================
+Analisi: 2017-07
+Input files: 6 | Entries: 3581391
+  Processing entry 0 / 3581391
+  Processing entry 1000000 / 3581391
+  Processing entry 2000000 / 3581391
+  Processing entry 3000000 / 3581391
+Saved: ROOT_FILES/PHe_skim_2017_07_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1538388
+
+======================================
+Analisi: 2017-08
+Input files: 6 | Entries: 3579365
+  Processing entry 0 / 3579365
+  Processing entry 1000000 / 3579365
+  Processing entry 2000000 / 3579365
+  Processing entry 3000000 / 3579365
+Saved: ROOT_FILES/PHe_skim_2017_08_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1542633
+
+======================================
+Analisi: 2017-09
+Input files: 6 | Entries: 3474197
+  Processing entry 0 / 3474197
+  Processing entry 1000000 / 3474197
+  Processing entry 2000000 / 3474197
+  Processing entry 3000000 / 3474197
+Saved: ROOT_FILES/PHe_skim_2017_09_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1498747
+
+======================================
+Analisi: 2017-10
+Input files: 6 | Entries: 3561373
+  Processing entry 0 / 3561373
+  Processing entry 1000000 / 3561373
+  Processing entry 2000000 / 3561373
+  Processing entry 3000000 / 3561373
+Saved: ROOT_FILES/PHe_skim_2017_10_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1534618
+
+======================================
+Analisi: 2017-11
+Input files: 6 | Entries: 3443917
+  Processing entry 0 / 3443917
+  Processing entry 1000000 / 3443917
+  Processing entry 2000000 / 3443917
+  Processing entry 3000000 / 3443917
+Saved: ROOT_FILES/PHe_skim_2017_11_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1476914
+
+======================================
+Analisi: 2017-12
+Input files: 6 | Entries: 3429472
+  Processing entry 0 / 3429472
+  Processing entry 1000000 / 3429472
+  Processing entry 2000000 / 3429472
+  Processing entry 3000000 / 3429472
+Saved: ROOT_FILES/PHe_skim_2017_12_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1469594
+
+======================================
+Analisi: 2018-01
+Input files: 6 | Entries: 3610363
+  Processing entry 0 / 3610363
+  Processing entry 1000000 / 3610363
+  Processing entry 2000000 / 3610363
+  Processing entry 3000000 / 3610363
+Saved: ROOT_FILES/PHe_skim_2018_01_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1545420
+
+======================================
+Analisi: 2018-02
+Input files: 6 | Entries: 3262372
+  Processing entry 0 / 3262372
+  Processing entry 1000000 / 3262372
+  Processing entry 2000000 / 3262372
+  Processing entry 3000000 / 3262372
+Saved: ROOT_FILES/PHe_skim_2018_02_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1397458
+
+======================================
+Analisi: 2018-03
+Input files: 6 | Entries: 3575212
+  Processing entry 0 / 3575212
+  Processing entry 1000000 / 3575212
+  Processing entry 2000000 / 3575212
+  Processing entry 3000000 / 3575212
+Saved: ROOT_FILES/PHe_skim_2018_03_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1529601
+
+======================================
+Analisi: 2018-04
+Input files: 6 | Entries: 3444096
+  Processing entry 0 / 3444096
+  Processing entry 1000000 / 3444096
+  Processing entry 2000000 / 3444096
+  Processing entry 3000000 / 3444096
+Saved: ROOT_FILES/PHe_skim_2018_04_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1470839
+
+======================================
+Analisi: 2018-05
+Input files: 6 | Entries: 3609730
+  Processing entry 0 / 3609730
+  Processing entry 1000000 / 3609730
+  Processing entry 2000000 / 3609730
+  Processing entry 3000000 / 3609730
+Saved: ROOT_FILES/PHe_skim_2018_05_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1546294
+
+======================================
+Analisi: 2018-06
+Input files: 6 | Entries: 3485911
+  Processing entry 0 / 3485911
+  Processing entry 1000000 / 3485911
+  Processing entry 2000000 / 3485911
+  Processing entry 3000000 / 3485911
+Saved: ROOT_FILES/PHe_skim_2018_06_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1489726
+
+======================================
+Analisi: 2018-07
+Input files: 6 | Entries: 3601907
+  Processing entry 0 / 3601907
+  Processing entry 1000000 / 3601907
+  Processing entry 2000000 / 3601907
+  Processing entry 3000000 / 3601907
+Saved: ROOT_FILES/PHe_skim_2018_07_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1538839
+
+======================================
+Analisi: 2018-08
+Input files: 6 | Entries: 3595276
+  Processing entry 0 / 3595276
+  Processing entry 1000000 / 3595276
+  Processing entry 2000000 / 3595276
+  Processing entry 3000000 / 3595276
+Saved: ROOT_FILES/PHe_skim_2018_08_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1533128
+
+======================================
+Analisi: 2018-09
+Input files: 6 | Entries: 3511783
+  Processing entry 0 / 3511783
+  Processing entry 1000000 / 3511783
+  Processing entry 2000000 / 3511783
+  Processing entry 3000000 / 3511783
+Saved: ROOT_FILES/PHe_skim_2018_09_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1502643
+
+======================================
+Analisi: 2018-10
+Input files: 6 | Entries: 3586941
+  Processing entry 0 / 3586941
+  Processing entry 1000000 / 3586941
+  Processing entry 2000000 / 3586941
+  Processing entry 3000000 / 3586941
+Saved: ROOT_FILES/PHe_skim_2018_10_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1536004
+
+======================================
+Analisi: 2018-11
+Input files: 6 | Entries: 3446116
+  Processing entry 0 / 3446116
+  Processing entry 1000000 / 3446116
+  Processing entry 2000000 / 3446116
+  Processing entry 3000000 / 3446116
+Saved: ROOT_FILES/PHe_skim_2018_11_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1471314
+
+======================================
+Analisi: 2018-12
+Input files: 6 | Entries: 3588399
+  Processing entry 0 / 3588399
+  Processing entry 1000000 / 3588399
+  Processing entry 2000000 / 3588399
+  Processing entry 3000000 / 3588399
+Saved: ROOT_FILES/PHe_skim_2018_12_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1531245
+
+======================================
+Analisi: 2019-01
+Input files: 6 | Entries: 3608484
+  Processing entry 0 / 3608484
+  Processing entry 1000000 / 3608484
+  Processing entry 2000000 / 3608484
+  Processing entry 3000000 / 3608484
+Saved: ROOT_FILES/PHe_skim_2019_01_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1540636
+
+======================================
+Analisi: 2019-02
+Input files: 6 | Entries: 3265182
+  Processing entry 0 / 3265182
+  Processing entry 1000000 / 3265182
+  Processing entry 2000000 / 3265182
+  Processing entry 3000000 / 3265182
+Saved: ROOT_FILES/PHe_skim_2019_02_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1395562
+
+======================================
+Analisi: 2019-03
+Input files: 6 | Entries: 3581682
+  Processing entry 0 / 3581682
+  Processing entry 1000000 / 3581682
+  Processing entry 2000000 / 3581682
+  Processing entry 3000000 / 3581682
+Saved: ROOT_FILES/PHe_skim_2019_03_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1529679
+
+======================================
+Analisi: 2019-04
+Input files: 6 | Entries: 3463313
+  Processing entry 0 / 3463313
+  Processing entry 1000000 / 3463313
+  Processing entry 2000000 / 3463313
+  Processing entry 3000000 / 3463313
+Saved: ROOT_FILES/PHe_skim_2019_04_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1477999
+
+======================================
+Analisi: 2019-05
+Input files: 6 | Entries: 3588847
+  Processing entry 0 / 3588847
+  Processing entry 1000000 / 3588847
+  Processing entry 2000000 / 3588847
+  Processing entry 3000000 / 3588847
+Saved: ROOT_FILES/PHe_skim_2019_05_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1535988
+
+======================================
+Analisi: 2019-06
+Input files: 6 | Entries: 3469928
+  Processing entry 0 / 3469928
+  Processing entry 1000000 / 3469928
+  Processing entry 2000000 / 3469928
+  Processing entry 3000000 / 3469928
+Saved: ROOT_FILES/PHe_skim_2019_06_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1480177
+
+======================================
+Analisi: 2019-07
+Input files: 6 | Entries: 3580911
+  Processing entry 0 / 3580911
+  Processing entry 1000000 / 3580911
+  Processing entry 2000000 / 3580911
+  Processing entry 3000000 / 3580911
+Saved: ROOT_FILES/PHe_skim_2019_07_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1529919
+
+======================================
+Analisi: 2019-08
+Input files: 6 | Entries: 3573056
+  Processing entry 0 / 3573056
+  Processing entry 1000000 / 3573056
+  Processing entry 2000000 / 3573056
+  Processing entry 3000000 / 3573056
+Saved: ROOT_FILES/PHe_skim_2019_08_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1523144
+
+======================================
+Analisi: 2019-09
+Input files: 6 | Entries: 3502311
+  Processing entry 0 / 3502311
+  Processing entry 1000000 / 3502311
+  Processing entry 2000000 / 3502311
+  Processing entry 3000000 / 3502311
+Saved: ROOT_FILES/PHe_skim_2019_09_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1499464
+
+======================================
+Analisi: 2019-10
+Input files: 6 | Entries: 3568533
+  Processing entry 0 / 3568533
+  Processing entry 1000000 / 3568533
+  Processing entry 2000000 / 3568533
+  Processing entry 3000000 / 3568533
+Saved: ROOT_FILES/PHe_skim_2019_10_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1523660
+
+======================================
+Analisi: 2019-11
+Input files: 6 | Entries: 3437914
+  Processing entry 0 / 3437914
+  Processing entry 1000000 / 3437914
+  Processing entry 2000000 / 3437914
+  Processing entry 3000000 / 3437914
+Saved: ROOT_FILES/PHe_skim_2019_11_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1464300
+
+======================================
+Analisi: 2019-12
+Input files: 6 | Entries: 3566785
+  Processing entry 0 / 3566785
+  Processing entry 1000000 / 3566785
+  Processing entry 2000000 / 3566785
+  Processing entry 3000000 / 3566785
+Saved: ROOT_FILES/PHe_skim_2019_12_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1518583
+
+======================================
+Analisi: 2020-01
+Input files: 6 | Entries: 3599043
+  Processing entry 0 / 3599043
+  Processing entry 1000000 / 3599043
+  Processing entry 2000000 / 3599043
+  Processing entry 3000000 / 3599043
+Saved: ROOT_FILES/PHe_skim_2020_01_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1532839
+
+======================================
+Analisi: 2020-02
+Input files: 6 | Entries: 3368383
+  Processing entry 0 / 3368383
+  Processing entry 1000000 / 3368383
+  Processing entry 2000000 / 3368383
+  Processing entry 3000000 / 3368383
+Saved: ROOT_FILES/PHe_skim_2020_02_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1434052
+
+======================================
+Analisi: 2020-03
+Input files: 6 | Entries: 3359893
+  Processing entry 0 / 3359893
+  Processing entry 1000000 / 3359893
+  Processing entry 2000000 / 3359893
+  Processing entry 3000000 / 3359893
+Saved: ROOT_FILES/PHe_skim_2020_03_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1430057
+
+======================================
+Analisi: 2020-04
+Input files: 6 | Entries: 3482787
+  Processing entry 0 / 3482787
+  Processing entry 1000000 / 3482787
+  Processing entry 2000000 / 3482787
+  Processing entry 3000000 / 3482787
+Saved: ROOT_FILES/PHe_skim_2020_04_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1480002
+
+======================================
+Analisi: 2020-05
+Input files: 6 | Entries: 3603016
+  Processing entry 0 / 3603016
+  Processing entry 1000000 / 3603016
+  Processing entry 2000000 / 3603016
+  Processing entry 3000000 / 3603016
+Saved: ROOT_FILES/PHe_skim_2020_05_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1532110
+
+======================================
+Analisi: 2020-06
+Input files: 6 | Entries: 3477973
+  Processing entry 0 / 3477973
+  Processing entry 1000000 / 3477973
+  Processing entry 2000000 / 3477973
+  Processing entry 3000000 / 3477973
+Saved: ROOT_FILES/PHe_skim_2020_06_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1480354
+
+======================================
+Analisi: 2020-07
+Input files: 6 | Entries: 3585776
+  Processing entry 0 / 3585776
+  Processing entry 1000000 / 3585776
+  Processing entry 2000000 / 3585776
+  Processing entry 3000000 / 3585776
+Saved: ROOT_FILES/PHe_skim_2020_07_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1525606
+
+======================================
+Analisi: 2020-08
+Input files: 6 | Entries: 3575922
+  Processing entry 0 / 3575922
+  Processing entry 1000000 / 3575922
+  Processing entry 2000000 / 3575922
+  Processing entry 3000000 / 3575922
+Saved: ROOT_FILES/PHe_skim_2020_08_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1522497
+
+======================================
+Analisi: 2020-09
+Input files: 6 | Entries: 3508092
+  Processing entry 0 / 3508092
+  Processing entry 1000000 / 3508092
+  Processing entry 2000000 / 3508092
+  Processing entry 3000000 / 3508092
+Saved: ROOT_FILES/PHe_skim_2020_09_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1494819
+
+======================================
+Analisi: 2020-10
+Input files: 6 | Entries: 3591550
+  Processing entry 0 / 3591550
+  Processing entry 1000000 / 3591550
+  Processing entry 2000000 / 3591550
+  Processing entry 3000000 / 3591550
+Saved: ROOT_FILES/PHe_skim_2020_10_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1529681
+
+======================================
+Analisi: 2020-11
+Input files: 6 | Entries: 3451191
+  Processing entry 0 / 3451191
+  Processing entry 1000000 / 3451191
+  Processing entry 2000000 / 3451191
+  Processing entry 3000000 / 3451191
+Saved: ROOT_FILES/PHe_skim_2020_11_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1468311
+
+======================================
+Analisi: 2020-12
+Input files: 6 | Entries: 3577126
+  Processing entry 0 / 3577126
+  Processing entry 1000000 / 3577126
+  Processing entry 2000000 / 3577126
+  Processing entry 3000000 / 3577126
+Saved: ROOT_FILES/PHe_skim_2020_12_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1522328
+
+======================================
+Analisi: 2021-01
+Input files: 6 | Entries: 3598906
+  Processing entry 0 / 3598906
+  Processing entry 1000000 / 3598906
+  Processing entry 2000000 / 3598906
+  Processing entry 3000000 / 3598906
+Saved: ROOT_FILES/PHe_skim_2021_01_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1531779
+
+======================================
+Analisi: 2021-02
+Input files: 6 | Entries: 3248968
+  Processing entry 0 / 3248968
+  Processing entry 1000000 / 3248968
+  Processing entry 2000000 / 3248968
+  Processing entry 3000000 / 3248968
+Saved: ROOT_FILES/PHe_skim_2021_02_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1385367
+
+======================================
+Analisi: 2021-03
+Input files: 6 | Entries: 3592057
+  Processing entry 0 / 3592057
+  Processing entry 1000000 / 3592057
+  Processing entry 2000000 / 3592057
+  Processing entry 3000000 / 3592057
+Saved: ROOT_FILES/PHe_skim_2021_03_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1530641
+
+======================================
+Analisi: 2021-04
+Input files: 6 | Entries: 3487815
+  Processing entry 0 / 3487815
+  Processing entry 1000000 / 3487815
+  Processing entry 2000000 / 3487815
+  Processing entry 3000000 / 3487815
+Saved: ROOT_FILES/PHe_skim_2021_04_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1485384
+
+======================================
+Analisi: 2021-05
+Input files: 6 | Entries: 3229541
+  Processing entry 0 / 3229541
+  Processing entry 1000000 / 3229541
+  Processing entry 2000000 / 3229541
+  Processing entry 3000000 / 3229541
+Saved: ROOT_FILES/PHe_skim_2021_05_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1375310
+
+======================================
+Analisi: 2021-06
+Input files: 6 | Entries: 3472166
+  Processing entry 0 / 3472166
+  Processing entry 1000000 / 3472166
+  Processing entry 2000000 / 3472166
+  Processing entry 3000000 / 3472166
+Saved: ROOT_FILES/PHe_skim_2021_06_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1478125
+
+======================================
+Analisi: 2021-07
+Input files: 6 | Entries: 3587939
+  Processing entry 0 / 3587939
+  Processing entry 1000000 / 3587939
+  Processing entry 2000000 / 3587939
+  Processing entry 3000000 / 3587939
+Saved: ROOT_FILES/PHe_skim_2021_07_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1527881
+
+======================================
+Analisi: 2021-08
+Input files: 6 | Entries: 3472274
+  Processing entry 0 / 3472274
+  Processing entry 1000000 / 3472274
+  Processing entry 2000000 / 3472274
+  Processing entry 3000000 / 3472274
+Saved: ROOT_FILES/PHe_skim_2021_08_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1476261
+
+======================================
+Analisi: 2021-09
+Input files: 6 | Entries: 3491988
+  Processing entry 0 / 3491988
+  Processing entry 1000000 / 3491988
+  Processing entry 2000000 / 3491988
+  Processing entry 3000000 / 3491988
+Saved: ROOT_FILES/PHe_skim_2021_09_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1489291
+
+======================================
+Analisi: 2021-10
+Input files: 6 | Entries: 3588445
+  Processing entry 0 / 3588445
+  Processing entry 1000000 / 3588445
+  Processing entry 2000000 / 3588445
+  Processing entry 3000000 / 3588445
+Saved: ROOT_FILES/PHe_skim_2021_10_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1530259
+
+======================================
+Analisi: 2021-11
+Input files: 6 | Entries: 3447866
+  Processing entry 0 / 3447866
+  Processing entry 1000000 / 3447866
+  Processing entry 2000000 / 3447866
+  Processing entry 3000000 / 3447866
+Saved: ROOT_FILES/PHe_skim_2021_11_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1471831
+
+======================================
+Analisi: 2021-12
+Input files: 6 | Entries: 3589421
+  Processing entry 0 / 3589421
+  Processing entry 1000000 / 3589421
+  Processing entry 2000000 / 3589421
+  Processing entry 3000000 / 3589421
+Saved: ROOT_FILES/PHe_skim_2021_12_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1526531
+
+======================================
+Analisi: 2022-01
+Input files: 6 | Entries: 3582418
+  Processing entry 0 / 3582418
+  Processing entry 1000000 / 3582418
+  Processing entry 2000000 / 3582418
+  Processing entry 3000000 / 3582418
+Saved: ROOT_FILES/PHe_skim_2022_01_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1526255
+
+======================================
+Analisi: 2022-02
+Input files: 6 | Entries: 3013919
+  Processing entry 0 / 3013919
+  Processing entry 1000000 / 3013919
+  Processing entry 2000000 / 3013919
+  Processing entry 3000000 / 3013919
+Saved: ROOT_FILES/PHe_skim_2022_02_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1287810
+
+======================================
+Analisi: 2022-03
+Input files: 6 | Entries: 3577482
+  Processing entry 0 / 3577482
+  Processing entry 1000000 / 3577482
+  Processing entry 2000000 / 3577482
+  Processing entry 3000000 / 3577482
+Saved: ROOT_FILES/PHe_skim_2022_03_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1528627
+
+======================================
+Analisi: 2022-04
+Input files: 6 | Entries: 3473541
+  Processing entry 0 / 3473541
+  Processing entry 1000000 / 3473541
+  Processing entry 2000000 / 3473541
+  Processing entry 3000000 / 3473541
+Saved: ROOT_FILES/PHe_skim_2022_04_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1489558
+
+======================================
+Analisi: 2022-05
+Input files: 6 | Entries: 3568889
+  Processing entry 0 / 3568889
+  Processing entry 1000000 / 3568889
+  Processing entry 2000000 / 3568889
+  Processing entry 3000000 / 3568889
+Saved: ROOT_FILES/PHe_skim_2022_05_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1534463
+
+======================================
+Analisi: 2022-06
+Input files: 6 | Entries: 3437830
+  Processing entry 0 / 3437830
+  Processing entry 1000000 / 3437830
+  Processing entry 2000000 / 3437830
+  Processing entry 3000000 / 3437830
+Saved: ROOT_FILES/PHe_skim_2022_06_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1480685
+
+======================================
+Analisi: 2022-07
+Input files: 6 | Entries: 3539153
+  Processing entry 0 / 3539153
+  Processing entry 1000000 / 3539153
+  Processing entry 2000000 / 3539153
+  Processing entry 3000000 / 3539153
+Saved: ROOT_FILES/PHe_skim_2022_07_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1527961
+
+======================================
+Analisi: 2022-08
+Input files: 6 | Entries: 3532134
+  Processing entry 0 / 3532134
+  Processing entry 1000000 / 3532134
+  Processing entry 2000000 / 3532134
+  Processing entry 3000000 / 3532134
+Saved: ROOT_FILES/PHe_skim_2022_08_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1530599
+
+======================================
+Analisi: 2022-09
+Input files: 6 | Entries: 3439840
+  Processing entry 0 / 3439840
+  Processing entry 1000000 / 3439840
+  Processing entry 2000000 / 3439840
+  Processing entry 3000000 / 3439840
+Saved: ROOT_FILES/PHe_skim_2022_09_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1487457
+
+======================================
+Analisi: 2022-10
+Input files: 6 | Entries: 3560483
+  Processing entry 0 / 3560483
+  Processing entry 1000000 / 3560483
+  Processing entry 2000000 / 3560483
+  Processing entry 3000000 / 3560483
+Saved: ROOT_FILES/PHe_skim_2022_10_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1536586
+
+======================================
+Analisi: 2022-11
+Input files: 6 | Entries: 3414027
+  Processing entry 0 / 3414027
+  Processing entry 1000000 / 3414027
+  Processing entry 2000000 / 3414027
+  Processing entry 3000000 / 3414027
+Saved: ROOT_FILES/PHe_skim_2022_11_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1471003
+
+======================================
+Analisi: 2022-12
+Input files: 6 | Entries: 3307379
+  Processing entry 0 / 3307379
+  Processing entry 1000000 / 3307379
+  Processing entry 2000000 / 3307379
+  Processing entry 3000000 / 3307379
+Saved: ROOT_FILES/PHe_skim_2022_12_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1431343
+
+======================================
+Analisi: 2023-01
+Input files: 6 | Entries: 3531171
+  Processing entry 0 / 3531171
+  Processing entry 1000000 / 3531171
+  Processing entry 2000000 / 3531171
+  Processing entry 3000000 / 3531171
+Saved: ROOT_FILES/PHe_skim_2023_01_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1536226
+
+======================================
+Analisi: 2023-02
+Input files: 6 | Entries: 3167243
+  Processing entry 0 / 3167243
+  Processing entry 1000000 / 3167243
+  Processing entry 2000000 / 3167243
+  Processing entry 3000000 / 3167243
+Saved: ROOT_FILES/PHe_skim_2023_02_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1383813
+
+======================================
+Analisi: 2023-03
+Input files: 6 | Entries: 3406316
+  Processing entry 0 / 3406316
+  Processing entry 1000000 / 3406316
+  Processing entry 2000000 / 3406316
+  Processing entry 3000000 / 3406316
+Saved: ROOT_FILES/PHe_skim_2023_03_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1489521
+
+======================================
+Analisi: 2023-04
+Input files: 6 | Entries: 3211960
+  Processing entry 0 / 3211960
+  Processing entry 1000000 / 3211960
+  Processing entry 2000000 / 3211960
+  Processing entry 3000000 / 3211960
+Saved: ROOT_FILES/PHe_skim_2023_04_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1402439
+
+======================================
+Analisi: 2023-05
+Input files: 6 | Entries: 3529860
+  Processing entry 0 / 3529860
+  Processing entry 1000000 / 3529860
+  Processing entry 2000000 / 3529860
+  Processing entry 3000000 / 3529860
+Saved: ROOT_FILES/PHe_skim_2023_05_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1542026
+
+======================================
+Analisi: 2023-06
+Input files: 6 | Entries: 3416284
+  Processing entry 0 / 3416284
+  Processing entry 1000000 / 3416284
+  Processing entry 2000000 / 3416284
+  Processing entry 3000000 / 3416284
+Saved: ROOT_FILES/PHe_skim_2023_06_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1493783
+
+======================================
+Analisi: 2023-07
+Input files: 6 | Entries: 3509833
+  Processing entry 0 / 3509833
+  Processing entry 1000000 / 3509833
+  Processing entry 2000000 / 3509833
+  Processing entry 3000000 / 3509833
+Saved: ROOT_FILES/PHe_skim_2023_07_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1542977
+
+======================================
+Analisi: 2023-08
+Input files: 6 | Entries: 3521570
+  Processing entry 0 / 3521570
+  Processing entry 1000000 / 3521570
+  Processing entry 2000000 / 3521570
+  Processing entry 3000000 / 3521570
+Saved: ROOT_FILES/PHe_skim_2023_08_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1549195
+
+======================================
+Analisi: 2023-09
+Input files: 6 | Entries: 3422090
+  Processing entry 0 / 3422090
+  Processing entry 1000000 / 3422090
+  Processing entry 2000000 / 3422090
+  Processing entry 3000000 / 3422090
+Saved: ROOT_FILES/PHe_skim_2023_09_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1506120
+
+======================================
+Analisi: 2023-10
+Input files: 6 | Entries: 3548642
+  Processing entry 0 / 3548642
+  Processing entry 1000000 / 3548642
+  Processing entry 2000000 / 3548642
+  Processing entry 3000000 / 3548642
+Saved: ROOT_FILES/PHe_skim_2023_10_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1555689
+
+======================================
+Analisi: 2023-11
+Input files: 6 | Entries: 3382409
+  Processing entry 0 / 3382409
+  Processing entry 1000000 / 3382409
+  Processing entry 2000000 / 3382409
+  Processing entry 3000000 / 3382409
+Saved: ROOT_FILES/PHe_skim_2023_11_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1487317
+
+======================================
+Analisi: 2023-12
+Input files: 6 | Entries: 3526460
+  Processing entry 0 / 3526460
+  Processing entry 1000000 / 3526460
+  Processing entry 2000000 / 3526460
+  Processing entry 3000000 / 3526460
+Saved: ROOT_FILES/PHe_skim_2023_12_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1549639
+
+======================================
+Analisi: 2024-01
+Input files: 6 | Entries: 3540186
+  Processing entry 0 / 3540186
+  Processing entry 1000000 / 3540186
+  Processing entry 2000000 / 3540186
+  Processing entry 3000000 / 3540186
+Saved: ROOT_FILES/PHe_skim_2024_01_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1554841
+
+======================================
+Analisi: 2024-02
+Input files: 6 | Entries: 3332195
+  Processing entry 0 / 3332195
+  Processing entry 1000000 / 3332195
+  Processing entry 2000000 / 3332195
+  Processing entry 3000000 / 3332195
+Saved: ROOT_FILES/PHe_skim_2024_02_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1466703
+
+======================================
+Analisi: 2024-03
+Input files: 6 | Entries: 3542683
+  Processing entry 0 / 3542683
+  Processing entry 1000000 / 3542683
+  Processing entry 2000000 / 3542683
+  Processing entry 3000000 / 3542683
+Saved: ROOT_FILES/PHe_skim_2024_03_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1557437
+
+======================================
+Analisi: 2024-04
+Input files: 6 | Entries: 3435161
+  Processing entry 0 / 3435161
+  Processing entry 1000000 / 3435161
+  Processing entry 2000000 / 3435161
+  Processing entry 3000000 / 3435161
+Saved: ROOT_FILES/PHe_skim_2024_04_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1507968
+
+======================================
+Analisi: 2024-05
+Input files: 6 | Entries: 3503950
+  Processing entry 0 / 3503950
+  Processing entry 1000000 / 3503950
+  Processing entry 2000000 / 3503950
+  Processing entry 3000000 / 3503950
+Saved: ROOT_FILES/PHe_skim_2024_05_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1552977
+
+======================================
+Analisi: 2024-06
+Input files: 6 | Entries: 3426925
+  Processing entry 0 / 3426925
+  Processing entry 1000000 / 3426925
+  Processing entry 2000000 / 3426925
+  Processing entry 3000000 / 3426925
+Saved: ROOT_FILES/PHe_skim_2024_06_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1507093
+
+======================================
+Analisi: 2024-07
+Input files: 6 | Entries: 3557016
+  Processing entry 0 / 3557016
+  Processing entry 1000000 / 3557016
+  Processing entry 2000000 / 3557016
+  Processing entry 3000000 / 3557016
+Saved: ROOT_FILES/PHe_skim_2024_07_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1558922
+
+======================================
+Analisi: 2024-08
+Input files: 6 | Entries: 3516001
+  Processing entry 0 / 3516001
+  Processing entry 1000000 / 3516001
+  Processing entry 2000000 / 3516001
+  Processing entry 3000000 / 3516001
+Saved: ROOT_FILES/PHe_skim_2024_08_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1552433
+
+======================================
+Analisi: 2024-09
+Input files: 6 | Entries: 3399655
+  Processing entry 0 / 3399655
+  Processing entry 1000000 / 3399655
+  Processing entry 2000000 / 3399655
+  Processing entry 3000000 / 3399655
+Saved: ROOT_FILES/PHe_skim_2024_09_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1512117
+
+======================================
+Analisi: 2024-10
+Input files: 6 | Entries: 3440080
+  Processing entry 0 / 3440080
+  Processing entry 1000000 / 3440080
+  Processing entry 2000000 / 3440080
+  Processing entry 3000000 / 3440080
+Saved: ROOT_FILES/PHe_skim_2024_10_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1540387
+
+======================================
+Analisi: 2024-11
+Input files: 6 | Entries: 3319554
+  Processing entry 0 / 3319554
+  Processing entry 1000000 / 3319554
+  Processing entry 2000000 / 3319554
+  Processing entry 3000000 / 3319554
+Saved: ROOT_FILES/PHe_skim_2024_11_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1483165
+
+======================================
+Analisi: 2024-12
+Input files: 6 | Entries: 3463477
+  Processing entry 0 / 3463477
+  Processing entry 1000000 / 3463477
+  Processing entry 2000000 / 3463477
+  Processing entry 3000000 / 3463477
+Saved: ROOT_FILES/PHe_skim_2024_12_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1547695
+
+======================================
+Analisi: 2025-01
+Input files: 6 | Entries: 3511549
+  Processing entry 0 / 3511549
+  Processing entry 1000000 / 3511549
+  Processing entry 2000000 / 3511549
+  Processing entry 3000000 / 3511549
+Saved: ROOT_FILES/PHe_skim_2025_01_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1562977
+
+======================================
+Analisi: 2025-02
+Input files: 6 | Entries: 3182307
+  Processing entry 0 / 3182307
+  Processing entry 1000000 / 3182307
+  Processing entry 2000000 / 3182307
+  Processing entry 3000000 / 3182307
+Saved: ROOT_FILES/PHe_skim_2025_02_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1414550
+
+======================================
+Analisi: 2025-03
+Input files: 6 | Entries: 3496161
+  Processing entry 0 / 3496161
+  Processing entry 1000000 / 3496161
+  Processing entry 2000000 / 3496161
+  Processing entry 3000000 / 3496161
+Saved: ROOT_FILES/PHe_skim_2025_03_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1553676
+
+======================================
+Analisi: 2025-04
+Input files: 6 | Entries: 3351857
+  Processing entry 0 / 3351857
+  Processing entry 1000000 / 3351857
+  Processing entry 2000000 / 3351857
+  Processing entry 3000000 / 3351857
+Saved: ROOT_FILES/PHe_skim_2025_04_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1490937
+
+======================================
+Analisi: 2025-05
+Input files: 6 | Entries: 3502600
+  Processing entry 0 / 3502600
+  Processing entry 1000000 / 3502600
+  Processing entry 2000000 / 3502600
+  Processing entry 3000000 / 3502600
+Saved: ROOT_FILES/PHe_skim_2025_05_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1554604
+
+======================================
+Analisi: 2025-06
+Input files: 6 | Entries: 3326886
+  Processing entry 0 / 3326886
+  Processing entry 1000000 / 3326886
+  Processing entry 2000000 / 3326886
+  Processing entry 3000000 / 3326886
+Saved: ROOT_FILES/PHe_skim_2025_06_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1489677
+
+======================================
+Analisi: 2025-07
+Input files: 6 | Entries: 3477412
+  Processing entry 0 / 3477412
+  Processing entry 1000000 / 3477412
+  Processing entry 2000000 / 3477412
+  Processing entry 3000000 / 3477412
+Saved: ROOT_FILES/PHe_skim_2025_07_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1545455
+
+======================================
+Analisi: 2025-08
+Input files: 6 | Entries: 3486437
+  Processing entry 0 / 3486437
+  Processing entry 1000000 / 3486437
+  Processing entry 2000000 / 3486437
+  Processing entry 3000000 / 3486437
+Saved: ROOT_FILES/PHe_skim_2025_08_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1545113
+
+======================================
+Analisi: 2025-09
+Input files: 6 | Entries: 3398676
+  Processing entry 0 / 3398676
+  Processing entry 1000000 / 3398676
+  Processing entry 2000000 / 3398676
+  Processing entry 3000000 / 3398676
+Saved: ROOT_FILES/PHe_skim_2025_09_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1514521
+
+======================================
+Analisi: 2025-10
+Input files: 6 | Entries: 3474962
+  Processing entry 0 / 3474962
+  Processing entry 1000000 / 3474962
+  Processing entry 2000000 / 3474962
+  Processing entry 3000000 / 3474962
+Saved: ROOT_FILES/PHe_skim_2025_10_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1544623
+
+======================================
+Analisi: 2025-11
+Input files: 6 | Entries: 3273477
+  Processing entry 0 / 3273477
+  Processing entry 1000000 / 3273477
+  Processing entry 2000000 / 3273477
+  Processing entry 3000000 / 3273477
+Saved: ROOT_FILES/PHe_skim_2025_11_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1472234
+
+======================================
+Analisi: 2025-12
+Input files: 6 | Entries: 3446376
+  Processing entry 0 / 3446376
+  Processing entry 1000000 / 3446376
+  Processing entry 2000000 / 3446376
+  Processing entry 3000000 / 3446376
+Saved: ROOT_FILES/PHe_skim_2025_12_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_27ott26.root
+Selected events: 1544058
+
+======================================
+Monthly analysis summary
+Successful: 120
+Skipped:    0
+Failed:     0
+======================================

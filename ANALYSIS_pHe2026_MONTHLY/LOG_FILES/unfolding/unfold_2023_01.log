@@ -1,0 +1,26 @@
+
+Processing unfolding_smooth_pHe_monthly.cpp(2023,1,"ROOT_FILES/PHe_skim_2023_01_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_23ott26.root","TXT_FILES/effective_livetime.txt",100)...
+
+=== Unfolding 2023_01 ===
+Data: ROOT_FILES/PHe_skim_2023_01_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_23ott26.root
+Effective livetime [s]: 2088989.60232
+Exposure T_eff * Amc: 78527937.7057
+Toy MC samples: 100
+Output ROOT: ROOT_FILES/unfold_results_pHe_2023_01_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_vert0e7_10TeV_EPOSLHC.root
+Output ASCII: TXT_FILES/flux_spectrum_pHe_2023_01_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_vert0e7_10TeV_EPOSLHC.dat
+Tot Nobs = 1536226
+prior_sum 2511.88643135
+Ebins[10] 1000
+1) chi2 = 13151.4276982
+2) chi2 = 6537.01247022
+3) chi2 = 4092.84148647
+4) chi2 = 3167.16207547
+5) chi2 = 4781.69668211
+6) chi2 = 7058.42066649
+7) chi2 = 8851.91549201
+8) chi2 = 9601.27605087
+9) chi2 = 9250.11398435
+Running toy MC 1/100
+Running toy MC 100/100
+Results saved to ROOT_FILES/unfold_results_pHe_2023_01_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_vert0e7_10TeV_EPOSLHC.root
+(int) 0
