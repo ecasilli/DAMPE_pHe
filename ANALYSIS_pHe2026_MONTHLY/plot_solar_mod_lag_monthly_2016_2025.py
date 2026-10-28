@@ -189,8 +189,8 @@ def save_canvas(canvas):
         os.makedirs(OUTPUT_DIR)
     canvas.Modified()
     canvas.Update()
-    canvas.SaveAs(os.path.join(OUTPUT_DIR, canvas.GetName() + ".png"))
-    canvas.SaveAs(os.path.join(OUTPUT_DIR, canvas.GetName() + ".pdf"))
+    canvas.SaveAs(os.path.join(OUTPUT_DIR, canvas.GetName() + "_wo20240630.png"))
+    canvas.SaveAs(os.path.join(OUTPUT_DIR, canvas.GetName() + "_wo20240630.pdf"))
 
 
 # Conserva gli oggetti Python, affinche' PyROOT non li distrugga.

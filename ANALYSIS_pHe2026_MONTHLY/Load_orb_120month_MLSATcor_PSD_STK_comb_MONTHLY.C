@@ -23,7 +23,7 @@ void addYearMonth(TChain *skim, TString inputDir, int year, int month) {
 
     for (const auto& energy : energies) {
         TString filename = TString::Format(
-            "%s/skim_flight_%s_%d_%02d.root",
+            "%s/skim_flight_%s_%d_%02d_wo30.root",
             inputDir.Data(), energy, year, month
         );
 

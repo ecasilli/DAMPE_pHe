@@ -8,18 +8,18 @@ Exposure T_eff * Amc: 74289846.7225
 Toy MC samples: 10000
 Output ROOT: ROOT_FILES/unfold_results_pHe_2024_06_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_vert0e7_10TeV_EPOSLHC.root
 Output ASCII: TXT_FILES/flux_spectrum_pHe_2024_06_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_vert0e7_10TeV_EPOSLHC.dat
-Tot Nobs = 1507093
+Tot Nobs = 1456593
 prior_sum 2511.88643135
 Ebins[10] 1000
-1) chi2 = 11397.3251772
-2) chi2 = 6205.31752259
-3) chi2 = 4036.21254331
-4) chi2 = 2769.34094436
-5) chi2 = 3062.87719286
-6) chi2 = 4780.19573323
-7) chi2 = 4810.52141368
-8) chi2 = 4644.58226003
-9) chi2 = 4584.76140337
+1) chi2 = 10894.4875459
+2) chi2 = 5910.15420489
+3) chi2 = 3839.25719913
+4) chi2 = 2632.98798259
+5) chi2 = 2709.27168101
+6) chi2 = 4188.25495417
+7) chi2 = 4534.05851867
+8) chi2 = 4357.53582222
+9) chi2 = 4289.13658851
 Running toy MC 1/10000
 Running toy MC 501/10000
 Running toy MC 1001/10000
