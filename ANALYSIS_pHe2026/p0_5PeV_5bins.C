@@ -328,7 +328,7 @@ void p0_5PeV_5bins()
             "Proton_100TeV_1PeV_EPOSLHC_FTFP_merged.root",
             1.e5,
             1.e6,
-            19431600.
+            19441600.
         },
 
         {

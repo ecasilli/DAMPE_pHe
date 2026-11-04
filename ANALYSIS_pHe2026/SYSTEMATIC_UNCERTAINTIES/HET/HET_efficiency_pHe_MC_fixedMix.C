@@ -266,7 +266,7 @@ Bool_t AccumulateGeneratedSpectrum(
             if (fin) { fin->Close(); delete fin; }
             return kFALSE;
         }
-        TH1 *h = dynamic_cast<TH1*>(fin->Get("h_energy_truth_8bins_cut_0"));
+        TH1 *h = dynamic_cast<TH1*>(fin->Get("h_energy_truth_3bins_cut_0"));
         if (!h) {
             cerr << "ERROR: istogramma h_energy_truth_3bins_cut_0 assente in "
                  << sampleFiles[iset] << endl;

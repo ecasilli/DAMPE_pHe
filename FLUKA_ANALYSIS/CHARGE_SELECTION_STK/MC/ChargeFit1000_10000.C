@@ -358,7 +358,7 @@ void ChargeFit1000_10000()
 {
    PrintTimestamp("ChargeFit1000_10000.C");
  
-	TFile *InputFile = new TFile("../../ROOT_FILES/PHe_MC_p_He_5PeV_STKcharge_adc_480bins_15sett26_nocut05.root");
+	TFile *InputFile = new TFile("../../ROOT_FILES/PHe_MC_p_He_1PeV_FLUKA_STKcharge_adc_480bins_02nov26.root");
 //	TFile *OutputFile = new TFile("HistoLanGausFit.root","RECREATE");
 //		TFile *OutputFile = new TFile("HistoLanGausFit.root","UPDATE");
 

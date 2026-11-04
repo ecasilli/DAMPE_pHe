@@ -260,6 +260,9 @@ if __name__ == '__main__':
     file_DAMPE2026_10TeV_EPOSLHC = 'TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_vert0e7_10TeV_EPOSLHC_PLOT.dat'
     gr_DAMPE2026_10TeV_EPOSLHC = make_flux_graph_DAMPE2026(file_DAMPE2026_10TeV_EPOSLHC, kBlue+1, 20, 1.3, 2.6)
 
+    file_DAMPE2026_10TeV_EPOSLHC_XScorr = 'TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_vert0e7_10TeV_EPOSLHC_XScorr_PLOT.dat'
+    gr_DAMPE2026_10TeV_EPOSLHC_XScorr = make_flux_graph_DAMPE2026(file_DAMPE2026_10TeV_EPOSLHC_XScorr, kRed+1, 20, 1.3, 2.6)
+
     file_DAMPE2026_PSDprog_STKch_cut06 = 'TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_2e8sigmaLow_6sigmaUp_PSDprogr_STKcharge_comb_STKvert0e7_nocut06_17sett26_wPHe_kernel_5bins_PLOT.dat'
     gr_DAMPE2026_PSDprog_STKch_cut06comp = make_flux_graph_DAMPE2026(file_DAMPE2026_PSDprog_STKch_cut06, kBlue+1, 24, 1.3, 2.6)
 
@@ -352,8 +355,9 @@ if __name__ == '__main__':
     #gr_DAMPE2026_72m.Draw("P SAME")
     #gr_DAMPE2026.Draw("P SAME")
     #gr_DAMPE2026_PSDprog.Draw("P SAME")
-    gr_DAMPE2026_PSDprog_STKch.Draw("P SAME")
+    #gr_DAMPE2026_PSDprog_STKch.Draw("P SAME")
     gr_DAMPE2026_10TeV_EPOSLHC.Draw("P SAME")
+    gr_DAMPE2026_10TeV_EPOSLHC_XScorr.Draw("P SAME")
     #gr_DAMPE2026_PSDprog_STKch_cut06comp.Draw("P SAME")
     #gr_DAMPE2026_wSTK.Draw("P SAME")
     #gr_DAMPE2026_all.Draw("P SAME")
@@ -387,8 +391,10 @@ if __name__ == '__main__':
     leg.AddEntry(gr_DAMPE2026_pHe_Geneva, "#Phi_{p} + #Phi_{He}  ", "PE")
     #leg.AddEntry(gr_DAMPE2026, "p+He DAMPE (this work - in progress) ", "PE")
     #leg.AddEntry(gr_DAMPE2026_PSDprog, "p+He DAMPE (July 26 - preliminary) ", "PE")
-    leg.AddEntry(gr_DAMPE2026_PSDprog_STKch, "p+He (10-100 TeV FTFP) ", "PE")
-    leg.AddEntry(gr_DAMPE2026_10TeV_EPOSLHC, "p+He (10-100 TeV EPOSLHC_FTFP) ", "PE")
+    #leg.AddEntry(gr_DAMPE2026_PSDprog_STKch, "p+He (10-100 TeV FTFP) ", "PE")
+    #leg.AddEntry(gr_DAMPE2026_10TeV_EPOSLHC, "p+He (10-100 TeV EPOSLHC_FTFP) ", "PE")
+    leg.AddEntry(gr_DAMPE2026_10TeV_EPOSLHC, "p+He  ", "PE")
+    leg.AddEntry(gr_DAMPE2026_10TeV_EPOSLHC_XScorr, "p+He - with XS corr ", "PE")
     #leg.AddEntry(gr_DAMPE2026_72m, "p+He DAMPE (72 months) ", "PE")
     #leg.AddEntry(gr_DAMPE2026_Irene, "p+He DAMPE (Irene's skim) ", "PE")
     #leg.AddEntry(gr_DAMPE2026_noCuts, "p+He DAMPE (w/o cut02 and cut05) ", "PE")
@@ -422,8 +428,8 @@ if __name__ == '__main__':
 
     cc.Update()
 
-    cc.SaveAs('PLOTS/flux_pHe_update2026_wPHe_24sett26_onlyGeneva_5bins_3sigmaLow_6sigmaUp_450adc_10TeV_EPOSLHC.pdf')
-    cc.SaveAs('PLOTS/flux_pHe_update2026_wPHe_24sett26_onlyGeneva_5bins_3sigmaLow_6sigmaUp_450adc_10TeV_EPOSLHC.png')
+    cc.SaveAs('PLOTS/flux_pHe_update2026_wPHe_24sett26_onlyGeneva_5bins_3sigmaLow_6sigmaUp_450adc_10TeV_EPOSLHC_XScorr.pdf')
+    cc.SaveAs('PLOTS/flux_pHe_update2026_wPHe_24sett26_onlyGeneva_5bins_3sigmaLow_6sigmaUp_450adc_10TeV_EPOSLHC_XScorr.png')
 
     raw_input("Press enter..")
 

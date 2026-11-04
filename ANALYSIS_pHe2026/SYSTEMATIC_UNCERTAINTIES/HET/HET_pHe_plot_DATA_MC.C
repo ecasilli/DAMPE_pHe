@@ -63,7 +63,7 @@ TH1D* MergeCountsByIndex(const TH1D* orig,
 void HET_pHe_plot_DATA_MC(
     const char *dataName="HETeff_skim_Orb118Month_3sLow_6sUp_PSDprogr_STKch450_comb_vert0e7_3bins.root",
     //const char *mcName="HET_eff_MC_pHe_3sLow_6sUp_PSDprogr_STKch450_comb_vert0e7_10TeV_EPOSLHC_3bins.root",
-    const char *mcName="HET_eff_MC_pHe_fixedMix_p70_He30_3binBGO_3binTrue.root",
+    const char *mcName="HET_eff_MC_pHe_fixedMix_p60_He40_3binBGO_3binTrue.root",
     Double_t xmin=45., Double_t xmax=1.e5,
     Double_t yRatioMin=0.88, Double_t yRatioMax=1.18)
 {
@@ -285,7 +285,7 @@ void HET_pHe_plot_DATA_MC(
     leg->SetLineColor(kBlack); leg->SetFillColor(0);
     leg->SetTextSize(0.037); leg->SetHeader("#scale[1.1]{p + He}","C");
     leg->AddEntry(gD,"Flight data","lep");
-    leg->AddEntry(gM,"MC (70-30)","lep"); leg->Draw();
+    leg->AddEntry(gM,"MC (60-40)","lep"); leg->Draw();
 
     c->cd();
     TPad* pad2=new TPad("pad2_HET","DATA / MC",0.,0.,1.,0.30);
@@ -315,7 +315,7 @@ void HET_pHe_plot_DATA_MC(
     y2.SetTextSize(0.076); y2.DrawLatexNDC(0.035,0.45,"DATA / MC");
     c->cd(); c->Update();
 
-    const TString outBase="HET_pHe_DATA_MC_70-30_3bins_merge10_100TeV";
+    const TString outBase="HET_pHe_DATA_MC_60-40_fix_3bins_merge10_100TeV";
     c->SaveAs(outBase+".png");
     c->SaveAs(outBase+".pdf");
     //c->SaveAs(outBase+".eps");

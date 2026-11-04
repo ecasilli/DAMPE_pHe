@@ -86,7 +86,7 @@ std::string GetTimestamp()
 
 void ChargeSelectionGraph_STK_FLUKA()
 {
-	PrintTimestamp("ChargeSelectionGraph_2.C");
+	PrintTimestamp("ChargeSelectionGraph_STK_FLUKA.C");
 	std::string timestamp = GetTimestamp();
 	std::string ParticleTag = "H";
 	//std::string ParticleTag = "He";
@@ -357,11 +357,11 @@ leg2->AddEntry(GausSigmaHMC,"MC data","ep");
 leg2->AddEntry(GausSigmaH,"Flight data","ep");
 
 leg2->Draw();
-/*
-C1->SaveAs(Form("PLOTS/MPVPlot_%s.pdf", ParticleTag.c_str()));
-C5->SaveAs(Form("PLOTS/WidthPlot_%s.pdf", ParticleTag.c_str()));
-C7->SaveAs(Form("PLOTS/SigmaPlot_%s.pdf", ParticleTag.c_str()));
-*/
+
+C1->SaveAs(Form("PLOTS/MPVPlot_FLUKA_%s.pdf", ParticleTag.c_str()));
+C5->SaveAs(Form("PLOTS/WidthPlot_FLUKA_%s.pdf", ParticleTag.c_str()));
+C7->SaveAs(Form("PLOTS/SigmaPlot_FLUKA_%s.pdf", ParticleTag.c_str()));
+
 /*
 C1->SaveAs(Form("PLOTS/MPVPlot_%s_corr.pdf", ParticleTag.c_str()));
 C5->SaveAs(Form("PLOTS/WidthPlot_%s_corr.pdf", ParticleTag.c_str()));

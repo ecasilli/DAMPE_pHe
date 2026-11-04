@@ -20,9 +20,9 @@
 //          2 tra 10 e 100 TeV; 1 tra 100 TeV e 10 PeV.
 void HET_pHe_rebin_and_plot_DATA_MC()
 {
-    const char *dataName = "HETeff_skim_Orb108Month_3sLow_6sUp_PSDprogr_STKch450_comb_vert0e7.root";
+    const char *dataName = "HETeff_skim_Orb118Month_3sLow_6sUp_PSDprogr_STKch450_comb_vert0e7_3bins.root";
     //const char *mcName   = "HET_eff_MC_pHe_3sLow_6sUp_PSDprogr_STKch450_comb_vert0e7_10TeV_EPOSLHC.root";
-    const char *mcName  = "HET_eff_MC_pHe_fixedMix_p70_He30_8binBGO_8binTrue.root";
+    const char *mcName  = "HET_eff_MC_pHe_fixedMix_p60_He40_3binBGO_3binTrue.root";
 
     TFile *fData = TFile::Open(dataName, "READ");
     TFile *fMC   = TFile::Open(mcName, "READ");
@@ -203,7 +203,7 @@ void HET_pHe_rebin_and_plot_DATA_MC()
     leg->SetLineColor(kBlack); leg->SetFillColor(0);
     leg->SetTextSize(0.037); leg->SetHeader("#scale[1.1]{p + He}","C");
     leg->AddEntry(gD,"Flight data","lep");
-    leg->AddEntry(gM,"MC (70-30)","lep"); leg->Draw();
+    leg->AddEntry(gM,"MC (60-40)","lep"); leg->Draw();
 
     c->cd();
     TPad *pad2=new TPad("pad2_pHe","DATA / MC",0.,0.,1.,0.30);
@@ -234,10 +234,10 @@ void HET_pHe_rebin_and_plot_DATA_MC()
     y2.SetTextSize(0.076); y2.DrawLatexNDC(0.035,0.45,"DATA / MC");
     c->cd(); c->Update();
 
-    c->SaveAs("HET_pHe_rebin_DATA_MC_70-30_10TeV_EPOSLHC.png");
-    c->SaveAs("HET_pHe_rebin_DATA_MC_70-30_10TeV_EPOSLHC.pdf");
-    //c->SaveAs("HET_pHe_rebin_DATA_MC_70-30_10TeV_EPOSLHC.eps");
-    TFile *out=TFile::Open("HET_pHe_rebin_DATA_MC_70-30_10TeV_EPOSLHC.root","RECREATE");
+    c->SaveAs("HET_pHe_rebin_DATA_MC_60-40_fixed_10TeV_EPOSLHC.png");
+    c->SaveAs("HET_pHe_rebin_DATA_MC_60-40_fixed_10TeV_EPOSLHC.pdf");
+    //c->SaveAs("HET_pHe_rebin_DATA_MC_60-40_fixed_10TeV_EPOSLHC.eps");
+    TFile *out=TFile::Open("HET_pHe_rebin_DATA_MC_60-40_fixed_10TeV_EPOSLHC.root","RECREATE");
     if (out && !out->IsZombie()) {
         out->cd();
         for (TH1D *h : {dTot,dPass,mTot,mPass}) h->Write();
@@ -247,6 +247,6 @@ void HET_pHe_rebin_and_plot_DATA_MC()
     }
     fData->Close(); fMC->Close();
     std::cout << "Binning nuovo: " << nNew
-              << " bin. Output: HET_pHe_rebin_DATA_MC_70-30_10TeV_EPOSLHC.*" << std::endl;
+              << " bin. Output: HET_pHe_rebin_DATA_MC_60-40_fixed_10TeV_EPOSLHC.*" << std::endl;
 }
 

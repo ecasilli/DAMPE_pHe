@@ -177,7 +177,7 @@ void PrintContributions(double energy, const vector<MCsample> &samples, const ve
 
 
 // MAIN
-void p0_5PeV_5bins()
+void p0_5PeV_5bins_FLUKA()
 {
     // ========================================================
     // Nome dell'istogramma presente negli skim
@@ -192,10 +192,10 @@ void p0_5PeV_5bins()
     // ========================================================
 
     TString dirP =
-        "/nfs/argo/dampe/SKIM_2026/PROTON/";
+        "/nfs/argo/dampe/SKIM_2026/PROTON/FLUKA/";
 
     TString dirHe =
-        "/nfs/argo/dampe/SKIM_2026/HELIUM/";
+        "/nfs/argo/dampe/SKIM_2026/HELIUM/FLUKA/";
 
 
     // ========================================================
@@ -209,56 +209,56 @@ void p0_5PeV_5bins()
         {
             "He_10GeV_100GeV",
             dirHe +
-            "He4_10GeV_100GeV_FTFP_merged.root",
+            "He4-v6r0p10_10GeV_100GeV_FLUKA_merged.root",
             1.e1,
             1.e2,
-            20380000.
+            198586517.
         },
 
         {
             "He_100GeV_1TeV",
             dirHe +
-            "He4_100GeV_1TeV_FTFP_merged.root",
+            "He4-v6r0p18_100GeV_1TeV_FLUKA_merged.root",
             1.e2,
             1.e3,
-            19556000.
+            66009860.
         },
 
         {
             "He_1TeV_10TeV",
             dirHe +
-            "He4_1TeV_10TeV_FTFP_merged.root",
+            "He4-v6r0p18_1TeV_10TeV_FLUKA_merged.root",
             1.e3,
             1.e4,
-            11346000.
+            77281442.
         },
 
         {
             "He_10TeV_100TeV",
             dirHe +
-            "He4_10TeV_100TeV_EPOSLHC_FTFP_merged.root",
+            "He4-v6r0p18_10TeV_100TeV_FLUKA_merged.root",
             1.e4,
             1.e5,
-            17694000.
+            19993301.
         },
 
         {
             "He_100TeV_500TeV",
             dirHe +
-            "He4_100TeV_500TeV_EPOSLHC_FTFP_merged.root",
+            "He4-v6r0p10_100TeV_500TeV_FLUKA_merged.root",
             1.e5,
             5.e5,
-            10305100.
+            20132200.
         },
 
         {
             "He_500TeV_1PeV",
             dirHe +
-            "He4_500TeV_1PeV_EPOSLHC_FTFP_merged.root",
+            "He4-v6r0p18_500TeV_1PeV_FLUKA_merged.root",
             5.e5,
             1.e6,
-            10281395.
-        },
+            1246818.
+        } /*,
 
         {
             "He_1PeV_5PeV",
@@ -267,7 +267,7 @@ void p0_5PeV_5bins()
             1.e6,
             5.e6,
             5064900.
-        }
+        }*/
     };
 
 
@@ -280,56 +280,47 @@ void p0_5PeV_5bins()
         {
             "P_10GeV_100GeV",
             dirP +
-            "Proton_10GeV_100GeV_FTFP_merged.root",
+            "Proton_10GeV_100GeV_FLUKA_merged.root",
             1.e1,
             1.e2,
-            1740700000.
+            1055454555.
         },
 
         {
             "P_100GeV_1TeV",
             dirP +
-            "Proton_100GeV_1TeV_FTFP_merged.root",
+            "Proton_100GeV_1TeV_FLUKA_merged.root",
             1.e2,
             1.e3,
-            519070000.
+            579900871.
         },
 
         {
             "P_1TeV_10TeV",
             dirP +
-            "Proton_1TeV_10TeV_FTFP_merged.root",
+            "Proton_1TeV_10TeV_FLUKA_merged.root",
             1.e3,
             1.e4,
-            201432000.
+            274526589.
         },
-        // FTFP_BERT
-/*        {
-            "P_10TeV_100TeV",
-            dirP +
-            "Proton_10TeV_100TeV_FTFP_merged.root",
-            1.e4,
-            1.e5,
-            138744900.
-        },*/
-        // EPOSLHC_FTFP_BERT
+        
         {
             "P_10TeV_100TeV",
             dirP +
-            "Proton_10TeV_100TeV_EPOSLHC_FTFP_merged.root",
+            "Proton_10TeV_100TeV_FLUKA_merged.root",
             1.e4,
             1.e5,
-            107980000.
+            208226000.
         },
 
         {
             "P_100TeV_1PeV",
             dirP +
-            "Proton_100TeV_1PeV_EPOSLHC_FTFP_merged.root",
+            "Proton_100TeV_1PeV_FLUKA_merged.root",
             1.e5,
             1.e6,
-            19431600.
-        },
+            9999400.
+        } /*,
 
         {
             "P_1PeV_5PeV",
@@ -338,7 +329,7 @@ void p0_5PeV_5bins()
             1.e6,
             5.e6,
             5094200.
-        }
+        }*/
     };
 
 
@@ -416,7 +407,7 @@ void p0_5PeV_5bins()
     // OUTPUT
     // ========================================================
 
-    TFile *fout = new TFile("PHe_MC_FTFP_10TeV_EPOSLHC_h1Ngen_5binsPerDecade.root", "RECREATE");
+    TFile *fout = new TFile("PHe_MC_FLUKA_1PeV_h1Ngen_5binsPerDecade.root", "RECREATE");
     fout->cd();
 
     // Totali

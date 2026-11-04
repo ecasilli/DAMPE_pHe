@@ -358,7 +358,7 @@ void ChargeFit630_1000()
 {
    PrintTimestamp("ChargeFit630_1000.C");
  
-	TFile *InputFile = new TFile("../../ROOT_FILES/PHe_MC_p_He_5PeV_charge_240bins_NewProgrCharge_asym_10sett26_nocut05.root");
+	TFile *InputFile = new TFile("../../ROOT_FILES/PHe_MC_p_He_1PeV_FLUKA_PSDcharge_240bins_NewProgrCharge_asym_02nov26.root");
 //	TFile *OutputFile = new TFile("HistoLanGausFit.root","RECREATE");
 //		TFile *OutputFile = new TFile("HistoLanGausFit.root","UPDATE");
 
@@ -409,7 +409,7 @@ void ChargeFit630_1000()
    Double_t svHe[4], plloHe[4], plhiHe[4], fpHe[4], fpeHe[4];
   // fr[0]=0.3*h1->GetMean();
   // fr[1]=3.0*h1->GetMean();
-    frHe[0]=1.5;  
+    frHe[0]=1.56;  
     frHe[1]=4.0;  
 
 
@@ -481,8 +481,8 @@ void ChargeFit630_1000()
    Double_t sv[4], pllo[4], plhi[4], fp[4], fpe[4];
   // fr[0]=0.3*h1->GetMean();
   // fr[1]=3.0*h1->GetMean();
-	 fr[0]=0.7; 
-    fr[1]=2.5; 
+	 fr[0]=0.74; 
+    fr[1]=2.6; 
 
 
    pllo[0]=0.05; pllo[1]=0.5; pllo[2]=1.0E-13; pllo[3]=1.0E-10;

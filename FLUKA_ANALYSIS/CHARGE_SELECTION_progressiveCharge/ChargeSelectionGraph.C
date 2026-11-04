@@ -88,11 +88,11 @@ void ChargeSelectionGraph()
 {
 	PrintTimestamp("ChargeSelectionGraph.C");
 	std::string timestamp = GetTimestamp();
-	std::string ParticleTag = "H";
-	//std::string ParticleTag = "He";
+	//std::string ParticleTag = "H";
+	std::string ParticleTag = "He";
 
 	std::ifstream in;	
-	in.open("LangausResults_FLUKA_p.txt");
+	in.open("LangausResults_FLUKA_He.txt");
 
 		gROOT->Reset();
 		gStyle->SetOptFit(0);
@@ -282,9 +282,9 @@ cout << "\n * * * * * * *    Width    * * * * * * * \n" << endl;
 		WidthHMC->SetLineColor(kRed+1);
 		WidthHMC->SetTitle(Form(" ;BGO Energy (GeV); Width %s ", ParticleTag.c_str()));
 		WidthHMC->SetFillStyle(0);  
-		//WidthHMC->Fit("ChargeFitFuncWidthHMC","R"); 		
+		WidthHMC->Fit("ChargeFitFuncWidthHMC","R"); 		
 		//WidthHMC->Draw("AP");
-		WidthHMC_forFit->Fit("ChargeFitFuncWidthHMC", "R");
+		//WidthHMC_forFit->Fit("ChargeFitFuncWidthHMC", "R");
 		WidthHMC->Draw("AP");
 
 		cout << "TString PWidthf = \"(" << ChargeFitFuncWidthH->GetParameter(0) << "+(" << ChargeFitFuncWidthH->GetParameter(1) << "*log10(BGO_EnergyG_SatCorr_ML_ions2))" << "+(" << ChargeFitFuncWidthH->GetParameter(2) << "*log10(BGO_EnergyG_SatCorr_ML_ions2)**2)" << "+(" << ChargeFitFuncWidthH->GetParameter(3) << "*log10(BGO_EnergyG_SatCorr_ML_ions2)**3)+(" << ChargeFitFuncWidthH->GetParameter(4) << "*log10(BGO_EnergyG_SatCorr_ML_ions2)**4)" << ")\";" << endl;
@@ -338,7 +338,7 @@ cout << "\n * * * * * * *    Sigma    * * * * * * * \n" << endl;
 		GausSigmaH->Fit("FitFuncGausH","R");GausSigmaH->Fit("FitFuncGausH","R");
 		GausSigmaH->Draw("AP");
 //		TF1 *FitFuncGausHMC  = new TF1("FitFuncGausHMC","[0]",25.,4000.0);
-		TF1 *FitFuncGausHMC  = new TF1("FitFuncGausHMC","[0]",25.,170.0);
+		TF1 *FitFuncGausHMC  = new TF1("FitFuncGausHMC","[0]",25.,100000.0);
 
 		//FitFuncGausHMC->SetParameters(0.5,1.0e-50);
 		FitFuncGausHMC->SetLineColor(kRed+1);
@@ -385,11 +385,11 @@ leg2->AddEntry(GausSigmaH,"Flight data","ep");
 
 leg2->Draw();
 
-/*
+
 C1->SaveAs(Form("PLOTS/MPVPlot_%s_%s.pdf", ParticleTag.c_str(), timestamp.c_str()));
 C5->SaveAs(Form("PLOTS/WidthPlot_%s_%s.pdf", ParticleTag.c_str(), timestamp.c_str()));
 C7->SaveAs(Form("PLOTS/SigmaPlot_%s_%s.pdf", ParticleTag.c_str(), timestamp.c_str()));
-*/
+
 
 /*
 C1->SaveAs(Form("PLOTS/MPVPlot_%s_%s_corr_3.pdf", ParticleTag.c_str(), timestamp.c_str()));

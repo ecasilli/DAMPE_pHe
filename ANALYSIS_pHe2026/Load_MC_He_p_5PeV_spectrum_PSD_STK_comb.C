@@ -236,6 +236,7 @@ void ProcessMCSpecies(TChain **chains,
         Double_t STK_chargeY_etaCorr[6];
         Int_t BGO_HET;
         Double_t STK_vertexPrediction;
+        Double_t MC_weight_p_GEANT4, MC_weight_he_GEANT4;
 
         // =============================
         // ----- Branch selection ------
@@ -254,6 +255,8 @@ void ProcessMCSpecies(TChain **chains,
         chain->SetBranchStatus("STK_chargeX_etaCorr",          1);
         chain->SetBranchStatus("STK_chargeY_etaCorr",          1);
         chain->SetBranchStatus("STK_vertexPrediction",         1);
+        chain->SetBranchStatus("MC_weight_p_GEANT4",           1);
+        chain->SetBranchStatus("MC_weight_he_GEANT4",          1);
 
         chain->SetCacheSize(200 * 1024 * 1024);
         chain->AddBranchToCache("*", kTRUE);
@@ -274,6 +277,8 @@ void ProcessMCSpecies(TChain **chains,
         chain->SetBranchAddress("STK_chargeX_etaCorr",           STK_chargeX_etaCorr);
         chain->SetBranchAddress("STK_chargeY_etaCorr",           STK_chargeY_etaCorr);
         chain->SetBranchAddress("STK_vertexPrediction",         &STK_vertexPrediction);
+        chain->SetBranchAddress("MC_weight_p_GEANT4",           &MC_weight_p_GEANT4);
+        chain->SetBranchAddress("MC_weight_he_GEANT4",          &MC_weight_he_GEANT4);
 
         // =============================
         // ----- Loop unico su tutti gli eventi ------
@@ -302,8 +307,12 @@ void ProcessMCSpecies(TChain **chains,
 
             Double_t weight = sampleNorm[iset] * truthBinNorm[jTrue] * TMath::Power( MC_EnergyT, -1.7);
 
-            if (isHelium)
+            if (isHelium){
                 weight *= GeoCorr;
+                weight *= MC_weight_he_GEANT4;
+            } else {
+                weight *= MC_weight_p_GEANT4;
+            }
 
             if (MC_EnergyT <= 20.) continue;
 
@@ -500,7 +509,7 @@ void Load_MC_He_p_5PeV_spectrum_PSD_STK_comb(){
         TMath::Log(10.) / 201432000.,
         //TMath::Log(10.) / 138744900.,
         TMath::Log(10.) / 107980000.,
-        TMath::Log(10.) / 19431600.,
+        TMath::Log(10.) / 19441600.,
         TMath::Log(5.)  / 5094200.
     };
 
@@ -528,7 +537,7 @@ void Load_MC_He_p_5PeV_spectrum_PSD_STK_comb(){
     // =======================================
     // Output
 
-    TFile *fout = new TFile("ROOT_FILES/PHe_MC_p_He_5PeV_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_10TeV_EPOSLHC.root", "RECREATE");
+    TFile *fout = new TFile("ROOT_FILES/PHe_MC_p_He_5PeV_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_10TeV_EPOSLHC_XScorr.root", "RECREATE");
     fout->cd();
 
     // ===============================================
