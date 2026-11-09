@@ -358,7 +358,7 @@ void ChargeFit2511_3981()
 {
    PrintTimestamp("ChargeFit2511_3981.C");
  
-	TFile *InputFile = new TFile("../../ROOT_FILES/PHe_MC_p_He_1PeV_FLUKA_PSDcharge_240bins_NewProgrCharge_asym_02nov26.root");
+	TFile *InputFile = new TFile("../../ROOT_FILES/PHe_MC_p_He_5PeV_FLUKA_PSDcharge_240bins_NewProgrCharge_asym_11nov26.root");
 //	TFile *OutputFile = new TFile("HistoLanGausFit.root","RECREATE");
 //		TFile *OutputFile = new TFile("HistoLanGausFit.root","UPDATE");
 
@@ -481,7 +481,7 @@ void ChargeFit2511_3981()
   // fr[0]=0.3*h1->GetMean();
   // fr[1]=3.0*h1->GetMean();
     fr[0]=0.8; 
-    fr[1]=2.8; 
+    fr[1]=3.0; //2.8; 
 
 
    pllo[0]=0.05; pllo[1]=0.5; pllo[2]=1.0E-14; pllo[3]=1.0E-10;
