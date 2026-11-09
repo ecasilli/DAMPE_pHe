@@ -334,7 +334,7 @@ void langaus() {
 void ChargeFit31622_100000()
 {
  
-	TFile *InputFile = new TFile("../../ROOT_FILES/PHe_MC_p_He_1PeV_FLUKA_charge_240bins_NewProgrCharge_asym_02nov26_CORRECTED.root");
+	TFile *InputFile = new TFile("../../ROOT_FILES/PHe_MC_p_He_5PeV_FLUKA_PSDcharge_240bins_NewProgrCharge_asym_11nov26_CORRECTED.root");
 //	TFile *OutputFile = new TFile("HistoLanGausFit.root","RECREATE");
 //		TFile *OutputFile = new TFile("HistoLanGausFit.root","UPDATE");
 

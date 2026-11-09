@@ -358,7 +358,7 @@ void ChargeFit_all()
 {
    PrintTimestamp("ChargeFit_all.C");
  
-	TFile *InputFile = new TFile("../../ROOT_FILES/PHe_MC_p_He_1PeV_FLUKA_STKcharge_adc_480bins_02nov26_all.root");
+	TFile *InputFile = new TFile("../../ROOT_FILES/PHe_MC_p_He_5PeV_STKcharge_adc_480bins_11nov26_all.root");
 //	TFile *OutputFile = new TFile("HistoLanGausFit.root","RECREATE");
 //		TFile *OutputFile = new TFile("HistoLanGausFit.root","UPDATE");
 

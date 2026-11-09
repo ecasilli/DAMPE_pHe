@@ -425,7 +425,7 @@ void Load_MC_He_p_5PeV_PSDcharge_loop_smearingCorr(){
     // =======================================
     // Output
 
-    TFile *fout = new TFile("ROOT_FILES/PHe_MC_p_He_5PeV_FLUKA_charge_240bins_NewProgrCharge_asym_11nov26_CORRECTED.root", "RECREATE");
+    TFile *fout = new TFile("ROOT_FILES/PHe_MC_p_He_5PeV_FLUKA_PSDcharge_240bins_NewProgrCharge_asym_11nov26_CORRECTED.root", "RECREATE");
     fout->cd();
 
     for (Int_t i = 0; i < 15; ++i) {
