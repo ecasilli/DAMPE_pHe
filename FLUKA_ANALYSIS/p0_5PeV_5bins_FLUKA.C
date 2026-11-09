@@ -191,11 +191,25 @@ void p0_5PeV_5bins_FLUKA()
     // DIRECTORY
     // ========================================================
 
-    TString dirP =
-        "/nfs/argo/dampe/SKIM_2026/PROTON/FLUKA/";
+    TString basePath;
+    TString hostname = gSystem->HostName();
+     
+    if (hostname.Contains("cnaf")) {
+        basePath = "/storage/gpfs_data/dampe/users/SKIM_2026";
+    } else if (hostname.Contains("le.infn.it")) {
+        basePath = "/nfs/argo/dampe/SKIM_2026";
+    } else {
+        cout << "ERROR: hostname non riconosciuto: " << hostname << endl;
+        cout << "  Aggiungere il path corretto per questo sito." << endl;
+        return;
+    }
+     
+    cout << "Hostname: " << hostname << endl;
+    cout << "Base path: " << basePath << endl;
 
-    TString dirHe =
-        "/nfs/argo/dampe/SKIM_2026/HELIUM/FLUKA/";
+    TString dirP = basePath + "/PROTON/FLUKA/";
+
+    TString dirHe= basePath + "/HELIUM/FLUKA/";
 
 
     // ========================================================

@@ -507,14 +507,14 @@ void Load_MC_He_p_5PeV_spectrum_PSD_STK_comb_FLUKA(){
 
     Double_t normHe[nsetHe] = {
 
-        //(TMath::Log(10.) / 198586517.) * GeoCorr, // 10 GeV - 100 GeV, v6r0p10
-        (TMath::Log(10.) / 474272213.) * GeoCorr, // 10 GeV - 100 GeV, v6r0p18
+        //(TMath::Log(10.) / 198586517.), // 10 GeV - 100 GeV, v6r0p10
+        (TMath::Log(10.) / 474272213.), // 10 GeV - 100 GeV, v6r0p18
         (TMath::Log(10.) / 66009860.), // 100 GeV - 1 TeV, v6r0p18
         (TMath::Log(10.) / 77281442.), // 1 TeV - 10 TeV, v6r0p18
         (TMath::Log(10.) / 19993301.), // 10 TeV - 100 TeV, v6r0p18
         (TMath::Log(5.) / 20132200.), // 100 TeV - 500 TeV, v6r0p10
         (TMath::Log(2.) / 1246818.), // 500 TeV - 1 PeV, v6r0p18
-        (TMath::Log(5.) / 2263134.) * GeoCorr // 1 PeV - 5 PeV
+        (TMath::Log(5.) / 2263134.) // 1 PeV - 5 PeV
     };
 
     // TRUE-ENERGY BIN NORMALIZATION
