@@ -77,35 +77,47 @@ const SmearingPars protonSmearing = {
     // MPV DATA
     { 0.988625, 0.0166979, 0.0136979, -0.0114983, 0.00313886 },
     // MPV MC
-    { 0.892983, 0.159744, -0.0791052,  0.0181592, 0.000845397 },
+    //{ 0.892983, 0.159744, -0.0791052,  0.0181592, 0.000845397 },
+    // MPV MC 5 PeV
+    {0.906791, 0.136641, -0.0654018, 0.0147825, 0.0011323},
 
     // WIDTH DATA
     {-0.0152013, 0.0753179, -0.0344289,  0.00656681, 0.000105438 },
     // WIDTH MC
-    { 0.0437627, 0.00122174, 0.00218039, 0.00237008, 0.000121867 },
+    //{ 0.0437627, 0.00122174, 0.00218039, 0.00237008, 0.000121867 },
+    // WIDTH MC 5 PeV
+    {0.152668, -0.193116, 0.127541, -0.0321708, 0.00354149},
 
     // sigma Gauss DATA
     2.02488e-08,
     // sigma Gauss MC
-    0.0323052
+    //0.0323052
+    // sigma Gauss MC 5 PeV
+    0.0323691
 };
 
 const SmearingPars heliumSmearing = {
     // MPV DATA
     { 1.97763, 0.0402723, 0.00636717, -0.00967592, 0.00268719 },
     // MPV MC
-    { 2.24492,-0.266865, 0.147646, -0.0313295, 0.00477488 },
+    //{ 2.24492,-0.266865, 0.147646, -0.0313295, 0.00477488 },
+    // MPV MC 5 PeV
+    {2.01866, 0.0440211, -0.00885938, 0.00290438, 0.00202796},
 
     // WIDTH DATA
     { -0.0105333, 0.129859, -0.0713011, 0.0169532, -0.00117928 },
     // WIDTH MC
-    {  0.102363, -0.106766, 0.0934083, -0.0331055,  0.00483202 },
+    //{  0.102363, -0.106766, 0.0934083, -0.0331055,  0.00483202 },
+    // WIDTH MC 5 PeV
+    {0.0586324, -0.0378098, 0.0538619, -0.0233239, 0.00395068},
 
     // sigma Gauss DATA
     0.0227879,
     // sigma Gauss MC
     //0.0838493
-    0.101851
+    //0.101851
+    // sigma Gauss MC 5 PeV
+    0.0858302
 };
 
 void ProcessMCSpecies(TChain **chains, Int_t nsets, TH1F **hArr, const Double_t *norm, const TString &speciesName, const Double_t *eMin, const Double_t *eMax, const SmearingPars &smearingPars) {
@@ -249,8 +261,8 @@ void Load_MC_He_p_5PeV_PSDcharge_loop_smearingCorr(){
 
     // =============================
 
-    const int nsetHe = 6; //number of different energy intervals used to produce the MC data
-    const int nsetP = 5;
+    const int nsetHe = 7; //number of different energy intervals used to produce the MC data
+    const int nsetP = 6;
 
     std::vector<TString> filesP;
     filesP.push_back(basePath + "/PROTON/FLUKA/Proton_10GeV_100GeV_FLUKA_merged.root");
@@ -258,16 +270,16 @@ void Load_MC_He_p_5PeV_PSDcharge_loop_smearingCorr(){
     filesP.push_back(basePath + "/PROTON/FLUKA/Proton_1TeV_10TeV_FLUKA_merged.root");
     filesP.push_back(basePath + "/PROTON/FLUKA/Proton_10TeV_100TeV_FLUKA_merged.root");
     filesP.push_back(basePath + "/PROTON/FLUKA/Proton_100TeV_1PeV_FLUKA_merged.root");
-    //filesP.push_back(basePath + "/PROTON/FLUKA/Proton_1PeV_5PeV_FLUKA_merged.root");
+    filesP.push_back(basePath + "/PROTON/FLUKA/Proton_1PeV_5PeV_FLUKA_merged.root");
 
     std::vector<TString> filesHe;
-    filesHe.push_back(basePath + "/HELIUM/FLUKA/He4-v6r0p10_10GeV_100GeV_FLUKA_merged.root");
+    filesHe.push_back(basePath + "/HELIUM/FLUKA/He4-v6r0p18_10GeV_100GeV_FLUKA_partial.root");
     filesHe.push_back(basePath + "/HELIUM/FLUKA/He4-v6r0p18_100GeV_1TeV_FLUKA_merged.root");
     filesHe.push_back(basePath + "/HELIUM/FLUKA/He4-v6r0p18_1TeV_10TeV_FLUKA_merged.root");
     filesHe.push_back(basePath + "/HELIUM/FLUKA/He4-v6r0p18_10TeV_100TeV_FLUKA_merged.root");
     filesHe.push_back(basePath + "/HELIUM/FLUKA/He4-v6r0p10_100TeV_500TeV_FLUKA_merged.root");
     filesHe.push_back(basePath + "/HELIUM/FLUKA/He4-v6r0p18_500TeV_1PeV_FLUKA_merged.root");
-    //filesHe.push_back(basePath + "/HELIUM/FLUKA/He4_1PeV_5PeV_EPOSLHC_FTFP_merged.root");
+    filesHe.push_back(basePath + "/HELIUM/FLUKA/He4-v6r0p20_1PeV_5PeV_FLUKA_merged.root");
 
 
     // ================================
@@ -318,7 +330,7 @@ void Load_MC_He_p_5PeV_PSDcharge_loop_smearingCorr(){
         TMath::Log(10.) / 274526589., // 1 TeV - 10 TeV
         TMath::Log(10.) / 208226000., // 10 TeV - 100 TeV
         TMath::Log(10.) / 9999400., // 100 TeV - 1 PeV
-        //TMath::Log(5.)  / ??. // 1 PeV - 5 PeV
+        TMath::Log(5.)  / 2564400. // 1 PeV - 5 PeV
     };
 
 
@@ -326,13 +338,14 @@ void Load_MC_He_p_5PeV_PSDcharge_loop_smearingCorr(){
 
     Double_t normHe[nsetHe] = {
 
-        (TMath::Log(10.) / 198586517.) * GeoCorr, // 10 GeV - 100 GeV, v6r0p10
+        //(TMath::Log(10.) / 198586517.) * GeoCorr, // 10 GeV - 100 GeV, v6r0p10
+        (TMath::Log(10.) / 474272213.) * GeoCorr, // 10 GeV - 100 GeV, v6r0p18
         (TMath::Log(10.) / 66009860.) * GeoCorr, // 100 GeV - 1 TeV, v6r0p18
         (TMath::Log(10.) / 77281442.) * GeoCorr, // 1 TeV - 10 TeV, v6r0p18
         (TMath::Log(10.) / 19993301.) * GeoCorr, // 10 TeV - 100 TeV, v6r0p18
         (TMath::Log(5.) / 20132200.) * GeoCorr, // 100 TeV - 500 TeV, v6r0p10
         (TMath::Log(2.) / 1246818.) * GeoCorr, // 500 TeV - 1 PeV, v6r0p18
-        //(TMath::Log(5.) / ??.) * GeoCorr // 1 PeV - 5 PeV
+        (TMath::Log(5.) / 2263134.) * GeoCorr // 1 PeV - 5 PeV
     };
 
     // ===============================================
@@ -412,7 +425,7 @@ void Load_MC_He_p_5PeV_PSDcharge_loop_smearingCorr(){
     // =======================================
     // Output
 
-    TFile *fout = new TFile("ROOT_FILES/PHe_MC_p_He_1PeV_FLUKA_charge_240bins_NewProgrCharge_asym_02nov26_CORRECTED.root", "RECREATE");
+    TFile *fout = new TFile("ROOT_FILES/PHe_MC_p_He_5PeV_FLUKA_charge_240bins_NewProgrCharge_asym_11nov26_CORRECTED.root", "RECREATE");
     fout->cd();
 
     for (Int_t i = 0; i < 15; ++i) {

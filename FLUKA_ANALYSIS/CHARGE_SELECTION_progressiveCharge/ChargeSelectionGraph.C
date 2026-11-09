@@ -88,11 +88,11 @@ void ChargeSelectionGraph()
 {
 	PrintTimestamp("ChargeSelectionGraph.C");
 	std::string timestamp = GetTimestamp();
-	//std::string ParticleTag = "H";
-	std::string ParticleTag = "He";
+	std::string ParticleTag = "H";
+	//std::string ParticleTag = "He";
 
 	std::ifstream in;	
-	in.open("LangausResults_FLUKA_He.txt");
+	in.open("LangausResults_FLUKA_p.txt");
 
 		gROOT->Reset();
 		gStyle->SetOptFit(0);
@@ -165,7 +165,7 @@ cout << "\n * * * * * * *    MPV    * * * * * * * \n" << endl;
 		ChargeFitFuncH->SetLineColor(kBlue+1);
 		TCanvas *C1 = new TCanvas("C1","C1",1000,800);
 		
-		TGraphErrors *ChargeSelectionMPVH = new TGraphErrors(8, BGOEnergy, MPVH, E_BGOEnergy, E_MPVH);
+		TGraphErrors *ChargeSelectionMPVH = new TGraphErrors(15, BGOEnergy, MPVH, E_BGOEnergy, E_MPVH);
 		
 		C1->SetLogx();
 		C1->SetTickx();
@@ -385,10 +385,15 @@ leg2->AddEntry(GausSigmaH,"Flight data","ep");
 
 leg2->Draw();
 
-
+/*
 C1->SaveAs(Form("PLOTS/MPVPlot_%s_%s.pdf", ParticleTag.c_str(), timestamp.c_str()));
 C5->SaveAs(Form("PLOTS/WidthPlot_%s_%s.pdf", ParticleTag.c_str(), timestamp.c_str()));
 C7->SaveAs(Form("PLOTS/SigmaPlot_%s_%s.pdf", ParticleTag.c_str(), timestamp.c_str()));
+*/
+
+C1->SaveAs(Form("PLOTS/MPVPlot_%s_5PeV.pdf", ParticleTag.c_str() ));
+C5->SaveAs(Form("PLOTS/WidthPlot_%s_5PeV.pdf", ParticleTag.c_str() ));
+C7->SaveAs(Form("PLOTS/SigmaPlot_%s_5PeV.pdf", ParticleTag.c_str() ));
 
 
 /*
