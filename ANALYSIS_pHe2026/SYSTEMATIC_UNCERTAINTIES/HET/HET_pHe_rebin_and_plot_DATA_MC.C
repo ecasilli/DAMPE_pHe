@@ -2,6 +2,7 @@
 #include <cmath>
 #include <iostream>
 #include <vector>
+#include <cstdio>
 
 #include "TCanvas.h"
 #include "TEfficiency.h"
@@ -20,9 +21,9 @@
 //          2 tra 10 e 100 TeV; 1 tra 100 TeV e 10 PeV.
 void HET_pHe_rebin_and_plot_DATA_MC()
 {
-    const char *dataName = "HETeff_skim_Orb118Month_3sLow_6sUp_PSDprogr_STKch450_comb_vert0e7_3bins.root";
+    const char *dataName = "HETeff_skim_Orb118Month_3sLow_6sUp_PSDprogr_STKch450_comb_vert0e7.root";
     //const char *mcName   = "HET_eff_MC_pHe_3sLow_6sUp_PSDprogr_STKch450_comb_vert0e7_10TeV_EPOSLHC.root";
-    const char *mcName  = "HET_eff_MC_pHe_fixedMix_p60_He40_3binBGO_3binTrue.root";
+    const char *mcName  = "HET_eff_MC_pHe_DAMPEratio_8bins.root";
 
     TFile *fData = TFile::Open(dataName, "READ");
     TFile *fMC   = TFile::Open(mcName, "READ");
@@ -47,7 +48,8 @@ void HET_pHe_rebin_and_plot_DATA_MC()
     // 28,32 = 2 bin tra 10 e 100 TeV;
     // 48 = 1 bin tra 100 TeV e 10 PeV.
     std::vector<int> edgeIndex;
-    for (int i=0; i<=16; ++i) edgeIndex.push_back(i);
+    for (int i=0; i<=16; i+=2) //++i) così era 8 bin per decade: ora modificato a 4
+        edgeIndex.push_back(i);
     for (int i=18; i<=24; i+=2) edgeIndex.push_back(i);
     edgeIndex.push_back(28);
     edgeIndex.push_back(32);
@@ -116,6 +118,7 @@ void HET_pHe_rebin_and_plot_DATA_MC()
     gR->SetName("g_DATA_over_MC_rebin");
 
     double ratioMin=1., ratioMax=1.;
+    std::printf("\nEmin[GeV]   Emax[GeV]   eff_DATA   eff_MC     DATA/MC    err_low    err_up    scarto[%%]\n");
     for (int ibin=1; ibin<=nNew; ++ibin) {
         const double elo=dTot->GetXaxis()->GetBinLowEdge(ibin);
         const double ehi=dTot->GetXaxis()->GetBinUpEdge(ibin);
@@ -153,6 +156,7 @@ void HET_pHe_rebin_and_plot_DATA_MC()
         const double rl=std::sqrt(std::pow(dl/m,2.)+std::pow(d*mu/(m*m),2.));
         const double ru=std::sqrt(std::pow(du/m,2.)+std::pow(d*ml/(m*m),2.));
         if (!std::isfinite(r) || !std::isfinite(rl) || !std::isfinite(ru)) continue;
+        std::printf("%10.3f  %10.3f  %9.6f  %9.6f  %9.6f  %9.6f  %9.6f  %+9.3f\n", elo, ehi, d, m, r, rl, ru, 100.0 * (r - 1.0) );
         const int n=gR->GetN();
         gR->SetPoint(n,x,r);
         gR->SetPointError(n,exl,exh,rl,ru);
@@ -183,7 +187,7 @@ void HET_pHe_rebin_and_plot_DATA_MC()
     gR->SetLineColor(kBlack);  gR->SetMarkerColor(kBlack);
     gR->SetMarkerStyle(21);    gR->SetMarkerSize(1.0); gR->SetLineWidth(2);
 
-    const double xmin=40., xmax=1.e5;
+    const double xmin=32., xmax=1.e5;
     TCanvas *c=new TCanvas("c_HET_pHe_rebin","HET efficiency p+He",1000,950);
     TPad *pad1=new TPad("pad1_pHe","efficiencies",0.,0.30,1.,1.);
     pad1->SetLeftMargin(0.10); pad1->SetRightMargin(0.03);
@@ -199,11 +203,11 @@ void HET_pHe_rebin_and_plot_DATA_MC()
     TLatex y1; y1.SetTextAngle(90); y1.SetTextFont(42);
     y1.SetTextSize(0.037); y1.DrawLatexNDC(0.035,0.55,"HET efficiency");
     
-    TLegend *leg=new TLegend(0.19,0.56,0.4,0.76);
+    TLegend *leg=new TLegend(0.19,0.56,0.44,0.76);
     leg->SetLineColor(kBlack); leg->SetFillColor(0);
     leg->SetTextSize(0.037); leg->SetHeader("#scale[1.1]{p + He}","C");
     leg->AddEntry(gD,"Flight data","lep");
-    leg->AddEntry(gM,"MC (60-40)","lep"); leg->Draw();
+    leg->AddEntry(gM,"MC (p/He comp)","lep"); leg->Draw();
 
     c->cd();
     TPad *pad2=new TPad("pad2_pHe","DATA / MC",0.,0.,1.,0.30);
@@ -234,10 +238,10 @@ void HET_pHe_rebin_and_plot_DATA_MC()
     y2.SetTextSize(0.076); y2.DrawLatexNDC(0.035,0.45,"DATA / MC");
     c->cd(); c->Update();
 
-    c->SaveAs("HET_pHe_rebin_DATA_MC_60-40_fixed_10TeV_EPOSLHC.png");
-    c->SaveAs("HET_pHe_rebin_DATA_MC_60-40_fixed_10TeV_EPOSLHC.pdf");
-    //c->SaveAs("HET_pHe_rebin_DATA_MC_60-40_fixed_10TeV_EPOSLHC.eps");
-    TFile *out=TFile::Open("HET_pHe_rebin_DATA_MC_60-40_fixed_10TeV_EPOSLHC.root","RECREATE");
+    c->SaveAs("HET_pHe_rebin_DATA_MC_DAMPEratio_10TeV_EPOSLHC.png");
+    c->SaveAs("HET_pHe_rebin_DATA_MC_DAMPEratio_10TeV_EPOSLHC.pdf");
+    //c->SaveAs("HET_pHe_rebin_DATA_MC_DAMPEratio_10TeV_EPOSLHC.eps");
+    TFile *out=TFile::Open("HET_pHe_rebin_DATA_MC_DAMPEratio_10TeV_EPOSLHC.root","RECREATE");
     if (out && !out->IsZombie()) {
         out->cd();
         for (TH1D *h : {dTot,dPass,mTot,mPass}) h->Write();
@@ -247,6 +251,6 @@ void HET_pHe_rebin_and_plot_DATA_MC()
     }
     fData->Close(); fMC->Close();
     std::cout << "Binning nuovo: " << nNew
-              << " bin. Output: HET_pHe_rebin_DATA_MC_60-40_fixed_10TeV_EPOSLHC.*" << std::endl;
+              << " bin. Output: HET_pHe_rebin_DATA_MC_DAMPEratio_10TeV_EPOSLHC.*" << std::endl;
 }
 
