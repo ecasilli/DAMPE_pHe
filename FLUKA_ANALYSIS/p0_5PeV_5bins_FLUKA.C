@@ -209,10 +209,11 @@ void p0_5PeV_5bins_FLUKA()
         {
             "He_10GeV_100GeV",
             dirHe +
-            "He4-v6r0p10_10GeV_100GeV_FLUKA_merged.root",
+            "He4-v6r0p18_10GeV_100GeV_FLUKA_partial.root",
             1.e1,
             1.e2,
-            198586517.
+            474272213.
+            //198586517.
         },
 
         {
@@ -258,16 +259,16 @@ void p0_5PeV_5bins_FLUKA()
             5.e5,
             1.e6,
             1246818.
-        } /*,
+        } ,
 
         {
             "He_1PeV_5PeV",
             dirHe +
-            "He4_1PeV_5PeV_EPOSLHC_FTFP_merged.root",
+            "He4-v6r0p20_1PeV_5PeV_FLUKA_merged.root",
             1.e6,
             5.e6,
-            5064900.
-        }*/
+            2263134.
+        }
     };
 
 
@@ -320,16 +321,16 @@ void p0_5PeV_5bins_FLUKA()
             1.e5,
             1.e6,
             9999400.
-        } /*,
+        } ,
 
         {
             "P_1PeV_5PeV",
             dirP +
-            "Proton_1PeV_5PeV_EPOSLHC_FTFP_merged.root",
+            "Proton_1PeV_5PeV_FLUKA_merged.root",
             1.e6,
             5.e6,
-            5094200.
-        }*/
+            2564400.
+        }
     };
 
 
@@ -407,7 +408,7 @@ void p0_5PeV_5bins_FLUKA()
     // OUTPUT
     // ========================================================
 
-    TFile *fout = new TFile("PHe_MC_FLUKA_1PeV_h1Ngen_5binsPerDecade.root", "RECREATE");
+    TFile *fout = new TFile("PHe_MC_FLUKA_5PeV_h1Ngen_5binsPerDecade.root", "RECREATE");
     fout->cd();
 
     // Totali

@@ -193,8 +193,8 @@ void Load_MC_He_p_5PeV_STKcharge_loop(){
 
     // =============================
 
-    const int nsetHe = 6; //number of different energy intervals used to produce the MC data
-    const int nsetP = 5;
+    const int nsetHe = 7; //number of different energy intervals used to produce the MC data
+    const int nsetP = 6;
 
     std::vector<TString> filesP;
     filesP.push_back(basePath + "/PROTON/FLUKA/Proton_10GeV_100GeV_FLUKA_merged.root");
@@ -202,16 +202,16 @@ void Load_MC_He_p_5PeV_STKcharge_loop(){
     filesP.push_back(basePath + "/PROTON/FLUKA/Proton_1TeV_10TeV_FLUKA_merged.root");
     filesP.push_back(basePath + "/PROTON/FLUKA/Proton_10TeV_100TeV_FLUKA_merged.root");
     filesP.push_back(basePath + "/PROTON/FLUKA/Proton_100TeV_1PeV_FLUKA_merged.root");
-    //filesP.push_back(basePath + "/PROTON/FLUKA/Proton_1PeV_5PeV_FLUKA_merged.root");
+    filesP.push_back(basePath + "/PROTON/FLUKA/Proton_1PeV_5PeV_FLUKA_merged.root");
 
     std::vector<TString> filesHe;
-    filesHe.push_back(basePath + "/HELIUM/FLUKA/He4-v6r0p10_10GeV_100GeV_FLUKA_merged.root");
+    filesHe.push_back(basePath + "/HELIUM/FLUKA/He4-v6r0p18_10GeV_100GeV_FLUKA_partial.root");
     filesHe.push_back(basePath + "/HELIUM/FLUKA/He4-v6r0p18_100GeV_1TeV_FLUKA_merged.root");
     filesHe.push_back(basePath + "/HELIUM/FLUKA/He4-v6r0p18_1TeV_10TeV_FLUKA_merged.root");
     filesHe.push_back(basePath + "/HELIUM/FLUKA/He4-v6r0p18_10TeV_100TeV_FLUKA_merged.root");
     filesHe.push_back(basePath + "/HELIUM/FLUKA/He4-v6r0p10_100TeV_500TeV_FLUKA_merged.root");
     filesHe.push_back(basePath + "/HELIUM/FLUKA/He4-v6r0p18_500TeV_1PeV_FLUKA_merged.root");
-    //filesHe.push_back(basePath + "/HELIUM/FLUKA/He4_1PeV_5PeV_EPOSLHC_FTFP_merged.root");
+    filesHe.push_back(basePath + "/HELIUM/FLUKA/He4-v6r0p20_1PeV_5PeV_FLUKA_merged.root");
 
 
     // ================================
@@ -266,7 +266,7 @@ void Load_MC_He_p_5PeV_STKcharge_loop(){
         TMath::Log(10.) / 274526589., // 1 TeV - 10 TeV
         TMath::Log(10.) / 208226000., // 10 TeV - 100 TeV
         TMath::Log(10.) / 9999400., // 100 TeV - 1 PeV
-        //TMath::Log(5.)  / ??. // 1 PeV - 5 PeV
+        TMath::Log(5.)  / 2564400. // 1 PeV - 5 PeV
     };
 
 
@@ -274,13 +274,14 @@ void Load_MC_He_p_5PeV_STKcharge_loop(){
 
     Double_t normHe[nsetHe] = {
 
-        (TMath::Log(10.) / 198586517.) * GeoCorr, // 10 GeV - 100 GeV, v6r0p10
+        //(TMath::Log(10.) / 198586517.) * GeoCorr, // 10 GeV - 100 GeV, v6r0p10
+        (TMath::Log(10.) / 474272213.) * GeoCorr, // 10 GeV - 100 GeV, v6r0p18
         (TMath::Log(10.) / 66009860.) * GeoCorr, // 100 GeV - 1 TeV, v6r0p18
         (TMath::Log(10.) / 77281442.) * GeoCorr, // 1 TeV - 10 TeV, v6r0p18
         (TMath::Log(10.) / 19993301.) * GeoCorr, // 10 TeV - 100 TeV, v6r0p18
         (TMath::Log(5.) / 20132200.) * GeoCorr, // 100 TeV - 500 TeV, v6r0p10
         (TMath::Log(2.) / 1246818.) * GeoCorr, // 500 TeV - 1 PeV, v6r0p18
-        //(TMath::Log(5.) / ??.) * GeoCorr // 1 PeV - 5 PeV
+        (TMath::Log(5.) / 2263134.) * GeoCorr // 1 PeV - 5 PeV
     };
 
     // ===============================================
@@ -376,7 +377,7 @@ void Load_MC_He_p_5PeV_STKcharge_loop(){
     // =======================================
     // Output
 
-    TFile *fout = new TFile("ROOT_FILES/PHe_MC_p_He_1PeV_STKcharge_adc_480bins_02nov26_all.root", "RECREATE");
+    TFile *fout = new TFile("ROOT_FILES/PHe_MC_p_He_5PeV_STKcharge_adc_480bins_11nov26_all.root", "RECREATE");
     fout->cd();
     hTot_p->Write();
     hTot_He->Write();
