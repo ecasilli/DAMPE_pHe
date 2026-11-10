@@ -361,7 +361,7 @@ if __name__ == '__main__':
     file_DAMPE2026 = 'TXT_FILES/DAMPE_p+He_120M_paperDraft_24sett26_3sigmaLow_6sigmaUp_450adc_10TeV_EPOSLHC.dat'
     gr_DAMPE2026 = make_flux_graph_DAMPE2026(file_DAMPE2026, kRed+1, 20, 1.4, 2.6)
 
-    file_DAMPE2026_sys = 'SYSTEMATIC_UNCERTAINTIES/sys_summary_10TeV_EPOSLHC_wSatCorr.txt'
+    file_DAMPE2026_sys = 'SYSTEMATIC_UNCERTAINTIES/sys_summary_10TeV_EPOSLHC_wSatCorr_updatedHadandHET.txt'
     #gr_DAMPE2026_2, gr_DAMPE2026_sys_ana, gr_DAMPE2026_sys_tot = make_flux_graph_DAMPE2026_sys(file_DAMPE2026_sys, kRed+1, 20, 1.4, 2.6)
     (gr_DAMPE2026_2, gr_DAMPE2026_sys_ana, gr_DAMPE2026_sys_tot, upper_ana, lower_ana, upper_tot, lower_tot) = make_flux_graph_DAMPE2026_sys(file_DAMPE2026_sys, kRed+1, 20, 1.4, 2.6)
 
@@ -540,10 +540,10 @@ if __name__ == '__main__':
 
     cc.Update()
 
-    cc.SaveAs('PLOTS/flux_pHe_update2026_wPHe_3sLow_6sUp_450adc_wSys_10TeV_EPOSLHC_paper_DAMPE_wSatCorrSys.pdf')
-    cc.SaveAs('PLOTS/flux_pHe_update2026_wPHe_3sLow_6sUp_450adc_wSys_10TeV_EPOSLHC_paper_DAMPE_wSatCorrSys.png')
+    cc.SaveAs('PLOTS/flux_pHe_update2026_wPHe_3sLow_6sUp_450adc_wSys_10TeV_EPOSLHC_paper_DAMPE_wSatCorrSys_updatedHadandHET.pdf')
+    cc.SaveAs('PLOTS/flux_pHe_update2026_wPHe_3sLow_6sUp_450adc_wSys_10TeV_EPOSLHC_paper_DAMPE_wSatCorrSys_updatedHadandHET.png')
 
-    cc.SaveAs('ROOT_FILES/flux_pHe_update2026_wPHe_3sLow_6sUp_450adc_wSys_10TeV_EPOSLHC_paper_DAMPE_wSatCorrSys.root')
+    cc.SaveAs('ROOT_FILES/flux_pHe_update2026_wPHe_3sLow_6sUp_450adc_wSys_10TeV_EPOSLHC_paper_DAMPE_wSatCorrSys_updatedHadandHET.root')
 
     raw_input("Press enter..")
 

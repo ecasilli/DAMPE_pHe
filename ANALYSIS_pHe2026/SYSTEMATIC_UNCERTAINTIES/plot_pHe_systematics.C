@@ -57,7 +57,7 @@ void SetHistStyle(TH1D *h, Color_t color, Style_t style = 1, Width_t width = 2)
     h->SetFillStyle(0);
 }
 
-void plot_pHe_systematics(const char *filename = "sys_summary_10TeV_EPOSLHC_wSatCorr.txt")
+void plot_pHe_systematics(const char *filename = "sys_summary_10TeV_EPOSLHC_wSatCorr_updatedHadandHET.txt")
 {
     // ------------------------------------------------------------
     // 1. Lettura del file
@@ -329,10 +329,10 @@ void plot_pHe_systematics(const char *filename = "sys_summary_10TeV_EPOSLHC_wSat
     // ------------------------------------------------------------
     // 10. Output
     // ------------------------------------------------------------
-    c->SaveAs("pHe_relative_uncertainties_summary_10TeV_EPOSLHC_wSatCorr.png");
-    c->SaveAs("pHe_relative_uncertainties_summary_10TeV_EPOSLHC_wSatCorr.pdf");
+    c->SaveAs("pHe_relative_uncertainties_summary_10TeV_EPOSLHC_wSatCorr_updatedHadandHET.png");
+    c->SaveAs("pHe_relative_uncertainties_summary_10TeV_EPOSLHC_wSatCorr_updatedHadandHET.pdf");
 
     std::cout << "\nSalvati:" << std::endl;
-    std::cout << "  pHe_relative_uncertainties_summary_10TeV_EPOSLHC_wSatCorr.png" << std::endl;
-    std::cout << "  pHe_relative_uncertainties_summary_10TeV_EPOSLHC_wSatCorr.pdf" << std::endl;
+    std::cout << "  pHe_relative_uncertainties_summary_10TeV_EPOSLHC_wSatCorr_updatedHadandHET.png" << std::endl;
+    std::cout << "  pHe_relative_uncertainties_summary_10TeV_EPOSLHC_wSatCorr_updatedHadandHET.pdf" << std::endl;
 }
