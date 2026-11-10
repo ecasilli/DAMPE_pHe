@@ -1,0 +1,72 @@
+
+Processing fit_pHe_SBPL.C...
+Loaded 22 bins from pHe_flux_fit_10TeV_EPOSLHC_wSatCorr_updatedHadandHET.dat
+
+Fit range = [25, 1000] TeV (cut on E_mean)
+N fit bins = 8, nuisance parameters m = 2, s = 5 (fixed)
+
+ nuisance 0: E in [25, 100] TeV, sigma_w = 0.0579731, Nbins = 3
+ nuisance 1: E in [100, 1000] TeV, sigma_w = 0.132488, Nbins = 5
+
+======= NUISANCE REGIONS =======:
+31.4566 TeV -> region 0
+49.8553 TeV -> region 0
+79.0154 TeV -> region 0
+125.231 TeV -> region 1
+198.478 TeV -> region 1
+314.566 TeV -> region 1
+498.553 TeV -> region 1
+790.154 TeV -> region 1
+31.4566		0		0
+49.8553		0		0
+79.0154		0		0
+125.231		0		0
+198.478		1		0  <-- CHANGED REGION
+314.566		1		1
+498.553		1		1
+790.154		1		1
+
+========== PL ==========
+Minuit ok = 1, status = 0
+chi2 / ndf = 13.36275 / 4
+Phi0  = 0.00033927435 +/- 3.4433216e-05
+gamma = 2.8009796 +/- 0.021667786
+w0 = 0.99784455 +/- 0.053327771
+w1 = 1.0111097 +/- 0.062393544
+
+========== SBPL ==========
+Minuit ok = 1, status = 0
+chi2 / ndf = 0.40429989 / 2
+Phi0  = 0.00039014982 +/- 4.2822854e-05
+gamma = 2.8394224 +/- 0.02498209
+Eb    = 148.03425 +/- 69.750156 TeV
+DeltaGamma = 0.24623207 +/- 0.092196454
+s = 5 (fixed)
+w0 = 1.0014797 +/- 0.05379744
+w1 = 0.99219937 +/- 0.068834185
+
+--- SBPL DIAGNOSTICS ---
+CovMatrixStatus = 3
+EDM = 3.5506479e-14
+rho(Eb, Phi0) = -0.15284129
+rho(Eb, gamma) = -0.24884721
+rho(Eb, DeltaGamma) = 0.71261883
+rho(Eb, w0) = -0.10359949
+rho(Eb, w1) = 0.43100868
+
+========== EB MINOS ==========
+Refit chi2 = 0.40429989
+Original chi2 = 0.40429989
+GlobalCC(Eb) = 0.956793
+MINOS ok = 1
+Eb MINOS = 148.03425 -62.392281 +78.93427 TeV
+
+Profile points: 81/81
+
+========== MODEL COMPARISON ==========
+Delta chi2 = chi2_PL - chi2_SBPL = 12.95845
+Delta dof  = 2 (s fixed)
+p-value    = 0.0015349999
+Gaussian-equivalent Z = 2.9606406 sigma
+
+Preferred SBPL feature has DeltaGamma > 0: HARDENING.

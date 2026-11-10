@@ -222,8 +222,8 @@ bool BuildContext(const std::vector<Bin> &allBins,
     }
     // TEST: confine tra i due nuisance a 250 TeV
     if (m == 2) {
-        gCtx.regionEdges[1] = 2.5e5;
-        //gCtx.regionEdges[1] = 1.0e5;
+        //gCtx.regionEdges[1] = 2.5e5;
+        gCtx.regionEdges[1] = 1.0e5;
     }
 
     for (const auto &b : allBins) {
@@ -500,7 +500,7 @@ void ProfileEb(const FitResult &best)
     const double Emax = gCtx.fitEmax * 0.999;
 
     auto *g = new TGraph();
-    std::ofstream out("profile_Eb_SBPL_2.dat");
+    std::ofstream out("profile_Eb_SBPL_100TeV.dat");
 
     out << "# Eb_TeV  DeltaChi2\n";
 
@@ -583,8 +583,8 @@ void ProfileEb(const FitResult &best)
     c->Modified();
     c->Update();
 
-    c->SaveAs("PLOTS/profile_Eb_SBPL_wSatCorr_updatedHadandHET_2.pdf");
-    c->SaveAs("PLOTS/profile_Eb_SBPL_wSatCorr_updatedHadandHET_2.png");
+    c->SaveAs("PLOTS/profile_Eb_SBPL_wSatCorr_updatedHadandHET_100TeV.pdf");
+    c->SaveAs("PLOTS/profile_Eb_SBPL_wSatCorr_updatedHadandHET_100TeV.png");
 }
 
 void PrintFit(const char *name, const FitResult &r, bool sbpl)
@@ -814,7 +814,7 @@ void DrawPlot(const std::vector<Bin> &bins,
     c->Update();
 
     //TString outname = Form("fit_pHe_SBPL_10TeV_EPOSLHC_%dnuisance%s", gCtx.m, drawPL ? "_wPL" : "");
-    TString outname = Form("PLOTS/fit_pHe_SBPL_10TeV_EPOSLHC_wSatCorr_updatedHadandHET_2_%dnuisance%s%s_250TeV", gCtx.m, drawPL ? "_wPL" : "", outTag);
+    TString outname = Form("PLOTS/fit_pHe_SBPL_10TeV_EPOSLHC_wSatCorr_updatedHadandHET_%dnuisance%s%s_100TeV", gCtx.m, drawPL ? "_wPL" : "", outTag);
     c->SaveAs(outname + ".pdf");
     c->SaveAs(outname + ".png");
 }
@@ -825,7 +825,7 @@ void DrawPlot(const std::vector<Bin> &bins,
 // =============================================================================
 // Main entry point
 // =============================================================================
-void fit_pHe_SBPL(const char *filename = "pHe_flux_fit_10TeV_EPOSLHC_wSatCorr_updatedHadandHET_2.dat",
+void fit_pHe_SBPL(const char *filename = "pHe_flux_fit_10TeV_EPOSLHC_wSatCorr_updatedHadandHET.dat",
                   int N_NUIS = 2,
                   double FIT_EMIN = 2.5e4,
                   double FIT_EMAX = 1.0e6,
