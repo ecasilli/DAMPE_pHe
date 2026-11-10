@@ -315,11 +315,11 @@ FitResult FitPL()
     min->SetLimitedVariable(0, "Phi0", phi00, std::max(phi00 * 1e-3, 1e-10), 1e-8, 1e-1);
     min->SetLimitedVariable(1, "gamma", gamma0, 1e-3, 1.5, 4.0);
 
-    //for (int j = 0; j < gCtx.m; ++j)
-    //    min->SetLimitedVariable(2 + j, Form("w%d", j), 1.0, 1e-3, 0.3, 1.7);
-    // only statistical errors:
     for (int j = 0; j < gCtx.m; ++j)
-        min->SetFixedVariable(2 + j, Form("w%d", j), 1.0);
+        min->SetLimitedVariable(2 + j, Form("w%d", j), 1.0, 1e-3, 0.3, 1.7);
+    // only statistical errors:
+    //for (int j = 0; j < gCtx.m; ++j)
+    //    min->SetFixedVariable(2 + j, Form("w%d", j), 1.0);
 
     const bool ok = min->Minimize();
     min->Hesse();
@@ -328,8 +328,8 @@ FitResult FitPL()
     r.ok = ok;
     r.status = min->Status();
     r.chi2 = min->MinValue();
-    //r.ndf = int(gCtx.fitBins.size()) - npar;
-    r.ndf = int(gCtx.fitBins.size()) - 2; // only stat
+    r.ndf = int(gCtx.fitBins.size()) - npar;
+    //r.ndf = int(gCtx.fitBins.size()) - 2; // only stat
     r.p.assign(min->X(), min->X() + npar);
     r.e.assign(min->Errors(), min->Errors() + npar);
     return r;
@@ -351,14 +351,14 @@ FitResult RunSBPLOnce(const FitResult &pl, double ebSeed, double dgSeed)
                             gCtx.fitEmin, gCtx.fitEmax);
     min->SetLimitedVariable(3, "DeltaGamma", dgSeed, 1e-3, -1.5, 1.5);
 
-    //for (int j = 0; j < gCtx.m; ++j) {
-    //    const double wSeed = (int(pl.p.size()) > 2 + j) ? pl.p[2 + j] : 1.0;
-    //    min->SetLimitedVariable(4 + j, Form("w%d", j), wSeed, 1e-3, 0.3, 1.7);
-    //}
-    // only statistical errors:
     for (int j = 0; j < gCtx.m; ++j) {
-        min->SetFixedVariable(4 + j, Form("w%d", j), 1.0);
+        const double wSeed = (int(pl.p.size()) > 2 + j) ? pl.p[2 + j] : 1.0;
+        min->SetLimitedVariable(4 + j, Form("w%d", j), wSeed, 1e-3, 0.3, 1.7);
     }
+    // only statistical errors:
+    //for (int j = 0; j < gCtx.m; ++j) {
+    //    min->SetFixedVariable(4 + j, Form("w%d", j), 1.0);
+    //}
 
     const bool ok = min->Minimize();
     min->Hesse();
@@ -367,8 +367,8 @@ FitResult RunSBPLOnce(const FitResult &pl, double ebSeed, double dgSeed)
     r.ok = ok;
     r.status = min->Status();
     r.chi2 = min->MinValue();
-    //r.ndf = int(gCtx.fitBins.size()) - npar;
-    r.ndf = int(gCtx.fitBins.size()) - 4; // only stat
+    r.ndf = int(gCtx.fitBins.size()) - npar;
+    //r.ndf = int(gCtx.fitBins.size()) - 4; // only stat
     r.p.assign(min->X(), min->X() + npar);
     r.e.assign(min->Errors(), min->Errors() + npar);
 
@@ -446,12 +446,12 @@ void CheckEbMinos(const FitResult &best)
     min->SetLimitedVariable(2, "Eb", best.p[2], std::max(best.p[2]*1e-3, 1.0), gCtx.fitEmin, gCtx.fitEmax);
     min->SetLimitedVariable(3, "DeltaGamma", best.p[3], 1e-3, -1.5, 1.5);
 
-    //for (int j = 0; j < gCtx.m; ++j) {
-    //    min->SetLimitedVariable(4+j, Form("w%d", j), best.p[4+j], 1e-3, 0.3, 1.7);
-    //}
     for (int j = 0; j < gCtx.m; ++j) {
-        min->SetFixedVariable(4 + j, Form("w%d", j), 1.0);
+        min->SetLimitedVariable(4+j, Form("w%d", j), best.p[4+j], 1e-3, 0.3, 1.7);
     }
+    //for (int j = 0; j < gCtx.m; ++j) {
+    //    min->SetFixedVariable(4 + j, Form("w%d", j), 1.0);
+    //}
 
     // Rifacciamo il fit partendo dal minimo migliore
     const bool ok = min->Minimize();
@@ -501,7 +501,7 @@ void ProfileEb(const FitResult &best)
     const double Emax = gCtx.fitEmax * 0.999;
 
     auto *g = new TGraph();
-    std::ofstream out("profile_Eb_SBPL_StatOnly.dat");
+    std::ofstream out("profile_Eb_SBPL_2.dat");
 
     out << "# Eb_TeV  DeltaChi2\n";
 
@@ -525,12 +525,12 @@ void ProfileEb(const FitResult &best)
         // DeltaGamma libero
         min->SetLimitedVariable(3, "DeltaGamma", best.p[3], 1e-3, -1.5, 1.5);
         // Nuisance liberi
-        //for (int j = 0; j < gCtx.m; ++j) {
-        //    min->SetLimitedVariable(4+j, Form("w%d", j), best.p[4+j], 1e-3, 0.3, 1.7);
-        //}
         for (int j = 0; j < gCtx.m; ++j) {
-            min->SetFixedVariable(4 + j, Form("w%d", j), 1.0);
+            min->SetLimitedVariable(4+j, Form("w%d", j), best.p[4+j], 1e-3, 0.3, 1.7);
         }
+        //for (int j = 0; j < gCtx.m; ++j) {
+        //    min->SetFixedVariable(4 + j, Form("w%d", j), 1.0);
+        //}
 
         const bool ok = min->Minimize();
 
@@ -584,8 +584,8 @@ void ProfileEb(const FitResult &best)
     c->Modified();
     c->Update();
 
-    c->SaveAs("profile_Eb_SBPL_StatOnly.pdf");
-    c->SaveAs("profile_Eb_SBPL_StatOnly.png");
+    c->SaveAs("PLOTS/profile_Eb_SBPL_wSatCorr_updatedHadandHET_2.pdf");
+    c->SaveAs("PLOTS/profile_Eb_SBPL_wSatCorr_updatedHadandHET_2.png");
 }
 
 void PrintFit(const char *name, const FitResult &r, bool sbpl)
@@ -815,7 +815,7 @@ void DrawPlot(const std::vector<Bin> &bins,
     c->Update();
 
     //TString outname = Form("fit_pHe_SBPL_10TeV_EPOSLHC_%dnuisance%s", gCtx.m, drawPL ? "_wPL" : "");
-    TString outname = Form("fit_pHe_SBPL_10TeV_EPOSLHC_%dnuisance%s%s_statOnly", gCtx.m, drawPL ? "_wPL" : "", outTag);
+    TString outname = Form("PLOTS/fit_pHe_SBPL_10TeV_EPOSLHC_wSatCorr_updatedHadandHET_2_%dnuisance%s%s", gCtx.m, drawPL ? "_wPL" : "", outTag);
     c->SaveAs(outname + ".pdf");
     c->SaveAs(outname + ".png");
 }
@@ -826,7 +826,7 @@ void DrawPlot(const std::vector<Bin> &bins,
 // =============================================================================
 // Main entry point
 // =============================================================================
-void fit_pHe_SBPL(const char *filename = "pHe_flux_fit_10TeV_EPOSLHC_wSatCorr.dat",
+void fit_pHe_SBPL(const char *filename = "pHe_flux_fit_10TeV_EPOSLHC_wSatCorr_updatedHadandHET_2.dat",
                   int N_NUIS = 2,
                   double FIT_EMIN = 2.5e4,
                   double FIT_EMAX = 1.0e6,
