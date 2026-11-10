@@ -86,12 +86,21 @@ const PSDSmearingPars pPSDpars = {
     // sigma Gauss DATA
     2.02488e-08,
 
+    /*
     // MPV MC
     { 0.892983, 0.159744, -0.0791052,  0.0181592, 0.000845397 }, // FLUKA
     // WIDTH MC
     { 0.0437627, 0.00122174, 0.00218039, 0.00237008, 0.000121867 }, // FLUKA
     // sigma Gauss MC
     0.0323052 // FLUKA
+    */
+    // FLUKA 
+    // MPV MC 5 PeV
+    {0.906791, 0.136641, -0.0654018, 0.0147825, 0.0011323},
+    // WIDTH MC 5 PeV
+    {0.152668, -0.193116, 0.127541, -0.0321708, 0.00354149},
+    // sigma Gauss MC 5 PeV
+    0.0323691
 };
 
 const PSDSmearingPars HePSDpars = {
@@ -102,12 +111,21 @@ const PSDSmearingPars HePSDpars = {
     // sigma Gauss DATA
     0.0227879,
 
+    /*
     // MPV MC
     { 2.24492,-0.266865, 0.147646, -0.0313295, 0.00477488 }, // FLUKA
     // WIDTH MC
     {  0.102363, -0.106766, 0.0934083, -0.0331055,  0.00483202 }, // FLUKA
     // sigma Gauss MC
     0.101851 // FLUKA
+    */
+    // FLUKA
+    // MPV MC 5 PeV
+    {2.01866, 0.0440211, -0.00885938, 0.00290438, 0.00202796},
+    // WIDTH MC 5 PeV
+    {0.0586324, -0.0378098, 0.0538619, -0.0233239, 0.00395068},
+    // sigma Gauss MC 5 PeV
+    0.0858302
 };
 
 Double_t ApplyPSDSmearingCorrection(Double_t chargeMC, Double_t BGOenergy, const PSDSmearingPars &p) {
@@ -126,6 +144,7 @@ Double_t ApplyPSDSmearingCorrection(Double_t chargeMC, Double_t BGOenergy, const
     return (chargeMC - mpvMC) * (sigmaData / sigmaMC) + mpvData;
 }
 
+/*
 // PROTON MC corrected MPV
 const Double_t pMPVcorr[5] = { 1.01699,-0.0365958, 0.0503518,-0.0219843, 0.00415825};
 // PROTON MC corrected WIDTH
@@ -137,6 +156,19 @@ const Double_t heMPVcorr[5] = {1.96451, 0.0568276, -0.00104652, -0.00719045, 0.0
 // HELIUM MC corrected WIDTH
 const Double_t heWidthCorr[5] = { -0.145886, 0.302573, -0.163632, 0.0384667, -0.00301248};
 const Double_t heGSigmaCorr = 00.0315871;
+*/
+// FLUKA 5 PeV
+// PROTON MC corrected MPV
+const Double_t pMPVcorr[5] = { 0.974043, 0.0344958, 0.0085598, -0.0117366, 0.00328664 };
+// PROTON MC corrected WIDTH
+const Double_t pWidthCorr[5] = { -0.173042, 0.317701, -0.174116, 0.0415312, -0.00303268 };
+const Double_t pGSigmaCorr = 0.000162754;
+
+// HELIUM MC corrected MPV
+const Double_t heMPVcorr[5] = { 1.90975, 0.131066, -0.03488, -0.000867204, 0.00188774 };
+// HELIUM MC corrected WIDTH
+const Double_t heWidthCorr[5] = { 0.0725168, -0.0181194, 0.00828652, 0.0, 0.0 };
+const Double_t heGSigmaCorr = 0.0300005;
 
 void GetPSDMCSelectionLimits(Double_t BGOenergy, Double_t &qLow, Double_t &qHigh) {
     // proton
@@ -154,7 +186,7 @@ void GetPSDMCSelectionLimits(Double_t BGOenergy, Double_t &qLow, Double_t &qHigh
 }
 
 Double_t CorrectSTKProton(Double_t q) {
-    const Double_t mpvMC = 57.3920; // FLUKA
+    const Double_t mpvMC = 57.392; // FLUKA
     const Double_t mpvData = 58.8187;
 
     const Double_t sigmaMC  = TMath::Sqrt(5.03355 * 5.03355 + 5.52054 * 5.52054); // FLUKA
@@ -166,10 +198,10 @@ Double_t CorrectSTKProton(Double_t q) {
 
 
 Double_t CorrectSTKHelium(Double_t q) {
-    const Double_t mpvMC = 244.567; // FLUKA
+    const Double_t mpvMC = 244.578; // FLUKA
     const Double_t mpvData = 250.715;
 
-    const Double_t sigmaMC  = TMath::Sqrt(16.3624 * 16.3624 + 10.7502 * 10.7502); // FLUKA
+    const Double_t sigmaMC  = TMath::Sqrt(16.3263 * 16.3263 + 10.8442 * 10.8442); // FLUKA
     const Double_t sigmaData =TMath::Sqrt(18.4519 * 18.4519 + 12.5775 * 12.5775);
 
     return

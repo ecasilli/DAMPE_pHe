@@ -88,11 +88,11 @@ void ChargeSelectionGraph_corr()
 {
 	PrintTimestamp("ChargeSelectionGraph_corr.C");
 	std::string timestamp = GetTimestamp();
-	std::string ParticleTag = "H";
-	//std::string ParticleTag = "He";
+	//std::string ParticleTag = "H";
+	std::string ParticleTag = "He";
 
 	std::ifstream in;	
-	in.open("LangausResults_FLUKA_p_corr.txt");
+	in.open("LangausResults_FLUKA_He_corr.txt");
 
 		gROOT->Reset();
 		gStyle->SetOptFit(0);
@@ -165,7 +165,7 @@ cout << "\n * * * * * * *    MPV    * * * * * * * \n" << endl;
 		ChargeFitFuncH->SetLineColor(kBlue+1);
 		TCanvas *C1 = new TCanvas("C1","C1",1000,800);
 		
-		TGraphErrors *ChargeSelectionMPVH = new TGraphErrors(15, BGOEnergy, MPVH, E_BGOEnergy, E_MPVH);
+		TGraphErrors *ChargeSelectionMPVH = new TGraphErrors(8, BGOEnergy, MPVH, E_BGOEnergy, E_MPVH);
 		
 		C1->SetLogx();
 		C1->SetTickx();
@@ -251,7 +251,8 @@ cout << "\n * * * * * * *    Width    * * * * * * * \n" << endl;
 		WidthH->Draw("AP");
 		
 		
-		TF1 *ChargeFitFuncWidthHMC  = new TF1("ChargeFitFuncWidthHMC","[0]+[1]*log10(x)+[2]*log10(x)**2+[3]*log10(x)**3+[4]*log10(x)**4",25.0,100000.0);
+		//TF1 *ChargeFitFuncWidthHMC  = new TF1("ChargeFitFuncWidthHMC","[0]+[1]*log10(x)+[2]*log10(x)**2+[3]*log10(x)**3+[4]*log10(x)**4",25.0,100000.0);
+		TF1 *ChargeFitFuncWidthHMC  = new TF1("ChargeFitFuncWidthHMC","[0]+[1]*log10(x)+[2]*log10(x)**2",25.0,100000.0);
 		ChargeFitFuncWidthHMC->SetLineColor(kRed+1);
 		
 //		TCanvas *C6 = new TCanvas("C6","C6",1000,800);
@@ -273,7 +274,7 @@ cout << "\n * * * * * * *    Width    * * * * * * * \n" << endl;
 		//WidthHMC_forFit->RemovePoint(6);
 		//WidthHMC_forFit->RemovePoint(12);
 		//WidthHMC_forFit->RemovePoint(13);
-		//WidthHMC_forFit->RemovePoint(14);
+		WidthHMC_forFit->RemovePoint(14);
 	
 		//gStyle->SetOptFit(011);
 		WidthHMC->SetMarkerStyle(20);
@@ -338,7 +339,7 @@ cout << "\n * * * * * * *    Sigma    * * * * * * * \n" << endl;
 		GausSigmaH->Fit("FitFuncGausH","R");GausSigmaH->Fit("FitFuncGausH","R");
 		GausSigmaH->Draw("AP");
 //		TF1 *FitFuncGausHMC  = new TF1("FitFuncGausHMC","[0]",25.,4000.0);
-		TF1 *FitFuncGausHMC  = new TF1("FitFuncGausHMC","[0]",25.,100000.0);
+		TF1 *FitFuncGausHMC  = new TF1("FitFuncGausHMC","[0]",40.,300.0);
 
 		//FitFuncGausHMC->SetParameters(0.5,1.0e-50);
 		FitFuncGausHMC->SetLineColor(kRed+1);
@@ -392,9 +393,9 @@ C7->SaveAs(Form("PLOTS/SigmaPlot_%s_%s.pdf", ParticleTag.c_str(), timestamp.c_st
 */
 
 
-C1->SaveAs(Form("PLOTS/MPVPlot_FLUKA_%s_corr.pdf", ParticleTag.c_str()));
-C5->SaveAs(Form("PLOTS/WidthPlot_FLUKA_%s_corr.pdf", ParticleTag.c_str()));
-C7->SaveAs(Form("PLOTS/SigmaPlot_FLUKA_%s_corr.pdf", ParticleTag.c_str()));
+C1->SaveAs(Form("PLOTS/MPVPlot_FLUKA_%s_5PeV_corr.pdf", ParticleTag.c_str()));
+C5->SaveAs(Form("PLOTS/WidthPlot_FLUKA_%s_5PeV_corr.pdf", ParticleTag.c_str()));
+C7->SaveAs(Form("PLOTS/SigmaPlot_FLUKA_%s_5PeV_corr.pdf", ParticleTag.c_str()));
 
 
 }
