@@ -91,8 +91,7 @@ double PL(double E, double phi0, double gamma)
 double SBPL(double E, double phi0, double gamma,
             double Eb, double dGamma, double s)
 {
-    return phi0 * std::pow(E / gCtx.E0, -gamma)
-         * std::pow(1.0 + std::pow(E / Eb, s), dGamma / s);
+    return phi0 * std::pow(E / gCtx.E0, -gamma) * std::pow(1.0 + std::pow(E / Eb, s), dGamma / s);
 }
 
 // -----------------------------------------------------------------------------
@@ -222,10 +221,10 @@ bool BuildContext(const std::vector<Bin> &allBins,
         gCtx.regionEdges[j] = std::exp(l0 + (l1 - l0) * double(j) / double(m));
     }
     // TEST: confine tra i due nuisance a 250 TeV
-    //if (m == 2) {
-        //gCtx.regionEdges[1] = 2.5e5;
-    //    gCtx.regionEdges[1] = 1.0e5;
-    //}
+    if (m == 2) {
+        gCtx.regionEdges[1] = 2.5e5;
+        //gCtx.regionEdges[1] = 1.0e5;
+    }
 
     for (const auto &b : allBins) {
         // We apply the fit-range cut to the central energy, as in the quoted method.
@@ -801,7 +800,7 @@ void DrawPlot(const std::vector<Bin> &bins,
 
     // Optional diagnostic: nuisance-region boundaries.
     // Uncomment if you want to see where each w_j acts.
-    /*
+    
     for (int j = 1; j < gCtx.m; ++j) {
         auto *line = new TLine(gCtx.regionEdges[j], 5e3,
                                gCtx.regionEdges[j], 17.5e3);
@@ -809,13 +808,13 @@ void DrawPlot(const std::vector<Bin> &bins,
         line->SetLineColor(kGray + 2);
         line->Draw("SAME");
     }
-    */
+    
 
     c->Modified();
     c->Update();
 
     //TString outname = Form("fit_pHe_SBPL_10TeV_EPOSLHC_%dnuisance%s", gCtx.m, drawPL ? "_wPL" : "");
-    TString outname = Form("PLOTS/fit_pHe_SBPL_10TeV_EPOSLHC_wSatCorr_updatedHadandHET_2_%dnuisance%s%s", gCtx.m, drawPL ? "_wPL" : "", outTag);
+    TString outname = Form("PLOTS/fit_pHe_SBPL_10TeV_EPOSLHC_wSatCorr_updatedHadandHET_2_%dnuisance%s%s_250TeV", gCtx.m, drawPL ? "_wPL" : "", outTag);
     c->SaveAs(outname + ".pdf");
     c->SaveAs(outname + ".png");
 }

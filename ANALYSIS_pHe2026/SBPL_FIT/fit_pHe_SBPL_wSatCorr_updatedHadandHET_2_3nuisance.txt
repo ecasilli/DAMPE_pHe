@@ -1,0 +1,77 @@
+
+Processing fit_pHe_SBPL.C...
+Loaded 22 bins from pHe_flux_fit_10TeV_EPOSLHC_wSatCorr_updatedHadandHET_2.dat
+
+Fit range = [25, 1000] TeV (cut on E_mean)
+N fit bins = 8, nuisance parameters m = 3, s = 5 (fixed)
+
+ nuisance 0: E in [25, 85.4988] TeV, sigma_w = 0.0690565, Nbins = 3
+ nuisance 1: E in [85.4988, 292.402] TeV, sigma_w = 0.131768, Nbins = 2
+ nuisance 2: E in [292.402, 1000] TeV, sigma_w = 0.133328, Nbins = 3
+
+======= NUISANCE REGIONS =======:
+31.4566 TeV -> region 0
+49.8553 TeV -> region 0
+79.0154 TeV -> region 0
+125.231 TeV -> region 1
+198.478 TeV -> region 1
+314.566 TeV -> region 2
+498.553 TeV -> region 2
+790.154 TeV -> region 2
+31.4566		0		0
+49.8553		0		0
+79.0154		0		0
+125.231		0		0
+198.478		1		0  <-- CHANGED REGION
+314.566		1		1
+498.553		1		1
+790.154		1		1
+
+========== PL ==========
+Minuit ok = 1, status = 0
+chi2 / ndf = 5.7585006 / 3
+Phi0  = 0.0003722971 +/- 4.2175398e-05
+gamma = 2.817256 +/- 0.022048667
+w0 = 0.96685244 +/- 0.057070921
+w1 = 0.96924591 +/- 0.060167595
+w2 = 1.1324438 +/- 0.080401281
+
+========== SBPL ==========
+Minuit ok = 1, status = 0
+chi2 / ndf = 0.4051011 / 1
+Phi0  = 0.00038976682 +/- 4.4504548e-05
+gamma = 2.8394353 +/- 0.024995109
+Eb    = 148.25559 +/- 70.270294 TeV
+DeltaGamma = 0.24341675 +/- 0.12884378
+s = 5 (fixed)
+w0 = 1.0025136 +/- 0.060205845
+w1 = 0.99376104 +/- 0.066567218
+w2 = 0.99694521 +/- 0.095984871
+
+--- SBPL DIAGNOSTICS ---
+CovMatrixStatus = 3
+EDM = 3.3171674e-14
+rho(Eb, Phi0) = -0.11436315
+rho(Eb, gamma) = -0.25140124
+rho(Eb, DeltaGamma) = 0.59773966
+rho(Eb, w0) = -0.15871162
+rho(Eb, w1) = 0.35779633
+rho(Eb, w2) = 0.12362466
+
+========== EB MINOS ==========
+Refit chi2 = 0.4051011
+Original chi2 = 0.4051011
+GlobalCC(Eb) = 0.95650557
+MINOS ok = 1
+Eb MINOS = 148.25559 -66.609337 +90.237861 TeV
+
+Profile points: 81/81
+
+========== MODEL COMPARISON ==========
+Delta chi2 = chi2_PL - chi2_SBPL = 5.3533995
+Delta dof  = 2 (s fixed)
+p-value    = 0.068789805
+Gaussian-equivalent Z = 1.4848649 sigma
+
+Preferred SBPL feature has DeltaGamma > 0: HARDENING.
+WARNING: SBPL has only 1 residual degree(s) of freedom. Treat this configuration as a robustness test.
