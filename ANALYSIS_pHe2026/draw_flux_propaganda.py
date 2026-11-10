@@ -327,7 +327,7 @@ if __name__ == '__main__':
     cc.SetLogx()
 
     #frame = cc.DrawFrame(1e1, 1e3, 2e7, 20e3)
-    frame = cc.DrawFrame(1e1, 2e3, 5e6, 18e3)
+    frame = cc.DrawFrame(1e1, 5e3, 5e6, 16.5e3)
 
     frame.GetXaxis().SetTitle("Kinetic energy [GeV]")
     frame.GetYaxis().SetTitle("E^{2.6} Flux [m^{-2} s^{-1} sr^{-1} (GeV)^{1.6}]")

@@ -451,8 +451,8 @@ if __name__ == '__main__':
     gr_KASCADE_QGSJet.Draw("P SAME")
     gr_KASCADE_SIBYLL.Draw("P SAME")
 
-    #gr_DAMPE2024.Draw("P SAME")
-    #gr_DAMPE2026_pHe_Geneva_sum.Draw("P SAME")
+    gr_DAMPE2024.Draw("P SAME")
+    gr_DAMPE2026_pHe_Geneva_sum.Draw("P SAME")
 
     gr_DAMPE2026_2.Draw("P SAME")
 
@@ -470,7 +470,7 @@ if __name__ == '__main__':
     #leg = TLegend(0.20,0.24,0.43,0.66)
     x1 = 0.18
     x2 = 0.67
-    y1 = 0.34 #0.24
+    y1 = 0.24 #0.34
     y2 = 0.60
 
     leg = TLegend(x1, y1, x2, y2)
@@ -490,10 +490,10 @@ if __name__ == '__main__':
     #leg.AddEntry(gr_DAMPE2024_sys,"ana. error (2024)","f")
     #leg.AddEntry(gr_DAMPE2024_sys_had,"ana. #oplus had. error (2024)","f")
 
-    #leg.AddEntry(gr_DAMPE2026_pHe_Geneva_sum, "DAMPE #Phi_{p} + #Phi_{He}", "P")
+    leg.AddEntry(gr_DAMPE2026_pHe_Geneva_sum, "DAMPE #Phi_{p} + #Phi_{He}", "P")
     #leg.AddEntry(gr_DAMPE2026, "DAMPE ", "P")
     #leg.Draw()
-    #leg.AddEntry(gr_DAMPE2024, "DAMPE (2024)", "P")
+    leg.AddEntry(gr_DAMPE2024, "DAMPE (2024)", "P")
     
     #leg1 = TLegend(0.5, 0.7, 0.73, 0.87)  
     #leg1.SetBorderSize(0)
@@ -514,7 +514,7 @@ if __name__ == '__main__':
     leg.AddEntry(gr_LHAASO_QGSJET,"LHAASO (QGSJET-II-04), (EPOS-LHC)","P")
     leg.Draw()
 
-    n_entries = 5 #7
+    n_entries = 7 #5
     dy_leg = (y2 - y1) / n_entries
 
     def legend_row_y(row):
@@ -525,8 +525,8 @@ if __name__ == '__main__':
         """
         return y2 - (row + 0.5) * dy_leg
 
-    y_kascade = legend_row_y(3) #(5)
-    y_lhaaso  = legend_row_y(4) #(6)
+    y_kascade = legend_row_y(5) #(3)
+    y_lhaaso  = legend_row_y(6) #(4)
     
     x_kascade_right = 0.55
     x_lhaaso_right  = 0.55
@@ -540,10 +540,10 @@ if __name__ == '__main__':
 
     cc.Update()
 
-    cc.SaveAs('PLOTS/flux_pHe_update2026_wPHe_3sLow_6sUp_450adc_wSys_10TeV_EPOSLHC_paper_DAMPE_wSatCorrSys_updatedHadandHET.pdf')
-    cc.SaveAs('PLOTS/flux_pHe_update2026_wPHe_3sLow_6sUp_450adc_wSys_10TeV_EPOSLHC_paper_DAMPE_wSatCorrSys_updatedHadandHET.png')
+    cc.SaveAs('PLOTS/flux_pHe_update2026_wPHe_3sLow_6sUp_450adc_wSys_10TeV_EPOSLHC_paper_DAMPE_wSatCorrSys_updatedHadandHET_2.pdf')
+    cc.SaveAs('PLOTS/flux_pHe_update2026_wPHe_3sLow_6sUp_450adc_wSys_10TeV_EPOSLHC_paper_DAMPE_wSatCorrSys_updatedHadandHET_2.png')
 
-    cc.SaveAs('ROOT_FILES/flux_pHe_update2026_wPHe_3sLow_6sUp_450adc_wSys_10TeV_EPOSLHC_paper_DAMPE_wSatCorrSys_updatedHadandHET.root')
+    cc.SaveAs('ROOT_FILES/flux_pHe_update2026_wPHe_3sLow_6sUp_450adc_wSys_10TeV_EPOSLHC_paper_DAMPE_wSatCorrSys_updatedHadandHET_2.root')
 
     raw_input("Press enter..")
 
