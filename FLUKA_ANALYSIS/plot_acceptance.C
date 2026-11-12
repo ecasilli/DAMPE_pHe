@@ -1,0 +1,134 @@
+
+void plot_acceptance() {
+
+    const int col1 = TColor::GetColor("#3190da");  // kP10Blue 
+    const int col2 = TColor::GetColor("#ffa90e");  // kP10Yellow
+    const int col3 = TColor::GetColor("#bd1f01");  // kP10Red
+    const int col4 = TColor::GetColor("#94a4a2");  // kP10Gray
+    const int col5 = TColor::GetColor("#832db6");  // kP10Violet
+    const int col6 = TColor::GetColor("#a96b59");  // kP10Brown
+    const int col7 = TColor::GetColor("#92dadd");  // kP10Cyan
+
+    // === Stile globale ===
+    gStyle->SetOptStat(0);
+    gStyle->SetPadTickX(1);
+    gStyle->SetPadTickY(1);
+
+    // === Canvas ===
+    TCanvas *c1 = new TCanvas("c1", "Partial Acceptances", 900, 650);
+    c1->SetLogx();
+    c1->SetGridx();
+    c1->SetGridy();
+    c1->SetLeftMargin(0.12);
+    c1->SetBottomMargin(0.12);
+
+    // ---------------------------------------------------------------
+    // Funzione lambda per caricare un clone di hacc1 da un file ROOT
+    // ---------------------------------------------------------------
+    auto LoadHist = [](const char* filename, const char* newname) -> TH1D* {
+        TFile *f = TFile::Open(filename, "READ");
+        if (!f || f->IsZombie()) {
+            ::Error("LoadHist", "Impossibile aprire %s", filename);
+            return nullptr;
+        }
+        TH1D *h = (TH1D*) f->Get("hacc1");
+        if (!h) {
+            ::Error("LoadHist", "hacc1 non trovata in %s", filename);
+            return nullptr;
+        }
+        TH1D *hclone = (TH1D*) h->Clone(newname);
+        hclone->SetDirectory(0);  // sopravvive alla chiusura del file
+        f->Close();
+        return hclone;
+    };
+
+    // === Caricamento istogrammi ===
+    const char *base = "ROOT_FILES/unfold_results_pHe_2026_Orb120Month_3sLow_6sUp_PSDprogr_STKch450_comb_vert0e7_FLUKA_5PeV";
+
+    //TH1D *hall      = LoadHist(Form("%s_all.root",  base), "hall");
+    //TH1D *hcut00    = LoadHist(Form("%s_cut00.root",  base), "hcut00");
+    //TH1D *hcut01    = LoadHist(Form("%s_cut01.root",  base), "hcut01");
+    //TH1D *hcut02    = LoadHist(Form("%s_cut02.root",  base), "hcut02");
+    //TH1D *hcut05    = LoadHist(Form("%s_cut05.root",  base), "hcut05");
+    //TH1D *hcut06    = LoadHist(Form("%s_cut06.root",  base), "hcut06");
+    //TH1D *hcutSpCut = LoadHist(Form("%s_SpCut.root",  base), "hcutSpCut");
+    TH1D *hcutChSel = LoadHist(Form("%s.root", base), "hcutChSel"); 
+
+    // === Stile comune ===
+    auto SetStyle = [](TH1D *h, int color, int lw = 2) {
+        if (!h) return;
+        h->SetLineColor(color);
+        h->SetLineWidth(lw);
+        h->SetStats(0);
+    };
+
+    //SetStyle(hall,      kBlack);
+    //SetStyle(hcut00,    kCyan+1);
+    //SetStyle(hcut01,  col2);
+    //SetStyle(hcut02,    46);
+    //SetStyle(hcut05,    col2);
+    //SetStyle(hcut06,    kBlack);
+    //SetStyle(hcutSpCut, col4);
+    SetStyle(hcutChSel, 9);
+
+    // === Titoli ===
+    if (hcutChSel) {
+        hcutChSel->SetTitle(" ");
+        hcutChSel->GetXaxis()->SetTitle("MC true energy (GeV)");
+        hcutChSel->GetYaxis()->SetTitle("Acceptance (m^{2} sr)");
+        hcutChSel->GetYaxis()->SetTitleOffset(1.4);
+        hcutChSel->GetXaxis()->SetTitleOffset(1.2);
+        hcutChSel->GetXaxis()->SetTitleSize(0.04);
+        hcutChSel->GetYaxis()->SetTitleSize(0.04);
+        hcutChSel->GetXaxis()->SetLabelSize(0.040);
+        hcutChSel->GetYaxis()->SetLabelSize(0.040);
+        hcutChSel->GetYaxis()->SetRangeUser(0.,0.16);
+    }
+
+    // === Disegno ===
+    //if (hcutChSel) hcutChSel->Draw("HIST ");
+    //if (hcut00)    hcut00->Draw("HIST same");
+    //if (hall)      hall->Draw("HIST same");
+    //if (hcut01)    hcut01->Draw("HIST same");
+    //if (hcut02)    hcut02->Draw("HIST same");
+    //if (hcut05)    hcut05->Draw("HIST same");
+    //if (hcut06)    hcut06->Draw("HIST same");
+    //if (hcutSpCut) hcutSpCut->Draw("HIST same");
+    if (hcutChSel) hcutChSel->Draw("HIST same");
+
+    // === Legenda ===
+    TLegend *legend = new TLegend(0.55, 0.65, 0.85, 0.85);
+    legend->SetTextSize(0.028);
+    legend->SetLineColor(1);
+    legend->SetLineWidth(2);
+    //legend->SetBorderSize(1);
+    legend->SetFillStyle(1001);
+    legend->SetFillColor(0);
+
+    //if (hall)    legend->AddEntry(hall,    "Pre-selection cuts",                                        "l");
+    //if (hcut00)    legend->AddEntry(hcut00,    "HET selection",                                        "l");
+    //if (hcut01)    legend->AddEntry(hcut01,    "PSD charge on Y and X",                                "l");
+    //if (hcut02)    legend->AddEntry(hcut02,    "E_{BGO,0}+E_{BGO,1} < E_{BGO,2}+E_{BGO,3}",           "l");
+    //if (hcut05)    legend->AddEntry(hcut05,    "BGO-STK match",                                        "l");
+    //if (hcut06)    legend->AddEntry(hcut06,    "STK track in PSD volume",                              "l");
+    //if (hcutSpCut) legend->AddEntry(hcutSpCut, "Electron cut",                                        "l");
+    if (hcutChSel) legend->AddEntry(hcutChSel, "Charge selection",                                    "l");
+
+    //legend->Draw();
+
+    TLatex *label = new TLatex();
+    label->SetNDC();
+    label->SetTextFont(62);
+    label->SetTextSize(0.046);
+    label->SetTextAlign(31);
+    label->DrawLatex(0.24, 0.78, "p+He");
+
+    c1->RedrawAxis();
+
+    // === Salvataggio ===
+    c1->SaveAs("PLOTS/partial_acceptances_smooth_3sLow_6sUP_PSDprogr_STKch450_comb_vert0e7_FLUKA.pdf");
+    c1->SaveAs("PLOTS/partial_acceptances_smooth_3sLow_6sUP_PSDprogr_STKch450_comb_vert0e7_FLUKA.png");
+
+    ::Info("plot_acceptances", "Plot salvato con successo.");
+}
+

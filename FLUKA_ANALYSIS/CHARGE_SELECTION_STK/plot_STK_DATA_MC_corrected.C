@@ -150,7 +150,7 @@ void plot_STK_DATA_MC_corrected()
 
     // INPUT FILES
     TString dataFileName = "../../ANALYSIS_pHe2026/ROOT_FILES/PHe_STKcharge_adc_Orb120Month_480bins_15sett26_nocut05.root";
-    TString mcFileName = "../ROOT_FILES/PHe_MC_p_He_1PeV_FLUKA_STKcharge_adc_480bins_03nov26_CORRECTED.root";
+    TString mcFileName = "../ROOT_FILES/PHe_MC_p_He_5PeV_FLUKA_STKcharge_adc_480bins_11nov26_CORRECTED.root";
 
 
     TFile *fData = TFile::Open(dataFileName, "READ");
@@ -216,9 +216,9 @@ void plot_STK_DATA_MC_corrected()
     }
 
     // SAVE
-    c->SaveAs("PLOTS/STK_DATA_MC_corrected_shape_comparison_FLUKA.pdf");
+    c->SaveAs("PLOTS/STK_DATA_MC_corrected_shape_comparison_FLUKA_5PeV.pdf");
 
-    TFile *fout = new TFile( "STK_DATA_MC_corrected_shape_comparison_FLUKA.root", "RECREATE");
+    TFile *fout = new TFile( "STK_DATA_MC_corrected_shape_comparison_FLUKA_5PeV.root", "RECREATE");
 
     if (fout && !fout->IsZombie()) {
         fout->cd();

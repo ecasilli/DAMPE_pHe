@@ -43,7 +43,8 @@ void plot_acceptances_EPOSLHC_comp() {
     };
 
     // === Caricamento istogrammi ===
-    const char *base = "ROOT_FILES/unfold_results_pHe_2026_Orb120Month_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_vert0e7_24sett26_wPHe_kernel_5bin";
+    //const char *base = "ROOT_FILES/unfold_results_pHe_2026_Orb120Month_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_vert0e7_24sett26_wPHe_kernel_5bin";
+    const char *base = "../FLUKA_ANALYSIS/ROOT_FILES/unfold_results_pHe_2026_Orb120Month_3sLow_6sUp_PSDprogr_STKch450_comb_vert0e7_FLUKA_5PeV";
     const char *base1 = "ROOT_FILES/unfold_results_pHe_2026_Orb120Month_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_vert0e7_10TeV_EPOSLHC";
 
     TH1D *hcutChSel  = LoadHist(Form("%s.root", base ), "hcutChSel"); 
@@ -86,16 +87,16 @@ void plot_acceptances_EPOSLHC_comp() {
     legend->SetFillStyle(1001);
     legend->SetFillColor(0);
 
-    if (hcutChSel ) legend->AddEntry(hcutChSel, "10-100TeV FTFP",   "l");
-    if (hcutChSel1) legend->AddEntry(hcutChSel1, "10-100TeV EPOSLHC_FTFP",   "l");
+    if (hcutChSel ) legend->AddEntry(hcutChSel, "FLUKA",   "l");
+    if (hcutChSel1) legend->AddEntry(hcutChSel1, "GEANT 4",   "l");
 
     legend->Draw();
 
     c1->RedrawAxis();
 
     // === Salvataggio ===
-    c1->SaveAs("PLOTS/partial_acceptances_smooth_3sLow_6sUP_PSDprogr_STKch450_comb_vert0e7_10TeV_EPOSLHC_final.pdf");
-    c1->SaveAs("PLOTS/partial_acceptances_smooth_3sLow_6sUP_PSDprogr_STKch450_comb_vert0e7_10TeV_EPOSLHC_final.png");
+    c1->SaveAs("PLOTS/acceptances_smooth_3sLow_6sUP_PSDprogr_STKch450_comb_vert0e7_FLUKA_comp.pdf");
+    c1->SaveAs("PLOTS/acceptances_smooth_3sLow_6sUP_PSDprogr_STKch450_comb_vert0e7_FLUKA_comp.png");
 
     ::Info("plot_acceptances", "Plot salvato con successo.");
 }
