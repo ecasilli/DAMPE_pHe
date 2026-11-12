@@ -339,7 +339,7 @@ def make_flux_graph_KASCADE_SIBYLL(filename, color, marker, size, alpha):
 
     return gr
 
-def make_flux_graph_EASTOP_MACRO(color=kGray+1, marker=23, size=1.3, alpha=2.6):
+def make_flux_graph_EASTOP_MACRO(color=kGray+1, marker=32, size=1.4, alpha=2.6):
     Emean = np.array([80e3], dtype='double')
     Flux_in = np.array([1.80e-09], dtype='double')
     Err_in = np.array([0.42e-09], dtype='double')
@@ -379,7 +379,7 @@ if __name__ == '__main__':
     file_DAMPE2026 = 'TXT_FILES/DAMPE_p+He_120M_paperDraft_24sett26_3sigmaLow_6sigmaUp_450adc_10TeV_EPOSLHC.dat'
     gr_DAMPE2026 = make_flux_graph_DAMPE2026(file_DAMPE2026, kRed+1, 20, 1.4, 2.6)
 
-    file_DAMPE2026_sys = 'SYSTEMATIC_UNCERTAINTIES/sys_summary_10TeV_EPOSLHC_wSatCorr_updatedHadandHET_2.txt'
+    file_DAMPE2026_sys = 'SYSTEMATIC_UNCERTAINTIES/sys_summary_10TeV_EPOSLHC_wSatCorr_updatedHadandHET.txt'
     #gr_DAMPE2026_2, gr_DAMPE2026_sys_ana, gr_DAMPE2026_sys_tot = make_flux_graph_DAMPE2026_sys(file_DAMPE2026_sys, kRed+1, 20, 1.4, 2.6)
     (gr_DAMPE2026_2, gr_DAMPE2026_sys_ana, gr_DAMPE2026_sys_tot, upper_ana, lower_ana, upper_tot, lower_tot) = make_flux_graph_DAMPE2026_sys(file_DAMPE2026_sys, kRed+1, 20, 1.4, 2.6)
 
@@ -418,7 +418,7 @@ if __name__ == '__main__':
     cc.SetTopMargin(0.02)
     cc.SetRightMargin(0.04)
     cc.SetBottomMargin(0.13)
-    cc.SetLeftMargin(0.13)
+    cc.SetLeftMargin(0.11)
 
     cc.SetTicks(1,1)
     cc.SetLogx()
@@ -430,13 +430,13 @@ if __name__ == '__main__':
     frame.GetXaxis().SetTitle("Kinetic energy (GeV)")
     frame.GetYaxis().SetTitle("Flux #times E^{2.6} (m^{-2} sr^{-1} s^{-1} GeV^{1.6})")
 
-    frame.GetXaxis().SetLabelSize(0.045)
-    frame.GetXaxis().SetTitleSize(0.050)
+    frame.GetXaxis().SetLabelSize(0.040)
+    frame.GetXaxis().SetTitleSize(0.045)
     frame.GetXaxis().SetTitleOffset(1.29)
 
-    frame.GetYaxis().SetLabelSize(0.045)
-    frame.GetYaxis().SetTitleSize(0.050)
-    frame.GetYaxis().SetTitleOffset(1.29)
+    frame.GetYaxis().SetLabelSize(0.040)
+    frame.GetYaxis().SetTitleSize(0.045)
+    frame.GetYaxis().SetTitleOffset(1.2)
 
     frame.GetXaxis().CenterTitle()
     frame.GetYaxis().CenterTitle()
@@ -492,8 +492,8 @@ if __name__ == '__main__':
     #leg = TLegend(0.20,0.24,0.43,0.66)
     x1 = 0.18
     x2 = 0.67
-    y1 = 0.34 #0.24
-    y2 = 0.60
+    y1 = 0.29 #0.24 #0.34 #0.24
+    y2 = 0.60 #0.65
 
     leg = TLegend(x1, y1, x2, y2)
 
@@ -539,7 +539,7 @@ if __name__ == '__main__':
 
     leg.Draw()
 
-    n_entries = 5 #7
+    n_entries = 6 #8
     dy_leg = (y2 - y1) / n_entries
 
     def legend_row_y(row):
@@ -550,7 +550,7 @@ if __name__ == '__main__':
         """
         return y2 - (row + 0.5) * dy_leg
 
-    y_kascade = legend_row_y(3) #(4)
+    y_kascade = legend_row_y(3) #(5)
     y_lhaaso  = legend_row_y(4) #(6)
     
     x_kascade_right = 0.55
