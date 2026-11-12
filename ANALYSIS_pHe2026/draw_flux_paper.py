@@ -339,6 +339,24 @@ def make_flux_graph_KASCADE_SIBYLL(filename, color, marker, size, alpha):
 
     return gr
 
+def make_flux_graph_EASTOP_MACRO(color=kGray+1, marker=23, size=1.3, alpha=2.6):
+    Emean = np.array([80e3], dtype='double')
+    Flux_in = np.array([1.80e-09], dtype='double')
+    Err_in = np.array([0.42e-09], dtype='double')
+
+    Flux = Flux_in * Emean**alpha
+    Err  = Err_in  * Emean**alpha
+
+    Ene_err = np.array([0.01], dtype='double')
+
+    gr = TGraphErrors(1, Emean, Flux, Ene_err, Err)
+    gr.SetMarkerStyle(marker)
+    gr.SetMarkerSize(size)
+    gr.SetMarkerColor(color)
+    gr.SetLineColor(color)
+
+    return gr
+
 def draw_legend_marker(graph, x, y):
 
     marker = TMarker(x, y, graph.GetMarkerStyle())
@@ -392,6 +410,8 @@ if __name__ == '__main__':
 
     file_HAWC = '../pHe2024/SPECTRUM/Indirect/HAWC2022.txt'
     gr_HAWC, gr_HAWC_sys_up, gr_HAWC_sys_down = make_flux_graph_HAWC(file_HAWC, kGray+1, 30, 1.4, 2.6)
+
+    gr_EAS_TOP_MACRO = make_flux_graph_EASTOP_MACRO()
 
     cc = TCanvas("cc", "Flux", 1200, 800)
 
@@ -450,6 +470,8 @@ if __name__ == '__main__':
 
     gr_KASCADE_QGSJet.Draw("P SAME")
     gr_KASCADE_SIBYLL.Draw("P SAME")
+
+    gr_EAS_TOP_MACRO.Draw("P SAME")
 
     #gr_DAMPE2024.Draw("P SAME")
     #gr_DAMPE2026_pHe_Geneva_sum.Draw("P SAME")
@@ -512,6 +534,9 @@ if __name__ == '__main__':
 
     leg.AddEntry(gr_KASCADE_QGSJet,"KASCADE (QGSJET-01), (SIBYLL-2.1)","P")
     leg.AddEntry(gr_LHAASO_QGSJET,"LHAASO (QGSJET-II-04), (EPOS-LHC)","P")
+
+    leg.AddEntry(gr_EAS_TOP_MACRO, "MACRO + EAS-TOP (QGSJET-01)", "P")
+
     leg.Draw()
 
     n_entries = 5 #7
@@ -540,10 +565,10 @@ if __name__ == '__main__':
 
     cc.Update()
 
-    cc.SaveAs('PLOTS/flux_pHe_update2026_wPHe_3sLow_6sUp_450adc_wSys_10TeV_EPOSLHC_paper_DAMPE_wSatCorrSys_updatedHadandHET_3.pdf')
-    cc.SaveAs('PLOTS/flux_pHe_update2026_wPHe_3sLow_6sUp_450adc_wSys_10TeV_EPOSLHC_paper_DAMPE_wSatCorrSys_updatedHadandHET_3.png')
+    cc.SaveAs('PLOTS/flux_pHe_update2026_wPHe_3sLow_6sUp_450adc_wSys_20261113.pdf')
+    cc.SaveAs('PLOTS/flux_pHe_update2026_wPHe_3sLow_6sUp_450adc_wSys_20261113.png')
 
-    cc.SaveAs('ROOT_FILES/flux_pHe_update2026_wPHe_3sLow_6sUp_450adc_wSys_10TeV_EPOSLHC_paper_DAMPE_wSatCorrSys_updatedHadandHET_3.root')
+    cc.SaveAs('ROOT_FILES/flux_pHe_update2026_wPHe_3sLow_6sUp_450adc_wSys_20261113.root')
 
     raw_input("Press enter..")
 
