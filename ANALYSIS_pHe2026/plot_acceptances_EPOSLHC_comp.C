@@ -44,8 +44,8 @@ void plot_acceptances_EPOSLHC_comp() {
 
     // === Caricamento istogrammi ===
     //const char *base = "ROOT_FILES/unfold_results_pHe_2026_Orb120Month_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_vert0e7_24sett26_wPHe_kernel_5bin";
-    const char *base = "../FLUKA_ANALYSIS/ROOT_FILES/unfold_results_pHe_2026_Orb120Month_3sLow_6sUp_PSDprogr_STKch450_comb_vert0e7_FLUKA_5PeV";
-    const char *base1 = "ROOT_FILES/unfold_results_pHe_2026_Orb120Month_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_vert0e7_10TeV_EPOSLHC";
+    const char *base = "../FLUKA_ANALYSIS/ROOT_FILES/unfold_results_pHe_2026_Orb120Month_3sLow_6sUp_PSDprogr_STKch450_comb_vert0e7_FLUKA_XScorr_5PeV";
+    const char *base1 = "ROOT_FILES/unfold_results_pHe_2026_Orb120Month_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_vert0e7_10TeV_EPOSLHC_XScorr";
 
     TH1D *hcutChSel  = LoadHist(Form("%s.root", base ), "hcutChSel"); 
     TH1D *hcutChSel1 = LoadHist(Form("%s.root", base1), "hcutChSel"); 
@@ -95,8 +95,8 @@ void plot_acceptances_EPOSLHC_comp() {
     c1->RedrawAxis();
 
     // === Salvataggio ===
-    c1->SaveAs("PLOTS/acceptances_smooth_3sLow_6sUP_PSDprogr_STKch450_comb_vert0e7_FLUKA_comp.pdf");
-    c1->SaveAs("PLOTS/acceptances_smooth_3sLow_6sUP_PSDprogr_STKch450_comb_vert0e7_FLUKA_comp.png");
+    c1->SaveAs("PLOTS/acceptances_smooth_3sLow_6sUP_PSDprogr_STKch450_comb_vert0e7_FLUKA_comp_XScorr.pdf");
+    c1->SaveAs("PLOTS/acceptances_smooth_3sLow_6sUP_PSDprogr_STKch450_comb_vert0e7_FLUKA_comp_XScorr.png");
 
     ::Info("plot_acceptances", "Plot salvato con successo.");
 }
