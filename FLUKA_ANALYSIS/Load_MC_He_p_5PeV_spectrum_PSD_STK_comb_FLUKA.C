@@ -157,6 +157,7 @@ const Double_t heMPVcorr[5] = {1.96451, 0.0568276, -0.00104652, -0.00719045, 0.0
 const Double_t heWidthCorr[5] = { -0.145886, 0.302573, -0.163632, 0.0384667, -0.00301248};
 const Double_t heGSigmaCorr = 00.0315871;
 */
+/*
 // FLUKA 5 PeV
 // PROTON MC corrected MPV
 const Double_t pMPVcorr[5] = { 0.974043, 0.0344958, 0.0085598, -0.0117366, 0.00328664 };
@@ -169,6 +170,19 @@ const Double_t heMPVcorr[5] = { 1.90975, 0.131066, -0.03488, -0.000867204, 0.001
 // HELIUM MC corrected WIDTH
 const Double_t heWidthCorr[5] = { 0.0725168, -0.0181194, 0.00828652, 0.0, 0.0 };
 const Double_t heGSigmaCorr = 0.0300005;
+*/
+// G4
+// PROTON MC corrected MPV
+const Double_t pMPVcorr[5] = { 1.07996,-0.146468, 0.119006,-0.0403108, 0.00593183};
+// PROTON MC corrected WIDTH
+const Double_t pWidthCorr[5] = { 0.00440895, 0.0276405,-0.00368363, -0.00124546, 0.000830814};
+const Double_t pGSigmaCorr = 0.000224763;
+
+// HELIUM MC corrected MPV
+const Double_t heMPVcorr[5] = {2.09943, -0.177259, 0.141829, -0.0437065, 0.00563705};
+// HELIUM MC corrected WIDTH
+const Double_t heWidthCorr[5] = { 0.0410602, 0.018532, -0.0020576, -0.000574209, 0.000384744};
+const Double_t heGSigmaCorr = 0.0307387;
 
 void GetPSDMCSelectionLimits(Double_t BGOenergy, Double_t &qLow, Double_t &qHigh) {
     // proton
@@ -335,10 +349,10 @@ void ProcessMCSpecies(TChain **chains,
 
             if (isHelium){
                 weight *= GeoCorr;
-                //weight *= MC_weight_he_FLUKA;
-            } //else {
-                //weight *= MC_weight_p_FLUKA;
-            //}
+                weight *= MC_weight_he_FLUKA;
+            } else {
+                weight *= MC_weight_p_FLUKA;
+            }
 
             if (MC_EnergyT <= 20.) continue;
 
@@ -563,7 +577,7 @@ void Load_MC_He_p_5PeV_spectrum_PSD_STK_comb_FLUKA(){
     // =======================================
     // Output
 
-    TFile *fout = new TFile("ROOT_FILES/PHe_MC_p_He_5PeV_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_FLUKA.root", "RECREATE");
+    TFile *fout = new TFile("ROOT_FILES/PHe_MC_p_He_5PeV_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_FLUKA_G4ChargeSel_XScorr.root", "RECREATE");
     fout->cd();
 
     // ===============================================

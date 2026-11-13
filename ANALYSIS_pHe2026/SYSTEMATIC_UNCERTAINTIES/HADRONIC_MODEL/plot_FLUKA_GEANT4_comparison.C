@@ -39,12 +39,12 @@ void plot_FLUKA_GEANT4_comparison()
 
     vector<FluxData> data = {
         {
-            "../../../FLUKA_ANALYSIS/TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_3sLow_6sUp_PSDprogr_STKch450_comb_vert0e7_FLUKA_5PeV.dat",
+            "../../../FLUKA_ANALYSIS/TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_3sLow_6sUp_PSDprogr_STKch450_comb_vert0e7_FLUKA_5PeV_G4ChargeSel_XScorr.dat",
             "FLUKA",
             kRed+1
         },
         {
-            "../../TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_vert0e7_10TeV_EPOSLHC.dat",
+            "../../TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_vert0e7_10TeV_EPOSLHC_XScorr.dat",
             "GEANT4",
             kBlue+1
         }
@@ -308,8 +308,8 @@ void plot_FLUKA_GEANT4_comparison()
 
     gSystem->mkdir("PLOTS", true);
 
-    c->SaveAs("PLOTS/pHe_FLUKA_vs_GEANT4_5PeV_2.pdf");
-    c->SaveAs("PLOTS/pHe_FLUKA_vs_GEANT4_5PeV_2.png");
+    c->SaveAs("PLOTS/pHe_FLUKA_vs_GEANT4_5PeV_G4ChargeSel_XScorr.pdf");
+    c->SaveAs("PLOTS/pHe_FLUKA_vs_GEANT4_5PeV_G4ChargeSel_XScorr.png");
 
     // --------------------------------------------------
     // SALVATAGGIO ENVELOPE FLUKA vs GEANT4
@@ -317,7 +317,7 @@ void plot_FLUKA_GEANT4_comparison()
 
     gSystem->mkdir("TXT_FILES", true);
 
-    ofstream output("TXT_FILES/pHe_FLUKA_GEANT4_envelope_5PeV_2.dat");
+    ofstream output("TXT_FILES/pHe_FLUKA_GEANT4_envelope_5PeV_G4ChargeSel_XScorr.dat");
 
     output << "# E_GeV max_deviation_percent\n";
     double maxDeviation = 0.0;
@@ -335,7 +335,7 @@ void plot_FLUKA_GEANT4_comparison()
 
     output.close();
 
-    cout << "Envelope salvato in TXT_FILES/pHe_FLUKA_GEANT4_envelope_5PeV_2.dat" << endl;
+    cout << "Envelope salvato in TXT_FILES/pHe_FLUKA_GEANT4_envelope_5PeV_G4ChargeSel_XScorr.dat" << endl;
 
     cout << "Massima differenza percentuale FLUKA-GEANT4: " << maxDeviation << " %" << endl;
 
