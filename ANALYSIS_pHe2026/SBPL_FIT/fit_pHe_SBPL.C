@@ -346,8 +346,7 @@ FitResult RunSBPLOnce(const FitResult &pl, double ebSeed, double dgSeed)
 
     min->SetLimitedVariable(0, "Phi0", phiSeed, std::max(phiSeed * 1e-3, 1e-10), 1e-8, 1e-1);
     min->SetLimitedVariable(1, "gamma", gamSeed, 1e-3, 1.5, 4.0);
-    min->SetLimitedVariable(2, "Eb", ebSeed, std::max(ebSeed * 1e-3, 1.0),
-                            gCtx.fitEmin, gCtx.fitEmax);
+    min->SetLimitedVariable(2, "Eb", ebSeed, std::max(ebSeed * 1e-3, 1.0), gCtx.fitEmin, gCtx.fitEmax);
     min->SetLimitedVariable(3, "DeltaGamma", dgSeed, 1e-3, -1.5, 1.5);
 
     for (int j = 0; j < gCtx.m; ++j) {
@@ -500,7 +499,7 @@ void ProfileEb(const FitResult &best)
     const double Emax = gCtx.fitEmax * 0.999;
 
     auto *g = new TGraph();
-    std::ofstream out("profile_Eb_SBPL_100TeV.dat");
+    std::ofstream out("profile_Eb_SBPL_3nui.dat");
 
     out << "# Eb_TeV  DeltaChi2\n";
 
@@ -583,8 +582,8 @@ void ProfileEb(const FitResult &best)
     c->Modified();
     c->Update();
 
-    c->SaveAs("PLOTS/profile_Eb_SBPL_wSatCorr_updatedHadandHET_100TeV.pdf");
-    c->SaveAs("PLOTS/profile_Eb_SBPL_wSatCorr_updatedHadandHET_100TeV.png");
+    c->SaveAs("PLOTS/profile_Eb_SBPL_wSatCorr_updatedHadandHET_3nui.pdf");
+    c->SaveAs("PLOTS/profile_Eb_SBPL_wSatCorr_updatedHadandHET_3nui.png");
 }
 
 void PrintFit(const char *name, const FitResult &r, bool sbpl)
@@ -814,7 +813,7 @@ void DrawPlot(const std::vector<Bin> &bins,
     c->Update();
 
     //TString outname = Form("fit_pHe_SBPL_10TeV_EPOSLHC_%dnuisance%s", gCtx.m, drawPL ? "_wPL" : "");
-    TString outname = Form("PLOTS/fit_pHe_SBPL_10TeV_EPOSLHC_wSatCorr_updatedHadandHET_%dnuisance%s%s_100TeV", gCtx.m, drawPL ? "_wPL" : "", outTag);
+    TString outname = Form("PLOTS/fit_pHe_SBPL_10TeV_EPOSLHC_wSatCorr_updatedHadandHET_%dnuisance%s%s", gCtx.m, drawPL ? "_wPL" : "", outTag);
     c->SaveAs(outname + ".pdf");
     c->SaveAs(outname + ".png");
 }
@@ -826,7 +825,7 @@ void DrawPlot(const std::vector<Bin> &bins,
 // Main entry point
 // =============================================================================
 void fit_pHe_SBPL(const char *filename = "pHe_flux_fit_10TeV_EPOSLHC_wSatCorr_updatedHadandHET.dat",
-                  int N_NUIS = 2,
+                  int N_NUIS = 3,
                   double FIT_EMIN = 2.5e4,
                   double FIT_EMAX = 1.0e6,
                   double S_FIXED = 5.0,
