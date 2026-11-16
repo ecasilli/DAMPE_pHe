@@ -7,6 +7,13 @@ Refactor goals:
 - SAA cut only on flight data
 - quenching handled only for MC and only if the branch exists
 - cut number from documented "DAMPE p+He spectrum update"
+
+Fix (2026-11-16): cross-section weights (MC_weight_*)
+- CrosssectionApi is re-bound every event to the DmpEvent objects returned by
+  pev.GetSimuTrajectoryCollection() / pev.pEvtSimuPrimaries().
+- Removed the separate TClonesArray/DmpEvtSimuPrimaries bound with
+  dmpch.SetBranchAddress(): DmpChain overrides those addresses in SetBrAdd(),
+  so the API only ever saw the first event of the chain (constant weights).
 """
 
 from sys import argv
@@ -143,12 +150,12 @@ def fill_energy_cut(idx, etot, etot_truth, good_event, is_mc,
 
 def initialize_or_rebind_apis(iev, is_mc, bgorec, stkclusters,
                               stkladders, runmetadata, pevspace_api,
-                              bgo_api, xsapi=None, mctrjctries=None, mcprimaries_xs=None): #): --> # cross-section weights 
+                              bgo_api): 
+    # The cross-section API is not bound here: it is re-bound to the current
+    # event's DmpEvent objects right before the weights are computed.
     if is_mc and iev == 0:
         pevspace_api.Initialize(False, bgorec, stkclusters, stkladders, config="ions")
         bgo_api.Initialize(bgorec)
-        if xsapi is not None:
-            xsapi.Initialize(mctrjctries, mcprimaries_xs)
         #if has_quenching and bgoquenchrec:
             #bgo_api_quench.Initialize(bgoquenchrec)
     elif (not is_mc) and iev == 0:
@@ -471,14 +478,9 @@ def main(args=None):
     dmpch = DmpChain("CollectionTree")
     metach = TChain("RunMetadataTree")
 
-    '''
-    files = [f.replace("\n", "") for f in open(inp, 'r').readlines()]
-    for ifile, f in enumerate(files):
-        DMPSW.IOSvc.Set("InData/Read" if ifile == 0 else "InData/ReadMore", f)
-        dmpch.Add(f)
-        metach.Add(f)
-        print ifile, f
-    '''
+    # Validate every input file before adding it to the chain: a broken/zero-byte
+    # file here used to crash much later (deep inside the event loop) with a
+    # confusing error. Skip broken files instead of feeding them to DmpChain.
     files = [f.strip() for f in open(inp)]
     for ifile, f in enumerate(files):
         print "\n=========================="
@@ -506,26 +508,17 @@ def main(args=None):
         dmpch.Add(f)
         metach.Add(f)
 
-
     has_quenching = is_mc and has_branch(dmpch, "DmpEvtBgoQuenchRec")
     print "BGO Quenching:", "ON" if has_quenching else "OFF"
 
     # -----------------------------
     # Cross-section API bindings (MC only)
     # -----------------------------
-    # NOTE: CrosssectionApi expects a TClonesArray + a DmpEvtSimuPrimaries
-    # object bound via SetBranchAddress, distinct from the pev.pEvtSimuPrimaries()
-    # accessor used elsewhere in this script for the same underlying branch.
-    # If you ever see MC_weight_* branches disagree with what pev.pEvtSimuPrimaries()
-    # reports for the same event, this double binding is the first place to look
-    # (re-enable a bounded/offline comparison, not a per-event print, to debug it).
-    mctrjctries = None
-    mcprimaries_xs = None
-    if is_mc:
-        mctrjctries = TClonesArray("DmpSimuTrajectory")
-        mcprimaries_xs = DmpEvtSimuPrimaries()
-        dmpch.SetBranchAddress("DmpTruthTrajectoriesCollection", mctrjctries)
-        dmpch.SetBranchAddress("DmpEvtSimuPrimaries", mcprimaries_xs)
+    # Do NOT call dmpch.SetBranchAddress() on DmpTruthTrajectoriesCollection or
+    # DmpEvtSimuPrimaries. DmpChain::SetBrAdd() re-sets those addresses to its own
+    # DmpEvent objects, and DmpEvent reads the branches lazily into them, so any
+    # separately bound object only ever holds the first entry of the chain.
+    # The API is re-bound to pev's objects every event (see "pesi di cross-section").
 
     pFilter = None
     if not is_mc:
@@ -737,8 +730,7 @@ def main(args=None):
 
         initialize_or_rebind_apis(
             iev, is_mc, bgorec, stkclusters, stkladders,
-            runmetadata, pevspace_api, bgo_api,
-            xsapi=xsapi, mctrjctries=mctrjctries, mcprimaries_xs=mcprimaries_xs
+            runmetadata, pevspace_api, bgo_api
         )
 
         pevspace_api.Predict(bgodirection=True, stkvertex=True, stktrack=True)
@@ -816,6 +808,10 @@ def main(args=None):
                         etot_truth, gamma, energy_binnings[bname][1], norm_tables_for_bname[tag]
                     )
             # --- pesi di cross-section (GEANT4 / FLUKA, p / He) ---
+            # Re-bind to the objects DmpChain filled for THIS event. Needed every
+            # event: DmpChain allocates new objects at each file change, and the
+            # accessors are what actually read the branch for the current entry.
+            xsapi.Rebind(pev.GetSimuTrajectoryCollection(), pev.pEvtSimuPrimaries())
             fMC_weight_p_G4[0]     = xsapi.GetWeightG4Proton()
             fMC_weight_p_FLUKA[0]  = xsapi.GetWeightFLUKAProton()
             fMC_weight_he_G4[0]    = xsapi.GetWeightG4Helium()
@@ -1638,22 +1634,12 @@ def main(args=None):
     print "Wrong ID for MC ", wrong_id
     print "Events not passint the new BGO-STK match ", ntrack_newsel
 
-    #print "\n=== Before tf_skim.Write() ==="
-    #print "Current file:", gDirectory.GetFile().GetName()
-
-    #print "Objects in current directory:"
-    #gDirectory.GetList().Print()
-
     tf_skim.cd()
 
     print "\n=== Writing output ==="
     print "Current file before Write:", gDirectory.GetFile().GetName()
 
     tf_skim.Write()
-    #print "\n=== After tf_skim.Write() ==="
-    #print "Keys in tf_skim:"
-    #tf_skim.GetListOfKeys().Print()
-
     tf_skim.Close()
 
     if opts.data:
