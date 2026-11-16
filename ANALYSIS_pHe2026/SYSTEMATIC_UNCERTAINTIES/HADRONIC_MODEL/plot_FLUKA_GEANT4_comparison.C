@@ -36,6 +36,8 @@ void plot_FLUKA_GEANT4_comparison()
     const double index = 2.6;
     const int removeFirst = 3;
     const int removeLast = 5;
+    
+    const bool hadronicCheck = true;
 
     vector<FluxData> data = {
         {
@@ -49,9 +51,20 @@ void plot_FLUKA_GEANT4_comparison()
             kBlue+1
         }
     };
+    
+    if (hadronicCheck) {
+        const string dirfile = "../../../FLUKA_ANALYSIS/TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_3sLow_6sUp_PSDprogr_STKch450_comb_vert0e7_FLUKA_5PeV_G4ChargeSel_XScorr";
+        
+        data = {
+            {dirfile + "_nominal.dat", "FLUKA (nominal)", kBlack},
+            {dirfile + "_hadPlus.dat", "FLUKA hadPlus", kRed+1},
+            {dirfile + "_hadMinus.dat", "FLUKA hadMinus", kBlue+1}
+        };
+    }
 
     // GEANT4 come riferimento
-    const int refIndex = 1;
+    //const int refIndex = 1;
+    const int refIndex = hadronicCheck ? 0 : 1;
 
     // --------------------------------------------------
     // LETTURA FILE
@@ -188,7 +201,11 @@ void plot_FLUKA_GEANT4_comparison()
             envelope[i] = max(envelope[i], abs(ratio));
 
             // Propagazione errori non correlati
-            double ratioErr = 100.0 * sqrt(pow(Eerr / Fref, 2) + pow(F * Eref / (Fref * Fref), 2));
+            //double ratioErr = 100.0 * sqrt(pow(Eerr / Fref, 2) + pow(F * Eref / (Fref * Fref), 2));
+            double ratioErr = 0.0;
+            if (!hadronicCheck) 
+                ratioErr = 100.0 * sqrt(pow(Eerr / Fref, 2) + pow(F * Eref / (Fref * Fref), 2));
+            
 
             rx.push_back(d.E[i]);
             ry.push_back(ratio);
@@ -199,11 +216,13 @@ void plot_FLUKA_GEANT4_comparison()
         }
 
         auto grRatio = new TGraphErrors(rx.size(), rx.data(), ry.data(), rex.data(), rey.data());
+        
+        const int ratioColor = hadronicCheck ? d.color : kBlack;
 
         grRatio->SetMarkerStyle(20);
         grRatio->SetMarkerSize(1.15);
-        grRatio->SetMarkerColor(kBlack);
-        grRatio->SetLineColor(kBlack);
+        grRatio->SetMarkerColor(ratioColor);
+        grRatio->SetLineColor(ratioColor);
         grRatio->SetLineWidth(2);
 
         ratioGraphs.push_back(grRatio);
@@ -281,7 +300,8 @@ void plot_FLUKA_GEANT4_comparison()
     frame2->SetTitle("");
 
     frame2->GetXaxis()->SetTitle("Energy [GeV]");
-    frame2->GetYaxis()->SetTitle("(FLUKA - G4) / G4 (%)");
+    //frame2->GetYaxis()->SetTitle("(FLUKA - G4) / G4 (%)");
+    frame2->GetYaxis()->SetTitle(hadronicCheck ? "(FLUKA - G4) / G4 (%)" : "(FLUKA - G4) / G4 (%)");
 
     frame2->GetXaxis()->SetTitleSize(0.10);
     frame2->GetYaxis()->SetTitleSize(0.085);
@@ -307,17 +327,21 @@ void plot_FLUKA_GEANT4_comparison()
     // --------------------------------------------------
 
     gSystem->mkdir("PLOTS", true);
+    
+    const string plotName = hadronicCheck ? "PLOTS/pHe_FLUKA_hadronic_variations" : "PLOTS/pHe_FLUKA_vs_GEANT4_5PeV_G4ChargeSel_XScorr";
 
-    c->SaveAs("PLOTS/pHe_FLUKA_vs_GEANT4_5PeV_G4ChargeSel_XScorr.pdf");
-    c->SaveAs("PLOTS/pHe_FLUKA_vs_GEANT4_5PeV_G4ChargeSel_XScorr.png");
+    c->SaveAs((plotName+".pdf").c_str());
+    c->SaveAs((plotName+".png").c_str());
 
     // --------------------------------------------------
     // SALVATAGGIO ENVELOPE FLUKA vs GEANT4
     // --------------------------------------------------
 
     gSystem->mkdir("TXT_FILES", true);
+    
+    const string envelopeName = hadronicCheck ? "TXT_FILES/pHe_FLUKA_hadronic_variations_envelope" : "TXT_FILES/pHe_FLUKA_GEANT4_envelope_5PeV_G4ChargeSel_XScorr";
 
-    ofstream output("TXT_FILES/pHe_FLUKA_GEANT4_envelope_5PeV_G4ChargeSel_XScorr.dat");
+    ofstream output((envelopeName+".dat").c_str());
 
     output << "# E_GeV max_deviation_percent\n";
     double maxDeviation = 0.0;
@@ -335,12 +359,12 @@ void plot_FLUKA_GEANT4_comparison()
 
     output.close();
 
-    cout << "Envelope salvato in TXT_FILES/pHe_FLUKA_GEANT4_envelope_5PeV_G4ChargeSel_XScorr.dat" << endl;
+    cout << "Envelope salvato in " << envelopeName << ".dat" << endl;
 
-    cout << "Massima differenza percentuale FLUKA-GEANT4: " << maxDeviation << " %" << endl;
+    cout << "Massima differenza percentuale dal riferimento: " << maxDeviation << " %" << endl;
 
     cout << "Energia della massima differenza: " << energyMaxDeviation << " GeV" << endl;
 
-    cout << "Confronto FLUKA vs GEANT4 completato: " << n << " bin energetici utilizzati." << endl;
+    cout << "Confronto completato: " << n << " bin energetici utilizzati." << endl;
 }
 

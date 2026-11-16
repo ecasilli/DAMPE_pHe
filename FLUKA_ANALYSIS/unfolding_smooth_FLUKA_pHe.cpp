@@ -34,8 +34,8 @@ double MIN_TS = (Test_Stat == "ks" ? 1e-4 : 1.);
 
 const bool SMOOTHING = true;
 
-std::string fout_name = "ROOT_FILES/unfold_results_pHe_2026_Orb120Month_3sLow_6sUp_PSDprogr_STKch450_comb_vert0e7_FLUKA_5PeV_G4ChargeSel_XScorr.root";
-std::string fdat_name = "TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_3sLow_6sUp_PSDprogr_STKch450_comb_vert0e7_FLUKA_5PeV_G4ChargeSel_XScorr.dat";
+//std::string fout_name = "ROOT_FILES/unfold_results_pHe_2026_Orb120Month_3sLow_6sUp_PSDprogr_STKch450_comb_vert0e7_FLUKA_5PeV_G4ChargeSel_XScorr.root";
+//std::string fdat_name = "TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_3sLow_6sUp_PSDprogr_STKch450_comb_vert0e7_FLUKA_5PeV_G4ChargeSel_XScorr.dat";
 
 // Global variables
 std::vector<double> TRUGUESS;
@@ -305,11 +305,30 @@ std::vector<double> compute_std(const std::vector<std::vector<double>>& data) {
     return stds;
 }
 
-int unfolding_smooth_FLUKA_pHe() {
+int unfolding_smooth_FLUKA_pHe(int hadVariation=0) {
 
     // Parse command line arguments
     std::string response_file = "ROOT_FILES/PHe_MC_p_He_5PeV_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_FLUKA_G4ChargeSel_XScorr.root";
-    std::string response_histo = "h2Ntrig_wgt";
+    //std::string response_histo = "h2Ntrig_wgt";
+    std::string response_histo;
+    std::string tag;
+    if (hadVariation == 0) {
+        response_histo = "h2Ntrig_wgt";
+        tag = "nominal";
+    } else if (hadVariation == 1) {
+        response_histo = "h2Ntrig_wgt_hadPlus";
+        tag = "hadPlus";
+    } else if (hadVariation ==-1) {
+        response_histo = "h2Ntrig_wgt_hadMinus";
+        tag = "hadMinus";
+    } else {
+        std::cerr << "hadVariation must be 0, 1 or -1" << std::endl;
+        return 1;
+    }
+    
+    std::string fout_name = "ROOT_FILES/unfold_results_pHe_2026_Orb120Month_3sLow_6sUp_PSDprogr_STKch450_comb_vert0e7_FLUKA_5PeV_G4ChargeSel_XScorr_"+tag+".root";
+    std::string fdat_name = "TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_3sLow_6sUp_PSDprogr_STKch450_comb_vert0e7_FLUKA_5PeV_G4ChargeSel_XScorr_"+tag+".dat";
+    
     std::string data_file = "ROOT_FILES/PHe_skim_Orb120Month_5binperdecade_3sLow_6sUp_PSDprogr_STKch450_comb_vert0e7_24sett26.root";
     std::string data_histo = "h1SelBGO_orb";
     std::string ngen_file = "PHe_MC_FLUKA_5PeV_h1Ngen_5binsPerDecade.root"; // response-mat to be normalized
@@ -323,7 +342,7 @@ int unfolding_smooth_FLUKA_pHe() {
         return 1;
     }
 
-    TH2F* h = (TH2F*)f->Get(response_histo.c_str());
+    TH2D* h = (TH2D*)f->Get(response_histo.c_str());
     if(!h) {
         std::cerr << "Error getting response histogram" << std::endl;
         return 1;
