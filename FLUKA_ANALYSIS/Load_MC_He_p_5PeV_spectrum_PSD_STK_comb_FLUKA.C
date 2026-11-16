@@ -250,7 +250,9 @@ void ProcessMCSpecies(TChain **chains,
                       TH2D *hFinal,
                       const Double_t *Ebin,
                       const Double_t *truthBinNorm,
-                      Int_t nBins) {
+                      Int_t nBins,
+                      TH2D *hHadPlus,
+                      TH2D *hHadMinus) {
     
     const Double_t minPSDSignal = 0.2;
     const Double_t dQmin =-0.3;
@@ -444,6 +446,19 @@ void ProcessMCSpecies(TChain **chains,
             // y = reconstructed BGO energy
 
             hFinal->Fill(MC_EnergyT, BGO_E_corr, weight);
+            
+            const Double_t deltaHad = isHelium ? 0.13 : 0.043;
+            
+            Double_t weightPlus = weight;
+            Double_t weightMinus = weight;
+            
+            if (MC_EnergyT < 300.) {
+                weightPlus = weight / (1. + deltaHad);
+                weightMinus= weight / (1. - deltaHad);
+            }
+            
+            hHadPlus->Fill(MC_EnergyT, BGO_E_corr, weightPlus);
+            hHadMinus->Fill(MC_EnergyT, BGO_E_corr, weightMinus);
 
         } // event loop 
 
@@ -595,6 +610,13 @@ void Load_MC_He_p_5PeV_spectrum_PSD_STK_comb_FLUKA(){
     //h2Ntrig_wgt_cut06->Sumw2();
     TH2D *h2Ntrig_wgt_SpCut = new TH2D("h2Ntrig_wgt_SpCut", "Selected MC; MC true energy [GeV]; BGO reconstructed energy [GeV]",noe, Ebin, noe, Ebin);
     h2Ntrig_wgt_SpCut->Sumw2();
+    
+    TH2D *hHadPlus = (TH2D*)h2Ntrig_wgt->Clone("h2Ntrig_wgt_hadPlus"); hHadPlus->Reset();
+    hHadPlus->Sumw2();
+    
+    TH2D *hHadMinus = (TH2D*)h2Ntrig_wgt->Clone("h2Ntrig_wgt_hadMinus"); hHadMinus->Reset();
+    hHadMinus->Sumw2();
+    
 
     // ======================================
     // Process PROTON
@@ -616,7 +638,9 @@ void Load_MC_He_p_5PeV_spectrum_PSD_STK_comb_FLUKA(){
 
         Ebin,
         truthBinNorm,
-        noe
+        noe,
+        hHadPlus,
+        hHadMinus
     );
 
     cout << "PROTON processing finished." << endl;
@@ -641,7 +665,9 @@ void Load_MC_He_p_5PeV_spectrum_PSD_STK_comb_FLUKA(){
 
         Ebin,
         truthBinNorm,
-        noe
+        noe,
+        hHadPlus,
+        hHadMinus
     );
 
     cout << "HELIUM processing finished." << endl;
@@ -657,6 +683,9 @@ void Load_MC_He_p_5PeV_spectrum_PSD_STK_comb_FLUKA(){
     h2Ntrig_wgt_cut01->Write();
     //h2Ntrig_wgt_cut06->Write();
     h2Ntrig_wgt_SpCut->Write();
+    
+    hHadPlus->Write();
+    hHadMinus->Write();
 
     fout->Close();
 

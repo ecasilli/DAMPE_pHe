@@ -347,9 +347,10 @@ def make_flux_graph_EASTOP_MACRO(color=kGray+1, marker=32, size=1.4, alpha=2.6):
     Flux = Flux_in * Emean**alpha
     Err  = Err_in  * Emean**alpha
 
-    Ene_err = np.array([0.01], dtype='double')
+    Ene_err_low = np.array([10e3], dtype='double')
+    Ene_err_high= np.array([20e3], dtype='double')
 
-    gr = TGraphErrors(1, Emean, Flux, Ene_err, Err)
+    gr = TGraphAsymmErrors(1, Emean, Flux, Ene_err_low, Ene_err_high, Err, Err)
     gr.SetMarkerStyle(marker)
     gr.SetMarkerSize(size)
     gr.SetMarkerColor(color)
@@ -380,7 +381,8 @@ if __name__ == '__main__':
     gr_DAMPE2026 = make_flux_graph_DAMPE2026(file_DAMPE2026, kRed+1, 20, 1.4, 2.6)
 
     #file_DAMPE2026_sys = 'SYSTEMATIC_UNCERTAINTIES/sys_summary_10TeV_EPOSLHC_wSatCorr_updatedHadandHET.txt'
-    file_DAMPE2026_sys = 'SYSTEMATIC_UNCERTAINTIES/sys_summary_10TeV_EPOSLHC_wSatCorr_updatedHadandHET_G4ChargeSel.txt'
+    #file_DAMPE2026_sys = 'SYSTEMATIC_UNCERTAINTIES/sys_summary_10TeV_EPOSLHC_wSatCorr_updatedHadandHET_G4ChargeSel.txt'
+    file_DAMPE2026_sys = 'SYSTEMATIC_UNCERTAINTIES/sys_summary_pHe_final.txt'
     #gr_DAMPE2026_2, gr_DAMPE2026_sys_ana, gr_DAMPE2026_sys_tot = make_flux_graph_DAMPE2026_sys(file_DAMPE2026_sys, kRed+1, 20, 1.4, 2.6)
     (gr_DAMPE2026_2, gr_DAMPE2026_sys_ana, gr_DAMPE2026_sys_tot, upper_ana, lower_ana, upper_tot, lower_tot) = make_flux_graph_DAMPE2026_sys(file_DAMPE2026_sys, kRed+1, 20, 1.4, 2.6)
 
@@ -566,10 +568,10 @@ if __name__ == '__main__':
 
     cc.Update()
 
-    cc.SaveAs('PLOTS/flux_pHe_update2026_wPHe_3sLow_6sUp_450adc_wSys_20261113_G4ChargeSel_ALL.pdf')
-    cc.SaveAs('PLOTS/flux_pHe_update2026_wPHe_3sLow_6sUp_450adc_wSys_20261113_G4ChargeSel_ALL.png')
+    cc.SaveAs('PLOTS/flux_pHe_update2026_wSys_20261116_ALL.pdf')
+    cc.SaveAs('PLOTS/flux_pHe_update2026_wSys_20261116_ALL.png')
 
-    cc.SaveAs('ROOT_FILES/flux_pHe_update2026_wPHe_3sLow_6sUp_450adc_wSys_20261113_G4ChargeSel_ALL.root')
+    cc.SaveAs('ROOT_FILES/flux_pHe_update2026_wSys_20261116_ALL.root')
 
     raw_input("Press enter..")
 
