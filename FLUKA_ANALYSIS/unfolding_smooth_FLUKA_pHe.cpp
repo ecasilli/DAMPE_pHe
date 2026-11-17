@@ -308,7 +308,7 @@ std::vector<double> compute_std(const std::vector<std::vector<double>>& data) {
 int unfolding_smooth_FLUKA_pHe(int hadVariation=0) {
 
     // Parse command line arguments
-    std::string response_file = "ROOT_FILES/PHe_MC_p_He_5PeV_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_FLUKA_G4ChargeSel_XScorr.root";
+    std::string response_file = "ROOT_FILES/PHe_MC_p_He_5PeV_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_GEANT4.root";
     //std::string response_histo = "h2Ntrig_wgt";
     std::string response_histo;
     std::string tag;
@@ -326,12 +326,13 @@ int unfolding_smooth_FLUKA_pHe(int hadVariation=0) {
         return 1;
     }
     
-    std::string fout_name = "ROOT_FILES/unfold_results_pHe_2026_Orb120Month_3sLow_6sUp_PSDprogr_STKch450_comb_vert0e7_FLUKA_5PeV_G4ChargeSel_XScorr_"+tag+".root";
-    std::string fdat_name = "TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_3sLow_6sUp_PSDprogr_STKch450_comb_vert0e7_FLUKA_5PeV_G4ChargeSel_XScorr_"+tag+".dat";
+    std::string fout_name = "ROOT_FILES/unfold_results_pHe_2026_Orb120Month_3sLow_6sUp_PSDprogr_STKch450_comb_vert0e7_GEANT4_"+tag+".root";
+    std::string fdat_name = "TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_3sLow_6sUp_PSDprogr_STKch450_comb_vert0e7_GEANT4_"+tag+".dat";
     
     std::string data_file = "ROOT_FILES/PHe_skim_Orb120Month_5binperdecade_3sLow_6sUp_PSDprogr_STKch450_comb_vert0e7_24sett26.root";
     std::string data_histo = "h1SelBGO_orb";
-    std::string ngen_file = "PHe_MC_FLUKA_5PeV_h1Ngen_5binsPerDecade.root"; // response-mat to be normalized
+    //std::string ngen_file = "PHe_MC_FLUKA_5PeV_h1Ngen_5binsPerDecade.root"; // response-mat to be normalized
+    std::string ngen_file = "../ANALYSIS_pHe2026/PHe_MC_FTFP_10TeV_EPOSLHC_h1Ngen_5binsPerDecade.root"; // response-mat to be normalized
     std::string ngen_histo = "h1Ngen"; // response-mat to be normalized
 
 

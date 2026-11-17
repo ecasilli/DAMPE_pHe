@@ -53,12 +53,12 @@ void plot_FLUKA_GEANT4_comparison()
     };
     
     if (hadronicCheck) {
-        const string dirfile = "../../../FLUKA_ANALYSIS/TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_3sLow_6sUp_PSDprogr_STKch450_comb_vert0e7_FLUKA_5PeV_G4ChargeSel_XScorr";
+        const string dirfile = "../../../FLUKA_ANALYSIS/TXT_FILES/flux_spectrum_pHe_2026_Orb120Month_3sLow_6sUp_PSDprogr_STKch450_comb_vert0e7_GEANT4";
         
         data = {
-            {dirfile + "_nominal.dat", "FLUKA (nominal)", kBlack},
-            {dirfile + "_hadPlus.dat", "FLUKA hadPlus", kRed+1},
-            {dirfile + "_hadMinus.dat", "FLUKA hadMinus", kBlue+1}
+            {dirfile + "_nominal.dat", "GEANT4 (nominal)", kBlack},
+            {dirfile + "_hadPlus.dat", "GEANT4 hadPlus", kRed+1},
+            {dirfile + "_hadMinus.dat", "GEANT4 hadMinus", kBlue+1}
         };
     }
 
@@ -301,7 +301,7 @@ void plot_FLUKA_GEANT4_comparison()
 
     frame2->GetXaxis()->SetTitle("Energy [GeV]");
     //frame2->GetYaxis()->SetTitle("(FLUKA - G4) / G4 (%)");
-    frame2->GetYaxis()->SetTitle(hadronicCheck ? "(FLUKA - G4) / G4 (%)" : "(FLUKA - G4) / G4 (%)");
+    frame2->GetYaxis()->SetTitle(hadronicCheck ? "(F_{var} - F_{nom}) / F_{nom} (%)" : "(FLUKA - G4) / G4 (%)");
 
     frame2->GetXaxis()->SetTitleSize(0.10);
     frame2->GetYaxis()->SetTitleSize(0.085);
@@ -328,7 +328,7 @@ void plot_FLUKA_GEANT4_comparison()
 
     gSystem->mkdir("PLOTS", true);
     
-    const string plotName = hadronicCheck ? "PLOTS/pHe_FLUKA_hadronic_variations" : "PLOTS/pHe_FLUKA_vs_GEANT4_5PeV_G4ChargeSel_XScorr";
+    const string plotName = hadronicCheck ? "PLOTS/pHe_GEANT4_hadronic_variations" : "PLOTS/pHe_FLUKA_vs_GEANT4_5PeV_G4ChargeSel_XScorr";
 
     c->SaveAs((plotName+".pdf").c_str());
     c->SaveAs((plotName+".png").c_str());
@@ -339,7 +339,7 @@ void plot_FLUKA_GEANT4_comparison()
 
     gSystem->mkdir("TXT_FILES", true);
     
-    const string envelopeName = hadronicCheck ? "TXT_FILES/pHe_FLUKA_hadronic_variations_envelope" : "TXT_FILES/pHe_FLUKA_GEANT4_envelope_5PeV_G4ChargeSel_XScorr";
+    const string envelopeName = hadronicCheck ? "TXT_FILES/pHe_GEANT4_hadronic_variations_envelope" : "TXT_FILES/pHe_FLUKA_GEANT4_envelope_5PeV_G4ChargeSel_XScorr";
 
     ofstream output((envelopeName+".dat").c_str());
 

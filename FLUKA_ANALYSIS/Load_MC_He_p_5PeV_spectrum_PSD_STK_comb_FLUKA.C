@@ -351,10 +351,10 @@ void ProcessMCSpecies(TChain **chains,
 
             if (isHelium){
                 weight *= GeoCorr;
-                weight *= MC_weight_he_FLUKA;
-            } else {
-                weight *= MC_weight_p_FLUKA;
-            }
+                //weight *= MC_weight_he_FLUKA;
+            } //else {
+                //weight *= MC_weight_p_FLUKA;
+            //}
 
             if (MC_EnergyT <= 20.) continue;
 
@@ -592,7 +592,7 @@ void Load_MC_He_p_5PeV_spectrum_PSD_STK_comb_FLUKA(){
     // =======================================
     // Output
 
-    TFile *fout = new TFile("ROOT_FILES/PHe_MC_p_He_5PeV_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_FLUKA_G4ChargeSel_XScorr.root", "RECREATE");
+    TFile *fout = new TFile("ROOT_FILES/PHe_MC_p_He_5PeV_5binperdecade_3sigmaLow_6sigmaUp_PSDprogr_STKcharge450_comb_STKvert0e7_FLUKA_G4ChargeSel.root", "RECREATE");
     fout->cd();
 
     // ===============================================
